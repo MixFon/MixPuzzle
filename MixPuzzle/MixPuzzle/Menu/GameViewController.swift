@@ -61,12 +61,12 @@ class GameViewController: UIViewController {
         let scene = SCNScene(named: "menu.scnassets/ship.scn")!
         
         // create and add a camera to the scene
-        let cameraNode = SCNNode()
+//        let cameraNode = SCNNode()
 //        cameraNode.camera = SCNCamera()
 //        scene.rootNode.addChildNode(cameraNode)
         
         // place the camera
-        cameraNode.position = SCNVector3(x: 0, y: 0, z: 30)
+//        cameraNode.position = SCNVector3(x: 0, y: 0, z: 30)
         
         // create and add a light to the scene
         let lightNode = SCNNode()
@@ -96,7 +96,7 @@ class GameViewController: UIViewController {
 		scene.rootNode.addChildNode(textNode)
         
         // retrieve the ship node
-        let ship = scene.rootNode.childNode(withName: "ship", recursively: true)!
+//        let ship = scene.rootNode.childNode(withName: "ship", recursively: true)!
         
         // animate the 3d object
         //ship.runAction(SCNAction.repeatForever(SCNAction.rotateBy(x: 0, y: 2, z: 0, duration: 1)))
