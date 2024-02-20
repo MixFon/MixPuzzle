@@ -7,24 +7,27 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		29D7B6522B77B18900EB508F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D7B6512B77B18900EB508F /* AppDelegate.swift */; };
-		29D7B6542B77B18900EB508F /* puzzle.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 29D7B6532B77B18900EB508F /* puzzle.scnassets */; };
-		29D7B6562B77B18900EB508F /* MenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D7B6552B77B18900EB508F /* MenuController.swift */; };
-		29D7B65B2B77B18B00EB508F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 29D7B65A2B77B18B00EB508F /* Assets.xcassets */; };
-		29D7B65E2B77B18B00EB508F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 29D7B65C2B77B18B00EB508F /* LaunchScreen.storyboard */; };
+		29C162C22B848CC4002E185D /* MixPuzzleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C162C12B848CC4002E185D /* MixPuzzleApp.swift */; };
+		29C162C42B848CC4002E185D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C162C32B848CC4002E185D /* ContentView.swift */; };
+		29C162C62B848CC5002E185D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 29C162C52B848CC5002E185D /* Assets.xcassets */; };
+		29C162CA2B848CC5002E185D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 29C162C92B848CC5002E185D /* Preview Assets.xcassets */; };
+		29C162D22B848D89002E185D /* MenuScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C162D12B848D89002E185D /* MenuScene.swift */; };
+		29C162D42B8491DA002E185D /* puzzle.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 29C162D32B8491DA002E185D /* puzzle.scnassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		29D7B64E2B77B18900EB508F /* MixPuzzle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MixPuzzle.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		29D7B6512B77B18900EB508F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		29D7B6532B77B18900EB508F /* puzzle.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = puzzle.scnassets; sourceTree = "<group>"; };
-		29D7B6552B77B18900EB508F /* MenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuController.swift; sourceTree = "<group>"; };
-		29D7B65A2B77B18B00EB508F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		29D7B65D2B77B18B00EB508F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		29C162BE2B848CC4002E185D /* MixPuzzle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MixPuzzle.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		29C162C12B848CC4002E185D /* MixPuzzleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MixPuzzleApp.swift; sourceTree = "<group>"; };
+		29C162C32B848CC4002E185D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		29C162C52B848CC5002E185D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		29C162C72B848CC5002E185D /* MixPuzzle.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MixPuzzle.entitlements; sourceTree = "<group>"; };
+		29C162C92B848CC5002E185D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		29C162D12B848D89002E185D /* MenuScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuScene.swift; sourceTree = "<group>"; };
+		29C162D32B8491DA002E185D /* puzzle.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = puzzle.scnassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		29D7B64B2B77B18900EB508F /* Frameworks */ = {
+		29C162BB2B848CC4002E185D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -34,52 +37,62 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		294197362B793F0100D6B3F9 /* Menu */ = {
+		29C162B52B848CC3002E185D = {
 			isa = PBXGroup;
 			children = (
-				29D7B6532B77B18900EB508F /* puzzle.scnassets */,
-				29D7B6552B77B18900EB508F /* MenuController.swift */,
-			);
-			path = Menu;
-			sourceTree = "<group>";
-		};
-		29D7B6452B77B18900EB508F = {
-			isa = PBXGroup;
-			children = (
-				29D7B6502B77B18900EB508F /* MixPuzzle */,
-				29D7B64F2B77B18900EB508F /* Products */,
+				29C162C02B848CC4002E185D /* MixPuzzle */,
+				29C162BF2B848CC4002E185D /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		29D7B64F2B77B18900EB508F /* Products */ = {
+		29C162BF2B848CC4002E185D /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				29D7B64E2B77B18900EB508F /* MixPuzzle.app */,
+				29C162BE2B848CC4002E185D /* MixPuzzle.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		29D7B6502B77B18900EB508F /* MixPuzzle */ = {
+		29C162C02B848CC4002E185D /* MixPuzzle */ = {
 			isa = PBXGroup;
 			children = (
-				294197362B793F0100D6B3F9 /* Menu */,
-				29D7B6512B77B18900EB508F /* AppDelegate.swift */,
-				29D7B65A2B77B18B00EB508F /* Assets.xcassets */,
-				29D7B65C2B77B18B00EB508F /* LaunchScreen.storyboard */,
+				29C162D32B8491DA002E185D /* puzzle.scnassets */,
+				29C162D02B848D53002E185D /* Menu */,
+				29C162C12B848CC4002E185D /* MixPuzzleApp.swift */,
+				29C162C32B848CC4002E185D /* ContentView.swift */,
+				29C162C52B848CC5002E185D /* Assets.xcassets */,
+				29C162C72B848CC5002E185D /* MixPuzzle.entitlements */,
+				29C162C82B848CC5002E185D /* Preview Content */,
 			);
 			path = MixPuzzle;
+			sourceTree = "<group>";
+		};
+		29C162C82B848CC5002E185D /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				29C162C92B848CC5002E185D /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		29C162D02B848D53002E185D /* Menu */ = {
+			isa = PBXGroup;
+			children = (
+				29C162D12B848D89002E185D /* MenuScene.swift */,
+			);
+			path = Menu;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		29D7B64D2B77B18900EB508F /* MixPuzzle */ = {
+		29C162BD2B848CC4002E185D /* MixPuzzle */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 29D7B6612B77B18B00EB508F /* Build configuration list for PBXNativeTarget "MixPuzzle" */;
+			buildConfigurationList = 29C162CD2B848CC5002E185D /* Build configuration list for PBXNativeTarget "MixPuzzle" */;
 			buildPhases = (
-				29D7B64A2B77B18900EB508F /* Sources */,
-				29D7B64B2B77B18900EB508F /* Frameworks */,
-				29D7B64C2B77B18900EB508F /* Resources */,
+				29C162BA2B848CC4002E185D /* Sources */,
+				29C162BB2B848CC4002E185D /* Frameworks */,
+				29C162BC2B848CC4002E185D /* Resources */,
 			);
 			buildRules = (
 			);
@@ -87,25 +100,25 @@
 			);
 			name = MixPuzzle;
 			productName = MixPuzzle;
-			productReference = 29D7B64E2B77B18900EB508F /* MixPuzzle.app */;
+			productReference = 29C162BE2B848CC4002E185D /* MixPuzzle.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		29D7B6462B77B18900EB508F /* Project object */ = {
+		29C162B62B848CC3002E185D /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1520;
 				LastUpgradeCheck = 1520;
 				TargetAttributes = {
-					29D7B64D2B77B18900EB508F = {
+					29C162BD2B848CC4002E185D = {
 						CreatedOnToolsVersion = 15.2;
 					};
 				};
 			};
-			buildConfigurationList = 29D7B6492B77B18900EB508F /* Build configuration list for PBXProject "MixPuzzle" */;
+			buildConfigurationList = 29C162B92B848CC3002E185D /* Build configuration list for PBXProject "MixPuzzle" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -113,54 +126,44 @@
 				en,
 				Base,
 			);
-			mainGroup = 29D7B6452B77B18900EB508F;
-			productRefGroup = 29D7B64F2B77B18900EB508F /* Products */;
+			mainGroup = 29C162B52B848CC3002E185D;
+			productRefGroup = 29C162BF2B848CC4002E185D /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				29D7B64D2B77B18900EB508F /* MixPuzzle */,
+				29C162BD2B848CC4002E185D /* MixPuzzle */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		29D7B64C2B77B18900EB508F /* Resources */ = {
+		29C162BC2B848CC4002E185D /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				29D7B6542B77B18900EB508F /* puzzle.scnassets in Resources */,
-				29D7B65E2B77B18B00EB508F /* LaunchScreen.storyboard in Resources */,
-				29D7B65B2B77B18B00EB508F /* Assets.xcassets in Resources */,
+				29C162CA2B848CC5002E185D /* Preview Assets.xcassets in Resources */,
+				29C162C62B848CC5002E185D /* Assets.xcassets in Resources */,
+				29C162D42B8491DA002E185D /* puzzle.scnassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		29D7B64A2B77B18900EB508F /* Sources */ = {
+		29C162BA2B848CC4002E185D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				29D7B6562B77B18900EB508F /* MenuController.swift in Sources */,
-				29D7B6522B77B18900EB508F /* AppDelegate.swift in Sources */,
+				29C162D22B848D89002E185D /* MenuScene.swift in Sources */,
+				29C162C42B848CC4002E185D /* ContentView.swift in Sources */,
+				29C162C22B848CC4002E185D /* MixPuzzleApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
-/* Begin PBXVariantGroup section */
-		29D7B65C2B77B18B00EB508F /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				29D7B65D2B77B18B00EB508F /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
-
 /* Begin XCBuildConfiguration section */
-		29D7B65F2B77B18B00EB508F /* Debug */ = {
+		29C162CB2B848CC5002E185D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -212,18 +215,18 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
-		29D7B6602B77B18B00EB508F /* Release */ = {
+		29C162CC2B848CC5002E185D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -269,72 +272,87 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
-				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
-				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
-		29D7B6622B77B18B00EB508F /* Debug */ = {
+		29C162CE2B848CC5002E185D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = MixPuzzle/MixPuzzle.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"MixPuzzle/Preview Content\"";
 				DEVELOPMENT_TEAM = 7SNPDG93FF;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIStatusBarHidden = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.games";
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ru.mixfon.MixPuzzle;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
-				SUPPORTS_MACCATALYST = NO;
-				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
-		29D7B6632B77B18B00EB508F /* Release */ = {
+		29C162CF2B848CC5002E185D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = MixPuzzle/MixPuzzle.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"MixPuzzle/Preview Content\"";
 				DEVELOPMENT_TEAM = 7SNPDG93FF;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIStatusBarHidden = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.games";
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ru.mixfon.MixPuzzle;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
-				SUPPORTS_MACCATALYST = NO;
-				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -344,25 +362,25 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		29D7B6492B77B18900EB508F /* Build configuration list for PBXProject "MixPuzzle" */ = {
+		29C162B92B848CC3002E185D /* Build configuration list for PBXProject "MixPuzzle" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				29D7B65F2B77B18B00EB508F /* Debug */,
-				29D7B6602B77B18B00EB508F /* Release */,
+				29C162CB2B848CC5002E185D /* Debug */,
+				29C162CC2B848CC5002E185D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		29D7B6612B77B18B00EB508F /* Build configuration list for PBXNativeTarget "MixPuzzle" */ = {
+		29C162CD2B848CC5002E185D /* Build configuration list for PBXNativeTarget "MixPuzzle" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				29D7B6622B77B18B00EB508F /* Debug */,
-				29D7B6632B77B18B00EB508F /* Release */,
+				29C162CE2B848CC5002E185D /* Debug */,
+				29C162CF2B848CC5002E185D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 29D7B6462B77B18900EB508F /* Project object */;
+	rootObject = 29C162B62B848CC3002E185D /* Project object */;
 }
