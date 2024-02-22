@@ -10,10 +10,11 @@ import SceneKit
 import Foundation
 
 struct MenuScene: UIViewRepresentable {
-	typealias UIViewType = SCNView
+	
+	@Binding var router: ContentView.Router?
 	
 	private let scene = SCNScene(named: "puzzle.scnassets/menu.scn")
-	private var scnView = SCNView()
+	private let scnView = SCNView()
 	
 	func makeUIView(context: Context) -> SCNView {
 		
@@ -37,15 +38,19 @@ struct MenuScene: UIViewRepresentable {
 	}
 	
 	func makeCoordinator() -> Coordinator {
-		Coordinator(scnView)
+		Coordinator(scnView) {
+			self.router = .toStart
+		}
 	}
 	
 	class Coordinator: NSObject {
 		
 		private let view: SCNView
+		private let complition: ()->()
 		
-		init(_ view: SCNView) {
+		init(_ view: SCNView, complition: @escaping ()->()) {
 			self.view = view
+			self.complition = complition
 			super.init()
 		}
 		
@@ -59,6 +64,7 @@ struct MenuScene: UIViewRepresentable {
 			if let hitNode = hitResults.first?.node {
 				// Обнаружен узел, который был касаем
 				print("Node tapped: \(hitNode.name ?? "no name")")
+				self.complition()
 				
 				SCNTransaction.begin()
 				SCNTransaction.animationDuration = 0.5

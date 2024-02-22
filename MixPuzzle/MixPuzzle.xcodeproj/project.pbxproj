@@ -13,6 +13,7 @@
 		29C162CA2B848CC5002E185D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 29C162C92B848CC5002E185D /* Preview Assets.xcassets */; };
 		29C162D22B848D89002E185D /* MenuScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C162D12B848D89002E185D /* MenuScene.swift */; };
 		29C162D42B8491DA002E185D /* puzzle.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 29C162D32B8491DA002E185D /* puzzle.scnassets */; };
+		29EB775D2B872E0D00A494A0 /* Start.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29EB775C2B872E0D00A494A0 /* Start.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		29C162C92B848CC5002E185D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		29C162D12B848D89002E185D /* MenuScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuScene.swift; sourceTree = "<group>"; };
 		29C162D32B8491DA002E185D /* puzzle.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = puzzle.scnassets; sourceTree = "<group>"; };
+		29EB775C2B872E0D00A494A0 /* Start.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Start.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +58,7 @@
 		29C162C02B848CC4002E185D /* MixPuzzle */ = {
 			isa = PBXGroup;
 			children = (
+				29EB775B2B872DF900A494A0 /* Start */,
 				29C162D32B8491DA002E185D /* puzzle.scnassets */,
 				29C162D02B848D53002E185D /* Menu */,
 				29C162C12B848CC4002E185D /* MixPuzzleApp.swift */,
@@ -81,6 +84,14 @@
 				29C162D12B848D89002E185D /* MenuScene.swift */,
 			);
 			path = Menu;
+			sourceTree = "<group>";
+		};
+		29EB775B2B872DF900A494A0 /* Start */ = {
+			isa = PBXGroup;
+			children = (
+				29EB775C2B872E0D00A494A0 /* Start.swift */,
+			);
+			path = Start;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -154,6 +165,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				29EB775D2B872E0D00A494A0 /* Start.swift in Sources */,
 				29C162D22B848D89002E185D /* MenuScene.swift in Sources */,
 				29C162C42B848CC4002E185D /* ContentView.swift in Sources */,
 				29C162C22B848CC4002E185D /* MixPuzzleApp.swift in Sources */,
