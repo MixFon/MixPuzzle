@@ -11,13 +11,12 @@ import Foundation
 
 struct MenuScene: UIViewRepresentable {
 	
-    var complition: (ContentView.Router) -> ()
+    var complition: (MenuView.Router) -> ()
 	
 	private let scene = SCNScene(named: "puzzle.scnassets/menu.scn")
 	private let scnView = SCNView()
 	
 	func makeUIView(context: Context) -> SCNView {
-		
 		let tapGesture = UITapGestureRecognizer(target: context.coordinator, action: #selector(context.coordinator.handleTap(_:)))
 		scnView.addGestureRecognizer(tapGesture)
 		return scnView
@@ -44,9 +43,9 @@ struct MenuScene: UIViewRepresentable {
 	class Coordinator: NSObject {
 		
 		private let view: SCNView
-		private let complition: (ContentView.Router) -> ()
+		private let complition: (MenuView.Router) -> ()
 		
-        init(_ view: SCNView, complition: @escaping (ContentView.Router) -> ()) {
+        init(_ view: SCNView, complition: @escaping (MenuView.Router) -> ()) {
 			self.view = view
             self.complition = complition
             super.init()

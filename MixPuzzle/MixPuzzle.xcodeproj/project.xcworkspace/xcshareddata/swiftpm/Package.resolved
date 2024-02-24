@@ -1,0 +1,23 @@
+{
+  "pins" : [
+    {
+      "identity" : "mfpuzzle",
+      "kind" : "remoteSourceControl",
+      "location" : "git@github.com:MixFon/MFPuzzle.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "8fd937f6d01faf08f0cd4a68dc8d266450bace7d"
+      }
+    },
+    {
+      "identity" : "mfstructs",
+      "kind" : "remoteSourceControl",
+      "location" : "git@github.com:MixFon/MFStructs.git",
+      "state" : {
+        "revision" : "b3254474206737488074e8af33e552a82cdeb5ff",
+        "version" : "0.0.1"
+      }
+    }
+  ],
+  "version" : 2
+}
