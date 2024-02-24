@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		29A225492B89E0C5009ECD1C /* Options.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A225482B89E0C5009ECD1C /* Options.swift */; };
 		29C162C22B848CC4002E185D /* MixPuzzleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C162C12B848CC4002E185D /* MixPuzzleApp.swift */; };
 		29C162C42B848CC4002E185D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C162C32B848CC4002E185D /* ContentView.swift */; };
 		29C162C62B848CC5002E185D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 29C162C52B848CC5002E185D /* Assets.xcassets */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		29A225482B89E0C5009ECD1C /* Options.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Options.swift; sourceTree = "<group>"; };
 		29C162BE2B848CC4002E185D /* MixPuzzle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MixPuzzle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		29C162C12B848CC4002E185D /* MixPuzzleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MixPuzzleApp.swift; sourceTree = "<group>"; };
 		29C162C32B848CC4002E185D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -39,6 +41,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		29A225472B89E0A2009ECD1C /* Options */ = {
+			isa = PBXGroup;
+			children = (
+				29A225482B89E0C5009ECD1C /* Options.swift */,
+			);
+			path = Options;
+			sourceTree = "<group>";
+		};
 		29C162B52B848CC3002E185D = {
 			isa = PBXGroup;
 			children = (
@@ -58,6 +68,7 @@
 		29C162C02B848CC4002E185D /* MixPuzzle */ = {
 			isa = PBXGroup;
 			children = (
+				29A225472B89E0A2009ECD1C /* Options */,
 				29EB775B2B872DF900A494A0 /* Start */,
 				29C162D32B8491DA002E185D /* puzzle.scnassets */,
 				29C162D02B848D53002E185D /* Menu */,
@@ -168,6 +179,7 @@
 				29EB775D2B872E0D00A494A0 /* Start.swift in Sources */,
 				29C162D22B848D89002E185D /* MenuScene.swift in Sources */,
 				29C162C42B848CC4002E185D /* ContentView.swift in Sources */,
+				29A225492B89E0C5009ECD1C /* Options.swift in Sources */,
 				29C162C22B848CC4002E185D /* MixPuzzleApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
