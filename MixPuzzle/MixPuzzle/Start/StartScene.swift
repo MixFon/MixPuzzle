@@ -114,8 +114,8 @@ struct StartScene: UIViewRepresentable {
         let im = UIImage(systemName: "12.circle.fill")
         
         let material = SCNMaterial()
-        material.diffuse.contents = UIImage(named: "bubble", in: nil, with: nil)
-        material.specular.contents = im
+        material.diffuse.contents = im
+        material.specular.contents = UIImage(named: "bubble", in: nil, with: nil)
         //material.emission.contents = UIColor.red
         //material.ambient.contents =
         
