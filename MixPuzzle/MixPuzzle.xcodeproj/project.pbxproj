@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2985064E2B8B53A300028FA9 /* BoxesWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2985064D2B8B53A300028FA9 /* BoxesWorker.swift */; };
 		29A225492B89E0C5009ECD1C /* OptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A225482B89E0C5009ECD1C /* OptionsView.swift */; };
 		29C162C22B848CC4002E185D /* MixPuzzleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C162C12B848CC4002E185D /* MixPuzzleApp.swift */; };
 		29C162C42B848CC4002E185D /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C162C32B848CC4002E185D /* MenuView.swift */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2985064D2B8B53A300028FA9 /* BoxesWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxesWorker.swift; sourceTree = "<group>"; };
 		29A225482B89E0C5009ECD1C /* OptionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsView.swift; sourceTree = "<group>"; };
 		29C162BE2B848CC4002E185D /* MixPuzzle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MixPuzzle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		29C162C12B848CC4002E185D /* MixPuzzleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MixPuzzleApp.swift; sourceTree = "<group>"; };
@@ -106,6 +108,7 @@
 			children = (
 				29EB775C2B872E0D00A494A0 /* StartView.swift */,
 				29D3D1A22B8A0BF600E3EE6A /* StartScene.swift */,
+				2985064D2B8B53A300028FA9 /* BoxesWorker.swift */,
 			);
 			path = Start;
 			sourceTree = "<group>";
@@ -193,6 +196,7 @@
 				29C162C42B848CC4002E185D /* MenuView.swift in Sources */,
 				29A225492B89E0C5009ECD1C /* OptionsView.swift in Sources */,
 				29C162C22B848CC4002E185D /* MixPuzzleApp.swift in Sources */,
+				2985064E2B8B53A300028FA9 /* BoxesWorker.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

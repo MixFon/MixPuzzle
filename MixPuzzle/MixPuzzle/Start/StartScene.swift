@@ -12,15 +12,9 @@ import Foundation
 
 struct StartScene: UIViewRepresentable {
     
-    var complition: (MenuView.Router) -> ()
-    
-    private struct Box {
-        let x: Int
-        let y: Int
-        let number: Int
-        let lengthEdge: Int
-    }
-    
+    let worker: _StartWorker
+    let complition: (MenuView.Router) -> ()
+
     private let scene: SCNScene? = {
         let scene = SCNScene()
         return scene
@@ -34,7 +28,6 @@ struct StartScene: UIViewRepresentable {
     private let cameraNode: SCNNode = {
         let cameraNode = SCNNode()
         cameraNode.camera = SCNCamera()
-        cameraNode.position = SCNVector3(x: 7, y: -7, z: 25)
         return cameraNode
     }()
     
@@ -59,10 +52,11 @@ struct StartScene: UIViewRepresentable {
         self.scene?.rootNode.addChildNode(self.cameraNode)
         self.scene?.rootNode.addChildNode(self.ambientLightNode)
         // Добавление матрицы объектов
-        let worker = MatrixWorker()
-        let matrixResult = worker.createMatrixSpiral(size: 4)
-        let nodes = crateMatrixBox(matrix: matrixResult)
-        nodes.forEach({ self.scene?.rootNode.addChildNode($0) })
+        let nodeBoxes = self.worker.crateMatrixBox()
+        nodeBoxes.forEach({ self.scene?.rootNode.addChildNode($0) })
+        if let adge = self.cameraNode.camera?.fieldOfView {
+            self.cameraNode.position = self.worker.calculateCameraPosition(adge: adge)
+        }
         let tapGesture = UITapGestureRecognizer(target: context.coordinator, action: #selector(context.coordinator.handleTap(_:)))
         self.scnView.addGestureRecognizer(tapGesture)
         return self.scnView
@@ -82,48 +76,7 @@ struct StartScene: UIViewRepresentable {
     func makeCoordinator() -> Coordinator {
         Coordinator(scnView, complition: self.complition)
     }
-    
-    private func crateMatrixBox(matrix: Matrix) -> [SCNNode] {
-        let lengthEdge = 4
-        let delta = 1
-        let size = matrix.count
-        let edge = lengthEdge + delta
-        var nodes = [SCNNode]()
-        for i in 0..<size {
-            for j in 0..<size {
-                let number = Int(matrix[i][j])
-                if number == 0 { continue }
-                let box = Box(
-                    x: i * edge,
-                    y: j * edge,
-                    number: number,
-                    lengthEdge: lengthEdge
-                )
-                let node = getBox(box: box)
-                nodes.append(node)
-            }
-        }
-        return nodes
-    }
-    
-    private func getBox(box: Box) -> SCNNode {
-        let boxNode = SCNNode()
-        let len = CGFloat(box.lengthEdge)
-        boxNode.geometry = SCNBox(width: len, height: len, length: len, chamferRadius: 1)
-        //let im = UIImage(systemName: "\(box.number).circle.fill")
-        let im = UIImage(systemName: "12.circle.fill")
         
-        let material = SCNMaterial()
-        material.diffuse.contents = im
-        material.specular.contents = UIImage(named: "bubble", in: nil, with: nil)
-        //material.emission.contents = UIColor.red
-        //material.ambient.contents =
-        
-        boxNode.geometry?.firstMaterial = material
-        boxNode.position = SCNVector3(box.y, -box.x, 0)
-        return boxNode
-    }
-    
     class Coordinator: NSObject {
         
         private let view: SCNView

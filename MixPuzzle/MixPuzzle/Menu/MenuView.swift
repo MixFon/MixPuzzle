@@ -7,10 +7,14 @@
 
 import SwiftUI
 import SceneKit
+import MFPuzzle
 
 struct MenuView: View {
-	
-	@State private var router: Router? = nil
+    
+    private let size = 4
+    private let matrixWorker = MatrixWorker()
+
+    @State private var router: Router? = nil
 	
 	enum Router: Hashable {
 		case toStart
@@ -22,9 +26,12 @@ struct MenuView: View {
             VStack {
                 NavigationLink(destination: StartView(router: $router), tag: Router.toStart, selection: $router) { EmptyView() }
                 NavigationLink(destination: OptionsView(router: $router), tag: Router.toOprionts, selection: $router) { EmptyView() }
-                MenuScene() { goTo in
-                    self.router = goTo
-                }
+                StartScene(worker: BoxesWorker(size: self.size, matrixWorker: self.matrixWorker), complition: {_ in
+                    
+                })
+//                MenuScene() { goTo in
+//                    self.router = goTo
+//                }
             }
         }
     }
