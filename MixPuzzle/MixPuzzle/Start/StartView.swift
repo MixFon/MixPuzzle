@@ -10,13 +10,13 @@ import MFPuzzle
 
 struct StartView: View {
     @Binding var router: MenuView.Router?
-    private let startWorker = BoxesWorker(size: 4, matrixWorker: MatrixWorker())
+    private let startFactory = StartFactory()
     
     var body: some View {
         VStack {
-            StartScene(worker: self.startWorker) {_ in
+			self.startFactory.configure {_ in 
                 self.router = nil
-            }
+			}
         }
         .navigationBarBackButtonHidden()
     }

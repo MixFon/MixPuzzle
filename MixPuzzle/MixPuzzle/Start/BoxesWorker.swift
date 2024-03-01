@@ -15,9 +15,8 @@ protocol _StartWorker {
 
 /// Занимается созданием и UI настройкой матрицы элементов
 final class BoxesWorker: _StartWorker {
-    private let size: Int
+	private let grid: Grid
     private let lengthEdge: CGFloat = 4
-    private let matrixWorker: _MatrixWorker
     private let verticalPadding: CGFloat = 0.4
     private let horisontalPadding: CGFloat = 0.2
     
@@ -28,20 +27,18 @@ final class BoxesWorker: _StartWorker {
         let lengthEdge: CGFloat
     }
     
-    init(size: Int, matrixWorker: _MatrixWorker) {
-        self.size = size
-        self.matrixWorker = matrixWorker
+    init(grid: Grid) {
+        self.grid = grid
     }
 
     func crateMatrixBox() -> [SCNNode] {
-        let matrix = self.matrixWorker.createMatrixSpiral(size: self.size)
-        return createNodesFormMatrix(matrix: matrix)
+        return createNodesFormMatrix(matrix: self.grid.matrix)
     }
     
     func calculateCameraPosition(adge: CGFloat) -> SCNVector3 {
-        let centreX = CGFloat(self.size) * (self.lengthEdge + self.horisontalPadding) - self.horisontalPadding - self.lengthEdge
-        let centreY = CGFloat(self.size) * (self.lengthEdge + self.verticalPadding) - self.verticalPadding - self.lengthEdge
-        let height = CGFloat(self.size) * (self.lengthEdge + self.horisontalPadding) + CGFloat(self.size) * self.lengthEdge * 0.85
+		let centreX = CGFloat(self.grid.size) * (self.lengthEdge + self.horisontalPadding) - self.horisontalPadding - self.lengthEdge
+		let centreY = CGFloat(self.grid.size) * (self.lengthEdge + self.verticalPadding) - self.verticalPadding - self.lengthEdge
+		let height = CGFloat(self.grid.size) * (self.lengthEdge + self.horisontalPadding) + CGFloat(self.grid.size) * self.lengthEdge * 0.85
         return SCNVector3(x: Float(centreX / 2), y: Float(-centreY / 2), z: Float(height))
     }
     
@@ -69,8 +66,10 @@ final class BoxesWorker: _StartWorker {
         let boxNode = SCNNode()
         let lengthEdge = box.lengthEdge
         boxNode.geometry = SCNBox(width: lengthEdge, height: lengthEdge, length: lengthEdge, chamferRadius: 1)
+		let name = "\(box.number)"
+		boxNode.name = name
         //let im = UIImage(systemName: "\(box.number).circle.fill")
-        let im = imageWith(name: "\(box.number)")
+        let im = imageWith(name: name)
         
         let material = SCNMaterial()
         // Является базой для поверхности

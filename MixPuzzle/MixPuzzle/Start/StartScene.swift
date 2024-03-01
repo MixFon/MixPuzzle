@@ -15,7 +15,7 @@ struct StartScene: UIViewRepresentable {
     let worker: _StartWorker
     let complition: (MenuView.Router) -> ()
 
-    private let scene: SCNScene? = {
+    private let scene: SCNScene = {
         let scene = SCNScene()
         return scene
     }()
@@ -48,12 +48,12 @@ struct StartScene: UIViewRepresentable {
     }()
     
     func makeUIView(context: Context) -> SCNView {
-        self.scene?.rootNode.addChildNode(self.lightNode)
-        self.scene?.rootNode.addChildNode(self.cameraNode)
-        self.scene?.rootNode.addChildNode(self.ambientLightNode)
+        self.scene.rootNode.addChildNode(self.lightNode)
+        self.scene.rootNode.addChildNode(self.cameraNode)
+        self.scene.rootNode.addChildNode(self.ambientLightNode)
         // Добавление матрицы объектов
         let nodeBoxes = self.worker.crateMatrixBox()
-        nodeBoxes.forEach({ self.scene?.rootNode.addChildNode($0) })
+        nodeBoxes.forEach({ self.scene.rootNode.addChildNode($0) })
         if let adge = self.cameraNode.camera?.fieldOfView {
             self.cameraNode.position = self.worker.calculateCameraPosition(adge: adge)
         }
@@ -74,56 +74,58 @@ struct StartScene: UIViewRepresentable {
     }
     
     func makeCoordinator() -> Coordinator {
-        Coordinator(scnView, complition: self.complition)
+        Coordinator(gesture: handleTap)
     }
+	
+	private func handleTap(_ gestureRecognize: UIGestureRecognizer) {
+		// check what nodes are tapped
+		let location = gestureRecognize.location(in: self.scnView)
+		let hitResults = self.scnView.hitTest(location, options: [:])
+		
+		// Обработка результата нажатия
+		if let hitNode = hitResults.first?.node {
+			// Обнаружен узел, который был касаем
+			print("Node tapped: \(hitNode.name ?? "no name")")
+			switch hitNode.name {
+			case "start_node":
+				complition(.toStart)
+			case "options_node":
+				complition(.toOprionts)
+			default:
+				break
+			}
+			
+			SCNTransaction.begin()
+			SCNTransaction.animationDuration = 0.5
+			
+			// on completion - unhighlight
+			SCNTransaction.completionBlock = {
+				SCNTransaction.begin()
+				SCNTransaction.animationDuration = 0.5
+				
+				hitNode.geometry?.firstMaterial?.emission.contents = UIColor.black
+				
+				SCNTransaction.commit()
+			}
+			
+			hitNode.geometry?.firstMaterial?.emission.contents = UIColor.green
+			
+			SCNTransaction.commit()
+		}
+	}
         
     class Coordinator: NSObject {
         
-        private let view: SCNView
-        private let complition: (MenuView.Router) -> ()
+        private let gesture: (UIGestureRecognizer) -> ()
         
-        init(_ view: SCNView, complition: @escaping (MenuView.Router) -> ()) {
-            self.view = view
-            self.complition = complition
+        init(gesture: @escaping (UIGestureRecognizer) -> ()) {
+            self.gesture = gesture
             super.init()
         }
         
         @objc
         func handleTap(_ gestureRecognize: UIGestureRecognizer) {
-            // check what nodes are tapped
-            let location = gestureRecognize.location(in: self.view)
-            let hitResults = self.view.hitTest(location, options: [:])
-            
-            // Обработка результата нажатия
-            if let hitNode = hitResults.first?.node {
-                // Обнаружен узел, который был касаем
-                print("Node tapped: \(hitNode.name ?? "no name")")
-                switch hitNode.name {
-                case "start_node":
-                    complition(.toStart)
-                case "options_node":
-                    complition(.toOprionts)
-                default:
-                    break
-                }
-                
-                SCNTransaction.begin()
-                SCNTransaction.animationDuration = 0.5
-                
-                // on completion - unhighlight
-                SCNTransaction.completionBlock = {
-                    SCNTransaction.begin()
-                    SCNTransaction.animationDuration = 0.5
-                    
-                    hitNode.geometry?.firstMaterial?.emission.contents = UIColor.black
-                    
-                    SCNTransaction.commit()
-                }
-                
-                hitNode.geometry?.firstMaterial?.emission.contents = UIColor.green
-                
-                SCNTransaction.commit()
-            }
+			self.gesture(gestureRecognize)
         }
     }
     
