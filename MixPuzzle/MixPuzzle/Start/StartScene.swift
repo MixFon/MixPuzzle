@@ -54,8 +54,8 @@ struct StartScene: UIViewRepresentable {
         // Добавление матрицы объектов
         let nodeBoxes = self.worker.crateMatrixBox()
         nodeBoxes.forEach({ self.scene.rootNode.addChildNode($0) })
-        if let adge = self.cameraNode.camera?.fieldOfView {
-            self.cameraNode.position = self.worker.calculateCameraPosition(adge: adge)
+        if self.cameraNode.camera?.fieldOfView != nil {
+            self.cameraNode.position = self.worker.calculateCameraPosition()
         }
         let tapGesture = UITapGestureRecognizer(target: context.coordinator, action: #selector(context.coordinator.handleTap(_:)))
         self.scnView.addGestureRecognizer(tapGesture)
@@ -86,14 +86,12 @@ struct StartScene: UIViewRepresentable {
 		if let hitNode = hitResults.first?.node {
 			// Обнаружен узел, который был касаем
 			print("Node tapped: \(hitNode.name ?? "no name")")
-			switch hitNode.name {
-			case "start_node":
-				complition(.toStart)
-			case "options_node":
-				complition(.toOprionts)
-			default:
-				break
+		
+			if let hitNodeName = hitNode.name, let number = UInt8(hitNodeName), let moveToZeroAction = self.worker.createMoveToZeroAction(number: number) {
+				print("run action")
+				hitNode.runAction(moveToZeroAction)
 			}
+			
 			
 			SCNTransaction.begin()
 			SCNTransaction.animationDuration = 0.5

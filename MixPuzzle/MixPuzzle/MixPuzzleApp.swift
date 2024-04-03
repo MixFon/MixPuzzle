@@ -9,9 +9,11 @@ import SwiftUI
 
 @main
 struct MixPuzzleApp: App {
+	private let startFactory = StartFactory()
     var body: some Scene {
         WindowGroup {
-            MenuView()
+            //MenuView()
+			self.startFactory.configure(complition: {_ in })
         }
     }
 }

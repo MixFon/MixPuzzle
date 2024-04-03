@@ -10,21 +10,29 @@ import SceneKit
 
 protocol _StartWorker {
     func crateMatrixBox() -> [SCNNode]
-    func calculateCameraPosition(adge: CGFloat) -> SCNVector3
+    func calculateCameraPosition() -> SCNVector3
+	func createMoveToZeroAction(number: UInt8) -> SCNAction?
 }
 
-/// Занимается созданием и UI настройкой матрицы элементов
+/// Занимается созданием и UI настройкой матрицы элементов. Так же отвечает за пермещение элементов
 final class BoxesWorker: _StartWorker {
+	/// Модель сетки, на основе нее строится отобрадение
 	private let grid: Grid
     private let lengthEdge: CGFloat = 4
     private let verticalPadding: CGFloat = 0.4
+	/// Длительность анимации передвижения в позицию 0
+	private let animationDuration: TimeInterval = 0.3
     private let horisontalPadding: CGFloat = 0.2
     
     private struct Box {
-        let x: CGFloat
-        let y: CGFloat
+		let point: Point
         let number: Int
         let lengthEdge: CGFloat
+		
+		struct Point {
+			let x: CGFloat
+			let y: CGFloat
+		}
     }
     
     init(grid: Grid) {
@@ -35,23 +43,40 @@ final class BoxesWorker: _StartWorker {
         return createNodesFormMatrix(matrix: self.grid.matrix)
     }
     
-    func calculateCameraPosition(adge: CGFloat) -> SCNVector3 {
+    func calculateCameraPosition() -> SCNVector3 {
 		let centreX = CGFloat(self.grid.size) * (self.lengthEdge + self.horisontalPadding) - self.horisontalPadding - self.lengthEdge
 		let centreY = CGFloat(self.grid.size) * (self.lengthEdge + self.verticalPadding) - self.verticalPadding - self.lengthEdge
 		let height = CGFloat(self.grid.size) * (self.lengthEdge + self.horisontalPadding) + CGFloat(self.grid.size) * self.lengthEdge * 0.85
         return SCNVector3(x: Float(centreX / 2), y: Float(-centreY / 2), z: Float(height))
     }
-    
+	
+	func createMoveToZeroAction(number: UInt8) -> SCNAction? {
+		guard self.grid.isNeighbors(one: number, two: 0) == true else { return nil }
+		guard let pointZero = self.grid.getPoint(number: 0) else { return nil }
+		let boxPointZero = getBoxPoint(i: Int(pointZero.x), j: Int(pointZero.y))
+		// Для векторов SCNVector3 на первом месте тоит Y на втором -X координаты из матрицы
+		let action = SCNAction.move(to: SCNVector3(x: Float(boxPointZero.y), y: Float(-boxPointZero.x), z: 0), duration: self.animationDuration)
+		self.grid.swapNumber(number: number)
+		return action
+	}
+	
+	private func getBoxPoint(i: Int, j: Int) -> Box.Point {
+		let verticalEdge = self.lengthEdge + self.verticalPadding
+		let horisontalEdge = self.lengthEdge + self.horisontalPadding
+		let point = Box.Point(
+			x: CGFloat(i) * verticalEdge,
+			y: CGFloat(j) * horisontalEdge
+		)
+		return point
+	}
+	
     private func createNodesFormMatrix(matrix: Matrix) -> [SCNNode] {
-        let verticalEdge = self.lengthEdge + self.verticalPadding
-        let horisontalEdge = self.lengthEdge + self.horisontalPadding
         var nodes = [SCNNode]()
         for (i, line) in matrix.enumerated() {
             for (j, number) in line.enumerated() {
                 if number == 0 { continue }
                 let box = Box(
-                    x: CGFloat(i) * verticalEdge,
-                    y: CGFloat(j) * horisontalEdge,
+					point: getBoxPoint(i: i, j: j),
                     number: Int(number),
                     lengthEdge: lengthEdge
                 )
@@ -89,7 +114,7 @@ final class BoxesWorker: _StartWorker {
         //material.ambient.contents =
         
         boxNode.geometry?.firstMaterial = material
-        boxNode.position = SCNVector3(box.y, -box.x, 0)
+		boxNode.position = SCNVector3(box.point.y, -box.point.x, 0)
         return boxNode
     }
     
