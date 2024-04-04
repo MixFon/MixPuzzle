@@ -14,6 +14,8 @@ struct StartScene: UIViewRepresentable {
     
     let worker: _StartWorker
     let complition: (MenuView.Router) -> ()
+	
+	private let generator = UINotificationFeedbackGenerator()
 
     private let scene: SCNScene = {
         let scene = SCNScene()
@@ -85,33 +87,19 @@ struct StartScene: UIViewRepresentable {
 		// Обработка результата нажатия
 		if let hitNode = hitResults.first?.node {
 			// Обнаружен узел, который был касаем
-			print("Node tapped: \(hitNode.name ?? "no name")")
+			self.generator.prepare()
 		
 			if let hitNodeName = hitNode.name, let number = UInt8(hitNodeName), let moveToZeroAction = self.worker.createMoveToZeroAction(number: number) {
-				print("run action")
 				hitNode.runAction(moveToZeroAction)
+				self.generator.notificationOccurred(.success)
+			} else {
+				let shameAnimation = self.worker.createShakeAnimation(position: hitNode.position)
+				hitNode.addAnimation(shameAnimation, forKey: "shake")
+				self.generator.notificationOccurred(.error)
 			}
-			
-			
-			SCNTransaction.begin()
-			SCNTransaction.animationDuration = 0.5
-			
-			// on completion - unhighlight
-			SCNTransaction.completionBlock = {
-				SCNTransaction.begin()
-				SCNTransaction.animationDuration = 0.5
-				
-				hitNode.geometry?.firstMaterial?.emission.contents = UIColor.black
-				
-				SCNTransaction.commit()
-			}
-			
-			hitNode.geometry?.firstMaterial?.emission.contents = UIColor.green
-			
-			SCNTransaction.commit()
 		}
 	}
-        
+
     class Coordinator: NSObject {
         
         private let gesture: (UIGestureRecognizer) -> ()

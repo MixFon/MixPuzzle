@@ -24,7 +24,7 @@ struct MenuView: View {
     var body: some View {
         NavigationView {
             VStack {
-                NavigationLink(destination: StartView(router: $router), tag: Router.toStart, selection: $router) { }
+				NavigationLink(destination: StartView(router: $router), tag: Router.toStart, selection: $router) { }
                 NavigationLink(destination: OptionsView(router: $router), tag: Router.toOprionts, selection: $router) { }
 //                StartScene(worker: BoxesWorker(size: self.size, matrixWorker: self.matrixWorker), complition: {_ in
 //                    

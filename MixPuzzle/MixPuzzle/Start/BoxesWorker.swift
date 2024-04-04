@@ -10,6 +10,7 @@ import SceneKit
 
 protocol _StartWorker {
     func crateMatrixBox() -> [SCNNode]
+	func createShakeAnimation(position: SCNVector3) -> CAKeyframeAnimation
     func calculateCameraPosition() -> SCNVector3
 	func createMoveToZeroAction(number: UInt8) -> SCNAction?
 }
@@ -21,7 +22,7 @@ final class BoxesWorker: _StartWorker {
     private let lengthEdge: CGFloat = 4
     private let verticalPadding: CGFloat = 0.4
 	/// Длительность анимации передвижения в позицию 0
-	private let animationDuration: TimeInterval = 0.3
+	private let animationDuration: TimeInterval = 0.2
     private let horisontalPadding: CGFloat = 0.2
     
     private struct Box {
@@ -58,6 +59,25 @@ final class BoxesWorker: _StartWorker {
 		let action = SCNAction.move(to: SCNVector3(x: Float(boxPointZero.y), y: Float(-boxPointZero.x), z: 0), duration: self.animationDuration)
 		self.grid.swapNumber(number: number)
 		return action
+	}
+	
+	func createShakeAnimation(position vector: SCNVector3) -> CAKeyframeAnimation {
+		let animation = CAKeyframeAnimation(keyPath: "position")
+		let delta: Float = 0.2
+		animation.values = [
+			NSValue(scnVector3: SCNVector3(x: vector.x, y: vector.y, z: vector.z)),
+			NSValue(scnVector3: SCNVector3(x: vector.x - delta, y: vector.y, z: vector.z)),
+			NSValue(scnVector3: SCNVector3(x: vector.x + delta, y: vector.y, z: vector.z)),
+			NSValue(scnVector3: SCNVector3(x: vector.x, y: vector.y, z: vector.z)),
+			NSValue(scnVector3: SCNVector3(x: vector.x, y: vector.y - delta, z: vector.z)),
+			NSValue(scnVector3: SCNVector3(x: vector.x, y: vector.y + delta, z: vector.z)),
+			NSValue(scnVector3: SCNVector3(x: vector.x, y: vector.y, z: vector.z)),
+		]
+		animation.timingFunction = CAMediaTimingFunction(name: .linear)
+		animation.duration = 0.2 // Продолжительность анимации
+		animation.repeatCount = 1 // Количество повторений
+
+		return animation
 	}
 	
 	private func getBoxPoint(i: Int, j: Int) -> Box.Point {
