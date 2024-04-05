@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2979B7142BBFDE5D000839D3 /* StartSceneWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2979B7132BBFDE5D000839D3 /* StartSceneWrapper.swift */; };
+		2979B7182BBFDF3C000839D3 /* MenuSceneWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2979B7172BBFDF3C000839D3 /* MenuSceneWrapper.swift */; };
 		2985064E2B8B53A300028FA9 /* BoxesWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2985064D2B8B53A300028FA9 /* BoxesWorker.swift */; };
 		29A070332B91A5940078EB8D /* StartFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A070322B91A5940078EB8D /* StartFactory.swift */; };
 		29A225492B89E0C5009ECD1C /* OptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A225482B89E0C5009ECD1C /* OptionsView.swift */; };
@@ -22,6 +24,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2979B7132BBFDE5D000839D3 /* StartSceneWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartSceneWrapper.swift; sourceTree = "<group>"; };
+		2979B7172BBFDF3C000839D3 /* MenuSceneWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuSceneWrapper.swift; sourceTree = "<group>"; };
 		2985064D2B8B53A300028FA9 /* BoxesWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxesWorker.swift; sourceTree = "<group>"; };
 		29A070322B91A5940078EB8D /* StartFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartFactory.swift; sourceTree = "<group>"; };
 		29A225482B89E0C5009ECD1C /* OptionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsView.swift; sourceTree = "<group>"; };
@@ -49,6 +53,42 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2979B7112BBFDDB3000839D3 /* Scene */ = {
+			isa = PBXGroup;
+			children = (
+				2985064D2B8B53A300028FA9 /* BoxesWorker.swift */,
+				29A070322B91A5940078EB8D /* StartFactory.swift */,
+				29D3D1A22B8A0BF600E3EE6A /* StartScene.swift */,
+			);
+			path = Scene;
+			sourceTree = "<group>";
+		};
+		2979B7122BBFDE25000839D3 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				29EB775C2B872E0D00A494A0 /* StartView.swift */,
+				2979B7132BBFDE5D000839D3 /* StartSceneWrapper.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		2979B7152BBFDEF5000839D3 /* Scene */ = {
+			isa = PBXGroup;
+			children = (
+				29C162D12B848D89002E185D /* MenuScene.swift */,
+			);
+			path = Scene;
+			sourceTree = "<group>";
+		};
+		2979B7162BBFDF03000839D3 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				29C162C32B848CC4002E185D /* MenuView.swift */,
+				2979B7172BBFDF3C000839D3 /* MenuSceneWrapper.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		29A225472B89E0A2009ECD1C /* Options */ = {
 			isa = PBXGroup;
 			children = (
@@ -99,8 +139,8 @@
 		29C162D02B848D53002E185D /* Menu */ = {
 			isa = PBXGroup;
 			children = (
-				29C162C32B848CC4002E185D /* MenuView.swift */,
-				29C162D12B848D89002E185D /* MenuScene.swift */,
+				2979B7162BBFDF03000839D3 /* View */,
+				2979B7152BBFDEF5000839D3 /* Scene */,
 			);
 			path = Menu;
 			sourceTree = "<group>";
@@ -108,10 +148,8 @@
 		29EB775B2B872DF900A494A0 /* Start */ = {
 			isa = PBXGroup;
 			children = (
-				29EB775C2B872E0D00A494A0 /* StartView.swift */,
-				29D3D1A22B8A0BF600E3EE6A /* StartScene.swift */,
-				2985064D2B8B53A300028FA9 /* BoxesWorker.swift */,
-				29A070322B91A5940078EB8D /* StartFactory.swift */,
+				2979B7122BBFDE25000839D3 /* View */,
+				2979B7112BBFDDB3000839D3 /* Scene */,
 			);
 			path = Start;
 			sourceTree = "<group>";
@@ -193,12 +231,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2979B7142BBFDE5D000839D3 /* StartSceneWrapper.swift in Sources */,
 				29EB775D2B872E0D00A494A0 /* StartView.swift in Sources */,
 				29D3D1A32B8A0BF600E3EE6A /* StartScene.swift in Sources */,
 				29C162D22B848D89002E185D /* MenuScene.swift in Sources */,
 				29A070332B91A5940078EB8D /* StartFactory.swift in Sources */,
 				29C162C42B848CC4002E185D /* MenuView.swift in Sources */,
 				29A225492B89E0C5009ECD1C /* OptionsView.swift in Sources */,
+				2979B7182BBFDF3C000839D3 /* MenuSceneWrapper.swift in Sources */,
 				29C162C22B848CC4002E185D /* MixPuzzleApp.swift in Sources */,
 				2985064E2B8B53A300028FA9 /* BoxesWorker.swift in Sources */,
 			);

@@ -116,3 +116,11 @@ struct StartScene: UIViewRepresentable {
     }
     
 }
+
+extension StartScene: Equatable {
+
+	static func == (lhs: StartScene, rhs: StartScene) -> Bool {
+		return false
+	}
+	
+}

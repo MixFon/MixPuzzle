@@ -21,20 +21,17 @@ struct MenuView: View {
         case toOprionts
 	}
 	
-    var body: some View {
-        NavigationView {
-            VStack {
+	var body: some View {
+		NavigationView {
+			ZStack {
 				NavigationLink(destination: StartView(router: $router), tag: Router.toStart, selection: $router) { }
-                NavigationLink(destination: OptionsView(router: $router), tag: Router.toOprionts, selection: $router) { }
-//                StartScene(worker: BoxesWorker(size: self.size, matrixWorker: self.matrixWorker), complition: {_ in
-//                    
-//                })
-//                MenuScene() { goTo in
-//                    self.router = goTo
-//                }
-            }
-        }
-    }
+				NavigationLink(destination: OptionsView(router: $router), tag: Router.toOprionts, selection: $router) { }
+				MenuSceneWrapper(router: $router)
+			}
+			.edgesIgnoringSafeArea(.all)
+		}
+		.navigationBarBackButtonHidden()
+	}
 }
 
 #Preview {
