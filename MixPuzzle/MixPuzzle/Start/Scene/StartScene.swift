@@ -11,53 +11,70 @@ import MFPuzzle
 import Foundation
 
 struct StartScene: UIViewRepresentable {
-    
-    let worker: _StartWorker
-    let complition: (MenuView.Router) -> ()
+	
+	let boxWorker: _BoxesWorker
+	let startsWorker: _StarsWorker
+	let complition: (MenuView.Router) -> ()
 	
 	private let generator = UINotificationFeedbackGenerator()
-
-    private let scene: SCNScene = {
-        let scene = SCNScene()
-        return scene
-    }()
-    
-    private let scnView: SCNView = {
-        let scnView = SCNView()
-        return scnView
-    }()
-    
-    private let cameraNode: SCNNode = {
-        let cameraNode = SCNNode()
-        cameraNode.camera = SCNCamera()
-        return cameraNode
-    }()
-    
-    private let lightNode: SCNNode = {
-        let lightNode = SCNNode()
-        lightNode.light = SCNLight()
-        lightNode.light?.type = .omni
-        lightNode.position = SCNVector3(x: 0, y: 10, z: 10)
-        return lightNode
-    }()
-    
-    private let ambientLightNode: SCNNode = {
-        let ambientLightNode = SCNNode()
-        ambientLightNode.light = SCNLight()
-        ambientLightNode.light?.type = .ambient
-        ambientLightNode.light?.color = UIColor.darkGray.cgColor
-        return ambientLightNode
-    }()
+	
+	private let scene: SCNScene = {
+		let scene = SCNScene()
+		return scene
+	}()
+	
+	private let scnView: SCNView = {
+		let scnView = SCNView()
+		return scnView
+	}()
+	
+	private let cameraNode: SCNNode = {
+		let cameraNode = SCNNode()
+		cameraNode.camera = SCNCamera()
+		return cameraNode
+	}()
+	
+	private let lightNode: SCNNode = {
+		let lightNode = SCNNode()
+		lightNode.light = SCNLight()
+		lightNode.light?.type = .omni
+		lightNode.position = SCNVector3(x: 0, y: 10, z: 10)
+		return lightNode
+	}()
+	
+	private let ambientLightNode: SCNNode = {
+		let ambientLightNode = SCNNode()
+		ambientLightNode.light = SCNLight()
+		ambientLightNode.light?.type = .ambient
+		ambientLightNode.light?.color = UIColor.darkGray.cgColor
+		return ambientLightNode
+	}()
+	
+	/*
+	private let starsNode: SCNNode = {
+		let starsGeometry = SCNSphere(radius: 80)
+		let starsMaterial = SCNMaterial()
+		starsMaterial.diffuse.contents = UIImage(named: "gud1000") // Замените "stars.jpg" на имя вашей текстуры звездного неба
+		starsMaterial.isDoubleSided = true // Сделать материал двусторонним
+		starsGeometry.materials = [starsMaterial]
+		
+		let starsNode = SCNNode(geometry: starsGeometry)
+		return starsNode
+	}()
+	 */
     
     func makeUIView(context: Context) -> SCNView {
         self.scene.rootNode.addChildNode(self.lightNode)
         self.scene.rootNode.addChildNode(self.cameraNode)
         self.scene.rootNode.addChildNode(self.ambientLightNode)
         // Добавление матрицы объектов
-        let nodeBoxes = self.worker.crateMatrixBox()
+        let nodeBoxes = self.boxWorker.crateMatrixBox()
         nodeBoxes.forEach({ self.scene.rootNode.addChildNode($0) })
+		
+		let nodeStars = self.startsWorker.createStart(centre: self.boxWorker.centreMatrix)
+		nodeStars.forEach({ self.scene.rootNode.addChildNode($0) })
         if self.cameraNode.camera?.fieldOfView != nil {
-            self.cameraNode.position = self.worker.calculateCameraPosition()
+            self.cameraNode.position = self.boxWorker.calculateCameraPosition()
         }
         let tapGesture = UITapGestureRecognizer(target: context.coordinator, action: #selector(context.coordinator.handleTap(_:)))
         self.scnView.addGestureRecognizer(tapGesture)
@@ -89,11 +106,11 @@ struct StartScene: UIViewRepresentable {
 			// Обнаружен узел, который был касаем
 			self.generator.prepare()
 		
-			if let hitNodeName = hitNode.name, let number = UInt8(hitNodeName), let moveToZeroAction = self.worker.createMoveToZeroAction(number: number) {
+			if let hitNodeName = hitNode.name, let number = UInt8(hitNodeName), let moveToZeroAction = self.boxWorker.createMoveToZeroAction(number: number) {
 				hitNode.runAction(moveToZeroAction)
 				self.generator.notificationOccurred(.success)
 			} else {
-				let shameAnimation = self.worker.createShakeAnimation(position: hitNode.position)
+				let shameAnimation = self.boxWorker.createShakeAnimation(position: hitNode.position)
 				hitNode.addAnimation(shameAnimation, forKey: "shake")
 				self.generator.notificationOccurred(.error)
 			}

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		291A07EE2BC173D6008B4246 /* StartScoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291A07ED2BC173D6008B4246 /* StartScoreView.swift */; };
+		291A07F12BC198F8008B4246 /* StarsWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291A07F02BC198F8008B4246 /* StarsWorker.swift */; };
 		2979B7142BBFDE5D000839D3 /* StartSceneWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2979B7132BBFDE5D000839D3 /* StartSceneWrapper.swift */; };
 		2979B7182BBFDF3C000839D3 /* MenuSceneWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2979B7172BBFDF3C000839D3 /* MenuSceneWrapper.swift */; };
 		2985064E2B8B53A300028FA9 /* BoxesWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2985064D2B8B53A300028FA9 /* BoxesWorker.swift */; };
@@ -24,6 +26,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		291A07ED2BC173D6008B4246 /* StartScoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartScoreView.swift; sourceTree = "<group>"; };
+		291A07F02BC198F8008B4246 /* StarsWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarsWorker.swift; sourceTree = "<group>"; };
 		2979B7132BBFDE5D000839D3 /* StartSceneWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartSceneWrapper.swift; sourceTree = "<group>"; };
 		2979B7172BBFDF3C000839D3 /* MenuSceneWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuSceneWrapper.swift; sourceTree = "<group>"; };
 		2985064D2B8B53A300028FA9 /* BoxesWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxesWorker.swift; sourceTree = "<group>"; };
@@ -59,6 +63,7 @@
 				2985064D2B8B53A300028FA9 /* BoxesWorker.swift */,
 				29A070322B91A5940078EB8D /* StartFactory.swift */,
 				29D3D1A22B8A0BF600E3EE6A /* StartScene.swift */,
+				291A07F02BC198F8008B4246 /* StarsWorker.swift */,
 			);
 			path = Scene;
 			sourceTree = "<group>";
@@ -68,6 +73,7 @@
 			children = (
 				29EB775C2B872E0D00A494A0 /* StartView.swift */,
 				2979B7132BBFDE5D000839D3 /* StartSceneWrapper.swift */,
+				291A07ED2BC173D6008B4246 /* StartScoreView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -237,6 +243,8 @@
 				29C162D22B848D89002E185D /* MenuScene.swift in Sources */,
 				29A070332B91A5940078EB8D /* StartFactory.swift in Sources */,
 				29C162C42B848CC4002E185D /* MenuView.swift in Sources */,
+				291A07EE2BC173D6008B4246 /* StartScoreView.swift in Sources */,
+				291A07F12BC198F8008B4246 /* StarsWorker.swift in Sources */,
 				29A225492B89E0C5009ECD1C /* OptionsView.swift in Sources */,
 				2979B7182BBFDF3C000839D3 /* MenuSceneWrapper.swift in Sources */,
 				29C162C22B848CC4002E185D /* MixPuzzleApp.swift in Sources */,

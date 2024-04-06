@@ -12,11 +12,14 @@ import Foundation
 final class StartFactory {
 	
 	func configure(complition: @escaping (MenuView.Router) -> ()) -> some View {
-		// Занимается созданием
+		// Занимается созданием и управлением звездочек
+		let starsWorker = StarsWorker()
+		
+		// Занимается созданием и управление кубиков
 		let matrixWorker = MatrixWorker()
 		let matrixSpiral = matrixWorker.createMatrixSpiral(size: 4)
 		let grid = Grid(matrix: matrixSpiral)
 		let boxWorker = BoxesWorker(grid: grid)
-		return StartScene(worker: boxWorker, complition: complition)
+		return StartScene(boxWorker: boxWorker, startsWorker: starsWorker, complition: complition)
 	}
 }

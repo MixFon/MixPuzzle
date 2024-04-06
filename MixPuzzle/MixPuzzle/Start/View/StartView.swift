@@ -9,8 +9,6 @@ import SwiftUI
 import MFPuzzle
 
 struct StartView: View {
-	
-	@State var score: Int = 0
 
     @Binding var router: MenuView.Router?
 	
@@ -19,22 +17,7 @@ struct StartView: View {
 			StartSceneWrapper(router: $router)
 				.equatable() // Отключение обновления сцены
 			VStack {
-				HStack {
-					Text("Hello\(score)")
-						.foregroundColor(Color.red)
-					Text("Hello_1")
-						.foregroundColor(Color.red)
-					Button {
-						self.score += 1
-					} label: {
-						Text("Press me")
-					}
-					Button {
-						self.router = nil
-					} label: {
-						Text("Go back")
-					}
-				}
+				StartScoreView(router: $router)
 				Spacer()
 			}
 			.navigationBarBackButtonHidden()
