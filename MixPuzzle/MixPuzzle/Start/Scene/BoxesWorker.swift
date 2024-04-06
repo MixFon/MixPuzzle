@@ -8,7 +8,8 @@
 import MFPuzzle
 import SceneKit
 
-protocol _StartWorker {
+protocol _BoxesWorker {
+	var centreMatrix: SCNVector3 { get }
     func crateMatrixBox() -> [SCNNode]
 	func createShakeAnimation(position: SCNVector3) -> CAKeyframeAnimation
     func calculateCameraPosition() -> SCNVector3
@@ -16,7 +17,7 @@ protocol _StartWorker {
 }
 
 /// Занимается созданием и UI настройкой матрицы элементов. Так же отвечает за пермещение элементов
-final class BoxesWorker: _StartWorker {
+final class BoxesWorker: _BoxesWorker {
 	/// Модель сетки, на основе нее строится отобрадение
 	private let grid: Grid
     private let lengthEdge: CGFloat = 4
@@ -24,6 +25,12 @@ final class BoxesWorker: _StartWorker {
 	/// Длительность анимации передвижения в позицию 0
 	private let animationDuration: TimeInterval = 0.2
     private let horisontalPadding: CGFloat = 0.2
+	
+	var centreMatrix: SCNVector3 {
+		let centreX = CGFloat(self.grid.size) * (self.lengthEdge + self.horisontalPadding) - self.horisontalPadding - self.lengthEdge
+		let centreY = CGFloat(self.grid.size) * (self.lengthEdge + self.verticalPadding) - self.verticalPadding - self.lengthEdge
+		return SCNVector3(x: Float(centreX / 2), y: Float(-centreY / 2), z: 0)
+	}
     
     private struct Box {
 		let point: Point
@@ -45,10 +52,9 @@ final class BoxesWorker: _StartWorker {
     }
     
     func calculateCameraPosition() -> SCNVector3 {
-		let centreX = CGFloat(self.grid.size) * (self.lengthEdge + self.horisontalPadding) - self.horisontalPadding - self.lengthEdge
-		let centreY = CGFloat(self.grid.size) * (self.lengthEdge + self.verticalPadding) - self.verticalPadding - self.lengthEdge
+		let centre = self.centreMatrix
 		let height = CGFloat(self.grid.size) * (self.lengthEdge + self.horisontalPadding) + CGFloat(self.grid.size) * self.lengthEdge * 0.85
-        return SCNVector3(x: Float(centreX / 2), y: Float(-centreY / 2), z: Float(height))
+		return SCNVector3(x: centre.x, y: centre.y, z: Float(height))
     }
 	
 	func createMoveToZeroAction(number: UInt8) -> SCNAction? {
