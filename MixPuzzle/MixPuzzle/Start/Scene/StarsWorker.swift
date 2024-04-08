@@ -15,7 +15,7 @@ protocol _StarsWorker {
 final class StarsWorker: _StarsWorker {
 	
 	let countStars = 200
-	let radiusSphere: Double = 60
+	let radiusSphere: Double = 20
 	
 	func createStart(centre: SCNVector3) -> [SCNNode] {
 		let stars = (0...self.countStars).map( { _ in createStar(centre: centre) } )
