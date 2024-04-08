@@ -21,10 +21,13 @@ struct OptionsView: View {
 			CellView(icon: "checkmark", text: "word", action: { print(2) }),
 		])
 		.padding()
-		OptionsSectionsView(title: "Hello", cells: [
+		OptionsSectionsView(title: "Two", cells: [
 			CellView(icon: "plus", text: "Hello", action: { print(1) }),
 			CellView(icon: "checkmark", text: "word", action: { print(2) }),
+			CellView(icon: "checkmark", text: "text text", action: { print(2) }),
 		])
+		.padding()
+		Spacer()
 	}
 }
 
@@ -35,7 +38,8 @@ struct OptionsSectionsView: View {
 	
 	var body: some View {
 		VStack(alignment: .leading, spacing: 16) {
-			Text("123")
+			Text(title)
+				.bold()
 			VStack(spacing: 8) {
 				ForEach(cells) { cell in
 					cell
@@ -57,16 +61,17 @@ struct CellView: View, Identifiable {
 	let action: ()->()
 	
 	var body: some View {
-		HStack {
-			Image(systemName: icon)
-			Button(action: action, label: {
+		Button(action: action, label: {
+			HStack {
+				Image(systemName: icon)
+					.buttonStyle(.plain)
 				Text(text)
-			})
-			.buttonStyle(.plain)
-			Spacer()
-			Image(systemName: "chevron.right")
-				.foregroundColor(.green) // Цвет шеврона
-		}
+				Spacer()
+				Image(systemName: "chevron.right")
+					.foregroundColor(.black) // Цвет шеврона
+			}
+		})
+		.buttonStyle(.plain)
 	}
 }
 
