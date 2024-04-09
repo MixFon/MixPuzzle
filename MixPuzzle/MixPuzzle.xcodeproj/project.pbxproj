@@ -22,6 +22,9 @@
 		29C162D42B8491DA002E185D /* puzzle.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 29C162D32B8491DA002E185D /* puzzle.scnassets */; };
 		29D3D1A32B8A0BF600E3EE6A /* StartScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D3D1A22B8A0BF600E3EE6A /* StartScene.swift */; };
 		29D3D1A62B8A134700E3EE6A /* MFPuzzle in Frameworks */ = {isa = PBXBuildFile; productRef = 29D3D1A52B8A134700E3EE6A /* MFPuzzle */; };
+		29DFDEBB2BC50D9500791434 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29DFDEB92BC50D9500791434 /* Colors.swift */; };
+		29DFDEBC2BC50D9500791434 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 29DFDEBA2BC50D9500791434 /* Colors.xcassets */; };
+		29DFDEBE2BC5177F00791434 /* OptionsSectionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29DFDEBD2BC5177F00791434 /* OptionsSectionsView.swift */; };
 		29EB775D2B872E0D00A494A0 /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29EB775C2B872E0D00A494A0 /* StartView.swift */; };
 /* End PBXBuildFile section */
 
@@ -42,6 +45,9 @@
 		29C162D12B848D89002E185D /* MenuScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuScene.swift; sourceTree = "<group>"; };
 		29C162D32B8491DA002E185D /* puzzle.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = puzzle.scnassets; sourceTree = "<group>"; };
 		29D3D1A22B8A0BF600E3EE6A /* StartScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartScene.swift; sourceTree = "<group>"; };
+		29DFDEB92BC50D9500791434 /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		29DFDEBA2BC50D9500791434 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
+		29DFDEBD2BC5177F00791434 /* OptionsSectionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsSectionsView.swift; sourceTree = "<group>"; };
 		29EB775C2B872E0D00A494A0 /* StartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -99,6 +105,7 @@
 			isa = PBXGroup;
 			children = (
 				29A225482B89E0C5009ECD1C /* OptionsView.swift */,
+				29DFDEBD2BC5177F00791434 /* OptionsSectionsView.swift */,
 			);
 			path = Options;
 			sourceTree = "<group>";
@@ -122,6 +129,7 @@
 		29C162C02B848CC4002E185D /* MixPuzzle */ = {
 			isa = PBXGroup;
 			children = (
+				29DFDEB82BC50D9500791434 /* Colors */,
 				29A225472B89E0A2009ECD1C /* Options */,
 				29EB775B2B872DF900A494A0 /* Start */,
 				29C162D32B8491DA002E185D /* puzzle.scnassets */,
@@ -149,6 +157,15 @@
 				2979B7152BBFDEF5000839D3 /* Scene */,
 			);
 			path = Menu;
+			sourceTree = "<group>";
+		};
+		29DFDEB82BC50D9500791434 /* Colors */ = {
+			isa = PBXGroup;
+			children = (
+				29DFDEB92BC50D9500791434 /* Colors.swift */,
+				29DFDEBA2BC50D9500791434 /* Colors.xcassets */,
+			);
+			path = Colors;
 			sourceTree = "<group>";
 		};
 		29EB775B2B872DF900A494A0 /* Start */ = {
@@ -225,6 +242,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				29C162CA2B848CC5002E185D /* Preview Assets.xcassets in Resources */,
+				29DFDEBC2BC50D9500791434 /* Colors.xcassets in Resources */,
 				29C162C62B848CC5002E185D /* Assets.xcassets in Resources */,
 				29C162D42B8491DA002E185D /* puzzle.scnassets in Resources */,
 			);
@@ -242,8 +260,10 @@
 				29D3D1A32B8A0BF600E3EE6A /* StartScene.swift in Sources */,
 				29C162D22B848D89002E185D /* MenuScene.swift in Sources */,
 				29A070332B91A5940078EB8D /* StartFactory.swift in Sources */,
+				29DFDEBB2BC50D9500791434 /* Colors.swift in Sources */,
 				29C162C42B848CC4002E185D /* MenuView.swift in Sources */,
 				291A07EE2BC173D6008B4246 /* StartScoreView.swift in Sources */,
+				29DFDEBE2BC5177F00791434 /* OptionsSectionsView.swift in Sources */,
 				291A07F12BC198F8008B4246 /* StarsWorker.swift in Sources */,
 				29A225492B89E0C5009ECD1C /* OptionsView.swift in Sources */,
 				2979B7182BBFDF3C000839D3 /* MenuSceneWrapper.swift in Sources */,

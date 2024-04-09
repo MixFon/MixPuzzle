@@ -16,61 +16,32 @@ struct OptionsView: View {
 	}
 	
 	var body: some View {
-		OptionsSectionsView(title: "Hello", cells: [
-			CellView(icon: "plus", text: "Hello", action: { print(1) }),
-			CellView(icon: "checkmark", text: "word", action: { print(2) }),
-		])
-		.padding()
-		OptionsSectionsView(title: "Two", cells: [
-			CellView(icon: "plus", text: "Hello", action: { print(1) }),
-			CellView(icon: "checkmark", text: "word", action: { print(2) }),
-			CellView(icon: "checkmark", text: "text text", action: { print(2) }),
-		])
-		.padding()
-		Spacer()
-	}
-}
-
-
-struct OptionsSectionsView: View {
-	let title: String
-	let cells: [CellView]
-	
-	var body: some View {
-		VStack(alignment: .leading, spacing: 16) {
-			Text(title)
-				.bold()
-			VStack(spacing: 8) {
-				ForEach(cells) { cell in
-					cell
-					Divider()
-						.padding(.leading, 30)
+		NavigationView {
+			VStack {
+				OptionsSectionsView(title: "Garaphics", cells: [
+					CellView(icon: "cube", text: "Cube", action: { print(1) }),
+					CellView(icon: "moon.stars", text: "Stars", action: { print(2) }),
+				])
+				.padding()
+				Spacer()
+			}
+			.background(Color.mm_background_secondary)
+		}
+		.toolbar {
+			ToolbarItem(placement: .topBarLeading) {
+				Button(action: {
+					self.router = nil
+				}) {
+					HStack {
+						Image(systemName: "arrow.left") // Кастомная иконка
+							.foregroundColor(Color.mm_tint_primary)
+					}
 				}
+				.buttonStyle(.plain)
 			}
 		}
-		.padding()
-		.background(.gray)
-		.cornerRadius(16)
-	}
-}
-
-struct CellView: View, Identifiable {
-	let id = UUID()
-	let icon: String
-	let text: String
-	let action: ()->()
-	
-	var body: some View {
-		Button(action: action, label: {
-			HStack {
-				Image(systemName: icon)
-					.buttonStyle(.plain)
-				Text(text)
-				Spacer()
-				Image(systemName: "chevron.right")
-					.foregroundColor(.black) // Цвет шеврона
-			}
-		})
+		.navigationBarBackButtonHidden()
+		.navigationTitle("Options") // Заголовок для Navigation Bar
 		.buttonStyle(.plain)
 	}
 }
