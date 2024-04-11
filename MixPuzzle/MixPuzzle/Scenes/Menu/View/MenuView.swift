@@ -25,7 +25,7 @@ struct MenuView: View {
 		NavigationView {
 			ZStack {
 				NavigationLink(destination: StartView(router: $router), tag: Router.toStart, selection: $router) { }
-				NavigationLink(destination: OptionsView(router: $router), tag: Router.toOprionts, selection: $router) { }
+				NavigationLink(destination: OptionsView(), tag: Router.toOprionts, selection: $router) { }
 				MenuSceneWrapper(router: $router)
 			}
 			.edgesIgnoringSafeArea(.all)

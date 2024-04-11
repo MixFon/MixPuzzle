@@ -9,17 +9,20 @@ import SwiftUI
 
 struct OptionsView: View {
 	
-    @Binding var router: MenuView.Router?
+	@State var optionsRouter: OptionsViewRouter? = nil
+	@Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
 	
-	enum OptionsViewRouter: Codable {
-		case to
+	enum OptionsViewRouter: Hashable {
+		case toBox
+		case toStars
 	}
 	
 	var body: some View {
-		NavigationView {
+		ZStack {
+			NavigationLink(destination: SettingsCubeView(), tag: OptionsViewRouter.toBox, selection: $optionsRouter) { }
 			VStack {
 				OptionsSectionsView(title: "Garaphics", cells: [
-					CellView(icon: "cube", text: "Cube", action: { print(1) }),
+					CellView(icon: "cube", text: "Cube", action: { optionsRouter = .toBox }),
 					CellView(icon: "moon.stars", text: "Stars", action: { print(2) }),
 				])
 				.padding()
@@ -30,7 +33,7 @@ struct OptionsView: View {
 		.toolbar {
 			ToolbarItem(placement: .topBarLeading) {
 				Button(action: {
-					self.router = nil
+					self.presentationMode.wrappedValue.dismiss()
 				}) {
 					HStack {
 						Image(systemName: "arrow.left") // Кастомная иконка
@@ -47,6 +50,5 @@ struct OptionsView: View {
 }
 
 #Preview {
-    @State var router: MenuView.Router? = .toStart
-    return OptionsView(router: $router)
+    return OptionsView()
 }
