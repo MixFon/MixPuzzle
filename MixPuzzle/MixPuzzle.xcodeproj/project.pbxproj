@@ -10,6 +10,10 @@
 		291A07EE2BC173D6008B4246 /* StartScoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291A07ED2BC173D6008B4246 /* StartScoreView.swift */; };
 		291A07F12BC198F8008B4246 /* StarsWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291A07F02BC198F8008B4246 /* StarsWorker.swift */; };
 		2944D6DC2BC871A6001F1A82 /* SettingsCubeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2944D6DB2BC871A6001F1A82 /* SettingsCubeView.swift */; };
+		2944D6DF2BC91166001F1A82 /* BackButtonToolbarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2944D6DE2BC91166001F1A82 /* BackButtonToolbarItem.swift */; };
+		2944D6E32BC9163C001F1A82 /* SettingsCubeWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2944D6E22BC9163C001F1A82 /* SettingsCubeWrapper.swift */; };
+		2944D6E52BC916F9001F1A82 /* SettingsCubeFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2944D6E42BC916F9001F1A82 /* SettingsCubeFactory.swift */; };
+		2944D6E72BC91770001F1A82 /* SettingsCubeScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2944D6E62BC9176F001F1A82 /* SettingsCubeScene.swift */; };
 		2979B7142BBFDE5D000839D3 /* StartSceneWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2979B7132BBFDE5D000839D3 /* StartSceneWrapper.swift */; };
 		2979B7182BBFDF3C000839D3 /* MenuSceneWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2979B7172BBFDF3C000839D3 /* MenuSceneWrapper.swift */; };
 		2985064E2B8B53A300028FA9 /* BoxesWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2985064D2B8B53A300028FA9 /* BoxesWorker.swift */; };
@@ -33,6 +37,10 @@
 		291A07ED2BC173D6008B4246 /* StartScoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartScoreView.swift; sourceTree = "<group>"; };
 		291A07F02BC198F8008B4246 /* StarsWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarsWorker.swift; sourceTree = "<group>"; };
 		2944D6DB2BC871A6001F1A82 /* SettingsCubeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCubeView.swift; sourceTree = "<group>"; };
+		2944D6DE2BC91166001F1A82 /* BackButtonToolbarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButtonToolbarItem.swift; sourceTree = "<group>"; };
+		2944D6E22BC9163C001F1A82 /* SettingsCubeWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCubeWrapper.swift; sourceTree = "<group>"; };
+		2944D6E42BC916F9001F1A82 /* SettingsCubeFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCubeFactory.swift; sourceTree = "<group>"; };
+		2944D6E62BC9176F001F1A82 /* SettingsCubeScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCubeScene.swift; sourceTree = "<group>"; };
 		2979B7132BBFDE5D000839D3 /* StartSceneWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartSceneWrapper.swift; sourceTree = "<group>"; };
 		2979B7172BBFDF3C000839D3 /* MenuSceneWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuSceneWrapper.swift; sourceTree = "<group>"; };
 		2985064D2B8B53A300028FA9 /* BoxesWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxesWorker.swift; sourceTree = "<group>"; };
@@ -68,6 +76,8 @@
 		2944D6D92BC870FD001F1A82 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				2944D6E82BC91E96001F1A82 /* Workers */,
+				2944D6DD2BC910FB001F1A82 /* Common */,
 				2944D6DA2BC87167001F1A82 /* SettingsCubeView */,
 				29A225472B89E0A2009ECD1C /* Options */,
 				29EB775B2B872DF900A494A0 /* Start */,
@@ -80,18 +90,52 @@
 		2944D6DA2BC87167001F1A82 /* SettingsCubeView */ = {
 			isa = PBXGroup;
 			children = (
-				2944D6DB2BC871A6001F1A82 /* SettingsCubeView.swift */,
+				2944D6E12BC915F1001F1A82 /* Scene */,
+				2944D6E02BC915E9001F1A82 /* View */,
 			);
 			path = SettingsCubeView;
+			sourceTree = "<group>";
+		};
+		2944D6DD2BC910FB001F1A82 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				2944D6DE2BC91166001F1A82 /* BackButtonToolbarItem.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		2944D6E02BC915E9001F1A82 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				2944D6DB2BC871A6001F1A82 /* SettingsCubeView.swift */,
+				2944D6E22BC9163C001F1A82 /* SettingsCubeWrapper.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		2944D6E12BC915F1001F1A82 /* Scene */ = {
+			isa = PBXGroup;
+			children = (
+				2944D6E42BC916F9001F1A82 /* SettingsCubeFactory.swift */,
+				2944D6E62BC9176F001F1A82 /* SettingsCubeScene.swift */,
+			);
+			path = Scene;
+			sourceTree = "<group>";
+		};
+		2944D6E82BC91E96001F1A82 /* Workers */ = {
+			isa = PBXGroup;
+			children = (
+				2985064D2B8B53A300028FA9 /* BoxesWorker.swift */,
+				291A07F02BC198F8008B4246 /* StarsWorker.swift */,
+			);
+			path = Workers;
 			sourceTree = "<group>";
 		};
 		2979B7112BBFDDB3000839D3 /* Scene */ = {
 			isa = PBXGroup;
 			children = (
-				2985064D2B8B53A300028FA9 /* BoxesWorker.swift */,
 				29A070322B91A5940078EB8D /* StartFactory.swift */,
 				29D3D1A22B8A0BF600E3EE6A /* StartScene.swift */,
-				291A07F02BC198F8008B4246 /* StarsWorker.swift */,
 			);
 			path = Scene;
 			sourceTree = "<group>";
@@ -278,7 +322,10 @@
 				29EB775D2B872E0D00A494A0 /* StartView.swift in Sources */,
 				29D3D1A32B8A0BF600E3EE6A /* StartScene.swift in Sources */,
 				2944D6DC2BC871A6001F1A82 /* SettingsCubeView.swift in Sources */,
+				2944D6E52BC916F9001F1A82 /* SettingsCubeFactory.swift in Sources */,
+				2944D6DF2BC91166001F1A82 /* BackButtonToolbarItem.swift in Sources */,
 				29C162D22B848D89002E185D /* MenuScene.swift in Sources */,
+				2944D6E72BC91770001F1A82 /* SettingsCubeScene.swift in Sources */,
 				29A070332B91A5940078EB8D /* StartFactory.swift in Sources */,
 				29DFDEBB2BC50D9500791434 /* Colors.swift in Sources */,
 				29C162C42B848CC4002E185D /* MenuView.swift in Sources */,
@@ -289,6 +336,7 @@
 				2979B7182BBFDF3C000839D3 /* MenuSceneWrapper.swift in Sources */,
 				29C162C22B848CC4002E185D /* MixPuzzleApp.swift in Sources */,
 				2985064E2B8B53A300028FA9 /* BoxesWorker.swift in Sources */,
+				2944D6E32BC9163C001F1A82 /* SettingsCubeWrapper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

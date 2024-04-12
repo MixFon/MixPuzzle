@@ -12,22 +12,15 @@ struct SettingsCubeView: View {
 	@Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
 	
     var body: some View {
+		SettingsCubeWrapper()
 		Text("Hello, World!")
 			.toolbar {
-				ToolbarItem(placement: .topBarLeading) {
-					Button(action: {
-						self.presentationMode.wrappedValue.dismiss()
-					}) {
-						HStack {
-							Image(systemName: "arrow.left") // Кастомная иконка
-								.foregroundColor(Color.mm_tint_primary)
-						}
-					}
-					.buttonStyle(.plain)
+				BackButtonToolbarItem {
+					self.presentationMode.wrappedValue.dismiss()
 				}
 			}
 			.navigationBarBackButtonHidden()
-			.navigationTitle("Settings Cubes") // Заголовок для Navigation Bar
+			.navigationTitle("Settings Cubes")
 			.buttonStyle(.plain)
 	}
 }

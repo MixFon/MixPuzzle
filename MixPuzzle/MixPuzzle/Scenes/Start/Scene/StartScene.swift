@@ -49,19 +49,6 @@ struct StartScene: UIViewRepresentable {
 		ambientLightNode.light?.color = UIColor.darkGray.cgColor
 		return ambientLightNode
 	}()
-	
-	/*
-	private let starsNode: SCNNode = {
-		let starsGeometry = SCNSphere(radius: 80)
-		let starsMaterial = SCNMaterial()
-		starsMaterial.diffuse.contents = UIImage(named: "gud1000") // Замените "stars.jpg" на имя вашей текстуры звездного неба
-		starsMaterial.isDoubleSided = true // Сделать материал двусторонним
-		starsGeometry.materials = [starsMaterial]
-		
-		let starsNode = SCNNode(geometry: starsGeometry)
-		return starsNode
-	}()
-	 */
     
     func makeUIView(context: Context) -> SCNView {
         self.scene.rootNode.addChildNode(self.lightNode)
@@ -132,12 +119,4 @@ struct StartScene: UIViewRepresentable {
         }
     }
     
-}
-
-extension StartScene: Equatable {
-
-	static func == (lhs: StartScene, rhs: StartScene) -> Bool {
-		return false
-	}
-	
 }

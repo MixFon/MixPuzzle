@@ -46,6 +46,10 @@ final class BoxesWorker: _BoxesWorker {
     init(grid: Grid) {
         self.grid = grid
     }
+	
+	init() {
+        self.grid = Grid(matrix: [[]])
+	}
 
     func crateMatrixBox() -> [SCNNode] {
         return createNodesFormMatrix(matrix: self.grid.matrix)

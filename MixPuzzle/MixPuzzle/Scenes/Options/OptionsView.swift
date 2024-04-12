@@ -9,12 +9,13 @@ import SwiftUI
 
 struct OptionsView: View {
 	
-	@State var optionsRouter: OptionsViewRouter? = nil
+	@State private var optionsRouter: OptionsViewRouter? = nil
 	@Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
 	
 	enum OptionsViewRouter: Hashable {
 		case toBox
 		case toStars
+		case toLanguage
 	}
 	
 	var body: some View {
@@ -26,25 +27,21 @@ struct OptionsView: View {
 					CellView(icon: "moon.stars", text: "Stars", action: { print(2) }),
 				])
 				.padding()
+				OptionsSectionsView(title: "Application", cells: [
+					CellView(icon: "globe", text: "Language", action: { optionsRouter = .toLanguage }),
+				])
+				.padding()
 				Spacer()
 			}
 			.background(Color.mm_background_secondary)
 		}
 		.toolbar {
-			ToolbarItem(placement: .topBarLeading) {
-				Button(action: {
-					self.presentationMode.wrappedValue.dismiss()
-				}) {
-					HStack {
-						Image(systemName: "arrow.left") // Кастомная иконка
-							.foregroundColor(Color.mm_tint_primary)
-					}
-				}
-				.buttonStyle(.plain)
+			BackButtonToolbarItem {
+				self.presentationMode.wrappedValue.dismiss()
 			}
 		}
 		.navigationBarBackButtonHidden()
-		.navigationTitle("Options") // Заголовок для Navigation Bar
+		.navigationTitle("Options")
 		.buttonStyle(.plain)
 	}
 }
