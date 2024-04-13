@@ -23,12 +23,13 @@ struct OptionsView: View {
 			NavigationLink(destination: SettingsCubeView(), tag: OptionsViewRouter.toBox, selection: $optionsRouter) { }
 			VStack {
 				OptionsSectionsView(title: "Garaphics", cells: [
-					CellView(icon: "cube", text: "Cube", action: { optionsRouter = .toBox }),
-					CellView(icon: "moon.stars", text: "Stars", action: { print(2) }),
+					AnyView(CellView(icon: "cube", text: "Cube", action: { optionsRouter = .toBox })),
+					AnyView(CellView(icon: "moon.stars", text: "Stars", action: { print(2) })),
 				])
 				.padding()
 				OptionsSectionsView(title: "Application", cells: [
-					CellView(icon: "globe", text: "Language", action: { optionsRouter = .toLanguage }),
+					AnyView(CellView(icon: "globe", text: "Language", action: { optionsRouter = .toLanguage })),
+					AnyView(CellView(icon: "waveform.path", text: "Vibration", action: { optionsRouter = .toLanguage })),
 				])
 				.padding()
 				Spacer()
@@ -47,5 +48,7 @@ struct OptionsView: View {
 }
 
 #Preview {
-    return OptionsView()
+	NavigationView {
+		OptionsView()
+	}
 }

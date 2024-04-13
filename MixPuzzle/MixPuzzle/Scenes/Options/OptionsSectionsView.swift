@@ -10,7 +10,7 @@ import Foundation
 
 struct OptionsSectionsView: View {
 	let title: String
-	let cells: [CellView]
+	let cells: [AnyView]
 	
 	var body: some View {
 		VStack(alignment: .leading, spacing: 16) {
@@ -68,14 +68,14 @@ struct DividerView: View {
 #Preview {
 	VStack {
 		OptionsSectionsView(title: "Hello", cells: [
-			CellView(icon: "plus", text: "Hello", action: { print(1) }),
-			CellView(icon: "checkmark", text: "word", action: { print(2) }),
+			AnyView(CellView(icon: "plus", text: "Hello", action: { print(1) })),
+			AnyView(CellView(icon: "checkmark", text: "word", action: { print(2) })),
 		])
 		.padding()
 		OptionsSectionsView(title: "Two", cells: [
-			CellView(icon: "plus", text: "Hello", action: { print(1) }),
-			CellView(icon: "checkmark", text: "word", action: { print(2) }),
-			CellView(icon: "checkmark", text: "text text", action: { print(2) }),
+			AnyView(CellView(icon: "plus", text: "Hello", action: { print(1) })),
+			AnyView(CellView(icon: "checkmark", text: "word", action: { print(2) })),
+			AnyView(CellView(icon: "checkmark", text: "text text", action: { print(2) })),
 		])
 		.padding()
 		Spacer()
