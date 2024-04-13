@@ -13,8 +13,6 @@ struct SettingsCubeScene: UIViewRepresentable {
 	
 	let boxWorker: _BoxesWorker
 	
-	private let generator = UINotificationFeedbackGenerator()
-	
 	private let scene: SCNScene = {
 		let scene = SCNScene()
 		return scene
@@ -35,7 +33,7 @@ struct SettingsCubeScene: UIViewRepresentable {
 		let lightNode = SCNNode()
 		lightNode.light = SCNLight()
 		lightNode.light?.type = .omni
-		lightNode.position = SCNVector3(x: 0, y: 10, z: 10)
+		lightNode.position = SCNVector3(x: 0, y: 12, z: 12)
 		return lightNode
 	}()
 	
@@ -52,7 +50,10 @@ struct SettingsCubeScene: UIViewRepresentable {
 		self.scene.rootNode.addChildNode(self.cameraNode)
 		self.scene.rootNode.addChildNode(self.ambientLightNode)
 		
-		
+		let cube = self.boxWorker.getBox(textImage: "21", lengthEdge: 4)
+		cube.position = SCNVector3(x: 0, y: 0, z: 0)
+		self.scene.rootNode.addChildNode(cube)
+		self.cameraNode.position = SCNVector3(x: 0, y: 0, z: 8)
 		
 		let tapGesture = UITapGestureRecognizer(target: context.coordinator, action: #selector(context.coordinator.handleTap(_:)))
 		self.scnView.addGestureRecognizer(tapGesture)
@@ -64,8 +65,6 @@ struct SettingsCubeScene: UIViewRepresentable {
 		uiView.scene = scene
 		// allows the user to manipulate the camera
 		uiView.allowsCameraControl = true
-		// show statistics such as fps and timing information
-		uiView.showsStatistics = true
 		// configure the view
 		uiView.backgroundColor = UIColor.black
 	}
@@ -82,16 +81,7 @@ struct SettingsCubeScene: UIViewRepresentable {
 		// Обработка результата нажатия
 		if let hitNode = hitResults.first?.node {
 			// Обнаружен узел, который был касаем
-			self.generator.prepare()
-		
-			if let hitNodeName = hitNode.name, let number = UInt8(hitNodeName), let moveToZeroAction = self.boxWorker.createMoveToZeroAction(number: number) {
-				hitNode.runAction(moveToZeroAction)
-				self.generator.notificationOccurred(.success)
-			} else {
-				let shameAnimation = self.boxWorker.createShakeAnimation(position: hitNode.position)
-				hitNode.addAnimation(shameAnimation, forKey: "shake")
-				self.generator.notificationOccurred(.error)
-			}
+			
 		}
 	}
 

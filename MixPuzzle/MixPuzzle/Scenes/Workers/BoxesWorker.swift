@@ -9,7 +9,14 @@ import MFPuzzle
 import SceneKit
 
 protocol _BoxesWorker {
+	
 	var centreMatrix: SCNVector3 { get }
+	
+	/// Возвращает кубик с текстом-картинкой
+	/// - textImage - текст который будет в круге
+	/// - lengthEdge - длина ребра кубика
+	func getBox(textImage: String, lengthEdge: CGFloat) -> SCNNode
+	
     func crateMatrixBox() -> [SCNNode]
 	func createShakeAnimation(position: SCNVector3) -> CAKeyframeAnimation
     func calculateCameraPosition() -> SCNVector3
@@ -32,7 +39,7 @@ final class BoxesWorker: _BoxesWorker {
 		return SCNVector3(x: Float(centreX / 2), y: Float(-centreY / 2), z: 0)
 	}
     
-    private struct Box {
+    struct Box {
 		let point: Point
         let number: Int
         let lengthEdge: CGFloat
@@ -90,6 +97,34 @@ final class BoxesWorker: _BoxesWorker {
 		return animation
 	}
 	
+	func getBox(textImage: String, lengthEdge: CGFloat) -> SCNNode {
+		let boxNode = SCNNode()
+		boxNode.geometry = SCNBox(width: lengthEdge, height: lengthEdge, length: lengthEdge, chamferRadius: 1)
+
+		//let im = UIImage(systemName: "\(box.number).circle.fill")
+		let im = imageWith(textImage: textImage)
+		
+		let material = SCNMaterial()
+		// Является базой для поверхности
+		material.diffuse.contents = im
+		
+		// Отвечат за металический отблеск
+		material.specular.contents = UIImage(named: "bubble", in: nil, with: nil)
+		
+		// Отвечает за зеркальный отблеск, в отражени будут обекты, переданные в contents
+		//material.reflective.contents = UIImage(named: "bubble", in: nil, with: nil)
+		
+		// Используется для затемнения или тонирования. Можно использовать как теневую карту
+		//material.multiply.contents = im
+		
+		// Можно имитировать облака
+		//material.transparent.contents = UIImage(named: "bubble", in: nil, with: nil)
+		//material.ambient.contents =
+		
+		boxNode.geometry?.firstMaterial = material
+		return boxNode
+	}
+	
 	private func getBoxPoint(i: Int, j: Int) -> Box.Point {
 		let verticalEdge = self.lengthEdge + self.verticalPadding
 		let horisontalEdge = self.lengthEdge + self.horisontalPadding
@@ -118,45 +153,22 @@ final class BoxesWorker: _BoxesWorker {
     }
     
     private func getBox(box: Box) -> SCNNode {
-        let boxNode = SCNNode()
-        let lengthEdge = box.lengthEdge
-        boxNode.geometry = SCNBox(width: lengthEdge, height: lengthEdge, length: lengthEdge, chamferRadius: 1)
 		let name = "\(box.number)"
+		let boxNode = getBox(textImage: name, lengthEdge: box.lengthEdge)
 		boxNode.name = name
-        //let im = UIImage(systemName: "\(box.number).circle.fill")
-        let im = imageWith(name: name)
-        
-        let material = SCNMaterial()
-        // Является базой для поверхности
-        material.diffuse.contents = im
-        
-        // Отвечат за металический отблеск
-        material.specular.contents = UIImage(named: "bubble", in: nil, with: nil)
-        
-        // Отвечает за зеркальный отблеск, в отражени будут обекты, переданные в contents
-        //material.reflective.contents = UIImage(named: "bubble", in: nil, with: nil)
-        
-        // Используется для затемнения или тонирования. Можно использовать как теневую карту
-        //material.multiply.contents = im
-        
-        // Можно имитировать облака
-        //material.transparent.contents = UIImage(named: "bubble", in: nil, with: nil)
-        //material.ambient.contents =
-        
-        boxNode.geometry?.firstMaterial = material
 		boxNode.position = SCNVector3(box.point.y, -box.point.x, 0)
         return boxNode
     }
     
     /// Создание изображения по тексту. Создает текст в круге.
-    private func imageWith(name: String?) -> UIImage? {
+    private func imageWith(textImage: String) -> UIImage? {
         let frame = CGRect(x: 25, y: 25, width: 50, height: 50)
         let nameLabel = UILabel(frame: frame)
         nameLabel.textAlignment = .center
         nameLabel.backgroundColor = .blue
         nameLabel.textColor = .white
         nameLabel.font = UIFont.boldSystemFont(ofSize: 30)
-        nameLabel.text = name
+        nameLabel.text = textImage
         nameLabel.layer.cornerRadius = 10
         nameLabel.layer.masksToBounds = true
         let viewFrame = CGRect(x: 0, y: 0, width: 100, height: 100)

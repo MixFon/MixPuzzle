@@ -13,6 +13,13 @@ struct SettingsCubeView: View {
 	
     var body: some View {
 		SettingsCubeWrapper()
+			.aspectRatio(contentMode: .fit)
+			.cornerRadius(10)
+			.padding()
+			.background(Color.mm_background_tertiary)
+		Button("Button") {
+			print("pressme")
+		}
 		Text("Hello, World!")
 			.toolbar {
 				BackButtonToolbarItem {
@@ -22,9 +29,10 @@ struct SettingsCubeView: View {
 			.navigationBarBackButtonHidden()
 			.navigationTitle("Settings Cubes")
 			.buttonStyle(.plain)
+		Spacer()
 	}
 }
 
 #Preview {
-	return SettingsCubeView()
+	SettingsCubeView()
 }
