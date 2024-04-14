@@ -11,8 +11,9 @@ import Foundation
 
 final class SettingsCubeFactory {
 	
-	func configure() -> some View {
-		let boxWorker = BoxesWorker()
-		return SettingsCubeScene(boxWorker: boxWorker)
+	func configure(dependency: SettingsCubeDependency) -> some View {
+		let imageWorker = ImageWorker()
+		let cubeWorker = CubeWorker(imageWorker: imageWorker)
+		return SettingsCubeScene(cubeWorker: cubeWorker, imageWorker: imageWorker, dependency: dependency)
 	}
 }

@@ -4,6 +4,8 @@
 //
 //  Created by Михаил Фокин on 12.04.2024.
 //
+
+import Combine
 import SwiftUI
 import SceneKit
 import MFPuzzle
@@ -11,7 +13,18 @@ import Foundation
 
 struct SettingsCubeScene: UIViewRepresentable {
 	
-	let boxWorker: _BoxesWorker
+	private let cubeWorker: _CubeWorker
+	private let dependency: SettingsCubeDependency
+	private let imageWorker: _ImageWorker
+	
+	private var cancellables = Set<AnyCancellable>()
+	
+	init(cubeWorker: _CubeWorker,imageWorker: _ImageWorker, dependency: SettingsCubeDependency) {
+		self.cubeWorker = cubeWorker
+		self.dependency = dependency
+		self.imageWorker = imageWorker
+		self.scene.rootNode.addChildNode(self.cube)
+	}
 	
 	private let scene: SCNScene = {
 		let scene = SCNScene()
@@ -26,6 +39,7 @@ struct SettingsCubeScene: UIViewRepresentable {
 	private let cameraNode: SCNNode = {
 		let cameraNode = SCNNode()
 		cameraNode.camera = SCNCamera()
+		cameraNode.position = SCNVector3(x: 0, y: 0, z: 8)
 		return cameraNode
 	}()
 	
@@ -45,15 +59,25 @@ struct SettingsCubeScene: UIViewRepresentable {
 		return ambientLightNode
 	}()
 	
+	private lazy var cube: SCNNode = {
+		let cube = self.cubeWorker.getCube(textImage: "21", lengthEdge: 4)
+		cube.position = SCNVector3(x: 0, y: 0, z: 0)
+		
+		let worker = self.imageWorker
+		self.dependency.$radius.sink { temp in
+			print(temp)
+		} receiveValue: { double in
+			print(double)
+			let im = worker.imageWith(textImage: "21", radius: double)
+			cube.geometry?.firstMaterial?.diffuse.contents = im
+		}.store(in: &cancellables)
+		return cube
+	}()
+	
 	func makeUIView(context: Context) -> SCNView {
 		self.scene.rootNode.addChildNode(self.lightNode)
 		self.scene.rootNode.addChildNode(self.cameraNode)
 		self.scene.rootNode.addChildNode(self.ambientLightNode)
-		
-		let cube = self.boxWorker.getBox(textImage: "21", lengthEdge: 4)
-		cube.position = SCNVector3(x: 0, y: 0, z: 0)
-		self.scene.rootNode.addChildNode(cube)
-		self.cameraNode.position = SCNVector3(x: 0, y: 0, z: 8)
 		
 		let tapGesture = UITapGestureRecognizer(target: context.coordinator, action: #selector(context.coordinator.handleTap(_:)))
 		self.scnView.addGestureRecognizer(tapGesture)
@@ -71,6 +95,10 @@ struct SettingsCubeScene: UIViewRepresentable {
 	
 	func makeCoordinator() -> Coordinator {
 		Coordinator(gesture: handleTap)
+	}
+	
+	private mutating func setNewImageOnCube(radius: Double) {
+
 	}
 	
 	private func handleTap(_ gestureRecognize: UIGestureRecognizer) {

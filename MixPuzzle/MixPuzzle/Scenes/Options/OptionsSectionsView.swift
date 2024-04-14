@@ -56,6 +56,30 @@ struct CellView: View, Identifiable {
 	}
 }
 
+struct SliderCellView: View, Identifiable {
+	let id = UUID()
+	let title: String
+	let range: ClosedRange<Double>
+
+	@Binding var radius: Double
+	
+	var body: some View {
+		VStack {
+			HStack {
+				Text(self.title)
+					.foregroundStyle(Color.mm_text_primary)
+				Spacer()
+				Text("\(radius, specifier: "%.f")")
+					.foregroundStyle(Color.mm_text_primary)
+			}
+			Slider(value: $radius, in: range, onEditingChanged: { editing in
+				print(editing)
+			})
+			.accentColor(Color.mm_green) // Изменяем цвет трека
+		}
+	}
+}
+
 
 struct DividerView: View {
 	var body: some View {
@@ -66,7 +90,8 @@ struct DividerView: View {
 }
 
 #Preview {
-	VStack {
+	@State var radius: Double = 10.0
+	return VStack {
 		OptionsSectionsView(title: "Hello", cells: [
 			AnyView(CellView(icon: "plus", text: "Hello", action: { print(1) })),
 			AnyView(CellView(icon: "checkmark", text: "word", action: { print(2) })),
@@ -76,6 +101,10 @@ struct DividerView: View {
 			AnyView(CellView(icon: "plus", text: "Hello", action: { print(1) })),
 			AnyView(CellView(icon: "checkmark", text: "word", action: { print(2) })),
 			AnyView(CellView(icon: "checkmark", text: "text text", action: { print(2) })),
+		])
+		.padding()
+		OptionsSectionsView(title: "Two", cells: [
+			AnyView(SliderCellView(title: "Hello", range: 0...30, radius: $radius)),
 		])
 		.padding()
 		Spacer()

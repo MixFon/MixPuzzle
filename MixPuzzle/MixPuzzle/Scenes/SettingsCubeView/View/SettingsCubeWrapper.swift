@@ -10,15 +10,16 @@ import Foundation
 
 struct SettingsCubeWrapper: View {
 	
+	let dependency: SettingsCubeDependency
 	private let factory = SettingsCubeFactory()
 	
 	var body: some View {
-		self.factory.configure()
+		self.factory.configure(dependency: self.dependency)
 	}
 }
 
 extension SettingsCubeWrapper: Equatable {
 	static func == (lhs: SettingsCubeWrapper, rhs: SettingsCubeWrapper) -> Bool {
-		return true
+		return lhs.dependency.radius == rhs.dependency.radius
 	}
 }

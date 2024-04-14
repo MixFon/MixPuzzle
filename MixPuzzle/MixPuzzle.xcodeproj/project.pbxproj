@@ -14,6 +14,8 @@
 		2944D6E32BC9163C001F1A82 /* SettingsCubeWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2944D6E22BC9163C001F1A82 /* SettingsCubeWrapper.swift */; };
 		2944D6E52BC916F9001F1A82 /* SettingsCubeFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2944D6E42BC916F9001F1A82 /* SettingsCubeFactory.swift */; };
 		2944D6E72BC91770001F1A82 /* SettingsCubeScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2944D6E62BC9176F001F1A82 /* SettingsCubeScene.swift */; };
+		2944D6EC2BCC4C94001F1A82 /* ImageWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2944D6EB2BCC4C94001F1A82 /* ImageWorker.swift */; };
+		2944D6EE2BCC4FFD001F1A82 /* CubeWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2944D6ED2BCC4FFD001F1A82 /* CubeWorker.swift */; };
 		2979B7142BBFDE5D000839D3 /* StartSceneWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2979B7132BBFDE5D000839D3 /* StartSceneWrapper.swift */; };
 		2979B7182BBFDF3C000839D3 /* MenuSceneWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2979B7172BBFDF3C000839D3 /* MenuSceneWrapper.swift */; };
 		2985064E2B8B53A300028FA9 /* BoxesWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2985064D2B8B53A300028FA9 /* BoxesWorker.swift */; };
@@ -41,6 +43,8 @@
 		2944D6E22BC9163C001F1A82 /* SettingsCubeWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCubeWrapper.swift; sourceTree = "<group>"; };
 		2944D6E42BC916F9001F1A82 /* SettingsCubeFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCubeFactory.swift; sourceTree = "<group>"; };
 		2944D6E62BC9176F001F1A82 /* SettingsCubeScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCubeScene.swift; sourceTree = "<group>"; };
+		2944D6EB2BCC4C94001F1A82 /* ImageWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageWorker.swift; sourceTree = "<group>"; };
+		2944D6ED2BCC4FFD001F1A82 /* CubeWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CubeWorker.swift; sourceTree = "<group>"; };
 		2979B7132BBFDE5D000839D3 /* StartSceneWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartSceneWrapper.swift; sourceTree = "<group>"; };
 		2979B7172BBFDF3C000839D3 /* MenuSceneWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuSceneWrapper.swift; sourceTree = "<group>"; };
 		2985064D2B8B53A300028FA9 /* BoxesWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxesWorker.swift; sourceTree = "<group>"; };
@@ -127,6 +131,8 @@
 			children = (
 				2985064D2B8B53A300028FA9 /* BoxesWorker.swift */,
 				291A07F02BC198F8008B4246 /* StarsWorker.swift */,
+				2944D6EB2BCC4C94001F1A82 /* ImageWorker.swift */,
+				2944D6ED2BCC4FFD001F1A82 /* CubeWorker.swift */,
 			);
 			path = Workers;
 			sourceTree = "<group>";
@@ -330,11 +336,13 @@
 				29DFDEBB2BC50D9500791434 /* Colors.swift in Sources */,
 				29C162C42B848CC4002E185D /* MenuView.swift in Sources */,
 				291A07EE2BC173D6008B4246 /* StartScoreView.swift in Sources */,
+				2944D6EE2BCC4FFD001F1A82 /* CubeWorker.swift in Sources */,
 				29DFDEBE2BC5177F00791434 /* OptionsSectionsView.swift in Sources */,
 				291A07F12BC198F8008B4246 /* StarsWorker.swift in Sources */,
 				29A225492B89E0C5009ECD1C /* OptionsView.swift in Sources */,
 				2979B7182BBFDF3C000839D3 /* MenuSceneWrapper.swift in Sources */,
 				29C162C22B848CC4002E185D /* MixPuzzleApp.swift in Sources */,
+				2944D6EC2BCC4C94001F1A82 /* ImageWorker.swift in Sources */,
 				2985064E2B8B53A300028FA9 /* BoxesWorker.swift in Sources */,
 				2944D6E32BC9163C001F1A82 /* SettingsCubeWrapper.swift in Sources */,
 			);

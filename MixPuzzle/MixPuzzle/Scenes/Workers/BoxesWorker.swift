@@ -12,11 +12,6 @@ protocol _BoxesWorker {
 	
 	var centreMatrix: SCNVector3 { get }
 	
-	/// Возвращает кубик с текстом-картинкой
-	/// - textImage - текст который будет в круге
-	/// - lengthEdge - длина ребра кубика
-	func getBox(textImage: String, lengthEdge: CGFloat) -> SCNNode
-	
     func crateMatrixBox() -> [SCNNode]
 	func createShakeAnimation(position: SCNVector3) -> CAKeyframeAnimation
     func calculateCameraPosition() -> SCNVector3
@@ -32,6 +27,8 @@ final class BoxesWorker: _BoxesWorker {
 	/// Длительность анимации передвижения в позицию 0
 	private let animationDuration: TimeInterval = 0.2
     private let horisontalPadding: CGFloat = 0.2
+	
+	private let cubeWorker: _CubeWorker
 	
 	var centreMatrix: SCNVector3 {
 		let centreX = CGFloat(self.grid.size) * (self.lengthEdge + self.horisontalPadding) - self.horisontalPadding - self.lengthEdge
@@ -50,13 +47,10 @@ final class BoxesWorker: _BoxesWorker {
 		}
     }
     
-    init(grid: Grid) {
+	init(grid: Grid, cubeWorker: _CubeWorker) {
         self.grid = grid
+		self.cubeWorker = cubeWorker
     }
-	
-	init() {
-        self.grid = Grid(matrix: [[]])
-	}
 
     func crateMatrixBox() -> [SCNNode] {
         return createNodesFormMatrix(matrix: self.grid.matrix)
@@ -97,34 +91,6 @@ final class BoxesWorker: _BoxesWorker {
 		return animation
 	}
 	
-	func getBox(textImage: String, lengthEdge: CGFloat) -> SCNNode {
-		let boxNode = SCNNode()
-		boxNode.geometry = SCNBox(width: lengthEdge, height: lengthEdge, length: lengthEdge, chamferRadius: 1)
-
-		//let im = UIImage(systemName: "\(box.number).circle.fill")
-		let im = imageWith(textImage: textImage)
-		
-		let material = SCNMaterial()
-		// Является базой для поверхности
-		material.diffuse.contents = im
-		
-		// Отвечат за металический отблеск
-		material.specular.contents = UIImage(named: "bubble", in: nil, with: nil)
-		
-		// Отвечает за зеркальный отблеск, в отражени будут обекты, переданные в contents
-		//material.reflective.contents = UIImage(named: "bubble", in: nil, with: nil)
-		
-		// Используется для затемнения или тонирования. Можно использовать как теневую карту
-		//material.multiply.contents = im
-		
-		// Можно имитировать облака
-		//material.transparent.contents = UIImage(named: "bubble", in: nil, with: nil)
-		//material.ambient.contents =
-		
-		boxNode.geometry?.firstMaterial = material
-		return boxNode
-	}
-	
 	private func getBoxPoint(i: Int, j: Int) -> Box.Point {
 		let verticalEdge = self.lengthEdge + self.verticalPadding
 		let horisontalEdge = self.lengthEdge + self.horisontalPadding
@@ -154,34 +120,10 @@ final class BoxesWorker: _BoxesWorker {
     
     private func getBox(box: Box) -> SCNNode {
 		let name = "\(box.number)"
-		let boxNode = getBox(textImage: name, lengthEdge: box.lengthEdge)
+		let boxNode = self.cubeWorker.getCube(textImage: name, lengthEdge: box.lengthEdge)
 		boxNode.name = name
 		boxNode.position = SCNVector3(box.point.y, -box.point.x, 0)
         return boxNode
-    }
-    
-    /// Создание изображения по тексту. Создает текст в круге.
-    private func imageWith(textImage: String) -> UIImage? {
-        let frame = CGRect(x: 25, y: 25, width: 50, height: 50)
-        let nameLabel = UILabel(frame: frame)
-        nameLabel.textAlignment = .center
-        nameLabel.backgroundColor = .blue
-        nameLabel.textColor = .white
-        nameLabel.font = UIFont.boldSystemFont(ofSize: 30)
-        nameLabel.text = textImage
-        nameLabel.layer.cornerRadius = 10
-        nameLabel.layer.masksToBounds = true
-        let viewFrame = CGRect(x: 0, y: 0, width: 100, height: 100)
-        let view = UIView(frame: viewFrame)
-        view.backgroundColor = .red
-        view.addSubview(nameLabel)
-        UIGraphicsBeginImageContext(viewFrame.size)
-        if let currentContext = UIGraphicsGetCurrentContext() {
-            view.layer.render(in: currentContext)
-            let view = UIGraphicsGetImageFromCurrentImageContext()
-            return view
-        }
-        return nil
     }
 
 }
