@@ -12,7 +12,8 @@ struct MixPuzzleApp: App {
 	private let startFactory = StartFactory()
     var body: some Scene {
         WindowGroup {
-            MenuView()
+            //MenuView()
+			SettingsCubeView()
 			//self.startFactory.configure(complition: {_ in })
         }
     }

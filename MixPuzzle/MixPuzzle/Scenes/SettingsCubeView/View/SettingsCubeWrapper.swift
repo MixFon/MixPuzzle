@@ -20,6 +20,6 @@ struct SettingsCubeWrapper: View {
 
 extension SettingsCubeWrapper: Equatable {
 	static func == (lhs: SettingsCubeWrapper, rhs: SettingsCubeWrapper) -> Bool {
-		return lhs.dependency.radius == rhs.dependency.radius
+		return true
 	}
 }
