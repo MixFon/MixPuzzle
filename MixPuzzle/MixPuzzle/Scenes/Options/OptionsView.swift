@@ -11,6 +11,7 @@ struct OptionsView: View {
 	
 	@State private var optionsRouter: OptionsViewRouter? = nil
 	@Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+	@State private var toBox: Bool = false
 	
 	enum OptionsViewRouter: Hashable {
 		case toBox
@@ -23,8 +24,8 @@ struct OptionsView: View {
 			NavigationLink(destination: SettingsCubeView(), tag: OptionsViewRouter.toBox, selection: $optionsRouter) { }
 			VStack {
 				OptionsSectionsView(title: "Garaphics", cells: [
-					AnyView(CellView(icon: "cube", text: "Cube", action: { optionsRouter = .toBox })),
-					AnyView(CellView(icon: "moon.stars", text: "Stars", action: { print(2) })),
+					AnyView(CellView(icon: "cube", text: "Cube", action: { toBox = true })),
+					AnyView(CellView(icon: "moon.stars", text: "Stars", action: { self.presentationMode.wrappedValue.dismiss() })),
 				])
 				.padding()
 				OptionsSectionsView(title: "Application", cells: [
@@ -40,6 +41,9 @@ struct OptionsView: View {
 			BackButtonToolbarItem {
 				self.presentationMode.wrappedValue.dismiss()
 			}
+		}
+		.fullScreenCover(isPresented: $toBox) {
+			SettingsCubeView()
 		}
 		.navigationBarBackButtonHidden()
 		.navigationTitle("Options")

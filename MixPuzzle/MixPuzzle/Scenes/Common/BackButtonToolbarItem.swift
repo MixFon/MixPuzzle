@@ -11,7 +11,7 @@ struct BackButtonToolbarItem: ToolbarContent {
 	var action: () -> Void
 
 	var body: some ToolbarContent {
-		ToolbarItem(placement: .navigationBarLeading) {
+		ToolbarItem(placement: .topBarLeading) {
 			Button(action: action) {
 				Image(systemName: "arrow.left")
 					.foregroundColor(Color.mm_tint_primary)
