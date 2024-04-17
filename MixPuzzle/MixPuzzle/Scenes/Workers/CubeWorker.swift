@@ -16,7 +16,10 @@ protocol _CubeWorker {
 	func getCube(textImage: String, lengthEdge: CGFloat) -> SCNNode
 	
 	/// Изменение радиуса на гране куба
-	func changeRadiusFor(cube: SCNNode, radius: Double)
+	func changeRadiusForImage(cube: SCNNode, radius: Double)
+	
+	/// Изменение радиуса скругления куба
+	func changeChamferRadius(cube: SCNNode, chamferRadius: Double)
 }
 
 final class CubeWorker: _CubeWorker {
@@ -33,11 +36,11 @@ final class CubeWorker: _CubeWorker {
 		boxNode.geometry = SCNBox(width: lengthEdge, height: lengthEdge, length: lengthEdge, chamferRadius: 1)
 		
 		//let im = UIImage(systemName: "\(box.number).circle.fill")
-		let im = self.imageWorker.imageWith(textImage: textImage)
+		let image = self.imageWorker.imageWith(textImage: textImage)
 		
 		let material = SCNMaterial()
 		// Является базой для поверхности
-		material.diffuse.contents = im
+		material.diffuse.contents = image
 		
 		// Отвечат за металический отблеск
 		material.specular.contents = UIImage(named: "bubble", in: nil, with: nil)
@@ -56,8 +59,13 @@ final class CubeWorker: _CubeWorker {
 		return boxNode
 	}
 	
-	func changeRadiusFor(cube: SCNNode, radius: Double) {
-		let im = self.imageWorker.imageWith(textImage: "12", radius: radius)
-		cube.geometry?.firstMaterial
+	func changeRadiusForImage(cube: SCNNode, radius: Double) {
+		let image = self.imageWorker.imageWith(textImage: "12", radius: radius)
+		cube.geometry?.firstMaterial?.diffuse.contents = image
+	}
+	
+	func changeChamferRadius(cube: SCNNode, chamferRadius: Double) {
+		let geometry = cube.geometry as? SCNBox
+		geometry?.chamferRadius = chamferRadius
 	}
 }

@@ -62,17 +62,28 @@ struct SettingsCubeScene: UIViewRepresentable {
 	private lazy var cube: SCNNode = {
 		let cube = self.cubeWorker.getCube(textImage: "21", lengthEdge: 4)
 		cube.position = SCNVector3(x: 0, y: 0, z: 0)
-		
-		let worker = self.imageWorker
-		self.dependency.$radius.sink { temp in
-			print(temp)
-		} receiveValue: { double in
-			print(double)
-			let im = worker.imageWith(textImage: "21", radius: double)
-			cube.geometry?.firstMaterial?.diffuse.contents = im
-		}.store(in: &cancellables)
+		configureRadiusImage(cube: cube)
+		configureChamferRadius(cube: cube)
 		return cube
 	}()
+	
+	private mutating func configureRadiusImage(cube: SCNNode) {
+		let worker = self.cubeWorker
+		self.dependency.$radiusImage.sink { temp in
+			print(temp)
+		} receiveValue: { double in
+			worker.changeRadiusForImage(cube: cube, radius: double)
+		}.store(in: &cancellables)
+	}
+	
+	private mutating func configureChamferRadius(cube: SCNNode) {
+		let worker = self.cubeWorker
+		self.dependency.$chamferRadius.sink { completion in
+			print(completion)
+		} receiveValue: { double in
+			worker.changeChamferRadius(cube: cube, chamferRadius: double)
+		}.store(in: &cancellables)
+	}
 	
 	func makeUIView(context: Context) -> SCNView {
 		self.scene.rootNode.addChildNode(self.lightNode)
@@ -95,10 +106,6 @@ struct SettingsCubeScene: UIViewRepresentable {
 	
 	func makeCoordinator() -> Coordinator {
 		Coordinator(gesture: handleTap)
-	}
-	
-	private mutating func setNewImageOnCube(radius: Double) {
-
 	}
 	
 	private func handleTap(_ gestureRecognize: UIGestureRecognizer) {
