@@ -10,27 +10,22 @@ import SceneKit
 import MFPuzzle
 
 struct MenuView: View {
-    
-    private let size = 4
-    private let matrixWorker = MatrixWorker()
-
-    @State private var router: Router? = nil
 	
-	enum Router: Hashable {
-		case toStart
-        case toOprionts
-	}
+	private let size = 4
+	private let matrixWorker = MatrixWorker()
+	
+	@State private var toStart: Bool = false
+	@State private var toOprionts: Bool = false
 	
 	var body: some View {
-		NavigationView {
-			ZStack {
-				NavigationLink(destination: StartView(router: $router), tag: Router.toStart, selection: $router) { }
-				NavigationLink(destination: OptionsView(), tag: Router.toOprionts, selection: $router) { }
-				MenuSceneWrapper(router: $router)
+		MenuSceneWrapper(toStart: $toStart, toOprionts: $toOprionts)
+			.fullScreenCover(isPresented: self.$toStart) {
+				StartView()
+			}
+			.fullScreenCover(isPresented: self.$toOprionts) {
+				OptionsView()
 			}
 			.edgesIgnoringSafeArea(.all)
-		}
-		.navigationBarBackButtonHidden()
 	}
 }
 

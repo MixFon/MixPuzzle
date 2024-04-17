@@ -21,6 +21,7 @@ struct SettingsCubeView: View {
 	var body: some View {
 		VStack {
 			NavigationBar(title: "sdf")
+				.padding()
 			SettingsCubeWrapper(dependency: dependecy)
 				.aspectRatio(contentMode: .fit)
 				.cornerRadius(10)

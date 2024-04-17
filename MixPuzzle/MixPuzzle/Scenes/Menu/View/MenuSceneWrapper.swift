@@ -9,11 +9,22 @@ import SwiftUI
 
 struct MenuSceneWrapper: View {
 	
-	@Binding var router: MenuView.Router?
+	@Binding var toStart: Bool
+	@Binding var toOprionts: Bool
+	
+	enum Router: Hashable {
+		case toStart
+		case toOprionts
+	}
 
     var body: some View {
 		MenuScene() { goTo in
-			self.router = goTo
+			switch goTo {
+			case .toStart:
+				self.toStart = true
+			case .toOprionts:
+				self.toOprionts = true
+			}
 		}
     }
 }
@@ -25,6 +36,7 @@ extension MenuSceneWrapper: Equatable {
 }
 
 #Preview {
-	@State var router: MenuView.Router? = nil
-    return MenuSceneWrapper(router: $router)
+	@State var toStart: Bool = false
+	@State var toOprionts: Bool = false
+	return MenuSceneWrapper(toStart: $toStart, toOprionts: $toOprionts)
 }

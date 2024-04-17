@@ -14,7 +14,6 @@ struct StartScene: UIViewRepresentable {
 	
 	let boxWorker: _BoxesWorker
 	let startsWorker: _StarsWorker
-	let complition: (MenuView.Router) -> ()
 	
 	private let generator = UINotificationFeedbackGenerator()
 	

@@ -11,7 +11,7 @@ import Foundation
 
 final class StartFactory {
 	
-	func configure(complition: @escaping (MenuView.Router) -> ()) -> some View {
+	func configure() -> some View {
 		// Занимается созданием и управлением звездочек
 		let starsWorker = StarsWorker()
 		
@@ -22,6 +22,6 @@ final class StartFactory {
 		let matrixSpiral = matrixWorker.createMatrixSpiral(size: 4)
 		let grid = Grid(matrix: matrixSpiral)
 		let boxWorker = BoxesWorker(grid: grid, cubeWorker: cubeWorker)
-		return StartScene(boxWorker: boxWorker, startsWorker: starsWorker, complition: complition)
+		return StartScene(boxWorker: boxWorker, startsWorker: starsWorker)
 	}
 }

@@ -9,50 +9,43 @@ import SwiftUI
 
 struct OptionsView: View {
 	
-	@State private var optionsRouter: OptionsViewRouter? = nil
 	@Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
 	@State private var toBox: Bool = false
-	
-	enum OptionsViewRouter: Hashable {
-		case toBox
-		case toStars
-		case toLanguage
-	}
+	@State private var toStars: Bool = false
+	@State private var toLanguage: Bool = false
+	@State private var toVibration: Bool = false
 	
 	var body: some View {
-		ZStack {
-			NavigationLink(destination: SettingsCubeView(), tag: OptionsViewRouter.toBox, selection: $optionsRouter) { }
-			VStack {
-				OptionsSectionsView(title: "Garaphics", cells: [
-					AnyView(CellView(icon: "cube", text: "Cube", action: { toBox = true })),
-					AnyView(CellView(icon: "moon.stars", text: "Stars", action: { self.presentationMode.wrappedValue.dismiss() })),
-				])
+		VStack {
+			NavigationBar(title: "Options")
 				.padding()
-				OptionsSectionsView(title: "Application", cells: [
-					AnyView(CellView(icon: "globe", text: "Language", action: { optionsRouter = .toLanguage })),
-					AnyView(CellView(icon: "waveform.path", text: "Vibration", action: { optionsRouter = .toLanguage })),
-				])
-				.padding()
-				Spacer()
-			}
-			.background(Color.mm_background_secondary)
+			OptionsSectionsView(title: "Garaphics", cells: [
+				AnyView(CellView(icon: "cube", text: "Cube", action: { self.toBox = true })),
+				AnyView(CellView(icon: "moon.stars", text: "Stars", action: { self.toStars = true })),
+			])
+			.padding()
+			OptionsSectionsView(title: "Application", cells: [
+				AnyView(CellView(icon: "globe", text: "Language", action: { self.toLanguage = true })),
+				AnyView(CellView(icon: "waveform.path", text: "Vibration", action: { self.toVibration = true })),
+			])
+			.padding()
+			Spacer()
 		}
+		.background(Color.mm_background_secondary)
 		.toolbar {
 			BackButtonToolbarItem {
 				self.presentationMode.wrappedValue.dismiss()
 			}
 		}
-		.fullScreenCover(isPresented: $toBox) {
+		.fullScreenCover(isPresented: self.$toBox) {
 			SettingsCubeView()
 		}
-		.navigationBarBackButtonHidden()
-		.navigationTitle("Options")
-		.buttonStyle(.plain)
+		.fullScreenCover(isPresented: self.$toStars) {
+			SettingsCubeView()
+		}
 	}
 }
 
 #Preview {
-	NavigationView {
-		OptionsView()
-	}
+	OptionsView()
 }

@@ -12,12 +12,8 @@ struct StartSceneWrapper: View {
 	
 	private let startFactory = StartFactory()
 	
-	@Binding var router: MenuView.Router?
-	
 	var body: some View {
-		self.startFactory.configure {_ in
-			self.router = nil
-		}
+		self.startFactory.configure()
 	}
 }
 

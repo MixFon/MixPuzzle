@@ -11,7 +11,7 @@ import Foundation
 
 struct MenuScene: UIViewRepresentable {
 	
-    var complition: (MenuView.Router) -> ()
+    var complition: (MenuSceneWrapper.Router) -> ()
 	
 	private let scene = SCNScene(named: "puzzle.scnassets/menu.scn")
 	private let scnView = SCNView()
@@ -43,9 +43,9 @@ struct MenuScene: UIViewRepresentable {
 	class Coordinator: NSObject {
 		
 		private let view: SCNView
-		private let complition: (MenuView.Router) -> ()
+		private let complition: (MenuSceneWrapper.Router) -> ()
 		
-        init(_ view: SCNView, complition: @escaping (MenuView.Router) -> ()) {
+        init(_ view: SCNView, complition: @escaping (MenuSceneWrapper.Router) -> ()) {
 			self.view = view
             self.complition = complition
             super.init()

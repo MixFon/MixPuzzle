@@ -10,8 +10,7 @@ import SwiftUI
 struct StartScoreView: View {
 	
 	@State var score: Int = 0
-	
-	@Binding var router: MenuView.Router?
+	@Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
 	
     var body: some View {
 		HStack {
@@ -25,7 +24,7 @@ struct StartScoreView: View {
 				Text("Press me")
 			}
 			Button {
-				self.router = nil
+				self.presentationMode.wrappedValue.dismiss()
 			} label: {
 				Text("Go back")
 			}
@@ -34,6 +33,5 @@ struct StartScoreView: View {
 }
 
 #Preview {
-	@State var router: MenuView.Router? = nil
-    return StartScoreView(router: $router)
+    return StartScoreView()
 }
