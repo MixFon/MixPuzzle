@@ -26,13 +26,11 @@ struct NavigationBar: View {
 					Spacer()
 				}
 				Text(title)
-					.font(.title3)
-					.fontWeight(.regular)
+					.font(.headline)
+					.fontWeight(.semibold)
 					.foregroundStyle(Color.mm_text_primary)
 			}
 		}
-		.padding()
-		.background(Color.mm_background_tertiary) // Цвет фона
 	}
 }
 
