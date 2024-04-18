@@ -9,11 +9,11 @@ import SwiftUI
 
 struct OptionsView: View {
 	
-	@Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
 	@State private var toBox: Bool = false
 	@State private var toStars: Bool = false
 	@State private var toLanguage: Bool = false
 	@State private var toVibration: Bool = false
+	@State private var isOnVibration: Bool = false
 	
 	var body: some View {
 		VStack {
@@ -26,17 +26,12 @@ struct OptionsView: View {
 			.padding()
 			OptionsSectionsView(title: "Application", cells: [
 				AnyView(CellView(icon: "globe", text: "Language", action: { self.toLanguage = true })),
-				AnyView(CellView(icon: "waveform.path", text: "Vibration", action: { self.toVibration = true })),
+				AnyView(ToggleCellView(icon: "waveform.path", text: "Vibration", isOn: $isOnVibration)),
 			])
 			.padding()
 			Spacer()
 		}
 		.background(Color.mm_background_secondary)
-		.toolbar {
-			BackButtonToolbarItem {
-				self.presentationMode.wrappedValue.dismiss()
-			}
-		}
 		.fullScreenCover(isPresented: self.$toBox) {
 			SettingsCubeView()
 		}

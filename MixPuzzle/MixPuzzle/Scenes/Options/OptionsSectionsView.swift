@@ -43,13 +43,12 @@ struct CellView: View, Identifiable {
 		Button(action: action, label: {
 			HStack {
 				Image(systemName: icon)
-					.buttonStyle(.plain)
-					.foregroundStyle(Color.mm_text_primary)
+					.foregroundStyle(Color.mm_tint_primary)
 				Text(text)
 					.foregroundStyle(Color.mm_text_primary)
 				Spacer()
 				Image(systemName: "chevron.right")
-					.foregroundStyle(Color.mm_text_primary)
+					.foregroundStyle(Color.mm_tint_icons)
 			}
 		})
 		.buttonStyle(.plain)
@@ -80,6 +79,26 @@ struct SliderCellView: View, Identifiable {
 	}
 }
 
+struct ToggleCellView: View, Identifiable {
+	let id = UUID()
+	let icon: String
+	let text: String
+	
+	@Binding var isOn: Bool
+	
+	var body: some View {
+		HStack {
+			Image(systemName: icon)
+				.buttonStyle(.plain)
+				.foregroundStyle(Color.mm_tint_primary)
+			Spacer()
+			Toggle(text, isOn: $isOn)
+				.tint(Color.mm_tint_primary)
+				.foregroundStyle(Color.mm_text_primary)
+		}
+	}
+}
+
 
 struct DividerView: View {
 	var body: some View {
@@ -91,6 +110,7 @@ struct DividerView: View {
 
 #Preview {
 	@State var radius: Double = 10.0
+	@State var isOn: Bool = false
 	return VStack {
 		OptionsSectionsView(title: "Hello", cells: [
 			AnyView(CellView(icon: "plus", text: "Hello", action: { print(1) })),
@@ -105,6 +125,7 @@ struct DividerView: View {
 		.padding()
 		OptionsSectionsView(title: "Two", cells: [
 			AnyView(SliderCellView(title: "Hello", range: 0...30, radius: $radius)),
+			AnyView(ToggleCellView(icon: "checkmark", text: "text text", isOn: $isOn)),
 		])
 		.padding()
 		Spacer()
