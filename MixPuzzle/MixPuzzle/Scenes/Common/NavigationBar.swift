@@ -40,7 +40,7 @@ struct BackButtonNavigationBar: View {
 			Image(systemName: "arrow.left")
 				.resizable()
 				.scaledToFit()
-				.frame(width: 24, height: 24)
+				.frame(width: 20, height: 20)
 				.foregroundColor(Color.mm_tint_primary)
 				.aspectRatio(contentMode: .fit)
 		}
