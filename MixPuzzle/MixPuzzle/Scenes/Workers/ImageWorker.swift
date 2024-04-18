@@ -13,7 +13,7 @@ protocol _ImageWorker {
 	func imageWith(textImage: String) -> UIImage?
 	
 	/// Создание изображения по тексту
-	func imageWith(textImage: String, radius: Double) -> UIImage?
+	func imageWith(textImage: String, radius: Double, size: Double) -> UIImage?
 }
 
 
@@ -44,8 +44,8 @@ final class ImageWorker: _ImageWorker {
 	}
 	
 	/// Создание изображения по тексту. Создает текст в круге.
-	func imageWith(textImage: String, radius: Double) -> UIImage? {
-		let frame = CGRect(x: 25, y: 25, width: 50, height: 50)
+	func imageWith(textImage: String, radius: Double, size: Double) -> UIImage? {
+		let frame = CGRect(x: (100 - size) / 2, y: (100 - size) / 2, width: size, height: size)
 		let nameLabel = UILabel(frame: frame)
 		nameLabel.textAlignment = .center
 		nameLabel.backgroundColor = .blue
