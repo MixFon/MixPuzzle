@@ -99,6 +99,32 @@ struct ToggleCellView: View, Identifiable {
 	}
 }
 
+struct ColorCellView: View, Identifiable {
+	let id = UUID()
+	var colors: [Color] = [.red, .green, .blue, .orange]
+	
+	var body: some View {
+		VStack(alignment: .leading) {
+			Text("Colors")
+			ScrollView(.horizontal) {
+				HStack(alignment: .center, spacing: 16) {
+					ForEach(colors, id: \.self) { color in
+						Button {
+							print(color)
+						} label: {
+							Text("")
+								.foregroundColor(.white)
+								.frame(width: 40, height: 40)
+						}
+						.background(CubeShape().stroke(Color.black, lineWidth: 2))
+						.background(CubeShape().fill(color))
+					}
+				}
+			}
+		}
+	}
+}
+
 
 struct DividerView: View {
 	var body: some View {
@@ -126,6 +152,7 @@ struct DividerView: View {
 		OptionsSectionsView(title: "Two", cells: [
 			AnyView(SliderCellView(title: "Hello", range: 0...30, radius: $radius)),
 			AnyView(ToggleCellView(icon: "checkmark", text: "text text", isOn: $isOn)),
+			AnyView(ColorCellView()),
 		])
 		.padding()
 		Spacer()
