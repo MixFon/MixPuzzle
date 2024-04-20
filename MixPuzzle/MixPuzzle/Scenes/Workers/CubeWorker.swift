@@ -16,7 +16,7 @@ protocol _CubeWorker {
 	func getCube(textImage: String, lengthEdge: CGFloat) -> SCNNode
 	
 	/// Изменение радиуса на гране куба
-	func changeImage(cube: SCNNode, radius: Double, size: Double)
+    func changeImage(cube: SCNNode, radius: Double, size: Double, lableColor: UIColor, backgroundColor: UIColor)
 	
 	/// Изменение радиуса скругления куба
 	func changeChamferRadius(cube: SCNNode, chamferRadius: Double)
@@ -59,8 +59,8 @@ final class CubeWorker: _CubeWorker {
 		return boxNode
 	}
 	
-	func changeImage(cube: SCNNode, radius: Double, size: Double) {
-		let image = self.imageWorker.imageWith(textImage: "12", radius: radius, size: size)
+	func changeImage(cube: SCNNode, radius: Double, size: Double, lableColor: UIColor, backgroundColor: UIColor) {
+        let image = self.imageWorker.imageWith(textImage: "12", radius: radius, size: size, lableColor: lableColor, backgroundColor: backgroundColor)
 		cube.geometry?.firstMaterial?.diffuse.contents = image
 	}
 	

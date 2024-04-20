@@ -142,6 +142,14 @@
 			path = Workers;
 			sourceTree = "<group>";
 		};
+		295D81FF2BD3E31400D1C431 /* Draft */ = {
+			isa = PBXGroup;
+			children = (
+				294E6E392BD27B9B00B615F1 /* CubeButtonView.swift */,
+			);
+			path = Draft;
+			sourceTree = "<group>";
+		};
 		2979B7112BBFDDB3000839D3 /* Scene */ = {
 			isa = PBXGroup;
 			children = (
@@ -183,7 +191,6 @@
 			children = (
 				29A225482B89E0C5009ECD1C /* OptionsView.swift */,
 				29DFDEBD2BC5177F00791434 /* OptionsSectionsView.swift */,
-				294E6E392BD27B9B00B615F1 /* CubeButtonView.swift */,
 			);
 			path = Options;
 			sourceTree = "<group>";
@@ -207,6 +214,7 @@
 		29C162C02B848CC4002E185D /* MixPuzzle */ = {
 			isa = PBXGroup;
 			children = (
+				295D81FF2BD3E31400D1C431 /* Draft */,
 				2944D6D92BC870FD001F1A82 /* Scenes */,
 				29DFDEB82BC50D9500791434 /* Colors */,
 				29C162C12B848CC4002E185D /* MixPuzzleApp.swift */,

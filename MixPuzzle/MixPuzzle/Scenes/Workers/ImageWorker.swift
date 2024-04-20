@@ -6,14 +6,16 @@
 //
 
 import UIKit
+import SwiftUI
 import Foundation
 
 protocol _ImageWorker {
 	/// Создание изображения по тексту
 	func imageWith(textImage: String) -> UIImage?
+
 	
 	/// Создание изображения по тексту
-	func imageWith(textImage: String, radius: Double, size: Double) -> UIImage?
+    func imageWith(textImage: String, radius: Double, size: Double, lableColor: UIColor, backgroundColor: UIColor) -> UIImage?
 }
 
 
@@ -44,11 +46,11 @@ final class ImageWorker: _ImageWorker {
 	}
 	
 	/// Создание изображения по тексту. Создает текст в круге.
-	func imageWith(textImage: String, radius: Double, size: Double) -> UIImage? {
+    func imageWith(textImage: String, radius: Double, size: Double, lableColor: UIColor, backgroundColor: UIColor) -> UIImage? {
 		let frame = CGRect(x: (100 - size) / 2, y: (100 - size) / 2, width: size, height: size)
 		let nameLabel = UILabel(frame: frame)
 		nameLabel.textAlignment = .center
-		nameLabel.backgroundColor = .blue
+		nameLabel.backgroundColor = lableColor
 		nameLabel.textColor = .white
 		nameLabel.font = UIFont.boldSystemFont(ofSize: 30)
 		nameLabel.text = textImage

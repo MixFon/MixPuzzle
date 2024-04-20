@@ -101,26 +101,29 @@ struct ToggleCellView: View, Identifiable {
 
 struct ColorCellView: View, Identifiable {
 	let id = UUID()
-	var colors: [Color] = [.red, .green, .blue, .orange]
+    var colors: [Color] = [.red, .green, .blue, .orange, .purple]
+
+    @Binding var selectedColor: Color
 	
 	var body: some View {
 		VStack(alignment: .leading) {
 			Text("Colors")
 			ScrollView(.horizontal) {
 				HStack(alignment: .center, spacing: 16) {
+                    ColorPicker("", selection: $selectedColor)
 					ForEach(colors, id: \.self) { color in
 						Button {
-							print(color)
+                            self.selectedColor = color
 						} label: {
-							Text("")
-								.foregroundColor(.white)
-								.frame(width: 40, height: 40)
+							Rectangle()
+                                .frame(width: 40, height: 40)
+                                .foregroundStyle(color)
+                                .cornerRadius(10)
+                            
 						}
-						.background(CubeShape().stroke(Color.black, lineWidth: 2))
-						.background(CubeShape().fill(color))
-					}
-				}
-			}
+                    }
+                }
+            }
 		}
 	}
 }
@@ -135,8 +138,9 @@ struct DividerView: View {
 }
 
 #Preview {
-	@State var radius: Double = 10.0
-	@State var isOn: Bool = false
+    @State var radius: Double = 10.0
+    @State var isOn: Bool = false
+    @State var selectedColor: Color = .red
 	return VStack {
 		OptionsSectionsView(title: "Hello", cells: [
 			AnyView(CellView(icon: "plus", text: "Hello", action: { print(1) })),
@@ -152,7 +156,7 @@ struct DividerView: View {
 		OptionsSectionsView(title: "Two", cells: [
 			AnyView(SliderCellView(title: "Hello", range: 0...30, radius: $radius)),
 			AnyView(ToggleCellView(icon: "checkmark", text: "text text", isOn: $isOn)),
-			AnyView(ColorCellView()),
+			AnyView(ColorCellView(selectedColor: $selectedColor)),
 		])
 		.padding()
 		Spacer()

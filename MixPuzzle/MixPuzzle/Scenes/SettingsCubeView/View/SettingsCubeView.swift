@@ -9,9 +9,10 @@ import SwiftUI
 import Combine
 
 final class SettingsCubeDependency: ObservableObject {
-	@Published var sizeImage: Double = 50
-	@Published var radiusImage: Double = 10
-	@Published var chamferRadius: Double = 1
+    @Published var sizeImage: Double = 50
+    @Published var lableColor: Color = .blue
+    @Published var radiusImage: Double = 10
+    @Published var chamferRadius: Double = 1
 	@Published var isButtonActive: Bool = false
 	
 	private var cancellables = Set<AnyCancellable>()
@@ -58,6 +59,7 @@ struct SettingsCubeView: View {
 					AnyView(SliderCellView(title: "Image Radius", range: 0...(dependecy.sizeImage / 2), radius: $dependecy.radiusImage)),
 					AnyView(SliderCellView(title: "Chamfer Radius", range: 0...2, radius: $dependecy.chamferRadius)),
 					AnyView(SliderCellView(title: "Width Image", range: 50...100, radius: $dependecy.sizeImage)),
+                    AnyView(ColorCellView(selectedColor: $dependecy.lableColor)),
 				])
 			}
 			.padding()
