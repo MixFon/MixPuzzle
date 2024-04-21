@@ -70,9 +70,9 @@ struct SettingsCubeScene: UIViewRepresentable {
 	private mutating func configureImage(cube: SCNNode) {
 		let worker = self.cubeWorker
 		// Создаём поток, который срабатывает при изменении любого из двух свойств
-        Publishers.CombineLatest3(dependency.$radiusImage, dependency.$sizeImage, dependency.$lableColor)
-			.sink(receiveValue: { (radius, size, lableColor) in
-                worker.changeImage(cube: cube, radius: radius, size: size, lableColor: UIColor(lableColor), backgroundColor: .red)
+        Publishers.CombineLatest4(dependency.$radiusImage, dependency.$sizeImage, dependency.$lableColor, dependency.$backgroundColor)
+			.sink(receiveValue: { (radius, size, lableColor, backgroundColor) in
+                worker.changeImage(cube: cube, radius: radius, size: size, lableColor: UIColor(lableColor), backgroundColor: UIColor(backgroundColor))
 			})
 			.store(in: &cancellables)
 	}

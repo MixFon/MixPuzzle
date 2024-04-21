@@ -58,7 +58,7 @@ final class ImageWorker: _ImageWorker {
 		nameLabel.layer.masksToBounds = true
 		let viewFrame = CGRect(x: 0, y: 0, width: 100, height: 100)
 		let view = UIView(frame: viewFrame)
-		view.backgroundColor = .red
+		view.backgroundColor = backgroundColor
 		view.addSubview(nameLabel)
 		UIGraphicsBeginImageContext(viewFrame.size)
 		if let currentContext = UIGraphicsGetCurrentContext() {

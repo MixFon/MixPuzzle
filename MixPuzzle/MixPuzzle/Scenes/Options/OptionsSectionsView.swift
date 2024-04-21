@@ -103,11 +103,12 @@ struct ColorCellView: View, Identifiable {
 	let id = UUID()
     var colors: [Color] = [.red, .green, .blue, .orange, .purple]
 
+    let title: String
     @Binding var selectedColor: Color
 	
 	var body: some View {
 		VStack(alignment: .leading) {
-			Text("Colors")
+			Text(title)
 			ScrollView(.horizontal) {
 				HStack(alignment: .center, spacing: 16) {
                     ColorPicker("", selection: $selectedColor)
@@ -156,7 +157,7 @@ struct DividerView: View {
 		OptionsSectionsView(title: "Two", cells: [
 			AnyView(SliderCellView(title: "Hello", range: 0...30, radius: $radius)),
 			AnyView(ToggleCellView(icon: "checkmark", text: "text text", isOn: $isOn)),
-			AnyView(ColorCellView(selectedColor: $selectedColor)),
+            AnyView(ColorCellView(title: "Trtb", selectedColor: $selectedColor)),
 		])
 		.padding()
 		Spacer()

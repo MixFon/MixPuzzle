@@ -46,12 +46,23 @@ struct BackButtonNavigationBar: View {
 		}
 		.buttonStyle(.plain)
 	}
-	
+}
+
+struct SaveButtonNavigationBar: View {
+    var action: ()->()
+    var body: some View {
+        Button(action: action, label: {
+            Text("Save")
+                .font(.callout)
+                .foregroundStyle(Color.mm_text_primary)
+        })
+    }
 }
 
 #Preview {
 	VStack {
 		NavigationBar(title: "Hello")
 		NavigationBar(title: "Hello", tralingView: AnyView(Text("Hello")))
+        NavigationBar(title: "Hello", tralingView: AnyView(SaveButtonNavigationBar(action: {print("Save")})))
 	}
 }
