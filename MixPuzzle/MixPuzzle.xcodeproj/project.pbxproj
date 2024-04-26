@@ -23,6 +23,9 @@
 		2985064E2B8B53A300028FA9 /* BoxesWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2985064D2B8B53A300028FA9 /* BoxesWorker.swift */; };
 		29A070332B91A5940078EB8D /* StartFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A070322B91A5940078EB8D /* StartFactory.swift */; };
 		29A225492B89E0C5009ECD1C /* OptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A225482B89E0C5009ECD1C /* OptionsView.swift */; };
+		29B2ADB92BDAD18A002D11D8 /* SettingsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B2ADB82BDAD18A002D11D8 /* SettingsStorage.swift */; };
+		29B2ADBC2BDB9369002D11D8 /* Dependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B2ADBB2BDB9369002D11D8 /* Dependency.swift */; };
+		29B2ADBF2BDBA415002D11D8 /* Ext+Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B2ADBE2BDBA415002D11D8 /* Ext+Color.swift */; };
 		29C162C22B848CC4002E185D /* MixPuzzleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C162C12B848CC4002E185D /* MixPuzzleApp.swift */; };
 		29C162C42B848CC4002E185D /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C162C32B848CC4002E185D /* MenuView.swift */; };
 		29C162C62B848CC5002E185D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 29C162C52B848CC5002E185D /* Assets.xcassets */; };
@@ -54,6 +57,9 @@
 		2985064D2B8B53A300028FA9 /* BoxesWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxesWorker.swift; sourceTree = "<group>"; };
 		29A070322B91A5940078EB8D /* StartFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartFactory.swift; sourceTree = "<group>"; };
 		29A225482B89E0C5009ECD1C /* OptionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsView.swift; sourceTree = "<group>"; };
+		29B2ADB82BDAD18A002D11D8 /* SettingsStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsStorage.swift; sourceTree = "<group>"; };
+		29B2ADBB2BDB9369002D11D8 /* Dependency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dependency.swift; sourceTree = "<group>"; };
+		29B2ADBE2BDBA415002D11D8 /* Ext+Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ext+Color.swift"; sourceTree = "<group>"; };
 		29C162BE2B848CC4002E185D /* MixPuzzle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MixPuzzle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		29C162C12B848CC4002E185D /* MixPuzzleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MixPuzzleApp.swift; sourceTree = "<group>"; };
 		29C162C32B848CC4002E185D /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
@@ -195,6 +201,30 @@
 			path = Options;
 			sourceTree = "<group>";
 		};
+		29B2ADB72BDAD157002D11D8 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				29B2ADB82BDAD18A002D11D8 /* SettingsStorage.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
+		29B2ADBA2BDB9354002D11D8 /* Dependency */ = {
+			isa = PBXGroup;
+			children = (
+				29B2ADBB2BDB9369002D11D8 /* Dependency.swift */,
+			);
+			path = Dependency;
+			sourceTree = "<group>";
+		};
+		29B2ADBD2BDBA402002D11D8 /* Extentions */ = {
+			isa = PBXGroup;
+			children = (
+				29B2ADBE2BDBA415002D11D8 /* Ext+Color.swift */,
+			);
+			path = Extentions;
+			sourceTree = "<group>";
+		};
 		29C162B52B848CC3002E185D = {
 			isa = PBXGroup;
 			children = (
@@ -214,6 +244,9 @@
 		29C162C02B848CC4002E185D /* MixPuzzle */ = {
 			isa = PBXGroup;
 			children = (
+				29B2ADBD2BDBA402002D11D8 /* Extentions */,
+				29B2ADBA2BDB9354002D11D8 /* Dependency */,
+				29B2ADB72BDAD157002D11D8 /* Managers */,
 				295D81FF2BD3E31400D1C431 /* Draft */,
 				2944D6D92BC870FD001F1A82 /* Scenes */,
 				29DFDEB82BC50D9500791434 /* Colors */,
@@ -339,11 +372,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				2979B7142BBFDE5D000839D3 /* StartSceneWrapper.swift in Sources */,
+				29B2ADBC2BDB9369002D11D8 /* Dependency.swift in Sources */,
 				29EB775D2B872E0D00A494A0 /* StartView.swift in Sources */,
 				29D3D1A32B8A0BF600E3EE6A /* StartScene.swift in Sources */,
 				294E6E3A2BD27B9B00B615F1 /* CubeButtonView.swift in Sources */,
 				2944D6DC2BC871A6001F1A82 /* SettingsCubeView.swift in Sources */,
 				2944D6E52BC916F9001F1A82 /* SettingsCubeFactory.swift in Sources */,
+				29B2ADBF2BDBA415002D11D8 /* Ext+Color.swift in Sources */,
 				2956CE762BCED46A00F17C01 /* NavigationBar.swift in Sources */,
 				2944D6DF2BC91166001F1A82 /* BackButtonToolbarItem.swift in Sources */,
 				29C162D22B848D89002E185D /* MenuScene.swift in Sources */,
@@ -352,6 +387,7 @@
 				29DFDEBB2BC50D9500791434 /* Colors.swift in Sources */,
 				29C162C42B848CC4002E185D /* MenuView.swift in Sources */,
 				291A07EE2BC173D6008B4246 /* StartScoreView.swift in Sources */,
+				29B2ADB92BDAD18A002D11D8 /* SettingsStorage.swift in Sources */,
 				2944D6EE2BCC4FFD001F1A82 /* CubeWorker.swift in Sources */,
 				29DFDEBE2BC5177F00791434 /* OptionsSectionsView.swift in Sources */,
 				291A07F12BC198F8008B4246 /* StarsWorker.swift in Sources */,

@@ -70,7 +70,7 @@ struct SettingsCubeScene: UIViewRepresentable {
 	private mutating func configureImage(cube: SCNNode) {
 		let worker = self.cubeWorker
 		// Создаём поток, который срабатывает при изменении любого из двух свойств
-        Publishers.CombineLatest4(dependency.$radiusImage, dependency.$sizeImage, dependency.$lableColor, dependency.$backgroundColor)
+        Publishers.CombineLatest4(dependency.$radiusImage, dependency.$sizeImage, dependency.$colorLable, dependency.$colorBackground)
 			.sink(receiveValue: { (radius, size, lableColor, backgroundColor) in
                 worker.changeImage(cube: cube, radius: radius, size: size, lableColor: UIColor(lableColor), backgroundColor: UIColor(backgroundColor))
 			})
@@ -79,7 +79,7 @@ struct SettingsCubeScene: UIViewRepresentable {
 	
 	private mutating func configureChamferRadius(cube: SCNNode) {
 		let worker = self.cubeWorker
-		self.dependency.$chamferRadius.sink { completion in
+		self.dependency.$radiusChamfer.sink { completion in
 			print(completion)
 		} receiveValue: { double in
 			worker.changeChamferRadius(cube: cube, chamferRadius: double)

@@ -10,9 +10,8 @@ import SceneKit
 import MFPuzzle
 
 struct MenuView: View {
-	
-	private let size = 4
-	private let matrixWorker = MatrixWorker()
+    
+    let dependency: _Dependency
 	
 	@State private var toStart: Bool = false
 	@State private var toOprionts: Bool = false
@@ -23,12 +22,17 @@ struct MenuView: View {
 				StartView()
 			}
 			.fullScreenCover(isPresented: self.$toOprionts) {
-				OptionsView()
+                OptionsView(settingsStorages: self.dependency.settingsStorages)
 			}
 			.edgesIgnoringSafeArea(.all)
 	}
 }
 
 #Preview {
-    MenuView()
+    let dependency = MockDependency()
+    return MenuView(dependency: dependency)
+}
+
+final class MockDependency: _Dependency {
+    var settingsStorages: _SettingsStorage = MockSettingsStorage()
 }

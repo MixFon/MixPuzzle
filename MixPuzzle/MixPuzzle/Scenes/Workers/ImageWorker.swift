@@ -13,7 +13,6 @@ protocol _ImageWorker {
 	/// Создание изображения по тексту
 	func imageWith(textImage: String) -> UIImage?
 
-	
 	/// Создание изображения по тексту
     func imageWith(textImage: String, radius: Double, size: Double, lableColor: UIColor, backgroundColor: UIColor) -> UIImage?
 }

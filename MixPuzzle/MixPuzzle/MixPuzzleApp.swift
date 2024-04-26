@@ -10,9 +10,12 @@ import SwiftUI
 @main
 struct MixPuzzleApp: App {
 	private let startFactory = StartFactory()
+    
+    private let dependency = Dependency()
+    
     var body: some Scene {
         WindowGroup {
-            MenuView()
+            MenuView(dependency: self.dependency)
 			//SettingsCubeView()
 			//OptionsView()
 			//self.startFactory.configure(complition: {_ in })
