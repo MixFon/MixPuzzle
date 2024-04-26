@@ -11,7 +11,7 @@ import Foundation
 
 final class StartFactory {
 	
-	func configure() -> some View {
+    func configure(dependency: _Dependency) -> some View {
 		// Занимается созданием и управлением звездочек
 		let starsWorker = StarsWorker()
 		
@@ -21,7 +21,7 @@ final class StartFactory {
 		let matrixWorker = MatrixWorker()
 		let matrixSpiral = matrixWorker.createMatrixSpiral(size: 4)
 		let grid = Grid(matrix: matrixSpiral)
-		let boxWorker = BoxesWorker(grid: grid, cubeWorker: cubeWorker)
+        let boxWorker = BoxesWorker(grid: grid, cubeWorker: cubeWorker, settingsCubeStorate: dependency.settingsStorages.settingsCubeStorage)
 		return StartScene(boxWorker: boxWorker, startsWorker: starsWorker)
 	}
 }

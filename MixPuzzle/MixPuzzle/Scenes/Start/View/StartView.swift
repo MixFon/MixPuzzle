@@ -9,10 +9,12 @@ import SwiftUI
 import MFPuzzle
 
 struct StartView: View {
+    
+    let dependency: _Dependency
 	
     var body: some View {
 		ZStack {
-			StartSceneWrapper()
+            StartSceneWrapper(dependency: self.dependency)
 				.equatable() // Отключение обновления сцены
 			VStack {
 				StartScoreView()
@@ -23,5 +25,6 @@ struct StartView: View {
 }
 
 #Preview {
-    return StartView()
+    let dependency = MockDependency()
+    return StartView(dependency: dependency)
 }

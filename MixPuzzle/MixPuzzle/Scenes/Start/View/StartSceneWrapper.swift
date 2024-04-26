@@ -9,11 +9,12 @@ import SwiftUI
 import Foundation
 
 struct StartSceneWrapper: View {
+    let dependency: _Dependency
 	
 	private let startFactory = StartFactory()
 	
 	var body: some View {
-		self.startFactory.configure()
+        self.startFactory.configure(dependency: self.dependency)
 	}
 }
 

@@ -60,7 +60,7 @@ struct SettingsCubeScene: UIViewRepresentable {
 	}()
 	
 	private lazy var cube: SCNNode = {
-		let cube = self.cubeWorker.getCube(textImage: "21", lengthEdge: 4)
+        let cube = self.cubeWorker.getCube(textImage: "21", lengthEdge: 4)
 		cube.position = SCNVector3(x: 0, y: 0, z: 0)
 		configureImage(cube: cube)
 		configureChamferRadius(cube: cube)
@@ -72,7 +72,13 @@ struct SettingsCubeScene: UIViewRepresentable {
 		// Создаём поток, который срабатывает при изменении любого из двух свойств
         Publishers.CombineLatest4(dependency.$radiusImage, dependency.$sizeImage, dependency.$colorLable, dependency.$colorBackground)
 			.sink(receiveValue: { (radius, size, lableColor, backgroundColor) in
-                worker.changeImage(cube: cube, radius: radius, size: size, lableColor: UIColor(lableColor), backgroundColor: UIColor(backgroundColor))
+                let configurationImage = ConfigurationImage(
+                    size: size,
+                    radius: radius,
+                    textImage: "21",
+                    colorLable: UIColor(lableColor),
+                    colorBackground: UIColor(backgroundColor))
+                worker.changeImage(cube: cube, configuration: configurationImage)
 			})
 			.store(in: &cancellables)
 	}

@@ -10,11 +10,10 @@ import Combine
 
 final class SettingsCubeDependency: ObservableObject {
     @Published var sizeImage: Double
-    @Published var colorLable: Color = .blue
-    @Published var radiusImage: Double = 10
-    @Published var radiusChamfer: Double = 1
-    @Published var colorBackground: Color = .red
-    @Published var isButtonActive: Bool = false
+    @Published var colorLable: Color
+    @Published var radiusImage: Double
+    @Published var radiusChamfer: Double
+    @Published var colorBackground: Color
 	
     private var cubeStorage: _SettingsCubeStorage
 	private var cancellables = Set<AnyCancellable>()
@@ -22,17 +21,17 @@ final class SettingsCubeDependency: ObservableObject {
     init(cubeStorage: _SettingsCubeStorage) {
         self.cubeStorage = cubeStorage
         self.sizeImage = cubeStorage.sizeImage
-        self.colorLable = cubeStorage.colorLable
+        self.colorLable = cubeStorage.colorLable ?? .blue
         self.radiusImage = cubeStorage.radiusImage
         self.radiusChamfer = cubeStorage.radiusChamfer
-        self.colorBackground = cubeStorage.colorBackground
+        self.colorBackground = cubeStorage.colorBackground ?? .red
 	}
     
     func saveChanges() {
         self.cubeStorage.sizeImage = self.sizeImage
-        self.cubeStorage.colorLable = self.colorLable
         self.cubeStorage.radiusImage = self.radiusImage
         self.cubeStorage.radiusChamfer = self.radiusChamfer
+        self.cubeStorage.colorLable = self.colorLable
         self.cubeStorage.colorBackground = self.colorBackground
     }
 }
@@ -78,8 +77,8 @@ struct SettingsCubeView: View {
 
 final class MockSettingsCubeStorage: _SettingsCubeStorage {
     var sizeImage: Double = 50
-    var colorLable: Color = .blue
+    var colorLable: Color? = .blue
     var radiusImage: Double = 10
     var radiusChamfer: Double = 1
-    var colorBackground: Color = .red
+    var colorBackground: Color? = .red
 }

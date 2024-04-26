@@ -14,9 +14,16 @@ protocol _ImageWorker {
 	func imageWith(textImage: String) -> UIImage?
 
 	/// Создание изображения по тексту
-    func imageWith(textImage: String, radius: Double, size: Double, lableColor: UIColor, backgroundColor: UIColor) -> UIImage?
+    func imageWith(configuration: ConfigurationImage) -> UIImage?
 }
 
+struct ConfigurationImage {
+    let size: Double
+    let radius: Double
+    let textImage: String
+    let colorLable: UIColor
+    let colorBackground: UIColor
+}
 
 final class ImageWorker: _ImageWorker {
 	
@@ -45,19 +52,20 @@ final class ImageWorker: _ImageWorker {
 	}
 	
 	/// Создание изображения по тексту. Создает текст в круге.
-    func imageWith(textImage: String, radius: Double, size: Double, lableColor: UIColor, backgroundColor: UIColor) -> UIImage? {
+    func imageWith(configuration: ConfigurationImage) -> UIImage? {
+        let size = configuration.size
 		let frame = CGRect(x: (100 - size) / 2, y: (100 - size) / 2, width: size, height: size)
 		let nameLabel = UILabel(frame: frame)
 		nameLabel.textAlignment = .center
-		nameLabel.backgroundColor = lableColor
+        nameLabel.backgroundColor = configuration.colorLable
 		nameLabel.textColor = .white
 		nameLabel.font = UIFont.boldSystemFont(ofSize: 30)
-		nameLabel.text = textImage
-		nameLabel.layer.cornerRadius = radius
+        nameLabel.text = configuration.textImage
+        nameLabel.layer.cornerRadius = configuration.radius
 		nameLabel.layer.masksToBounds = true
 		let viewFrame = CGRect(x: 0, y: 0, width: 100, height: 100)
 		let view = UIView(frame: viewFrame)
-		view.backgroundColor = backgroundColor
+        view.backgroundColor = configuration.colorBackground
 		view.addSubview(nameLabel)
 		UIGraphicsBeginImageContext(viewFrame.size)
 		if let currentContext = UIGraphicsGetCurrentContext() {

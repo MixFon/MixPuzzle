@@ -29,6 +29,7 @@ final class BoxesWorker: _BoxesWorker {
     private let horisontalPadding: CGFloat = 0.2
 	
 	private let cubeWorker: _CubeWorker
+    private let settingsCubeStorate: _SettingsCubeStorage
 	
 	var centreMatrix: SCNVector3 {
 		let centreX = CGFloat(self.grid.size) * (self.lengthEdge + self.horisontalPadding) - self.horisontalPadding - self.lengthEdge
@@ -47,9 +48,10 @@ final class BoxesWorker: _BoxesWorker {
 		}
     }
     
-	init(grid: Grid, cubeWorker: _CubeWorker) {
+    init(grid: Grid, cubeWorker: _CubeWorker, settingsCubeStorate: _SettingsCubeStorage) {
         self.grid = grid
-		self.cubeWorker = cubeWorker
+        self.cubeWorker = cubeWorker
+        self.settingsCubeStorate = settingsCubeStorate
     }
 
     func crateMatrixBox() -> [SCNNode] {
@@ -119,8 +121,19 @@ final class BoxesWorker: _BoxesWorker {
     }
     
     private func getBox(box: Box) -> SCNNode {
-		let name = "\(box.number)"
-		let boxNode = self.cubeWorker.getCube(textImage: name, lengthEdge: box.lengthEdge)
+        let name = "\(box.number)"
+        let configurationCube = ConfigurationCube(
+            lengthEdge: self.lengthEdge,
+            radiusChamfer: self.settingsCubeStorate.radiusChamfer
+        )
+        let configurationImage = ConfigurationImage(
+            size: self.settingsCubeStorate.sizeImage,
+            radius: self.settingsCubeStorate.radiusImage,
+            textImage: name,
+            colorLable: UIColor(self.settingsCubeStorate.colorLable ?? .blue),
+            colorBackground: UIColor(self.settingsCubeStorate.colorBackground ?? .red)
+        )
+		let boxNode = self.cubeWorker.getCube(configurationCube: configurationCube, configurationImage: configurationImage)
 		boxNode.name = name
 		boxNode.position = SCNVector3(box.point.y, -box.point.x, 0)
         return boxNode

@@ -19,7 +19,7 @@ struct MenuView: View {
 	var body: some View {
 		MenuSceneWrapper(toStart: $toStart, toOprionts: $toOprionts)
 			.fullScreenCover(isPresented: self.$toStart) {
-				StartView()
+				StartView(dependency: self.dependency)
 			}
 			.fullScreenCover(isPresented: self.$toOprionts) {
                 OptionsView(settingsStorages: self.dependency.settingsStorages)
