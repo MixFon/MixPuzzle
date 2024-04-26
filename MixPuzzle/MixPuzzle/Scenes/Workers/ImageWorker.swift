@@ -39,7 +39,7 @@ final class ImageWorker: _ImageWorker {
 		nameLabel.layer.masksToBounds = true
 		let viewFrame = CGRect(x: 0, y: 0, width: sizeFrame, height: sizeFrame)
         let imageView = UIImageView(frame: viewFrame)
-        imageView.image = UIImage(named: "TerrazzoSlab018_COL_1K_SPECULAR", in: nil, with: nil)
+        imageView.image = UIImage(named: configuration.texture, in: nil, with: nil)
         imageView.addSubview(nameLabel)
 //		let view = UIView(frame: viewFrame)
 //        view.backgroundColor = configuration.colorBackground

@@ -51,8 +51,9 @@ final class CubeWorker: _CubeWorker {
         //material.diffuse.contents = UIImage(named: "BricksReclaimedWhitewashedOffset001_COL_1K_METALNESS", in: nil, with: nil)
         
         // Отвечат за металический отблеск
-        //material.specular.contents = UIImage(named: "TerrazzoSlab018_GLOSS_1K_SPECULAR", in: nil, with: nil)
-        material.metalness.contents = UIImage(named: "TerrazzoSlab018_GLOSS_1K_SPECULAR", in: nil, with: nil)
+        material.specular.contents = UIImage(named: configurationImage.texture, in: nil, with: nil)
+        //material.metalness.contents = UIImage(named: "TerrazzoSlab018_GLOSS_1K_SPECULAR", in: nil, with: nil)
+        //material.roughness.contents = UIImage(named: "TerrazzoSlab018_COL_1K_SPECULAR", in: nil, with: nil)
         
         // Отвечает за зеркальный отблеск, в отражени будут обекты, переданные в contents
         //material.reflective.contents = UIImage(named: "bubble", in: nil, with: nil)

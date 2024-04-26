@@ -129,6 +129,43 @@ struct ColorCellView: View, Identifiable {
 	}
 }
 
+struct TexturePicker: View {
+    let id = UUID()
+    let title: String
+    let images = ["TerrazzoSlab028_COL_1K_SPECULAR", "TerrazzoSlab018_COL_1K_SPECULAR", "BricksReclaimedWhitewashedOffset001_COL_1K_METALNESS", "GroundDirtRocky020_COL_1K"]
+    
+    @Binding var selectedImage: String
+    
+    var body: some View {
+        VStack(alignment: .leading){
+            Text(title)
+                .foregroundStyle(Color.mm_text_primary)
+            // Создаем горизонтальный ScrollView для прокрутки изображений
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(spacing: 16) {
+                    ForEach(images, id: \.self) { imageName in
+                        Button(action: {
+                            self.selectedImage = imageName
+                        }) {
+                            Image(imageName)
+                                .resizable()
+                                .scaledToFill()
+                                .clipped()
+                                .frame(width: 70, height: 70)
+                                .cornerRadius(10)
+                                .shadow(radius: 5)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 10)
+                                        .stroke(Color.blue, lineWidth: self.selectedImage == imageName ? 4 : 0)
+                                )
+                        }
+                    }
+                }
+                .padding()
+            }
+        }
+    }
+}
 
 struct DividerView: View {
 	var body: some View {
@@ -142,6 +179,7 @@ struct DividerView: View {
     @State var radius: Double = 10.0
     @State var isOn: Bool = false
     @State var selectedColor: Color = .red
+    @State var selectedImage = "TerrazzoSlab028_COL_1K_SPECULAR"
 	return VStack {
 		OptionsSectionsView(title: "Hello", cells: [
 			AnyView(CellView(icon: "plus", text: "Hello", action: { print(1) })),
@@ -158,6 +196,7 @@ struct DividerView: View {
 			AnyView(SliderCellView(title: "Hello", range: 0...30, radius: $radius)),
 			AnyView(ToggleCellView(icon: "checkmark", text: "text text", isOn: $isOn)),
             AnyView(ColorCellView(title: "Trtb", selectedColor: $selectedColor)),
+            AnyView(TexturePicker(title: "Textures", selectedImage: $selectedImage))
 		])
 		.padding()
 		Spacer()

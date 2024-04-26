@@ -28,10 +28,11 @@ final class SettingsCubeDependency: ObservableObject {
 	}
     
     func saveChanges() {
+        self.cubeStorage.texture = self.texture
         self.cubeStorage.sizeImage = self.sizeImage
+        self.cubeStorage.colorLable = self.colorLable
         self.cubeStorage.radiusImage = self.radiusImage
         self.cubeStorage.radiusChamfer = self.radiusChamfer
-        self.cubeStorage.colorLable = self.colorLable
     }
 }
 
@@ -59,6 +60,7 @@ struct SettingsCubeView: View {
 					AnyView(SliderCellView(title: "Chamfer Radius", range: 0...2, radius: $dependecy.radiusChamfer)),
 					AnyView(SliderCellView(title: "Width Image", range: 200...400, radius: $dependecy.sizeImage)),
                     AnyView(ColorCellView(title: "Color Lable", selectedColor: $dependecy.colorLable)),
+                    AnyView(TexturePicker(title: "Textures", selectedImage: $dependecy.texture)),
 				])
 			}
             .cornerRadius(16)
