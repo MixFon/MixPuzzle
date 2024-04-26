@@ -22,10 +22,10 @@ final class SettingsStorage: _SettingsStorage {
 
 protocol _SettingsCubeStorage {
     var sizeImage: Double { get set }
-    var colorLable: Color { get set }
+    var colorLable: Color? { get set }
     var radiusImage: Double { get set }
     var radiusChamfer: Double { get set }
-    var colorBackground: Color { get set }
+    var colorBackground: Color? { get set }
 }
 
 final class SettingsCubeStorage: _SettingsCubeStorage {
@@ -46,6 +46,8 @@ final class SettingsCubeStorage: _SettingsCubeStorage {
             Keys.sizeImage : 50.0,
             Keys.radiusImage : 10.0,
             Keys.radiusChamfer : 1.0,
+            Keys.colorLable : "#007AFF",
+            Keys.colorBackground : "#FF3B30",
         ]
         self.defaults.register(defaults: defaultValues)
     }
@@ -59,17 +61,14 @@ final class SettingsCubeStorage: _SettingsCubeStorage {
         }
     }
     
-    var colorLable: Color {
+    var colorLable: Color? {
         get {
-            if let uiColor = self.defaults.object(forKey: Keys.colorLable) as? UIColor {
-                return Color(uiColor: uiColor)
-            } else {
-                return .blue
-            }
+            guard let colorHex = self.defaults.string(forKey: Keys.colorLable) else { return nil }
+            return Color(hex: colorHex)
         }
         
         set {
-            self.defaults.set(UIColor(newValue), forKey: Keys.colorLable)
+            self.defaults.set(newValue?.toHex(), forKey: Keys.colorLable)
         }
     }
     
@@ -91,17 +90,14 @@ final class SettingsCubeStorage: _SettingsCubeStorage {
         }
     }
     
-    var colorBackground: Color {
+    var colorBackground: Color? {
         get {
-            if let uiColor = self.defaults.object(forKey: Keys.colorBackground) as? UIColor {
-                return Color(uiColor: uiColor)
-            } else {
-                return .red
-            }
+            guard let colorHex = self.defaults.string(forKey: Keys.colorBackground) else { return nil }
+            return Color(hex: colorHex)
         }
         
         set {
-            self.defaults.set(UIColor(newValue), forKey: Keys.colorBackground)
+            self.defaults.set(newValue?.toHex(), forKey: Keys.colorBackground)
         }
     }
 }
