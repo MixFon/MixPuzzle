@@ -50,7 +50,7 @@ final class CubeWorker: _CubeWorker {
 		material.diffuse.contents = image
 		
 		// Отвечат за металический отблеск
-		material.specular.contents = UIImage(named: "bubble", in: nil, with: nil)
+		material.specular.contents = UIImage(named: "TilesMosaicPennyround001_REFL_1K", in: nil, with: nil)
 		
 		// Отвечает за зеркальный отблеск, в отражени будут обекты, переданные в contents
 		//material.reflective.contents = UIImage(named: "bubble", in: nil, with: nil)
@@ -80,7 +80,7 @@ final class CubeWorker: _CubeWorker {
         material.diffuse.contents = image
         
         // Отвечат за металический отблеск
-        material.specular.contents = UIImage(named: "bubble", in: nil, with: nil)
+        material.specular.contents = UIImage(named: "TilesMosaicPennyround001_REFL_1K", in: nil, with: nil)
         
         // Отвечает за зеркальный отблеск, в отражени будут обекты, переданные в contents
         //material.reflective.contents = UIImage(named: "bubble", in: nil, with: nil)
