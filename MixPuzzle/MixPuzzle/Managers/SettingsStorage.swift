@@ -21,11 +21,11 @@ final class SettingsStorage: _SettingsStorage {
 }
 
 protocol _SettingsCubeStorage {
+    var texture: String? { get set }
     var sizeImage: Double { get set }
     var colorLable: Color? { get set }
     var radiusImage: Double { get set }
     var radiusChamfer: Double { get set }
-    var colorBackground: Color? { get set }
 }
 
 final class SettingsCubeStorage: _SettingsCubeStorage {
@@ -33,21 +33,21 @@ final class SettingsCubeStorage: _SettingsCubeStorage {
     private let defaults = UserDefaults.standard
     
     private enum Keys {
+        static let texture = "settings.cube.texture"
         static let sizeImage = "settings.cube.size.image"
         static let colorLable = "settings.cube.color.lable"
         static let radiusImage = "settings.cube.radius.image"
         static let radiusChamfer = "settings.cube.radius.chamfer"
-        static let colorBackground = "settings.cube.color.background"
     }
     
     init() {
         // Регистрируем значения по умолчанию
         let defaultValues: [String: Any] = [
-            Keys.sizeImage : 50.0,
-            Keys.radiusImage : 10.0,
+            Keys.sizeImage : 200.0,
+            Keys.radiusImage : 50,
             Keys.radiusChamfer : 1.0,
             Keys.colorLable : "#007AFF",
-            Keys.colorBackground : "#FF3B30",
+            Keys.texture : "TerrazzoSlab018_COL_1K_SPECULAR",
         ]
         self.defaults.register(defaults: defaultValues)
     }
@@ -90,14 +90,13 @@ final class SettingsCubeStorage: _SettingsCubeStorage {
         }
     }
     
-    var colorBackground: Color? {
+    var texture: String? {
         get {
-            guard let colorHex = self.defaults.string(forKey: Keys.colorBackground) else { return nil }
-            return Color(hex: colorHex)
+            self.defaults.string(forKey: Keys.texture)
         }
         
         set {
-            self.defaults.set(newValue?.toHex(), forKey: Keys.colorBackground)
+            self.defaults.set(newValue, forKey: Keys.texture)
         }
     }
 }

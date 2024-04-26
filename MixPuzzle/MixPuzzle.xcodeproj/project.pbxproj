@@ -26,6 +26,7 @@
 		29B2ADB92BDAD18A002D11D8 /* SettingsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B2ADB82BDAD18A002D11D8 /* SettingsStorage.swift */; };
 		29B2ADBC2BDB9369002D11D8 /* Dependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B2ADBB2BDB9369002D11D8 /* Dependency.swift */; };
 		29B2ADBF2BDBA415002D11D8 /* Ext+Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B2ADBE2BDBA415002D11D8 /* Ext+Color.swift */; };
+		29B2ADC12BDC354D002D11D8 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B2ADC02BDC354C002D11D8 /* ImagePicker.swift */; };
 		29C162C22B848CC4002E185D /* MixPuzzleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C162C12B848CC4002E185D /* MixPuzzleApp.swift */; };
 		29C162C42B848CC4002E185D /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C162C32B848CC4002E185D /* MenuView.swift */; };
 		29C162C62B848CC5002E185D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 29C162C52B848CC5002E185D /* Assets.xcassets */; };
@@ -60,6 +61,7 @@
 		29B2ADB82BDAD18A002D11D8 /* SettingsStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsStorage.swift; sourceTree = "<group>"; };
 		29B2ADBB2BDB9369002D11D8 /* Dependency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dependency.swift; sourceTree = "<group>"; };
 		29B2ADBE2BDBA415002D11D8 /* Ext+Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ext+Color.swift"; sourceTree = "<group>"; };
+		29B2ADC02BDC354C002D11D8 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		29C162BE2B848CC4002E185D /* MixPuzzle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MixPuzzle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		29C162C12B848CC4002E185D /* MixPuzzleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MixPuzzleApp.swift; sourceTree = "<group>"; };
 		29C162C32B848CC4002E185D /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
@@ -152,6 +154,7 @@
 			isa = PBXGroup;
 			children = (
 				294E6E392BD27B9B00B615F1 /* CubeButtonView.swift */,
+				29B2ADC02BDC354C002D11D8 /* ImagePicker.swift */,
 			);
 			path = Draft;
 			sourceTree = "<group>";
@@ -374,6 +377,7 @@
 				2979B7142BBFDE5D000839D3 /* StartSceneWrapper.swift in Sources */,
 				29B2ADBC2BDB9369002D11D8 /* Dependency.swift in Sources */,
 				29EB775D2B872E0D00A494A0 /* StartView.swift in Sources */,
+				29B2ADC12BDC354D002D11D8 /* ImagePicker.swift in Sources */,
 				29D3D1A32B8A0BF600E3EE6A /* StartScene.swift in Sources */,
 				294E6E3A2BD27B9B00B615F1 /* CubeButtonView.swift in Sources */,
 				2944D6DC2BC871A6001F1A82 /* SettingsCubeView.swift in Sources */,

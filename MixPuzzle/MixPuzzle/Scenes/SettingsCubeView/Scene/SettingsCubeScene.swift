@@ -60,7 +60,18 @@ struct SettingsCubeScene: UIViewRepresentable {
 	}()
 	
 	private lazy var cube: SCNNode = {
-        let cube = self.cubeWorker.getCube(textImage: "21", lengthEdge: 4)
+        let configurationCube = ConfigurationCube(
+            lengthEdge: 4,
+            radiusChamfer: 1.0
+        )
+        let configurationImage = ConfigurationImage(
+            size: 100.0,
+            radius: 50.0,
+            texture: "",
+            textImage: "21",
+            colorLable: UIColor(Color.blue)
+        )
+        let cube = self.cubeWorker.getCube(configurationCube: configurationCube, configurationImage: configurationImage)
 		cube.position = SCNVector3(x: 0, y: 0, z: 0)
 		configureImage(cube: cube)
 		configureChamferRadius(cube: cube)
@@ -70,14 +81,15 @@ struct SettingsCubeScene: UIViewRepresentable {
 	private mutating func configureImage(cube: SCNNode) {
 		let worker = self.cubeWorker
 		// Создаём поток, который срабатывает при изменении любого из двух свойств
-        Publishers.CombineLatest4(dependency.$radiusImage, dependency.$sizeImage, dependency.$colorLable, dependency.$colorBackground)
-			.sink(receiveValue: { (radius, size, lableColor, backgroundColor) in
+        Publishers.CombineLatest4(dependency.$radiusImage, dependency.$sizeImage, dependency.$colorLable, dependency.$texture)
+			.sink(receiveValue: { (radius, size, lableColor, texture) in
                 let configurationImage = ConfigurationImage(
                     size: size,
                     radius: radius,
+                    texture: texture,
                     textImage: "21",
-                    colorLable: UIColor(lableColor),
-                    colorBackground: UIColor(backgroundColor))
+                    colorLable: UIColor(lableColor)
+                )
                 worker.changeImage(cube: cube, configuration: configurationImage)
 			})
 			.store(in: &cancellables)

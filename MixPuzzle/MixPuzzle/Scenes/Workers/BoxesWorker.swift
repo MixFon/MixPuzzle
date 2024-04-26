@@ -129,9 +129,9 @@ final class BoxesWorker: _BoxesWorker {
         let configurationImage = ConfigurationImage(
             size: self.settingsCubeStorate.sizeImage,
             radius: self.settingsCubeStorate.radiusImage,
+            texture: self.settingsCubeStorate.texture ?? "",
             textImage: name,
-            colorLable: UIColor(self.settingsCubeStorate.colorLable ?? .blue),
-            colorBackground: UIColor(self.settingsCubeStorate.colorBackground ?? .red)
+            colorLable: UIColor(self.settingsCubeStorate.colorLable ?? .blue)
         )
 		let boxNode = self.cubeWorker.getCube(configurationCube: configurationCube, configurationImage: configurationImage)
 		boxNode.name = name

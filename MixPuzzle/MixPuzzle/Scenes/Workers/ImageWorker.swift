@@ -11,65 +11,43 @@ import Foundation
 
 protocol _ImageWorker {
 	/// Создание изображения по тексту
-	func imageWith(textImage: String) -> UIImage?
-
-	/// Создание изображения по тексту
     func imageWith(configuration: ConfigurationImage) -> UIImage?
 }
 
 struct ConfigurationImage {
     let size: Double
     let radius: Double
+    let texture: String
     let textImage: String
     let colorLable: UIColor
-    let colorBackground: UIColor
 }
 
 final class ImageWorker: _ImageWorker {
 	
 	/// Создание изображения по тексту. Создает текст в круге.
-	func imageWith(textImage: String) -> UIImage? {
-		let frame = CGRect(x: 25, y: 25, width: 50, height: 50)
-		let nameLabel = UILabel(frame: frame)
-		nameLabel.textAlignment = .center
-		nameLabel.backgroundColor = .blue
-		nameLabel.textColor = .white
-		nameLabel.font = UIFont.boldSystemFont(ofSize: 30)
-		nameLabel.text = textImage
-		nameLabel.layer.cornerRadius = 20
-		nameLabel.layer.masksToBounds = true
-		let viewFrame = CGRect(x: 0, y: 0, width: 100, height: 100)
-		let view = UIView(frame: viewFrame)
-		view.backgroundColor = .red
-		view.addSubview(nameLabel)
-		UIGraphicsBeginImageContext(viewFrame.size)
-		if let currentContext = UIGraphicsGetCurrentContext() {
-			view.layer.render(in: currentContext)
-			let view = UIGraphicsGetImageFromCurrentImageContext()
-			return view
-		}
-		return nil
-	}
-	
-	/// Создание изображения по тексту. Создает текст в круге.
     func imageWith(configuration: ConfigurationImage) -> UIImage? {
         let size = configuration.size
-		let frame = CGRect(x: (100 - size) / 2, y: (100 - size) / 2, width: size, height: size)
+        let sizeFrame = 400.0
+		let frame = CGRect(x: (sizeFrame - size) / 2, y: (sizeFrame - size) / 2, width: size, height: size)
 		let nameLabel = UILabel(frame: frame)
 		nameLabel.textAlignment = .center
         nameLabel.backgroundColor = configuration.colorLable
 		nameLabel.textColor = .white
-		nameLabel.font = UIFont.boldSystemFont(ofSize: 30)
+		nameLabel.font = UIFont.boldSystemFont(ofSize: 100)
         nameLabel.text = configuration.textImage
         nameLabel.layer.cornerRadius = configuration.radius
 		nameLabel.layer.masksToBounds = true
-		let viewFrame = CGRect(x: 0, y: 0, width: 100, height: 100)
-		let view = UIView(frame: viewFrame)
-        view.backgroundColor = configuration.colorBackground
-		view.addSubview(nameLabel)
+		let viewFrame = CGRect(x: 0, y: 0, width: sizeFrame, height: sizeFrame)
+        let imageView = UIImageView(frame: viewFrame)
+        imageView.image = UIImage(named: "TerrazzoSlab018_COL_1K_SPECULAR", in: nil, with: nil)
+        imageView.addSubview(nameLabel)
+//		let view = UIView(frame: viewFrame)
+//        view.backgroundColor = configuration.colorBackground
+//		view.addSubview(nameLabel)
 		UIGraphicsBeginImageContext(viewFrame.size)
 		if let currentContext = UIGraphicsGetCurrentContext() {
-			view.layer.render(in: currentContext)
+//			view.layer.render(in: currentContext)
+            imageView.layer.render(in: currentContext)
 			let view = UIGraphicsGetImageFromCurrentImageContext()
 			return view
 		}

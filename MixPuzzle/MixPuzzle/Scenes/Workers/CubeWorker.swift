@@ -13,8 +13,6 @@ protocol _CubeWorker {
 	/// Возвращает кубик с текстом-картинкой
 	/// - textImage - текст который будет в круге
 	/// - lengthEdge - длина ребра кубика
-    func getCube(textImage: String, lengthEdge: CGFloat) -> SCNNode
-    
     func getCube(configurationCube: ConfigurationCube, configurationImage: ConfigurationImage) -> SCNNode
 	
 	/// Изменение радиуса на гране куба
@@ -37,34 +35,6 @@ final class CubeWorker: _CubeWorker {
 	init(imageWorker: _ImageWorker) {
 		self.imageWorker = imageWorker
 	}
-	
-	func getCube(textImage: String, lengthEdge: CGFloat) -> SCNNode {
-		let boxNode = SCNNode()
-		boxNode.geometry = SCNBox(width: lengthEdge, height: lengthEdge, length: lengthEdge, chamferRadius: 1)
-		
-		//let im = UIImage(systemName: "\(box.number).circle.fill")
-		let image = self.imageWorker.imageWith(textImage: textImage)
-		
-		let material = SCNMaterial()
-		// Является базой для поверхности
-		material.diffuse.contents = image
-		
-		// Отвечат за металический отблеск
-		material.specular.contents = UIImage(named: "TilesMosaicPennyround001_REFL_1K", in: nil, with: nil)
-		
-		// Отвечает за зеркальный отблеск, в отражени будут обекты, переданные в contents
-		//material.reflective.contents = UIImage(named: "bubble", in: nil, with: nil)
-		
-		// Используется для затемнения или тонирования. Можно использовать как теневую карту
-		//material.multiply.contents = im
-		
-		// Можно имитировать облака
-		//material.transparent.contents = UIImage(named: "bubble", in: nil, with: nil)
-		//material.ambient.contents =
-		
-		boxNode.geometry?.firstMaterial = material
-		return boxNode
-	}
     
     func getCube(configurationCube: ConfigurationCube, configurationImage: ConfigurationImage) -> SCNNode {
         let boxNode = SCNNode()
@@ -78,9 +48,11 @@ final class CubeWorker: _CubeWorker {
         let material = SCNMaterial()
         // Является базой для поверхности
         material.diffuse.contents = image
+        //material.diffuse.contents = UIImage(named: "BricksReclaimedWhitewashedOffset001_COL_1K_METALNESS", in: nil, with: nil)
         
         // Отвечат за металический отблеск
-        material.specular.contents = UIImage(named: "TilesMosaicPennyround001_REFL_1K", in: nil, with: nil)
+        //material.specular.contents = UIImage(named: "TerrazzoSlab018_GLOSS_1K_SPECULAR", in: nil, with: nil)
+        material.metalness.contents = UIImage(named: "TerrazzoSlab018_GLOSS_1K_SPECULAR", in: nil, with: nil)
         
         // Отвечает за зеркальный отблеск, в отражени будут обекты, переданные в contents
         //material.reflective.contents = UIImage(named: "bubble", in: nil, with: nil)

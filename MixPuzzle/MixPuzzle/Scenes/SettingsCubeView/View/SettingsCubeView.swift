@@ -9,11 +9,11 @@ import SwiftUI
 import Combine
 
 final class SettingsCubeDependency: ObservableObject {
+    @Published var texture: String
     @Published var sizeImage: Double
     @Published var colorLable: Color
     @Published var radiusImage: Double
     @Published var radiusChamfer: Double
-    @Published var colorBackground: Color
 	
     private var cubeStorage: _SettingsCubeStorage
 	private var cancellables = Set<AnyCancellable>()
@@ -24,7 +24,7 @@ final class SettingsCubeDependency: ObservableObject {
         self.colorLable = cubeStorage.colorLable ?? .blue
         self.radiusImage = cubeStorage.radiusImage
         self.radiusChamfer = cubeStorage.radiusChamfer
-        self.colorBackground = cubeStorage.colorBackground ?? .red
+        self.texture = cubeStorage.texture ?? ""
 	}
     
     func saveChanges() {
@@ -32,7 +32,6 @@ final class SettingsCubeDependency: ObservableObject {
         self.cubeStorage.radiusImage = self.radiusImage
         self.cubeStorage.radiusChamfer = self.radiusChamfer
         self.cubeStorage.colorLable = self.colorLable
-        self.cubeStorage.colorBackground = self.colorBackground
     }
 }
 
@@ -58,9 +57,8 @@ struct SettingsCubeView: View {
 				OptionsSectionsView(title: "Cube", cells: [
 					AnyView(SliderCellView(title: "Image Radius", range: 0...(dependecy.sizeImage / 2), radius: $dependecy.radiusImage)),
 					AnyView(SliderCellView(title: "Chamfer Radius", range: 0...2, radius: $dependecy.radiusChamfer)),
-					AnyView(SliderCellView(title: "Width Image", range: 50...100, radius: $dependecy.sizeImage)),
+					AnyView(SliderCellView(title: "Width Image", range: 200...400, radius: $dependecy.sizeImage)),
                     AnyView(ColorCellView(title: "Color Lable", selectedColor: $dependecy.colorLable)),
-                    AnyView(ColorCellView(title: "Color Cube", selectedColor: $dependecy.colorBackground)),
 				])
 			}
             .cornerRadius(16)
@@ -76,9 +74,9 @@ struct SettingsCubeView: View {
 }
 
 final class MockSettingsCubeStorage: _SettingsCubeStorage {
-    var sizeImage: Double = 50
+    var texture: String? = "TerrazzoSlab018_COL_1K_SPECULAR"
+    var sizeImage: Double = 200
     var colorLable: Color? = .blue
-    var radiusImage: Double = 10
+    var radiusImage: Double = 50
     var radiusChamfer: Double = 1
-    var colorBackground: Color? = .red
 }
