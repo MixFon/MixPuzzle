@@ -132,7 +132,7 @@ struct ColorCellView: View, Identifiable {
 struct TexturePicker: View {
     let id = UUID()
     let title: String
-    let images = ["TerrazzoSlab028_COL_1K_SPECULAR", "TerrazzoSlab018_COL_1K_SPECULAR", "BricksReclaimedWhitewashedOffset001_COL_1K_METALNESS", "GroundDirtRocky020_COL_1K"]
+    let images = ["TilesMosaicPennyround001", "VeneerWhiteOakRandomMatched001", "PlasticABSWorn001", "MetalGoldPaint002", "BoucleBubblyRows001", "PlasterPlain001", "StuccoRoughCast001", "RoofShinglesOld002"]
     
     @Binding var selectedImage: String
     
@@ -147,7 +147,7 @@ struct TexturePicker: View {
                         Button(action: {
                             self.selectedImage = imageName
                         }) {
-                            Image(imageName)
+                            Image(imageName + "_COL")
                                 .resizable()
                                 .scaledToFill()
                                 .clipped()

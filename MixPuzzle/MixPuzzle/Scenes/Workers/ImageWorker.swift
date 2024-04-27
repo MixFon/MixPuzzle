@@ -17,9 +17,9 @@ protocol _ImageWorker {
 struct ConfigurationImage {
     let size: Double
     let radius: Double
-    let texture: String
     let textImage: String
     let colorLable: UIColor
+    let nameImageTexture: String
 }
 
 final class ImageWorker: _ImageWorker {
@@ -39,14 +39,10 @@ final class ImageWorker: _ImageWorker {
 		nameLabel.layer.masksToBounds = true
 		let viewFrame = CGRect(x: 0, y: 0, width: sizeFrame, height: sizeFrame)
         let imageView = UIImageView(frame: viewFrame)
-        imageView.image = UIImage(named: configuration.texture, in: nil, with: nil)
+        imageView.image = UIImage(named: configuration.nameImageTexture, in: nil, with: nil)
         imageView.addSubview(nameLabel)
-//		let view = UIView(frame: viewFrame)
-//        view.backgroundColor = configuration.colorBackground
-//		view.addSubview(nameLabel)
 		UIGraphicsBeginImageContext(viewFrame.size)
 		if let currentContext = UIGraphicsGetCurrentContext() {
-//			view.layer.render(in: currentContext)
             imageView.layer.render(in: currentContext)
 			let view = UIGraphicsGetImageFromCurrentImageContext()
 			return view

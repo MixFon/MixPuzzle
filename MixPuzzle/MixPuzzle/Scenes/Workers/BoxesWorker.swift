@@ -123,15 +123,16 @@ final class BoxesWorker: _BoxesWorker {
     private func getBox(box: Box) -> SCNNode {
         let name = "\(box.number)"
         let configurationCube = ConfigurationCube(
+            texture: self.settingsCubeStorate.texture ?? "",
             lengthEdge: self.lengthEdge,
             radiusChamfer: self.settingsCubeStorate.radiusChamfer
         )
         let configurationImage = ConfigurationImage(
             size: self.settingsCubeStorate.sizeImage,
             radius: self.settingsCubeStorate.radiusImage,
-            texture: self.settingsCubeStorate.texture ?? "",
             textImage: name,
-            colorLable: UIColor(self.settingsCubeStorate.colorLable ?? .blue)
+            colorLable: UIColor(self.settingsCubeStorate.colorLable ?? .blue),
+            nameImageTexture: configurationCube.textureCOL
         )
 		let boxNode = self.cubeWorker.getCube(configurationCube: configurationCube, configurationImage: configurationImage)
 		boxNode.name = name

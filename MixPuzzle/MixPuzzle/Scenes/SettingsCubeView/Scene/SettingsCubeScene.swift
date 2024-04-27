@@ -61,15 +61,16 @@ struct SettingsCubeScene: UIViewRepresentable {
 	
 	private lazy var cube: SCNNode = {
         let configurationCube = ConfigurationCube(
+            texture: "PlasticABSWorn001",
             lengthEdge: 4,
             radiusChamfer: 1.0
         )
         let configurationImage = ConfigurationImage(
             size: 100.0,
             radius: 50.0,
-            texture: "",
             textImage: "21",
-            colorLable: UIColor(Color.blue)
+            colorLable: UIColor(Color.blue),
+            nameImageTexture: configurationCube.textureCOL
         )
         let cube = self.cubeWorker.getCube(configurationCube: configurationCube, configurationImage: configurationImage)
 		cube.position = SCNVector3(x: 0, y: 0, z: 0)
@@ -80,17 +81,22 @@ struct SettingsCubeScene: UIViewRepresentable {
 	
 	private mutating func configureImage(cube: SCNNode) {
 		let worker = self.cubeWorker
-		// Создаём поток, который срабатывает при изменении любого из двух свойств
+		// Создаём поток, который срабатывает при изменении любого из четырех свойств
         Publishers.CombineLatest4(dependency.$radiusImage, dependency.$sizeImage, dependency.$colorLable, dependency.$texture)
 			.sink(receiveValue: { (radius, size, lableColor, texture) in
+                let configurationCube = ConfigurationCube(
+                    texture: texture,
+                    lengthEdge: 4,
+                    radiusChamfer: 1.0
+                )
                 let configurationImage = ConfigurationImage(
                     size: size,
                     radius: radius,
-                    texture: texture,
                     textImage: "21",
-                    colorLable: UIColor(lableColor)
+                    colorLable: UIColor(lableColor),
+                    nameImageTexture: configurationCube.textureCOL
                 )
-                worker.changeImage(cube: cube, configuration: configurationImage)
+                worker.changeImage(cube: cube, configurationCube: configurationCube, configuration: configurationImage)
 			})
 			.store(in: &cancellables)
 	}
