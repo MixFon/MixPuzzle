@@ -105,6 +105,11 @@ final class BoxesWorker: _BoxesWorker {
 	
     private func createNodesFormMatrix(matrix: Matrix) -> [SCNNode] {
         var nodes = [SCNNode]()
+        let configurationCube = ConfigurationCube(
+            texture: ConfigurationTexture(texture: self.settingsCubeStorate.texture ?? ""),
+            lengthEdge: self.lengthEdge,
+            radiusChamfer: self.settingsCubeStorate.radiusChamfer
+        )
         for (i, line) in matrix.enumerated() {
             for (j, number) in line.enumerated() {
                 if number == 0 { continue }
@@ -113,26 +118,21 @@ final class BoxesWorker: _BoxesWorker {
                     number: Int(number),
                     lengthEdge: lengthEdge
                 )
-                let node = getBox(box: box)
+                let node = getBox(box: box, configurationCube: configurationCube)
                 nodes.append(node)
             }
         }
         return nodes
     }
     
-    private func getBox(box: Box) -> SCNNode {
+    private func getBox(box: Box, configurationCube: ConfigurationCube) -> SCNNode {
         let name = "\(box.number)"
-        let configurationCube = ConfigurationCube(
-            texture: self.settingsCubeStorate.texture ?? "",
-            lengthEdge: self.lengthEdge,
-            radiusChamfer: self.settingsCubeStorate.radiusChamfer
-        )
         let configurationImage = ConfigurationImage(
             size: self.settingsCubeStorate.sizeImage,
             radius: self.settingsCubeStorate.radiusImage,
             textImage: name,
             colorLable: UIColor(self.settingsCubeStorate.colorLable ?? .blue),
-            nameImageTexture: configurationCube.textureCOL
+            nameImageTexture: configurationCube.texture.COL
         )
 		let boxNode = self.cubeWorker.getCube(configurationCube: configurationCube, configurationImage: configurationImage)
 		boxNode.name = name

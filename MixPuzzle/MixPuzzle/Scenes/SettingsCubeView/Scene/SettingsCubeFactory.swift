@@ -13,7 +13,8 @@ final class SettingsCubeFactory {
 	
 	func configure(dependency: SettingsCubeDependency) -> some View {
 		let imageWorker = ImageWorker()
-		let cubeWorker = CubeWorker(imageWorker: imageWorker)
+        let materialsWorker = MaterialsWorker()
+		let cubeWorker = CubeWorker(imageWorker: imageWorker, materialsWorker: materialsWorker)
 		return SettingsCubeScene(cubeWorker: cubeWorker, imageWorker: imageWorker, dependency: dependency)
 	}
 }

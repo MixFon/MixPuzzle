@@ -61,7 +61,7 @@ struct SettingsCubeScene: UIViewRepresentable {
 	
 	private lazy var cube: SCNNode = {
         let configurationCube = ConfigurationCube(
-            texture: "PlasticABSWorn001",
+            texture: ConfigurationTexture(texture: "PlasticABSWorn001"),
             lengthEdge: 4,
             radiusChamfer: 1.0
         )
@@ -70,7 +70,7 @@ struct SettingsCubeScene: UIViewRepresentable {
             radius: 50.0,
             textImage: "21",
             colorLable: UIColor(Color.blue),
-            nameImageTexture: configurationCube.textureCOL
+            nameImageTexture: configurationCube.texture.COL
         )
         let cube = self.cubeWorker.getCube(configurationCube: configurationCube, configurationImage: configurationImage)
 		cube.position = SCNVector3(x: 0, y: 0, z: 0)
@@ -85,7 +85,7 @@ struct SettingsCubeScene: UIViewRepresentable {
         Publishers.CombineLatest4(dependency.$radiusImage, dependency.$sizeImage, dependency.$colorLable, dependency.$texture)
 			.sink(receiveValue: { (radius, size, lableColor, texture) in
                 let configurationCube = ConfigurationCube(
-                    texture: texture,
+                    texture: ConfigurationTexture(texture: texture),
                     lengthEdge: 4,
                     radiusChamfer: 1.0
                 )
@@ -94,7 +94,7 @@ struct SettingsCubeScene: UIViewRepresentable {
                     radius: radius,
                     textImage: "21",
                     colorLable: UIColor(lableColor),
-                    nameImageTexture: configurationCube.textureCOL
+                    nameImageTexture: configurationCube.texture.COL
                 )
                 worker.changeImage(cube: cube, configurationCube: configurationCube, configuration: configurationImage)
 			})

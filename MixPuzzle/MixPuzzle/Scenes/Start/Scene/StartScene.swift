@@ -49,7 +49,13 @@ struct StartScene: UIViewRepresentable {
 		return ambientLightNode
 	}()
     
+    private let orbitNode: SCNNode = {
+        let orbitNode = SCNNode()
+        return orbitNode
+    }()
+
     func makeUIView(context: Context) -> SCNView {
+        self.scene.rootNode.addChildNode(self.orbitNode)
         self.scene.rootNode.addChildNode(self.lightNode)
         self.scene.rootNode.addChildNode(self.cameraNode)
         self.scene.rootNode.addChildNode(self.ambientLightNode)
@@ -57,8 +63,22 @@ struct StartScene: UIViewRepresentable {
         let nodeBoxes = self.boxWorker.crateMatrixBox()
         nodeBoxes.forEach({ self.scene.rootNode.addChildNode($0) })
 		
-		let nodeStars = self.startsWorker.createStart(centre: self.boxWorker.centreMatrix)
-		nodeStars.forEach({ self.scene.rootNode.addChildNode($0) })
+        let centerMatrix = self.boxWorker.centreMatrix
+		let nodeStars = self.startsWorker.createStart(centre: centerMatrix)
+        self.orbitNode.position = centerMatrix
+        nodeStars.forEach({
+            self.scene.rootNode.addChildNode($0)
+            self.orbitNode.addChildNode($0)
+        })
+        
+        // Создаем анимацию вращения
+        let rotation = CABasicAnimation(keyPath: "rotation")
+        rotation.toValue = NSValue(scnVector4: SCNVector4(x: 0, y: 0, z: 0, w: Float.pi * 2))
+        rotation.duration = 10 // Длительность вращения
+        rotation.repeatCount = Float.infinity // Бесконечное повторение
+        
+        // Применяем анимацию к узлу орбиты
+        self.orbitNode.addAnimation(rotation, forKey: "rotation")
         if self.cameraNode.camera?.fieldOfView != nil {
             self.cameraNode.position = self.boxWorker.calculateCameraPosition()
         }

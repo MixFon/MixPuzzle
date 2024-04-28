@@ -13,11 +13,12 @@ final class StartFactory {
 	
     func configure(dependency: _Dependency) -> some View {
 		// Занимается созданием и управлением звездочек
-		let starsWorker = StarsWorker()
-		
-		// Занимается созданием и управление кубиков
-		let imageWorker = ImageWorker()
-		let cubeWorker = CubeWorker(imageWorker: imageWorker)
+        let materialsWorker = MaterialsWorker()
+        let starsWorker = StarsWorker(materialsWorker: materialsWorker)
+        
+        // Занимается созданием и управление кубиков
+        let imageWorker = ImageWorker()
+		let cubeWorker = CubeWorker(imageWorker: imageWorker, materialsWorker: materialsWorker)
 		let matrixWorker = MatrixWorker()
 		let matrixSpiral = matrixWorker.createMatrixSpiral(size: 4)
 		let grid = Grid(matrix: matrixSpiral)

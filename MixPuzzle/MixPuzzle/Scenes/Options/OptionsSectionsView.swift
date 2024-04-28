@@ -133,6 +133,10 @@ struct TexturePicker: View {
     let id = UUID()
     let title: String
     let images = [
+        "coral_fort_wall",
+        "shfsaida",
+        "sbbihkp",
+        "rock_face_03",
         "WickerWeavesBrownRattan001",
         "StoneBricksSplitface001",
         "MetalZincGalvanized001",

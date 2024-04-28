@@ -22,52 +22,58 @@ protocol _CubeWorker {
 	func changeChamferRadius(cube: SCNNode, chamferRadius: Double)
 }
 
-struct ConfigurationCube {
+struct ConfigurationTexture {
     let texture: String
-    let lengthEdge: CGFloat
-    let radiusChamfer: Double
     
     // Для цвета
-    var textureCOL: String {
+    var COL: String {
         self.texture + "_COL"
     }
     /// Для нормали
-    var textureNRM: String {
+    var NRM: String {
         self.texture + "_NRM"
     }
     /// Для отражения
-    var textureREFL: String {
+    var REFL: String {
         self.texture + "_REFL"
     }
     /// Для отражения
-    var textureDISP: String {
+    var DISP: String {
         self.texture + "_DISP"
     }
     /// Для глянца (specular)
-    var textureGLOSS: String {
+    var GLOSS: String {
         self.texture + "_GLOSS"
     }
     /// Для шероховатости
-    var textureROUGHNESS: String {
+    var ROUGHNESS: String {
         self.texture + "_ROUGHNESS"
     }
     /// Для металичность
-    var textureMETALNESS: String {
+    var METALNESS: String {
         self.texture + "_METALNESS"
     }
     /// Для Ambient Occlusion (Окружающая окклюзия)
-    var textureAO: String {
+    var AO: String {
         self.texture + "_AO"
     }
+}
+
+struct ConfigurationCube {
+    let texture: ConfigurationTexture
+    let lengthEdge: CGFloat
+    let radiusChamfer: Double
 }
 
 final class CubeWorker: _CubeWorker {
 	
 	/// Создание изображения по указанным параметрам
 	private let imageWorker: _ImageWorker
+    private let materialsWorker: _MaterialsWorker
 	
-	init(imageWorker: _ImageWorker) {
+	init(imageWorker: _ImageWorker, materialsWorker: _MaterialsWorker) {
 		self.imageWorker = imageWorker
+        self.materialsWorker = materialsWorker
 	}
     
     func getCube(configurationCube: ConfigurationCube, configurationImage: ConfigurationImage) -> SCNNode {
@@ -82,7 +88,7 @@ final class CubeWorker: _CubeWorker {
         // Является базой для поверхности
         material.diffuse.contents = image
         
-        configureMaterial(material: material, configurationCube: configurationCube)
+        self.materialsWorker.configureMaterial(material: material, texture: configurationCube.texture)
        
         boxNode.geometry?.firstMaterial = material
         return boxNode
@@ -92,7 +98,7 @@ final class CubeWorker: _CubeWorker {
         let image = self.imageWorker.imageWith(configuration: configuration)
         if let material = cube.geometry?.firstMaterial {
             material.diffuse.contents = image
-            configureMaterial(material: material, configurationCube: configurationCube)
+            self.materialsWorker.configureMaterial(material: material, texture: configurationCube.texture)
         }
 	}
 	
@@ -100,34 +106,4 @@ final class CubeWorker: _CubeWorker {
 		let geometry = cube.geometry as? SCNBox
 		geometry?.chamferRadius = chamferRadius
 	}
-    
-    private func configureMaterial(material: SCNMaterial, configurationCube: ConfigurationCube) {
-        // Отвечат за металический отблеск/глянец
-        material.specular.contents = UIImage(named: configurationCube.textureGLOSS)
-        
-        material.normal.contents = UIImage(named: configurationCube.textureNRM)
-        
-        // Окружающая окклюзия
-        material.ambientOcclusion.contents = UIImage(named: configurationCube.textureAO)
-        
-        // Перемещение
-        //material.displacement.contents = UIImage(named: configurationCube.textureDISP)
-        
-        // Отражение
-        //material.reflective.contents = UIImage(named: configurationCube.textureREFL)
-        
-        // Широховатость
-        material.roughness.contents = UIImage(named: configurationCube.textureROUGHNESS)
-        
-        // Металичность
-        material.metalness.contents = UIImage(named: configurationCube.textureMETALNESS)
-        
-        
-        // Используется для затемнения или тонирования. Можно использовать как теневую карту
-        //material.multiply.contents = UIImage(named: "RoofShinglesOld002_DISP_1K_METALNESS")
-        
-        // Можно имитировать облака
-        //material.transparent.contents = UIImage(named: "RoofShinglesOld002_DISP_1K_METALNESS", in: nil, with: nil)
-        //material.ambient.contents =
-    }
 }

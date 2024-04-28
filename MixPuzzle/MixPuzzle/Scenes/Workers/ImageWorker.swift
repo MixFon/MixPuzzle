@@ -17,7 +17,7 @@ protocol _ImageWorker {
 struct ConfigurationImage {
     let size: Double
     let radius: Double
-    let textImage: String
+    var textImage: String
     let colorLable: UIColor
     let nameImageTexture: String
 }
