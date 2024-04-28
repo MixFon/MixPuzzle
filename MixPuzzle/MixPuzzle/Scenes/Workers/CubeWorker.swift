@@ -119,6 +119,7 @@ final class CubeWorker: _CubeWorker {
         // Металичность
         material.metalness.contents = UIImage(named: configurationCube.textureMETALNESS)
         
+        
         // Используется для затемнения или тонирования. Можно использовать как теневую карту
         //material.multiply.contents = UIImage(named: "RoofShinglesOld002_DISP_1K_METALNESS")
         

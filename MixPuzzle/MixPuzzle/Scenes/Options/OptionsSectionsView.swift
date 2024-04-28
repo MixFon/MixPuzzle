@@ -132,7 +132,22 @@ struct ColorCellView: View, Identifiable {
 struct TexturePicker: View {
     let id = UUID()
     let title: String
-    let images = ["TilesMosaicPennyround001", "VeneerWhiteOakRandomMatched001", "PlasticABSWorn001", "MetalGoldPaint002", "BoucleBubblyRows001", "PlasterPlain001", "StuccoRoughCast001", "RoofShinglesOld002"]
+    let images = [
+        "WaterDropletsMixedBubbled001",
+        "TilesSquarePoolMixed001",
+        "WoodPlanksWorn001",
+        "TilesTravertine001",
+        "TerrazzoSlab028",
+        "TerrazzoSlab018",
+        "TilesMosaicPennyround001",
+        "VeneerWhiteOakRandomMatched001",
+        "PlasticABSWorn001",
+        "MetalGoldPaint002",
+        "BoucleBubblyRows001",
+        "PlasterPlain001",
+        "StuccoRoughCast001",
+        "RoofShinglesOld002"
+    ]
     
     @Binding var selectedImage: String
     
