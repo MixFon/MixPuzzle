@@ -133,10 +133,18 @@ struct TexturePicker: View {
     let id = UUID()
     let title: String
     let images = [
-        "WaterDropletsMixedBubbled001",
-        "TilesSquarePoolMixed001",
-        "WoodPlanksWorn001",
-        "TilesTravertine001",
+        "WickerWeavesBrownRattan001",
+        "StoneBricksSplitface001",
+        "MetalZincGalvanized001",
+        "GroundWoodChips001",
+        "TilesCeramicHerringbone002",
+        "GroundSand005",
+        "FabricLeatherCowhide001",
+        "GroundDirtRocky020",
+        "GroundGrassGreen002",
+        "MetalCorrodedHeavy001",
+        "BricksDragfacedRunning008",
+        "MetalCastRusted001",
         "TerrazzoSlab028",
         "TerrazzoSlab018",
         "TilesMosaicPennyround001",
@@ -146,7 +154,11 @@ struct TexturePicker: View {
         "BoucleBubblyRows001",
         "PlasterPlain001",
         "StuccoRoughCast001",
-        "RoofShinglesOld002"
+        "RoofShinglesOld002",
+        "WaterDropletsMixedBubbled001",
+        "TilesSquarePoolMixed001",
+        "WoodPlanksWorn001",
+        "TilesTravertine001",
     ]
     
     @Binding var selectedImage: String

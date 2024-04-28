@@ -31,7 +31,6 @@ struct ConfigurationCube {
     var textureCOL: String {
         self.texture + "_COL"
     }
-    
     /// Для нормали
     var textureNRM: String {
         self.texture + "_NRM"
@@ -39,6 +38,10 @@ struct ConfigurationCube {
     /// Для отражения
     var textureREFL: String {
         self.texture + "_REFL"
+    }
+    /// Для отражения
+    var textureDISP: String {
+        self.texture + "_DISP"
     }
     /// Для глянца (specular)
     var textureGLOSS: String {
@@ -108,10 +111,10 @@ final class CubeWorker: _CubeWorker {
         material.ambientOcclusion.contents = UIImage(named: configurationCube.textureAO)
         
         // Перемещение
-        //material.displacement.contents = UIImage(named: "StuccoRoughCast001_DISP_1K_SPECULAR")
+        //material.displacement.contents = UIImage(named: configurationCube.textureDISP)
         
         // Отражение
-        material.reflective.contents = UIImage(named: configurationCube.textureREFL)
+        //material.reflective.contents = UIImage(named: configurationCube.textureREFL)
         
         // Широховатость
         material.roughness.contents = UIImage(named: configurationCube.textureROUGHNESS)
