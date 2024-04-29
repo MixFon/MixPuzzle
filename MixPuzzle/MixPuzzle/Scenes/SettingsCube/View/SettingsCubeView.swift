@@ -40,8 +40,6 @@ struct SettingsCubeView: View {
 	
 	@ObservedObject var dependecy: SettingsCubeDependency
 	
-	@Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-	
 	var body: some View {
 		VStack {
 			NavigationBar(title: "Settings Cubes", tralingView: AnyView(
@@ -76,7 +74,7 @@ struct SettingsCubeView: View {
 }
 
 final class MockSettingsCubeStorage: _SettingsCubeStorage {
-    var texture: String? = "TerrazzoSlab018_COL_1K_SPECULAR"
+    var texture: String? = "TerrazzoSlab018_COL"
     var sizeImage: Double = 200
     var colorLable: Color? = .blue
     var radiusImage: Double = 50

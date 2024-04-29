@@ -28,7 +28,7 @@ struct OptionsView: View {
 				.padding()
 			OptionsSectionsView(title: "Garaphics", cells: [
 				AnyView(CellView(icon: "cube", text: "Cube", action: { self.router.toBox = true })),
-				AnyView(CellView(icon: "moon.stars", text: "Stars", action: { self.router.toStars = true })),
+				AnyView(CellView(icon: "moon.stars", text: "Asteroids", action: { self.router.toStars = true })),
 			])
 			.padding()
 			OptionsSectionsView(title: "Application", cells: [
@@ -43,7 +43,7 @@ struct OptionsView: View {
             SettingsCubeView(dependecy: SettingsCubeDependency(cubeStorage: self.settingsStorages.settingsCubeStorage))
 		}
 		.fullScreenCover(isPresented: $router.toStars) {
-            SettingsCubeView(dependecy: SettingsCubeDependency(cubeStorage: self.settingsStorages.settingsCubeStorage))
+            SettingsAsteroids(dependecy: SettingsAsteroidsDependency(asteroidsStorage: self.settingsStorages.settingsAsteroidsStorage))
 		}
 	}
 }
@@ -54,4 +54,5 @@ struct OptionsView: View {
 
 final class MockSettingsStorage: _SettingsStorage {
     var settingsCubeStorage: _SettingsCubeStorage = MockSettingsCubeStorage()
+    var settingsAsteroidsStorage: _SettingsAsteroidsStorage = MockSettingsAsteroidsStorage()
 }

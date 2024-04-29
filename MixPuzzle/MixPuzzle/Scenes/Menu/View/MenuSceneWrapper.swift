@@ -18,7 +18,8 @@ struct MenuSceneWrapper: View {
 	}
 
     var body: some View {
-		MenuScene() { goTo in
+        // TODO: Перенести в dependency
+        MenuScene(materialsWorker: MaterialsWorker()) { goTo in
 			switch goTo {
 			case .toStart:
 				self.toStart = true

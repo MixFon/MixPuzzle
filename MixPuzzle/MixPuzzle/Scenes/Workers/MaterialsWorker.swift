@@ -10,9 +10,16 @@ import Foundation
 
 protocol _MaterialsWorker {
     func configureMaterial(material: SCNMaterial, texture: ConfigurationTexture)
+    func configureMaterialDiffuse(material: SCNMaterial, texture: ConfigurationTexture)
 }
 
 final class MaterialsWorker: _MaterialsWorker {
+    
+    func configureMaterialDiffuse(material: SCNMaterial, texture: ConfigurationTexture) {
+        material.diffuse.contents = UIImage(named: texture.COL)
+        configureMaterial(material: material, texture: texture)
+    }
+    
     func configureMaterial(material: SCNMaterial, texture: ConfigurationTexture) {
         // Отвечат за металический отблеск/глянец
         material.specular.contents = UIImage(named: texture.GLOSS)

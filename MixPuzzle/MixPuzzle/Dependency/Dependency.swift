@@ -16,6 +16,7 @@ struct Dependency: _Dependency {
     
     init() {
         let settingsCubeStorage = SettingsCubeStorage()
-        self.settingsStorages = SettingsStorage(settingsCubeStorage: settingsCubeStorage)
+        let settingsAsteroidsStorage = SettingsAsteroidsStorage()
+        self.settingsStorages = SettingsStorage(settingsCubeStorage: settingsCubeStorage, settingsAsteroidsStorage: settingsAsteroidsStorage)
     }
 }

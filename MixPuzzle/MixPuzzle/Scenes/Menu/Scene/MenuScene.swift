@@ -11,6 +11,7 @@ import Foundation
 
 struct MenuScene: UIViewRepresentable {
 	
+    let materialsWorker: _MaterialsWorker
     var complition: (MenuSceneWrapper.Router) -> ()
 	
 	private let scene = SCNScene(named: "puzzle.scnassets/menu.scn")
@@ -19,8 +20,17 @@ struct MenuScene: UIViewRepresentable {
 	func makeUIView(context: Context) -> SCNView {
 		let tapGesture = UITapGestureRecognizer(target: context.coordinator, action: #selector(context.coordinator.handleTap(_:)))
 		scnView.addGestureRecognizer(tapGesture)
+        if let floor = scene?.rootNode.childNodes.first(where: {$0.name == "floor"} ) {
+            setupFloor(floor: floor)
+        }
 		return scnView
 	}
+    
+    func setupFloor(floor: SCNNode) {
+        let configurationTexture = ConfigurationTexture(texture: "GroundGrassGreen002")
+        guard let floorMaterial = floor.geometry?.firstMaterial else { return }
+        self.materialsWorker.configureMaterial(material: floorMaterial, texture: configurationTexture)
+    }
 	
 	func updateUIView(_ uiView: SCNView, context: Context) {
 		// set the scene to the view
