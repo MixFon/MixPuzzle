@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		29051C722BE0DDF20064ABF0 /* Snackbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29051C712BE0DDF20064ABF0 /* Snackbar.swift */; };
+		29051C742BE0E6AB0064ABF0 /* Ext+View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29051C732BE0E6AB0064ABF0 /* Ext+View.swift */; };
 		291A07EE2BC173D6008B4246 /* StartScoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291A07ED2BC173D6008B4246 /* StartScoreView.swift */; };
 		291A07F12BC198F8008B4246 /* AsteroidsWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291A07F02BC198F8008B4246 /* AsteroidsWorker.swift */; };
 		293C73BF2BDFCCC900E183B5 /* SettingsAsteroids.swift in Sources */ = {isa = PBXBuildFile; fileRef = 293C73BE2BDFCCC900E183B5 /* SettingsAsteroids.swift */; };
@@ -46,6 +48,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		29051C712BE0DDF20064ABF0 /* Snackbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Snackbar.swift; sourceTree = "<group>"; };
+		29051C732BE0E6AB0064ABF0 /* Ext+View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ext+View.swift"; sourceTree = "<group>"; };
 		291A07ED2BC173D6008B4246 /* StartScoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartScoreView.swift; sourceTree = "<group>"; };
 		291A07F02BC198F8008B4246 /* AsteroidsWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsteroidsWorker.swift; sourceTree = "<group>"; };
 		293C73BE2BDFCCC900E183B5 /* SettingsAsteroids.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsAsteroids.swift; sourceTree = "<group>"; };
@@ -173,6 +177,7 @@
 			children = (
 				294E6E392BD27B9B00B615F1 /* CubeButtonView.swift */,
 				293C73C42BDFEE2000E183B5 /* Bunner.swift */,
+				29051C712BE0DDF20064ABF0 /* Snackbar.swift */,
 			);
 			path = Draft;
 			sourceTree = "<group>";
@@ -244,6 +249,7 @@
 			isa = PBXGroup;
 			children = (
 				29B2ADBE2BDBA415002D11D8 /* Ext+Color.swift */,
+				29051C732BE0E6AB0064ABF0 /* Ext+View.swift */,
 			);
 			path = Extentions;
 			sourceTree = "<group>";
@@ -408,6 +414,7 @@
 				2944D6DF2BC91166001F1A82 /* BackButtonToolbarItem.swift in Sources */,
 				29C162D22B848D89002E185D /* MenuScene.swift in Sources */,
 				293C73C32BDFCE0700E183B5 /* SettingsAsteroidsStorage.swift in Sources */,
+				29051C722BE0DDF20064ABF0 /* Snackbar.swift in Sources */,
 				2944D6E72BC91770001F1A82 /* SettingsCubeScene.swift in Sources */,
 				29A070332B91A5940078EB8D /* StartFactory.swift in Sources */,
 				29DFDEBB2BC50D9500791434 /* Colors.swift in Sources */,
@@ -418,6 +425,7 @@
 				2944D6EE2BCC4FFD001F1A82 /* CubeWorker.swift in Sources */,
 				29DFDEBE2BC5177F00791434 /* OptionsSectionsView.swift in Sources */,
 				291A07F12BC198F8008B4246 /* AsteroidsWorker.swift in Sources */,
+				29051C742BE0E6AB0064ABF0 /* Ext+View.swift in Sources */,
 				293C73C52BDFEE2000E183B5 /* Bunner.swift in Sources */,
 				29A225492B89E0C5009ECD1C /* OptionsView.swift in Sources */,
 				2979B7182BBFDF3C000839D3 /* MenuSceneWrapper.swift in Sources */,

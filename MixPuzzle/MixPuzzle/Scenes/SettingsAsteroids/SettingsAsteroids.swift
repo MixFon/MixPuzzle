@@ -34,15 +34,14 @@ final class SettingsAsteroidsDependency: ObservableObject {
 struct SettingsAsteroids: View {
     
     @ObservedObject var dependecy: SettingsAsteroidsDependency
-    @State var banner: BannerData = .init(title: "sdf", detail: "sdf", type: .success)
-    @State var isShowBanner: Bool = false
+    @State private var isShowSnackbar: Bool = false
     
     var body: some View {
         VStack {
             NavigationBar(title: "Settings Asteroids", tralingView: AnyView(
                 SaveButtonNavigationBar(action: {
                     self.dependecy.saveChanges()
-                    isShowBanner = true
+					self.isShowSnackbar = true
                 })
             ))
             .padding()
@@ -56,6 +55,7 @@ struct SettingsAsteroids: View {
             .cornerRadius(16)
             .padding()
         }
+		.snackbar(isShowing: $isShowSnackbar, text: "The data has been saved successfully.", style: .success, extraBottomPadding: 16)
         .background(Color.mm_background_secondary)
     }
 }

@@ -39,12 +39,14 @@ final class SettingsCubeDependency: ObservableObject {
 struct SettingsCubeView: View {
 	
 	@ObservedObject var dependecy: SettingsCubeDependency
+	@State private var isShowSnackbar = false
 	
 	var body: some View {
 		VStack {
 			NavigationBar(title: "Settings Cubes", tralingView: AnyView(
                 SaveButtonNavigationBar(action: {
                     self.dependecy.saveChanges()
+					isShowSnackbar = true
                 })
             ))
             .padding()
@@ -64,6 +66,7 @@ struct SettingsCubeView: View {
             .cornerRadius(16)
 			.padding()
 		}
+		.snackbar(isShowing: $isShowSnackbar, text: "The data has been saved successfully.", style: .success, extraBottomPadding: 16)
 		.background(Color.mm_background_secondary)
 	}
 }
