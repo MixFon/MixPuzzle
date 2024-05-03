@@ -14,7 +14,6 @@
 		293C73BF2BDFCCC900E183B5 /* SettingsAsteroids.swift in Sources */ = {isa = PBXBuildFile; fileRef = 293C73BE2BDFCCC900E183B5 /* SettingsAsteroids.swift */; };
 		293C73C12BDFCDAF00E183B5 /* SettingsCubeStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 293C73C02BDFCDAF00E183B5 /* SettingsCubeStorage.swift */; };
 		293C73C32BDFCE0700E183B5 /* SettingsAsteroidsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 293C73C22BDFCE0700E183B5 /* SettingsAsteroidsStorage.swift */; };
-		293C73C52BDFEE2000E183B5 /* Bunner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 293C73C42BDFEE2000E183B5 /* Bunner.swift */; };
 		2944D6DC2BC871A6001F1A82 /* SettingsCubeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2944D6DB2BC871A6001F1A82 /* SettingsCubeView.swift */; };
 		2944D6DF2BC91166001F1A82 /* BackButtonToolbarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2944D6DE2BC91166001F1A82 /* BackButtonToolbarItem.swift */; };
 		2944D6E32BC9163C001F1A82 /* SettingsCubeWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2944D6E22BC9163C001F1A82 /* SettingsCubeWrapper.swift */; };
@@ -55,7 +54,6 @@
 		293C73BE2BDFCCC900E183B5 /* SettingsAsteroids.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsAsteroids.swift; sourceTree = "<group>"; };
 		293C73C02BDFCDAF00E183B5 /* SettingsCubeStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCubeStorage.swift; sourceTree = "<group>"; };
 		293C73C22BDFCE0700E183B5 /* SettingsAsteroidsStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsAsteroidsStorage.swift; sourceTree = "<group>"; };
-		293C73C42BDFEE2000E183B5 /* Bunner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bunner.swift; sourceTree = "<group>"; };
 		2944D6DB2BC871A6001F1A82 /* SettingsCubeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCubeView.swift; sourceTree = "<group>"; };
 		2944D6DE2BC91166001F1A82 /* BackButtonToolbarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButtonToolbarItem.swift; sourceTree = "<group>"; };
 		2944D6E22BC9163C001F1A82 /* SettingsCubeWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCubeWrapper.swift; sourceTree = "<group>"; };
@@ -176,7 +174,6 @@
 			isa = PBXGroup;
 			children = (
 				294E6E392BD27B9B00B615F1 /* CubeButtonView.swift */,
-				293C73C42BDFEE2000E183B5 /* Bunner.swift */,
 				29051C712BE0DDF20064ABF0 /* Snackbar.swift */,
 			);
 			path = Draft;
@@ -426,7 +423,6 @@
 				29DFDEBE2BC5177F00791434 /* OptionsSectionsView.swift in Sources */,
 				291A07F12BC198F8008B4246 /* AsteroidsWorker.swift in Sources */,
 				29051C742BE0E6AB0064ABF0 /* Ext+View.swift in Sources */,
-				293C73C52BDFEE2000E183B5 /* Bunner.swift in Sources */,
 				29A225492B89E0C5009ECD1C /* OptionsView.swift in Sources */,
 				2979B7182BBFDF3C000839D3 /* MenuSceneWrapper.swift in Sources */,
 				29C162C22B848CC4002E185D /* MixPuzzleApp.swift in Sources */,
