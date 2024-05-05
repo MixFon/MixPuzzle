@@ -5,6 +5,7 @@
 //  Created by Михаил Фокин on 25.02.2024.
 //
 
+import Combine
 import MFPuzzle
 import SceneKit
 
@@ -21,6 +22,7 @@ protocol _BoxesWorker {
 	func calculateCameraPosition() -> SCNVector3
 	/// Создание анимации перемещения на узла на пустое место (на место нуля)
 	func createMoveToZeroAction(number: UInt8) -> SCNAction?
+	
 }
 
 /// Занимается созданием и UI настройкой матрицы элементов. Так же отвечает за пермещение элементов
@@ -34,7 +36,11 @@ final class BoxesWorker: _BoxesWorker {
     private let horisontalPadding: CGFloat = 0.2
 	
 	private let cubeWorker: _CubeWorker
+	private let gameWorker: _GameWorker
     private let settingsCubeStorate: _SettingsCubeStorage
+	private let startSceneDependency: StartSceneDependency
+	
+	private var cancellables = Set<AnyCancellable>()
 	
 	var centreMatrix: SCNVector3 {
 		let centreX = CGFloat(self.grid.size) * (self.lengthEdge + self.horisontalPadding) - self.horisontalPadding - self.lengthEdge
@@ -53,12 +59,24 @@ final class BoxesWorker: _BoxesWorker {
 		}
     }
     
-    init(grid: Grid, cubeWorker: _CubeWorker, settingsCubeStorate: _SettingsCubeStorage) {
+	init(grid: Grid, cubeWorker: _CubeWorker, gameWorker: _GameWorker, settingsCubeStorate: _SettingsCubeStorage, startSceneDependency: StartSceneDependency) {
         self.grid = grid
         self.cubeWorker = cubeWorker
+		self.gameWorker = gameWorker
+		self.startSceneDependency = startSceneDependency
         self.settingsCubeStorate = settingsCubeStorate
+		
+		configureSavePublisher()
     }
-
+	
+	
+	private func configureSavePublisher() {
+		self.startSceneDependency.saveSubject.sink { [weak self] in
+			guard let self else { return }
+			self.gameWorker.save(matrix: self.grid.matrix)
+		}.store(in: &cancellables)
+	}
+	
     func crateMatrixBox() -> [SCNNode] {
         return createNodesFormMatrix(matrix: self.grid.matrix)
     }

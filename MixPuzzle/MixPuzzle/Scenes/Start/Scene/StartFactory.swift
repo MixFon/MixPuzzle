@@ -20,17 +20,12 @@ final class StartFactory {
         let imageWorker = ImageWorker()
 		let cubeWorker = CubeWorker(imageWorker: imageWorker, materialsWorker: materialsWorker)
 		let matrixWorker = MatrixWorker()
-		let string = """
-4
-0 1 2 3
-4 5 6 7
-8 9 10 11
-12 13 14 15
-"""
-		//let matrixSpiral = matrixWorker.createMatrixSpiral(size: 4)
-		let matrixSpiral = try! matrixWorker.creationMatrix(text: string)
-		let grid = Grid(matrix: matrixSpiral)
-        let boxWorker = BoxesWorker(grid: grid, cubeWorker: cubeWorker, settingsCubeStorate: dependency.settingsStorages.settingsCubeStorage)
-		return StartScene(boxWorker: boxWorker, startsWorker: starsWorker, startSceneDependency: startSceneDependency, settingsAsteroidsStorage: dependency.settingsStorages.settingsAsteroidsStorage)
+		let fileForker = FileWorker()
+		let gameWorker = GameWorker(fileWorker: fileForker)
+		let text = gameWorker.load()
+		let matrixSpiral = try? matrixWorker.creationMatrix(text: text)
+		let grid = Grid(matrix: matrixSpiral ?? matrixWorker.createMatrixSpiral(size: 4))
+		let boxWorker = BoxesWorker(grid: grid, cubeWorker: cubeWorker, gameWorker: gameWorker, settingsCubeStorate: dependency.settingsStorages.settingsCubeStorage, startSceneDependency: startSceneDependency)
+		return StartScene(boxWorker: boxWorker, startsWorker: starsWorker, settingsAsteroidsStorage: dependency.settingsStorages.settingsAsteroidsStorage)
 	}
 }

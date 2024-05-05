@@ -26,6 +26,7 @@
 		2979B7142BBFDE5D000839D3 /* StartSceneWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2979B7132BBFDE5D000839D3 /* StartSceneWrapper.swift */; };
 		2979B7182BBFDF3C000839D3 /* MenuSceneWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2979B7172BBFDF3C000839D3 /* MenuSceneWrapper.swift */; };
 		2980BC6E2BE7D9E500866895 /* GameWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2980BC6D2BE7D9E500866895 /* GameWorker.swift */; };
+		2980BC702BE7F5D300866895 /* FileWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2980BC6F2BE7F5D300866895 /* FileWorker.swift */; };
 		2985064E2B8B53A300028FA9 /* BoxesWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2985064D2B8B53A300028FA9 /* BoxesWorker.swift */; };
 		29A070332B91A5940078EB8D /* StartFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A070322B91A5940078EB8D /* StartFactory.swift */; };
 		29A225492B89E0C5009ECD1C /* OptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A225482B89E0C5009ECD1C /* OptionsView.swift */; };
@@ -67,6 +68,7 @@
 		2979B7132BBFDE5D000839D3 /* StartSceneWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartSceneWrapper.swift; sourceTree = "<group>"; };
 		2979B7172BBFDF3C000839D3 /* MenuSceneWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuSceneWrapper.swift; sourceTree = "<group>"; };
 		2980BC6D2BE7D9E500866895 /* GameWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameWorker.swift; sourceTree = "<group>"; };
+		2980BC6F2BE7F5D300866895 /* FileWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileWorker.swift; sourceTree = "<group>"; };
 		2985064D2B8B53A300028FA9 /* BoxesWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxesWorker.swift; sourceTree = "<group>"; };
 		29A070322B91A5940078EB8D /* StartFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartFactory.swift; sourceTree = "<group>"; };
 		29A225482B89E0C5009ECD1C /* OptionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsView.swift; sourceTree = "<group>"; };
@@ -163,6 +165,7 @@
 		2944D6E82BC91E96001F1A82 /* Workers */ = {
 			isa = PBXGroup;
 			children = (
+				2980BC6F2BE7F5D300866895 /* FileWorker.swift */,
 				2985064D2B8B53A300028FA9 /* BoxesWorker.swift */,
 				291A07F02BC198F8008B4246 /* AsteroidsWorker.swift */,
 				2944D6EB2BCC4C94001F1A82 /* ImageWorker.swift */,
@@ -400,6 +403,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2980BC702BE7F5D300866895 /* FileWorker.swift in Sources */,
 				2980BC6E2BE7D9E500866895 /* GameWorker.swift in Sources */,
 				293C73C12BDFCDAF00E183B5 /* SettingsCubeStorage.swift in Sources */,
 				2979B7142BBFDE5D000839D3 /* StartSceneWrapper.swift in Sources */,
