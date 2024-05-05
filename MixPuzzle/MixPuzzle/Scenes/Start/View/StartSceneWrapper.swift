@@ -10,11 +10,12 @@ import Foundation
 
 struct StartSceneWrapper: View {
     let dependency: _Dependency
+	let startSceneDependency: StartSceneDependency
 	
 	private let startFactory = StartFactory()
 	
 	var body: some View {
-        self.startFactory.configure(dependency: self.dependency)
+		self.startFactory.configure(dependency: self.dependency, startSceneDependency: self.startSceneDependency)
 	}
 }
 

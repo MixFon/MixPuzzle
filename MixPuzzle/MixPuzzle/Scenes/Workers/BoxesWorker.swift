@@ -10,11 +10,16 @@ import SceneKit
 
 protocol _BoxesWorker {
 	
+	/// Центр матрицы
 	var centreMatrix: SCNVector3 { get }
 	
-    func crateMatrixBox() -> [SCNNode]
+	/// Создает матрицу кубиков с позицией, с геометрией и материалом.
+	func crateMatrixBox() -> [SCNNode]
+	/// Создание анимации тряски кубика.
 	func createShakeAnimation(position: SCNVector3) -> CAKeyframeAnimation
-    func calculateCameraPosition() -> SCNVector3
+	/// Опредляет координаты камеры так, чтобы все пазды были видны на экране
+	func calculateCameraPosition() -> SCNVector3
+	/// Создание анимации перемещения на узла на пустое место (на место нуля)
 	func createMoveToZeroAction(number: UInt8) -> SCNAction?
 }
 
@@ -60,7 +65,7 @@ final class BoxesWorker: _BoxesWorker {
     
     func calculateCameraPosition() -> SCNVector3 {
 		let centre = self.centreMatrix
-		let height = CGFloat(self.grid.size) * (self.lengthEdge + self.horisontalPadding) + CGFloat(self.grid.size) * self.lengthEdge * 0.85
+		let height = CGFloat(self.grid.size) * (self.lengthEdge + self.horisontalPadding) + CGFloat(self.grid.size) * self.lengthEdge
 		return SCNVector3(x: centre.x, y: centre.y, z: Float(height))
     }
 	
@@ -73,6 +78,7 @@ final class BoxesWorker: _BoxesWorker {
 		self.grid.swapNumber(number: number)
 		return action
 	}
+	
 	
 	func createShakeAnimation(position vector: SCNVector3) -> CAKeyframeAnimation {
 		let animation = CAKeyframeAnimation(keyPath: "position")

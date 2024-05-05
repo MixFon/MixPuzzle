@@ -11,12 +11,12 @@ import Foundation
 /// Отвечает за создание одного кубика
 protocol _CubeWorker {
 	/// Возвращает кубик с текстом-картинкой
-	/// - textImage - текст который будет в круге
-	/// - lengthEdge - длина ребра кубика
+	/// - configurationCube - конфигурация для геометрии кубика
+	/// - configurationImage - конфигурации для изображения
     func getCube(configurationCube: ConfigurationCube, configurationImage: ConfigurationImage) -> SCNNode
 	
-	/// Изменение радиуса на гране куба
-    func changeImage(cube: SCNNode,configurationCube: ConfigurationCube, configuration: ConfigurationImage)
+	/// Изменение картинки с цислами на грани кубика
+    func changeImage(cube: SCNNode, configurationCube: ConfigurationCube, configuration: ConfigurationImage)
 	
 	/// Изменение радиуса скругления куба
 	func changeChamferRadius(cube: SCNNode, chamferRadius: Double)

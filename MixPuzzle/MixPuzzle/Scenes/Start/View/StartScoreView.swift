@@ -9,7 +9,8 @@ import SwiftUI
 
 struct StartScoreView: View {
 	
-	@State var score: Int = 0
+	@State private var score: Int = 0
+	let startSceneDependency: StartSceneDependency
 	@Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
 	
     var body: some View {
@@ -24,6 +25,7 @@ struct StartScoreView: View {
 				Text("Press me")
 			}
 			Button {
+				self.startSceneDependency.saveSubject.send()
 				self.presentationMode.wrappedValue.dismiss()
 			} label: {
 				Text("Go back")
@@ -33,5 +35,6 @@ struct StartScoreView: View {
 }
 
 #Preview {
-    return StartScoreView()
+	let startSceneDependency = StartSceneDependency()
+    return StartScoreView(startSceneDependency: startSceneDependency)
 }

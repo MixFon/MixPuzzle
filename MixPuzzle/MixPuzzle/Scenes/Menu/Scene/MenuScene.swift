@@ -20,7 +20,7 @@ struct MenuScene: UIViewRepresentable {
 	func makeUIView(context: Context) -> SCNView {
 		let tapGesture = UITapGestureRecognizer(target: context.coordinator, action: #selector(context.coordinator.handleTap(_:)))
 		scnView.addGestureRecognizer(tapGesture)
-        if let floor = scene?.rootNode.childNodes.first(where: {$0.name == "floor"} ) {
+        if let floor = scene?.rootNode.childNodes.first(where: { $0.name == "floor" } ) {
             setupFloor(floor: floor)
         }
 		return scnView
@@ -38,9 +38,6 @@ struct MenuScene: UIViewRepresentable {
 		
 		// allows the user to manipulate the camera
 		uiView.allowsCameraControl = true
-		
-		// show statistics such as fps and timing information
-		uiView.showsStatistics = true
 		
 		// configure the view
 		uiView.backgroundColor = UIColor.black

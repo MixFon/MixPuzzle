@@ -67,10 +67,6 @@ struct SettingsAsteroids: View {
 
 final class MockSettingsAsteroidsStorage: _SettingsAsteroidsStorage {
     var radiusSphere: Double = 30
-    
     var asteroidsCount: Double = 100
-    
     var isShowAsteroids: Bool = true
-    
-    
 }

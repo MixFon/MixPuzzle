@@ -77,7 +77,7 @@ struct SettingsCubeView: View {
 }
 
 final class MockSettingsCubeStorage: _SettingsCubeStorage {
-    var texture: String? = "TerrazzoSlab018_COL"
+    var texture: String? = "TerrazzoSlab018"
     var sizeImage: Double = 200
     var colorLable: Color? = .blue
     var radiusImage: Double = 50

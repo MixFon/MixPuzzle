@@ -5,6 +5,7 @@
 //  Created by Михаил Фокин on 24.02.2024.
 //
 
+import Combine
 import SwiftUI
 import SceneKit
 import MFPuzzle
@@ -14,7 +15,18 @@ struct StartScene: UIViewRepresentable {
 	
 	let boxWorker: _BoxesWorker
 	let startsWorker: _AsteroidsWorker
+	let startSceneDependency: StartSceneDependency
     let settingsAsteroidsStorage: _SettingsAsteroidsStorage
+	
+	private var cancellables = Set<AnyCancellable>()
+	
+	init(boxWorker: _BoxesWorker, startsWorker: _AsteroidsWorker, startSceneDependency: StartSceneDependency, settingsAsteroidsStorage: _SettingsAsteroidsStorage) {
+		self.boxWorker = boxWorker
+		self.startsWorker = startsWorker
+		self.startSceneDependency = startSceneDependency
+		self.settingsAsteroidsStorage = settingsAsteroidsStorage
+		configureSavePublisher()
+	}
 	
 	private let generator = UINotificationFeedbackGenerator()
 	
@@ -49,6 +61,12 @@ struct StartScene: UIViewRepresentable {
 		ambientLightNode.light?.color = UIColor.darkGray.cgColor
 		return ambientLightNode
 	}()
+	
+	mutating private func configureSavePublisher() {
+		self.startSceneDependency.saveSubject.sink { _ in
+			print("Save")
+		}.store(in: &cancellables)
+	}
     
     func makeUIView(context: Context) -> SCNView {
         self.scene.rootNode.addChildNode(self.lightNode)
@@ -94,7 +112,7 @@ struct StartScene: UIViewRepresentable {
         // allows the user to manipulate the camera
         uiView.allowsCameraControl = true
         // show statistics such as fps and timing information
-        uiView.showsStatistics = true
+        uiView.showsStatistics = false
         // configure the view
         uiView.backgroundColor = UIColor.black
     }
