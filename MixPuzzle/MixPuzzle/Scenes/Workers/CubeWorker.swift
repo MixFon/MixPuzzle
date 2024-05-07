@@ -107,3 +107,18 @@ final class CubeWorker: _CubeWorker {
 		geometry?.chamferRadius = chamferRadius
 	}
 }
+
+
+final class MockCubeWorker: _CubeWorker {
+	func getCube(configurationCube: ConfigurationCube, configurationImage: ConfigurationImage) -> SCNNode {
+		return .init()
+	}
+	
+	func changeImage(cube: SCNNode, configurationCube: ConfigurationCube, configuration: ConfigurationImage) {
+		
+	}
+	
+	func changeChamferRadius(cube: SCNNode, chamferRadius: Double) {
+		
+	}
+}

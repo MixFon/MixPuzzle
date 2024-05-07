@@ -37,8 +37,8 @@ final class BoxesWorker: _BoxesWorker {
 	
 	private let cubeWorker: _CubeWorker
 	private let gameWorker: _GameWorker
+	private let startSceneModel: StartSceneModel
     private let settingsCubeStorate: _SettingsCubeStorage
-	private let startSceneDependency: StartSceneDependency
 	
 	private var cancellables = Set<AnyCancellable>()
 	
@@ -59,11 +59,11 @@ final class BoxesWorker: _BoxesWorker {
 		}
     }
     
-	init(grid: Grid, cubeWorker: _CubeWorker, gameWorker: _GameWorker, settingsCubeStorate: _SettingsCubeStorage, startSceneDependency: StartSceneDependency) {
+	init(grid: Grid, cubeWorker: _CubeWorker, gameWorker: _GameWorker, settingsCubeStorate: _SettingsCubeStorage, startSceneModel: StartSceneModel) {
         self.grid = grid
         self.cubeWorker = cubeWorker
 		self.gameWorker = gameWorker
-		self.startSceneDependency = startSceneDependency
+		self.startSceneModel = startSceneModel
         self.settingsCubeStorate = settingsCubeStorate
 		
 		configureSavePublisher()
@@ -71,7 +71,7 @@ final class BoxesWorker: _BoxesWorker {
 	
 	
 	private func configureSavePublisher() {
-		self.startSceneDependency.saveSubject.sink { [weak self] in
+		self.startSceneModel.saveSubject.sink { [weak self] in
 			guard let self else { return }
 			self.gameWorker.save(matrix: self.grid.matrix)
 		}.store(in: &cancellables)

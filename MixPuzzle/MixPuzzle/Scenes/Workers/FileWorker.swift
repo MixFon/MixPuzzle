@@ -46,3 +46,13 @@ final class FileWorker: _FileWorker {
 		return fileURL
 	}
 }
+
+final class MockFileWorker: _FileWorker {
+	func saveStringToFile(string: String, fileName: String) {
+		
+	}
+	
+	func readStringFromFile(fileName: String) -> String? {
+		return nil
+	}
+}

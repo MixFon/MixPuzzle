@@ -50,3 +50,10 @@ final class ImageWorker: _ImageWorker {
 		return nil
 	}
 }
+
+
+final class MockImageWorker: _ImageWorker {
+	func imageWith(configuration: ConfigurationImage) -> UIImage? {
+		return nil
+	}
+}

@@ -11,6 +11,10 @@ import SceneKit
 import MFPuzzle
 import Foundation
 
+//struct StartSceneDependency {
+//	
+//}
+
 struct StartScene: UIViewRepresentable {
 	
 	let boxWorker: _BoxesWorker

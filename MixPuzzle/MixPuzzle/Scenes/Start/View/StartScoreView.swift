@@ -10,7 +10,7 @@ import SwiftUI
 struct StartScoreView: View {
 	
 	@State private var score: Int = 0
-	let startSceneDependency: StartSceneDependency
+	let startSceneDependency: StartSceneModel
 	@Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
 	
     var body: some View {
@@ -35,6 +35,6 @@ struct StartScoreView: View {
 }
 
 #Preview {
-	let startSceneDependency = StartSceneDependency()
+	let startSceneDependency = StartSceneModel()
     return StartScoreView(startSceneDependency: startSceneDependency)
 }

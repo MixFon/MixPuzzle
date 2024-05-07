@@ -44,3 +44,13 @@ final class GameWorker: _GameWorker {
 		return self.fileWorker.readStringFromFile(fileName: self.fileName) ?? string
 	}
 }
+
+final class MockGameWorker: _GameWorker {
+	func save(matrix: Matrix) {
+		
+	}
+	
+	func load() -> String {
+		return ""
+	}
+}

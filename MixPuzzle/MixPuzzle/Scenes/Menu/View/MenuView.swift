@@ -34,5 +34,6 @@ struct MenuView: View {
 }
 
 final class MockDependency: _Dependency {
+	var workers: _Workers = MockWorkers()
     var settingsStorages: _SettingsStorage = MockSettingsStorage()
 }

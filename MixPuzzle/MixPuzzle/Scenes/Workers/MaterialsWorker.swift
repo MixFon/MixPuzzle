@@ -52,3 +52,13 @@ final class MaterialsWorker: _MaterialsWorker {
         //material.ambient.contents =
     }
 }
+
+final class MockMaterialsWorker: _MaterialsWorker {
+	func configureMaterial(material: SCNMaterial, texture: ConfigurationTexture) {
+		
+	}
+	
+	func configureMaterialDiffuse(material: SCNMaterial, texture: ConfigurationTexture) {
+		
+	}
+}

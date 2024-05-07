@@ -9,7 +9,7 @@ import SwiftUI
 import Combine
 import MFPuzzle
 
-final class StartSceneDependency: ObservableObject {
+final class StartSceneModel: ObservableObject {
 	/// Паблишер для обработки нажатия кнопки сохранить
 	let saveSubject = PassthroughSubject<Void, Never>()
 }
@@ -17,14 +17,14 @@ final class StartSceneDependency: ObservableObject {
 struct StartView: View {
     
     let dependency: _Dependency
-	@ObservedObject private var startSceneDependency = StartSceneDependency()
+	@ObservedObject private var startSceneModel = StartSceneModel()
 	
     var body: some View {
 		ZStack {
-            StartSceneWrapper(dependency: self.dependency, startSceneDependency: startSceneDependency)
+            StartSceneWrapper(dependency: self.dependency, startSceneModel: startSceneModel)
 				.equatable() // Отключение обновления сцены
 			VStack {
-				StartScoreView(startSceneDependency: startSceneDependency)
+				StartScoreView(startSceneDependency: startSceneModel)
 					.padding(.top, 50)
 				Spacer()
 			}

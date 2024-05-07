@@ -85,3 +85,13 @@ final class AsteroidsWorker: _AsteroidsWorker {
 		return CGFloat.pi / 180.0 * degree
 	}
 }
+
+final class MockAsteroidsWorker: _AsteroidsWorker {
+	func createAsteroids(centre: SCNVector3) -> [SCNNode] {
+		return []
+	}
+	
+	func setAnimationRotationTo(node: SCNNode) {
+		
+	}
+}
