@@ -17,14 +17,22 @@ import Foundation
 
 struct StartScene: UIViewRepresentable {
 	
-	let boxWorker: _BoxesWorker
-	let asteroidWorker: _AsteroidsWorker
-    let settingsAsteroidsStorage: _SettingsAsteroidsStorage
+	private let boxWorker: _BoxesWorker
+	private let gameWorker: _GameWorker
+	private let asteroidWorker: _AsteroidsWorker
+	private let startSceneModel: StartSceneModel
+    private let settingsAsteroidsStorage: _SettingsAsteroidsStorage
 	
-	init(boxWorker: _BoxesWorker, asteroidWorker: _AsteroidsWorker, settingsAsteroidsStorage: _SettingsAsteroidsStorage) {
+	private var cancellables = Set<AnyCancellable>()
+	
+	init(boxWorker: _BoxesWorker, gameWorker: _GameWorker, asteroidWorker: _AsteroidsWorker, startSceneModel: StartSceneModel, settingsAsteroidsStorage: _SettingsAsteroidsStorage) {
 		self.boxWorker = boxWorker
+		self.gameWorker = gameWorker
 		self.asteroidWorker = asteroidWorker
+		self.startSceneModel = startSceneModel
 		self.settingsAsteroidsStorage = settingsAsteroidsStorage
+		
+		configureSavePublisher()
 	}
 	
 	private let generator = UINotificationFeedbackGenerator()
@@ -80,6 +88,14 @@ struct StartScene: UIViewRepresentable {
         self.scnView.addGestureRecognizer(tapGesture)
         return self.scnView
     }
+	
+	private mutating func configureSavePublisher() {
+		let gameWorker = self.gameWorker
+		let boxWorker = self.boxWorker
+		self.startSceneModel.saveSubject.sink { [gameWorker, boxWorker] in
+			gameWorker.save(matrix: boxWorker.matrix)
+		}.store(in: &cancellables)
+	}
     
     /// Создание и конфигурация астероидойдов
     private func createAndConfigureAsteroids() {

@@ -11,6 +11,8 @@ import SceneKit
 
 protocol _BoxesWorker {
 	
+	/// Матрица элементов. Двумерный массив
+	var matrix: Matrix { get }
 	/// Центр матрицы
 	var centreMatrix: SCNVector3 { get }
 	
@@ -27,8 +29,12 @@ protocol _BoxesWorker {
 
 /// Занимается созданием и UI настройкой матрицы элементов. Так же отвечает за пермещение элементов
 final class BoxesWorker: _BoxesWorker {
+	
+	var matrix: Matrix {
+		self.grid.matrix
+	}
 	/// Модель сетки, на основе нее строится отобрадение
-	private let grid: Grid
+	private var grid: Grid
     private let lengthEdge: CGFloat = 4
     private let verticalPadding: CGFloat = 0.4
 	/// Длительность анимации передвижения в позицию 0
@@ -36,12 +42,8 @@ final class BoxesWorker: _BoxesWorker {
     private let horisontalPadding: CGFloat = 0.2
 	
 	private let cubeWorker: _CubeWorker
-	private let gameWorker: _GameWorker
-	private let startSceneModel: StartSceneModel
     private let settingsCubeStorate: _SettingsCubeStorage
-	
-	private var cancellables = Set<AnyCancellable>()
-	
+		
 	var centreMatrix: SCNVector3 {
 		let centreX = CGFloat(self.grid.size) * (self.lengthEdge + self.horisontalPadding) - self.horisontalPadding - self.lengthEdge
 		let centreY = CGFloat(self.grid.size) * (self.lengthEdge + self.verticalPadding) - self.verticalPadding - self.lengthEdge
@@ -59,24 +61,13 @@ final class BoxesWorker: _BoxesWorker {
 		}
     }
     
-	init(grid: Grid, cubeWorker: _CubeWorker, gameWorker: _GameWorker, settingsCubeStorate: _SettingsCubeStorage, startSceneModel: StartSceneModel) {
+	init(grid: Grid, cubeWorker: _CubeWorker, settingsCubeStorate: _SettingsCubeStorage) {
         self.grid = grid
         self.cubeWorker = cubeWorker
-		self.gameWorker = gameWorker
-		self.startSceneModel = startSceneModel
         self.settingsCubeStorate = settingsCubeStorate
-		
-		configureSavePublisher()
     }
 	
-	
-	private func configureSavePublisher() {
-		self.startSceneModel.saveSubject.sink { [weak self] in
-			guard let self else { return }
-			self.gameWorker.save(matrix: self.grid.matrix)
-		}.store(in: &cancellables)
-	}
-	
+
     func crateMatrixBox() -> [SCNNode] {
         return createNodesFormMatrix(matrix: self.grid.matrix)
     }

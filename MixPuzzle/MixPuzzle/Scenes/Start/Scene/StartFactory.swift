@@ -20,13 +20,13 @@ final class StartFactory {
 		let boxWorker = BoxesWorker(
 			grid: grid,
 			cubeWorker: dependency.workers.cubeWorker,
-			gameWorker: dependency.workers.gameWorker,
-			settingsCubeStorate: dependency.settingsStorages.settingsCubeStorage,
-			startSceneModel: startSceneModel
+			settingsCubeStorate: dependency.settingsStorages.settingsCubeStorage
 		)
 		let startScene = StartScene(
 			boxWorker: boxWorker,
+			gameWorker: dependency.workers.gameWorker,
 			asteroidWorker: dependency.workers.asteroidWorker,
+			startSceneModel: startSceneModel,
 			settingsAsteroidsStorage: dependency.settingsStorages.settingsAsteroidsStorage
 		)
 		return startScene
