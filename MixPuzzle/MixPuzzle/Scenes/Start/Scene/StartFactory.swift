@@ -13,10 +13,8 @@ final class StartFactory {
 	
 	func configure(dependency: _Dependency, startSceneModel: StartSceneModel) -> some View {
 		
-		let text = dependency.workers.gameWorker.load()
-		let matrixWorker = MatrixWorker()
-		let matrixSpiral = try? matrixWorker.creationMatrix(text: text)
-		let grid = Grid(matrix: matrixSpiral ?? matrixWorker.createMatrixSpiral(size: 4))
+		let matrix = dependency.workers.gameWorker.matrix
+		let grid = Grid(matrix: matrix)
 		let boxWorker = BoxesWorker(
 			grid: grid,
 			cubeWorker: dependency.workers.cubeWorker,

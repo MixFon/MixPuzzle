@@ -29,13 +29,15 @@ struct Dependency: _Dependency {
 		let imageWorker = ImageWorker()
 		let cubeWorker = CubeWorker(imageWorker: imageWorker, materialsWorker: materialsWorker)
 		let fileForker = FileWorker()
-		let gameWorker = GameWorker(fileWorker: fileForker)
+		let matrixWorker = MatrixWorker()
+		let gameWorker = GameWorker(fileWorker: fileForker, matrixWorker: matrixWorker)
 		
 		self.workers = Workers(
 			fileWorker: fileForker,
 			gameWorker: gameWorker,
 			cubeWorker: cubeWorker,
 			imageWorker: imageWorker,
+			matrixWorker: matrixWorker,
 			asteroidWorker: asteroidworker,
 			materialsWorker: materialsWorker
 		)

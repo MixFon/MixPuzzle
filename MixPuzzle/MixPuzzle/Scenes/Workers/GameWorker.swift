@@ -9,19 +9,49 @@ import MFPuzzle
 import Foundation
 
 protocol _GameWorker {
+	/// Двумерный массив текущей матрицы
+	var matrix: Matrix { get }
+	
+	/// Сохранение матрицы. Сохраняет текущее сотояние
 	func save(matrix: Matrix)
-	func load() -> String
+	
+	/// Проверка на то, что матрица достигла фильного результата
+	func checkSolution(matrix: Matrix) -> Bool
 }
 
 /// Класс отвечающий за сохранение данных игры.
 /// Сохранение состояния игры. Получение цели игры
 final class GameWorker: _GameWorker {
+	var matrix: Matrix
+	
+	private let matrixSolution: Matrix
 	
 	private let fileWorker: _FileWorker
-	private let fileName = "matrix.mix"
+	private let matrixWorker: _MatrixWorker
+	private let fileNameMatrix = "matrix.mix"
+	private let fileNameMatrixSolution = "matrix.solution.mix"
 	
-	init(fileWorker: _FileWorker) {
+	private let defaultMatrix = """
+4
+ 1  2  3  4
+12 13 14  5
+11  0 15  6
+10  9  8  7
+"""
+	
+	init(fileWorker: _FileWorker, matrixWorker: _MatrixWorker) {
 		self.fileWorker = fileWorker
+		self.matrixWorker = matrixWorker
+		
+		let textMatrix = self.fileWorker.readStringFromFile(fileName: self.fileNameMatrix) ?? self.defaultMatrix
+		self.matrix = (try? matrixWorker.creationMatrix(text: textMatrix)) ?? Matrix()
+		
+		let textMatrixSolution = self.fileWorker.readStringFromFile(fileName: self.fileNameMatrixSolution) ?? self.defaultMatrix
+		self.matrixSolution = (try? matrixWorker.creationMatrix(text: textMatrixSolution)) ?? Matrix()
+	}
+	
+	func checkSolution(matrix: Matrix) -> Bool {
+		return matrix == self.matrixSolution
 	}
 	
 	func save(matrix: Matrix) {
@@ -30,27 +60,18 @@ final class GameWorker: _GameWorker {
 			let rowString = row.map { String($0) }.joined(separator: " ")
 			stringRepresentation.append(rowString + "\n")
 		}
-		self.fileWorker.saveStringToFile(string: stringRepresentation, fileName: self.fileName)
-	}
-	
-	func load() -> String {
-		let string = """
-4
-0 1 2 3
-4 5 6 7
-8 9 10 11
-12 13 14 15
-"""
-		return self.fileWorker.readStringFromFile(fileName: self.fileName) ?? string
+		self.fileWorker.saveStringToFile(string: stringRepresentation, fileName: self.fileNameMatrix)
 	}
 }
 
 final class MockGameWorker: _GameWorker {
+	var matrix: Matrix = Matrix()
+	
 	func save(matrix: Matrix) {
 		
 	}
 	
-	func load() -> String {
-		return ""
+	func checkSolution(matrix: Matrix) -> Bool {
+		return true
 	}
 }

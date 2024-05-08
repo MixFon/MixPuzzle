@@ -143,11 +143,18 @@ struct StartScene: UIViewRepresentable {
 			if let hitNodeName = hitNode.name, let number = UInt8(hitNodeName), let moveToZeroAction = self.boxWorker.createMoveToZeroAction(number: number) {
 				hitNode.runAction(moveToZeroAction)
 				self.generator.notificationOccurred(.success)
+				checkSolution()
 			} else {
 				let shameAnimation = self.boxWorker.createShakeAnimation(position: hitNode.position)
 				hitNode.addAnimation(shameAnimation, forKey: "shake")
 				self.generator.notificationOccurred(.error)
 			}
+		}
+	}
+	
+	private func checkSolution() {
+		if self.gameWorker.checkSolution(matrix: self.boxWorker.matrix) {
+			print("Solution found!")
 		}
 	}
 
