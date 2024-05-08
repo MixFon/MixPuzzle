@@ -18,12 +18,12 @@ import Foundation
 struct StartScene: UIViewRepresentable {
 	
 	let boxWorker: _BoxesWorker
-	let startsWorker: _AsteroidsWorker
+	let asteroidWorker: _AsteroidsWorker
     let settingsAsteroidsStorage: _SettingsAsteroidsStorage
 	
-	init(boxWorker: _BoxesWorker, startsWorker: _AsteroidsWorker, settingsAsteroidsStorage: _SettingsAsteroidsStorage) {
+	init(boxWorker: _BoxesWorker, asteroidWorker: _AsteroidsWorker, settingsAsteroidsStorage: _SettingsAsteroidsStorage) {
 		self.boxWorker = boxWorker
-		self.startsWorker = startsWorker
+		self.asteroidWorker = asteroidWorker
 		self.settingsAsteroidsStorage = settingsAsteroidsStorage
 	}
 	
@@ -84,7 +84,7 @@ struct StartScene: UIViewRepresentable {
     /// Создание и конфигурация астероидойдов
     private func createAndConfigureAsteroids() {
         let centerMatrix = self.boxWorker.centreMatrix
-        let nodeStars = self.startsWorker.createAsteroids(centre: centerMatrix)
+        let nodeStars = self.asteroidWorker.createAsteroids(centre: centerMatrix)
         nodeStars.forEach({
             configureStars(star: $0, centerRotation: centerMatrix)
         })
@@ -96,7 +96,7 @@ struct StartScene: UIViewRepresentable {
         self.scene.rootNode.addChildNode(orbitNode)
         self.scene.rootNode.addChildNode(star)
         orbitNode.addChildNode(star)
-        self.startsWorker.setAnimationRotationTo(node: orbitNode)
+        self.asteroidWorker.setAnimationRotationTo(node: orbitNode)
     }
     
     func updateUIView(_ uiView: SCNView, context: Context) {

@@ -11,10 +11,12 @@ import Foundation
 
 final class SettingsCubeFactory {
 	
-	func configure(dependency: SettingsCubeDependency) -> some View {
-		let imageWorker = ImageWorker()
-        let materialsWorker = MaterialsWorker()
-		let cubeWorker = CubeWorker(imageWorker: imageWorker, materialsWorker: materialsWorker)
-		return SettingsCubeScene(cubeWorker: cubeWorker, imageWorker: imageWorker, dependency: dependency)
+	func configure(model: SettingsCubeModel, depndecy: _Dependency) -> some View {
+		let settingsCubeScene = SettingsCubeScene(
+			model: model,
+			cubeWorker: depndecy.workers.cubeWorker,
+			imageWorker: depndecy.workers.imageWorker
+		)
+		return settingsCubeScene
 	}
 }

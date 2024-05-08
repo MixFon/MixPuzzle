@@ -8,7 +8,7 @@
 import SwiftUI
 import Combine
 
-final class SettingsCubeDependency: ObservableObject {
+final class SettingsCubeModel: ObservableObject {
     @Published var texture: String
     @Published var sizeImage: Double
     @Published var colorLable: Color
@@ -38,29 +38,30 @@ final class SettingsCubeDependency: ObservableObject {
 
 struct SettingsCubeView: View {
 	
-	@ObservedObject var dependecy: SettingsCubeDependency
+	let dependency: _Dependency
+	@ObservedObject var model: SettingsCubeModel
 	@State private var isShowSnackbar = false
 	
 	var body: some View {
 		VStack {
 			NavigationBar(title: "Settings Cubes", tralingView: AnyView(
                 SaveButtonNavigationBar(action: {
-                    self.dependecy.saveChanges()
+                    self.model.saveChanges()
 					isShowSnackbar = true
                 })
             ))
             .padding()
-			SettingsCubeWrapper(dependency: dependecy)
+			SettingsCubeWrapper(model: self.model, dependency: self.dependency)
 				.aspectRatio(contentMode: .fit)
 				.cornerRadius(10)
 				.background(Color.mm_background_secondary)
 			ScrollView {
 				OptionsSectionsView(title: "Cube", cells: [
-					AnyView(SliderCellView(title: "Image Radius", range: 0...(dependecy.sizeImage / 2), radius: $dependecy.radiusImage)),
-					AnyView(SliderCellView(title: "Chamfer Radius", range: 0...2, radius: $dependecy.radiusChamfer)),
-					AnyView(SliderCellView(title: "Width Image", range: 200...400, radius: $dependecy.sizeImage)),
-                    AnyView(ColorCellView(title: "Color Lable", selectedColor: $dependecy.colorLable)),
-                    AnyView(TexturePicker(title: "Textures", selectedImage: $dependecy.texture)),
+					AnyView(SliderCellView(title: "Image Radius", range: 0...(model.sizeImage / 2), radius: $model.radiusImage)),
+					AnyView(SliderCellView(title: "Chamfer Radius", range: 0...2, radius: $model.radiusChamfer)),
+					AnyView(SliderCellView(title: "Width Image", range: 200...400, radius: $model.sizeImage)),
+                    AnyView(ColorCellView(title: "Color Lable", selectedColor: $model.colorLable)),
+                    AnyView(TexturePicker(title: "Textures", selectedImage: $model.texture)),
 				])
 			}
             .cornerRadius(16)
@@ -72,8 +73,8 @@ struct SettingsCubeView: View {
 }
 
 #Preview {
-    let settingsCubeDependtnsy = SettingsCubeDependency(cubeStorage: MockSettingsCubeStorage())
-    return SettingsCubeView(dependecy: settingsCubeDependtnsy)
+    let settingsCubeDependtnsy = SettingsCubeModel(cubeStorage: MockSettingsCubeStorage())
+	return SettingsCubeView(dependency: MockDependency(), model: settingsCubeDependtnsy)
 }
 
 final class MockSettingsCubeStorage: _SettingsCubeStorage {

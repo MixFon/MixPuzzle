@@ -8,7 +8,7 @@
 import SwiftUI
 import Combine
 
-final class SettingsAsteroidsDependency: ObservableObject {
+final class SettingsAsteroidsModel: ObservableObject {
     
     @Published var radiusSphere: Double
     @Published var asteroidsCount: Double
@@ -33,23 +33,23 @@ final class SettingsAsteroidsDependency: ObservableObject {
 
 struct SettingsAsteroids: View {
     
-    @ObservedObject var dependecy: SettingsAsteroidsDependency
+    @ObservedObject var asteroidsModel: SettingsAsteroidsModel
     @State private var isShowSnackbar: Bool = false
     
     var body: some View {
         VStack {
             NavigationBar(title: "Settings Asteroids", tralingView: AnyView(
                 SaveButtonNavigationBar(action: {
-                    self.dependecy.saveChanges()
+                    self.asteroidsModel.saveChanges()
 					self.isShowSnackbar = true
                 })
             ))
             .padding()
             ScrollView {
                 OptionsSectionsView(title: "Asteroids", cells: [
-                    AnyView(ToggleCellView(icon: "waveform.path", text: "Show Asteroids", isOn: $dependecy.isShowAsteroids)),
-                    AnyView(SliderCellView(title: "Asteroids Count", range: 0...200, radius: $dependecy.asteroidsCount)),
-                    AnyView(SliderCellView(title: "Radius Sphere Asteroids", range: 20...40, radius: $dependecy.radiusSphere)),
+                    AnyView(ToggleCellView(icon: "waveform.path", text: "Show Asteroids", isOn: $asteroidsModel.isShowAsteroids)),
+                    AnyView(SliderCellView(title: "Asteroids Count", range: 0...200, radius: $asteroidsModel.asteroidsCount)),
+                    AnyView(SliderCellView(title: "Radius Sphere Asteroids", range: 20...40, radius: $asteroidsModel.radiusSphere)),
                 ])
             }
             .cornerRadius(16)
@@ -61,8 +61,8 @@ struct SettingsAsteroids: View {
 }
 
 #Preview {
-    let settingsAteroidsDependency = SettingsAsteroidsDependency(asteroidsStorage: MockSettingsAsteroidsStorage())
-    return SettingsAsteroids(dependecy: settingsAteroidsDependency)
+    let settingsAteroidsDependency = SettingsAsteroidsModel(asteroidsStorage: MockSettingsAsteroidsStorage())
+    return SettingsAsteroids(asteroidsModel: settingsAteroidsDependency)
 }
 
 final class MockSettingsAsteroidsStorage: _SettingsAsteroidsStorage {

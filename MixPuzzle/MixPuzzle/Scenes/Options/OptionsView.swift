@@ -16,7 +16,7 @@ final class OptionsViewRouter: ObservableObject {
 
 struct OptionsView: View {
     
-    let settingsStorages: _SettingsStorage
+	let dependency: _Dependency
 	
 	@ObservedObject private var router = OptionsViewRouter()
 	
@@ -40,16 +40,16 @@ struct OptionsView: View {
 		}
 		.background(Color.mm_background_secondary)
 		.fullScreenCover(isPresented: $router.toBox) {
-            SettingsCubeView(dependecy: SettingsCubeDependency(cubeStorage: self.settingsStorages.settingsCubeStorage))
+			SettingsCubeView(dependency: self.dependency, model: SettingsCubeModel(cubeStorage: self.dependency.settingsStorages.settingsCubeStorage))
 		}
 		.fullScreenCover(isPresented: $router.toStars) {
-            SettingsAsteroids(dependecy: SettingsAsteroidsDependency(asteroidsStorage: self.settingsStorages.settingsAsteroidsStorage))
+			SettingsAsteroids(asteroidsModel: SettingsAsteroidsModel(asteroidsStorage: self.dependency.settingsStorages.settingsAsteroidsStorage))
 		}
 	}
 }
 
 #Preview {
-    OptionsView(settingsStorages: MockSettingsStorage())
+    OptionsView(dependency: MockDependency())
 }
 
 final class MockSettingsStorage: _SettingsStorage {

@@ -22,7 +22,7 @@ struct MenuView: View {
 				StartView(dependency: self.dependency)
 			}
 			.fullScreenCover(isPresented: self.$toOprionts) {
-                OptionsView(settingsStorages: self.dependency.settingsStorages)
+				OptionsView(dependency: self.dependency)
 			}
 			.edgesIgnoringSafeArea(.all)
 	}

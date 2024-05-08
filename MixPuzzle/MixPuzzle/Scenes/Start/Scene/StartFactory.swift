@@ -12,21 +12,23 @@ import Foundation
 final class StartFactory {
 	
 	func configure(dependency: _Dependency, startSceneModel: StartSceneModel) -> some View {
-		// Занимается созданием и управлением звездочек
-        let materialsWorker = MaterialsWorker()
-        let starsWorker = AsteroidsWorker(materialsWorker: materialsWorker, asteroidsStorage: dependency.settingsStorages.settingsAsteroidsStorage)
-        
-        // Занимается созданием и управление кубиков
-        let imageWorker = ImageWorker()
-		let cubeWorker = CubeWorker(imageWorker: imageWorker, materialsWorker: materialsWorker)
-		let matrixWorker = MatrixWorker()
-		let fileForker = FileWorker()
-		let gameWorker = GameWorker(fileWorker: fileForker)
-		let text = gameWorker.load()
 		
+		let text = dependency.workers.gameWorker.load()
+		let matrixWorker = MatrixWorker()
 		let matrixSpiral = try? matrixWorker.creationMatrix(text: text)
 		let grid = Grid(matrix: matrixSpiral ?? matrixWorker.createMatrixSpiral(size: 4))
-		let boxWorker = BoxesWorker(grid: grid, cubeWorker: cubeWorker, gameWorker: gameWorker, settingsCubeStorate: dependency.settingsStorages.settingsCubeStorage, startSceneModel: startSceneModel)
-		return StartScene(boxWorker: boxWorker, startsWorker: starsWorker, settingsAsteroidsStorage: dependency.settingsStorages.settingsAsteroidsStorage)
+		let boxWorker = BoxesWorker(
+			grid: grid,
+			cubeWorker: dependency.workers.cubeWorker,
+			gameWorker: dependency.workers.gameWorker,
+			settingsCubeStorate: dependency.settingsStorages.settingsCubeStorage,
+			startSceneModel: startSceneModel
+		)
+		let startScene = StartScene(
+			boxWorker: boxWorker,
+			asteroidWorker: dependency.workers.asteroidWorker,
+			settingsAsteroidsStorage: dependency.settingsStorages.settingsAsteroidsStorage
+		)
+		return startScene
 	}
 }

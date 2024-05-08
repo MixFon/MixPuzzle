@@ -13,15 +13,15 @@ import Foundation
 
 struct SettingsCubeScene: UIViewRepresentable {
 	
+	private let model: SettingsCubeModel
 	private let cubeWorker: _CubeWorker
-	private let dependency: SettingsCubeDependency
 	private let imageWorker: _ImageWorker
 	
 	private var cancellables = Set<AnyCancellable>()
 	
-	init(cubeWorker: _CubeWorker,imageWorker: _ImageWorker, dependency: SettingsCubeDependency) {
+	init(model: SettingsCubeModel, cubeWorker: _CubeWorker,imageWorker: _ImageWorker) {
 		self.cubeWorker = cubeWorker
-		self.dependency = dependency
+		self.model = model
 		self.imageWorker = imageWorker
 		self.scene.rootNode.addChildNode(self.cube)
 	}
@@ -82,7 +82,7 @@ struct SettingsCubeScene: UIViewRepresentable {
 	private mutating func configureImage(cube: SCNNode) {
 		let worker = self.cubeWorker
 		// Создаём поток, который срабатывает при изменении любого из четырех свойств
-        Publishers.CombineLatest4(dependency.$radiusImage, dependency.$sizeImage, dependency.$colorLable, dependency.$texture)
+        Publishers.CombineLatest4(model.$radiusImage, model.$sizeImage, model.$colorLable, model.$texture)
 			.sink(receiveValue: { (radius, size, lableColor, texture) in
                 let configurationCube = ConfigurationCube(
                     texture: ConfigurationTexture(texture: texture),
@@ -103,7 +103,7 @@ struct SettingsCubeScene: UIViewRepresentable {
 	
 	private mutating func configureChamferRadius(cube: SCNNode) {
 		let worker = self.cubeWorker
-		self.dependency.$radiusChamfer.sink { completion in
+		self.model.$radiusChamfer.sink { completion in
 			print(completion)
 		} receiveValue: { double in
 			worker.changeChamferRadius(cube: cube, chamferRadius: double)

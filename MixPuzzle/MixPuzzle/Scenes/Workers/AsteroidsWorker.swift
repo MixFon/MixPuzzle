@@ -18,15 +18,17 @@ final class AsteroidsWorker: _AsteroidsWorker {
     let materialsWorker: _MaterialsWorker
     let asteroidsStorage: _SettingsAsteroidsStorage
 	
-    private let radiusSphere: Double
-    private let countAsteroids: Int
+	private var radiusSphere: Double {
+		self.asteroidsStorage.radiusSphere
+	}
+	
+	private var countAsteroids: Int {
+		Int(self.asteroidsStorage.asteroidsCount)
+	}
     
     init(materialsWorker: _MaterialsWorker, asteroidsStorage: _SettingsAsteroidsStorage) {
         self.materialsWorker = materialsWorker
         self.asteroidsStorage = asteroidsStorage
-     
-        self.radiusSphere = asteroidsStorage.radiusSphere
-        self.countAsteroids = Int(asteroidsStorage.asteroidsCount)
     }
 	
 	func createAsteroids(centre: SCNVector3) -> [SCNNode] {
