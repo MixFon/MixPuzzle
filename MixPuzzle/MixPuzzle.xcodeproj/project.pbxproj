@@ -30,6 +30,8 @@
 		2980BC722BEA53A900866895 /* Workers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2980BC712BEA53A900866895 /* Workers.swift */; };
 		2980BC782BEC136400866895 /* matrix.solution.mix in Resources */ = {isa = PBXBuildFile; fileRef = 2980BC762BEC136400866895 /* matrix.solution.mix */; };
 		2980BC792BEC136400866895 /* matrix.mix in Resources */ = {isa = PBXBuildFile; fileRef = 2980BC772BEC136400866895 /* matrix.mix */; };
+		2980BC7B2BED176D00866895 /* SelectLevelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2980BC7A2BED176D00866895 /* SelectLevelView.swift */; };
+		2980BC7E2BED1BE600866895 /* SettingsGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2980BC7D2BED1BE600866895 /* SettingsGameView.swift */; };
 		2985064E2B8B53A300028FA9 /* BoxesWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2985064D2B8B53A300028FA9 /* BoxesWorker.swift */; };
 		29A070332B91A5940078EB8D /* StartFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A070322B91A5940078EB8D /* StartFactory.swift */; };
 		29A225492B89E0C5009ECD1C /* OptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A225482B89E0C5009ECD1C /* OptionsView.swift */; };
@@ -75,6 +77,8 @@
 		2980BC712BEA53A900866895 /* Workers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Workers.swift; sourceTree = "<group>"; };
 		2980BC762BEC136400866895 /* matrix.solution.mix */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = matrix.solution.mix; sourceTree = "<group>"; };
 		2980BC772BEC136400866895 /* matrix.mix */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = matrix.mix; sourceTree = "<group>"; };
+		2980BC7A2BED176D00866895 /* SelectLevelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectLevelView.swift; sourceTree = "<group>"; };
+		2980BC7D2BED1BE600866895 /* SettingsGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsGameView.swift; sourceTree = "<group>"; };
 		2985064D2B8B53A300028FA9 /* BoxesWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxesWorker.swift; sourceTree = "<group>"; };
 		29A070322B91A5940078EB8D /* StartFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartFactory.swift; sourceTree = "<group>"; };
 		29A225482B89E0C5009ECD1C /* OptionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsView.swift; sourceTree = "<group>"; };
@@ -120,6 +124,7 @@
 		2944D6D92BC870FD001F1A82 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				2980BC7C2BED1BC300866895 /* SettingsGame */,
 				293C73BD2BDFCC5B00E183B5 /* SettingsAsteroids */,
 				2944D6E82BC91E96001F1A82 /* Workers */,
 				2944D6DD2BC910FB001F1A82 /* Common */,
@@ -144,6 +149,7 @@
 		2944D6DD2BC910FB001F1A82 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				29051C712BE0DDF20064ABF0 /* Snackbar.swift */,
 				2944D6DE2BC91166001F1A82 /* BackButtonToolbarItem.swift */,
 				2956CE752BCED46A00F17C01 /* NavigationBar.swift */,
 			);
@@ -187,7 +193,7 @@
 			isa = PBXGroup;
 			children = (
 				294E6E392BD27B9B00B615F1 /* CubeButtonView.swift */,
-				29051C712BE0DDF20064ABF0 /* Snackbar.swift */,
+				2980BC7A2BED176D00866895 /* SelectLevelView.swift */,
 			);
 			path = Draft;
 			sourceTree = "<group>";
@@ -235,6 +241,14 @@
 				2980BC762BEC136400866895 /* matrix.solution.mix */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		2980BC7C2BED1BC300866895 /* SettingsGame */ = {
+			isa = PBXGroup;
+			children = (
+				2980BC7D2BED1BE600866895 /* SettingsGameView.swift */,
+			);
+			path = SettingsGame;
 			sourceTree = "<group>";
 		};
 		29A225472B89E0A2009ECD1C /* Options */ = {
@@ -422,6 +436,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2980BC7E2BED1BE600866895 /* SettingsGameView.swift in Sources */,
 				2980BC702BE7F5D300866895 /* FileWorker.swift in Sources */,
 				2980BC6E2BE7D9E500866895 /* GameWorker.swift in Sources */,
 				2980BC722BEA53A900866895 /* Workers.swift in Sources */,
@@ -440,6 +455,7 @@
 				29C162D22B848D89002E185D /* MenuScene.swift in Sources */,
 				293C73C32BDFCE0700E183B5 /* SettingsAsteroidsStorage.swift in Sources */,
 				29051C722BE0DDF20064ABF0 /* Snackbar.swift in Sources */,
+				2980BC7B2BED176D00866895 /* SelectLevelView.swift in Sources */,
 				2944D6E72BC91770001F1A82 /* SettingsCubeScene.swift in Sources */,
 				29A070332B91A5940078EB8D /* StartFactory.swift in Sources */,
 				29DFDEBB2BC50D9500791434 /* Colors.swift in Sources */,

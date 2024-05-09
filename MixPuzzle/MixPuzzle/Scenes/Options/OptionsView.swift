@@ -36,6 +36,10 @@ struct OptionsView: View {
 				AnyView(ToggleCellView(icon: "waveform.path", text: "Vibration", isOn: $isOnVibration)),
 			])
 			.padding()
+			OptionsSectionsView(title: "Game", cells: [
+				
+			])
+			.padding()
 			Spacer()
 		}
 		.background(Color.mm_background_secondary)
