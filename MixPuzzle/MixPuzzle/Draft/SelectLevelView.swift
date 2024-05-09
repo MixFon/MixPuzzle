@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SelectLevelView: View {
 	private let items = Array(3...100)
-	private let currentLevel: Int = 10
+	let currentLevel: Int
 	@State var selectNumber: Int = 3
 	
 	var body: some View {
@@ -55,12 +55,13 @@ struct TextNumberCell: View {
 	}
 	
 	private var lockImage: some View {
-		Image(systemName: "lock")
+		Image(systemName: "lock.shield.fill")
 			.foregroundColor(.mm_danger)
 			.padding(10)
 	}
 }
 
 #Preview {
-	SelectLevelView()
+	let currentLavel = 5
+	return SelectLevelView(currentLevel: currentLavel)
 }

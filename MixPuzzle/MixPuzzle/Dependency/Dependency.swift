@@ -9,8 +9,8 @@ import MFPuzzle
 import Foundation
 
 protocol _Dependency {
-    var settingsStorages: _SettingsStorage { get }
 	var workers: _Workers { get }
+    var settingsStorages: _SettingsStorage { get }
 }
 
 struct Dependency: _Dependency {
@@ -20,8 +20,12 @@ struct Dependency: _Dependency {
     init() {
         let settingsCubeStorage = SettingsCubeStorage()
         let settingsAsteroidsStorage = SettingsAsteroidsStorage()
-        self.settingsStorages = SettingsStorage(settingsCubeStorage: settingsCubeStorage, settingsAsteroidsStorage: settingsAsteroidsStorage)
-		
+		let settingsGameStorage = SettingsGameStorage()
+        self.settingsStorages = SettingsStorage(
+			settingsCubeStorage: settingsCubeStorage,
+			settingsGameStorage: settingsGameStorage,
+			settingsAsteroidsStorage: settingsAsteroidsStorage
+		)
 		
 		let materialsWorker = MaterialsWorker()
 		let asteroidworker = AsteroidsWorker(materialsWorker: materialsWorker, asteroidsStorage: settingsAsteroidsStorage)

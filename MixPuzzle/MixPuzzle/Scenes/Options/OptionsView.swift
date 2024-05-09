@@ -9,6 +9,7 @@ import SwiftUI
 
 final class OptionsViewRouter: ObservableObject {
 	@Published var toBox: Bool = false
+	@Published var toGame: Bool = false
 	@Published var toStars: Bool = false
 	@Published var toLanguage: Bool = false
 	@Published var toVibration: Bool = false
@@ -37,7 +38,7 @@ struct OptionsView: View {
 			])
 			.padding()
 			OptionsSectionsView(title: "Game", cells: [
-				
+				AnyView(CellView(icon: "gamecontroller", text: "Game", action: { self.router.toGame = true })),
 			])
 			.padding()
 			Spacer()
@@ -49,6 +50,9 @@ struct OptionsView: View {
 		.fullScreenCover(isPresented: $router.toStars) {
 			SettingsAsteroids(asteroidsModel: SettingsAsteroidsModel(asteroidsStorage: self.dependency.settingsStorages.settingsAsteroidsStorage))
 		}
+		.fullScreenCover(isPresented: $router.toGame) {
+			SettingsGameView(gameModel: SettingsGameModel(gameStorage: self.dependency.settingsStorages.settingsGameStorage))
+		}
 	}
 }
 
@@ -57,6 +61,7 @@ struct OptionsView: View {
 }
 
 final class MockSettingsStorage: _SettingsStorage {
+	var settingsGameStorage: _SettingsGameStorage = MockSettingsGameStorage()
     var settingsCubeStorage: _SettingsCubeStorage = MockSettingsCubeStorage()
     var settingsAsteroidsStorage: _SettingsAsteroidsStorage = MockSettingsAsteroidsStorage()
 }
