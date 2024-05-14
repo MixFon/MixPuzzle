@@ -34,7 +34,7 @@ struct Dependency: _Dependency {
 		let cubeWorker = CubeWorker(imageWorker: imageWorker, materialsWorker: materialsWorker)
 		let fileForker = FileWorker()
 		let matrixWorker = MatrixWorker()
-		let gameWorker = GameWorker(fileWorker: fileForker, matrixWorker: matrixWorker)
+		let gameWorker = GameWorker(fileWorker: fileForker, matrixWorker: matrixWorker, settingsGameStorage: settingsGameStorage)
 		
 		self.workers = Workers(
 			fileWorker: fileForker,

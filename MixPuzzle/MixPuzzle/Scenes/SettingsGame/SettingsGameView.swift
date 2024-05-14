@@ -39,7 +39,7 @@ struct SettingsGameView: View {
 				})
 			))
 			.padding()
-			SelectLevelView(currentLevel: self.gameModel.currentLevel)
+			SelectLevelView(currentLevel: 15, selectNumber: self.$gameModel.currentLevel)
 				.background(Color.mm_background_tertiary)
 		}
 		.snackbar(isShowing: $isShowSnackbar, text: "The data has been saved successfully.", style: .success, extraBottomPadding: 16)

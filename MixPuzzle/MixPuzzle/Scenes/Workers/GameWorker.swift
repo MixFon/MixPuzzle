@@ -28,6 +28,8 @@ final class GameWorker: _GameWorker {
 	
 	private let fileWorker: _FileWorker
 	private let matrixWorker: _MatrixWorker
+	private let settingsGameStorage: _SettingsGameStorage
+	
 	private let fileNameMatrix = "matrix.mix"
 	private let fileNameMatrixSolution = "matrix.solution.mix"
 	
@@ -39,15 +41,21 @@ final class GameWorker: _GameWorker {
 10  9  8  7
 """
 	
-	init(fileWorker: _FileWorker, matrixWorker: _MatrixWorker) {
+	init(fileWorker: _FileWorker, matrixWorker: _MatrixWorker, settingsGameStorage: _SettingsGameStorage) {
 		self.fileWorker = fileWorker
 		self.matrixWorker = matrixWorker
+		self.settingsGameStorage = settingsGameStorage
 		
+		/*
 		let textMatrix = self.fileWorker.readStringFromFile(fileName: self.fileNameMatrix) ?? self.defaultMatrix
 		self.matrix = (try? matrixWorker.creationMatrix(text: textMatrix)) ?? Matrix()
 		
 		let textMatrixSolution = self.fileWorker.readStringFromFile(fileName: self.fileNameMatrixSolution) ?? self.defaultMatrix
 		self.matrixSolution = (try? matrixWorker.creationMatrix(text: textMatrixSolution)) ?? Matrix()
+		 */
+		let size = settingsGameStorage.currentLevel
+		self.matrix = matrixWorker.createMatrixRandom(size: size)
+		self.matrixSolution = matrixWorker.createMatrixSpiral(size: size)
 	}
 	
 	func checkSolution(matrix: Matrix) -> Bool {

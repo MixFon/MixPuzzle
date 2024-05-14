@@ -57,6 +57,10 @@ final class MockWorkers: _Workers {
 }
 
 final class MockMatrixWorker: _MatrixWorker {
+	func createMatrixRandom(size: Int) -> Matrix {
+		[[]]
+	}
+	
 	func creationMatrix(text: String) throws -> Matrix {
 		[[]]
 	}
