@@ -17,6 +17,9 @@ protocol _GameWorker {
 	
 	/// Проверка на то, что матрица достигла фильного результата
 	func checkSolution(matrix: Matrix) -> Bool
+	
+	/// Функция обновления матриц
+	func updateMatrix()
 }
 
 /// Класс отвечающий за сохранение данных игры.
@@ -24,7 +27,7 @@ protocol _GameWorker {
 final class GameWorker: _GameWorker {
 	var matrix: Matrix
 	
-	private let matrixSolution: Matrix
+	private var matrixSolution: Matrix
 	
 	private let fileWorker: _FileWorker
 	private let matrixWorker: _MatrixWorker
@@ -33,29 +36,23 @@ final class GameWorker: _GameWorker {
 	private let fileNameMatrix = "matrix.mix"
 	private let fileNameMatrixSolution = "matrix.solution.mix"
 	
-	private let defaultMatrix = """
-4
- 1  2  3  4
-12 13 14  5
-11  0 15  6
-10  9  8  7
-"""
+	private var lavelFileNameMatrix: String {
+		let size = self.settingsGameStorage.currentLevel
+		return self.fileNameMatrix + ".\(size)x\(size)"
+	}
+	
+	private var lavelFileNameMatrixSolution: String {
+		let size = self.settingsGameStorage.currentLevel
+		return self.fileNameMatrixSolution + ".\(size)x\(size)"
+	}
 	
 	init(fileWorker: _FileWorker, matrixWorker: _MatrixWorker, settingsGameStorage: _SettingsGameStorage) {
 		self.fileWorker = fileWorker
 		self.matrixWorker = matrixWorker
 		self.settingsGameStorage = settingsGameStorage
 		
-		/*
-		let textMatrix = self.fileWorker.readStringFromFile(fileName: self.fileNameMatrix) ?? self.defaultMatrix
-		self.matrix = (try? matrixWorker.creationMatrix(text: textMatrix)) ?? Matrix()
-		
-		let textMatrixSolution = self.fileWorker.readStringFromFile(fileName: self.fileNameMatrixSolution) ?? self.defaultMatrix
-		self.matrixSolution = (try? matrixWorker.creationMatrix(text: textMatrixSolution)) ?? Matrix()
-		 */
-		let size = settingsGameStorage.currentLevel
-		self.matrix = matrixWorker.createMatrixRandom(size: size)
-		self.matrixSolution = matrixWorker.createMatrixSpiral(size: size)
+		self.matrix = Matrix()
+		self.matrixSolution = Matrix()
 	}
 	
 	func checkSolution(matrix: Matrix) -> Bool {
@@ -68,7 +65,30 @@ final class GameWorker: _GameWorker {
 			let rowString = row.map { String($0) }.joined(separator: " ")
 			stringRepresentation.append(rowString + "\n")
 		}
-		self.fileWorker.saveStringToFile(string: stringRepresentation, fileName: self.fileNameMatrix)
+		self.fileWorker.saveStringToFile(string: stringRepresentation, fileName: self.lavelFileNameMatrix)
+	}
+	
+	func updateMatrix() {
+		self.matrix = loadOrCreateMatrix()
+		self.matrixSolution = loadOrCreateMatrixSolution()
+	}
+	
+	/// Загружает сохраненную матрицу или создает новую
+	private func loadOrCreateMatrix() -> Matrix {
+		let size = self.settingsGameStorage.currentLevel
+		guard let textMatrix = self.fileWorker.readStringFromFile(fileName: self.lavelFileNameMatrix) else {
+			return self.matrixWorker.createMatrixRandom(size: size)
+		}
+		return (try? matrixWorker.creationMatrix(text: textMatrix)) ?? self.matrixWorker.createMatrixRandom(size: size)
+	}
+	
+	/// Загружает сохраненную матрицу ответа или создает новую
+	private func loadOrCreateMatrixSolution() -> Matrix {
+		let size = self.settingsGameStorage.currentLevel
+		guard let textMatrixSolution = self.fileWorker.readStringFromFile(fileName: self.lavelFileNameMatrixSolution) else {
+			return self.matrixWorker.createMatrixSpiral(size: size)
+		}
+		return (try? matrixWorker.creationMatrix(text: textMatrixSolution)) ?? self.matrixWorker.createMatrixSpiral(size: size)
 	}
 }
 
@@ -82,4 +102,9 @@ final class MockGameWorker: _GameWorker {
 	func checkSolution(matrix: Matrix) -> Bool {
 		return true
 	}
+	
+	func updateMatrix() {
+		
+	}
+	
 }

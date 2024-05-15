@@ -23,6 +23,7 @@
 		2944D6EE2BCC4FFD001F1A82 /* CubeWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2944D6ED2BCC4FFD001F1A82 /* CubeWorker.swift */; };
 		294E6E3A2BD27B9B00B615F1 /* CubeButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294E6E392BD27B9B00B615F1 /* CubeButtonView.swift */; };
 		2956CE762BCED46A00F17C01 /* NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2956CE752BCED46A00F17C01 /* NavigationBar.swift */; };
+		2972F3A82BF4A41100CDE8F8 /* MFPuzzle in Frameworks */ = {isa = PBXBuildFile; productRef = 2972F3A72BF4A41100CDE8F8 /* MFPuzzle */; };
 		2979B7142BBFDE5D000839D3 /* StartSceneWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2979B7132BBFDE5D000839D3 /* StartSceneWrapper.swift */; };
 		2979B7182BBFDF3C000839D3 /* MenuSceneWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2979B7172BBFDF3C000839D3 /* MenuSceneWrapper.swift */; };
 		2980BC6E2BE7D9E500866895 /* GameWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2980BC6D2BE7D9E500866895 /* GameWorker.swift */; };
@@ -46,7 +47,6 @@
 		29C162D22B848D89002E185D /* MenuScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C162D12B848D89002E185D /* MenuScene.swift */; };
 		29C162D42B8491DA002E185D /* puzzle.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 29C162D32B8491DA002E185D /* puzzle.scnassets */; };
 		29D3D1A32B8A0BF600E3EE6A /* StartScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D3D1A22B8A0BF600E3EE6A /* StartScene.swift */; };
-		29D3D1A62B8A134700E3EE6A /* MFPuzzle in Frameworks */ = {isa = PBXBuildFile; productRef = 29D3D1A52B8A134700E3EE6A /* MFPuzzle */; };
 		29DEED112BDECD6600DCE4EB /* MaterialsWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29DEED102BDECD6600DCE4EB /* MaterialsWorker.swift */; };
 		29DFDEBB2BC50D9500791434 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29DFDEB92BC50D9500791434 /* Colors.swift */; };
 		29DFDEBC2BC50D9500791434 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 29DFDEBA2BC50D9500791434 /* Colors.xcassets */; };
@@ -108,7 +108,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				29D3D1A62B8A134700E3EE6A /* MFPuzzle in Frameworks */,
+				2972F3A82BF4A41100CDE8F8 /* MFPuzzle in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -376,7 +376,7 @@
 			);
 			name = MixPuzzle;
 			packageProductDependencies = (
-				29D3D1A52B8A134700E3EE6A /* MFPuzzle */,
+				2972F3A72BF4A41100CDE8F8 /* MFPuzzle */,
 			);
 			productName = MixPuzzle;
 			productReference = 29C162BE2B848CC4002E185D /* MixPuzzle.app */;
@@ -407,7 +407,7 @@
 			);
 			mainGroup = 29C162B52B848CC3002E185D;
 			packageReferences = (
-				29D3D1A42B8A134700E3EE6A /* XCRemoteSwiftPackageReference "MFPuzzle" */,
+				2972F3A62BF4A41100CDE8F8 /* XCRemoteSwiftPackageReference "MFPuzzle" */,
 			);
 			productRefGroup = 29C162BF2B848CC4002E185D /* Products */;
 			projectDirPath = "";
@@ -701,20 +701,20 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		29D3D1A42B8A134700E3EE6A /* XCRemoteSwiftPackageReference "MFPuzzle" */ = {
+		2972F3A62BF4A41100CDE8F8 /* XCRemoteSwiftPackageReference "MFPuzzle" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "git@github.com:MixFon/MFPuzzle.git";
 			requirement = {
-				branch = main;
-				kind = branch;
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		29D3D1A52B8A134700E3EE6A /* MFPuzzle */ = {
+		2972F3A72BF4A41100CDE8F8 /* MFPuzzle */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 29D3D1A42B8A134700E3EE6A /* XCRemoteSwiftPackageReference "MFPuzzle" */;
+			package = 2972F3A62BF4A41100CDE8F8 /* XCRemoteSwiftPackageReference "MFPuzzle" */;
 			productName = MFPuzzle;
 		};
 /* End XCSwiftPackageProductDependency section */

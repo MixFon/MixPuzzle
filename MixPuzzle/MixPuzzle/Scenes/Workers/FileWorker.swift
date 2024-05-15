@@ -22,7 +22,7 @@ final class FileWorker: _FileWorker {
 			try string.write(to: fileURL, atomically: true, encoding: .utf8)
 			print("Строка успешно сохранена в файл: \(fileName)")
 		} catch {
-			print("Ошибка при сохранении строки в файл: \(error.localizedDescription)")
+			print("Ошибка при сохранении строки в файл: \(fileName), \(error)")
 		}
 	}
 	
