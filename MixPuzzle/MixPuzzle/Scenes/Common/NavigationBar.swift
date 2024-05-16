@@ -56,6 +56,7 @@ struct SaveButtonNavigationBar: View {
                 .font(.callout)
                 .foregroundStyle(Color.mm_text_primary)
         })
+		.buttonStyle(.plain)
     }
 }
 

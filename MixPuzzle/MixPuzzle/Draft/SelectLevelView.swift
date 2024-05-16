@@ -35,7 +35,9 @@ struct NumberCell: View {
 			self.selectNumber = self.number
 		} label: {
 			TextNumberCell(number: number, isSelect: isSelect, showLockIcon: showLockIcon)
-		}.disabled(showLockIcon)
+		}
+		.disabled(showLockIcon)
+		.buttonStyle(.plain)
 	}
 }
 

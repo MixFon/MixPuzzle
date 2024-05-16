@@ -103,8 +103,8 @@ struct SettingsCubeScene: UIViewRepresentable {
 	
 	private mutating func configureChamferRadius(cube: SCNNode) {
 		let worker = self.cubeWorker
-		self.model.$radiusChamfer.sink { completion in
-			print(completion)
+		self.model.$radiusChamfer.sink { _ in
+			
 		} receiveValue: { double in
 			worker.changeChamferRadius(cube: cube, chamferRadius: double)
 		}.store(in: &cancellables)
