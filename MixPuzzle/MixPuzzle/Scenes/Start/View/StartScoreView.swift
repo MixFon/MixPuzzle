@@ -9,32 +9,43 @@ import SwiftUI
 
 struct StartScoreView: View {
 	
-	@State private var score: Int = 0
 	let startSceneDependency: StartSceneModel
-	@Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+	@Environment(\.dismiss) var dismiss
 	
     var body: some View {
-		HStack {
-			Text("Hello\(score)")
-				.foregroundColor(Color.red)
-			Text("Hello_1")
-				.foregroundColor(Color.red)
-			Button {
-				self.score += 1
-			} label: {
-				Text("Press me")
-			}
+		HStack(spacing: 32) {
 			Button {
 				self.startSceneDependency.saveSubject.send()
-				self.presentationMode.wrappedValue.dismiss()
+				self.dismiss()
 			} label: {
-				Text("Go back")
+				ImageButton(systemName: "arrow.backward")
 			}
+			.buttonStyle(.plain)
+			Spacer()
+			Button {
+				self.startSceneDependency.regenerateSubject.send()
+			} label: {
+				ImageButton(systemName: "gobackward")
+			}
+			.buttonStyle(.plain)
 		}
+		.padding(.horizontal)
+		.cornerRadius(16)
     }
+}
+
+struct ImageButton: View {
+	let systemName: String
+	var body: some View {
+		Image(systemName: self.systemName)
+			.resizable()
+			.frame(width: 24, height: 24)
+			.foregroundColor(Color.mm_tint_primary)
+	}
 }
 
 #Preview {
 	let startSceneDependency = StartSceneModel()
     return StartScoreView(startSceneDependency: startSceneDependency)
 }
+
