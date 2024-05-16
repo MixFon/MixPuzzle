@@ -39,6 +39,7 @@ struct OptionsView: View {
 			.padding()
 			OptionsSectionsView(title: "Game", cells: [
 				AnyView(CellView(icon: "gamecontroller", text: "Game", action: { self.router.toGame = true })),
+				AnyView(CellView(icon: "chart.bar.xaxis", text: "Statistics", action: {  })),
 			])
 			.padding()
 			Spacer()
