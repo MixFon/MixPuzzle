@@ -24,7 +24,10 @@ protocol _BoxesWorker {
 	func calculateCameraPosition() -> SCNVector3
 	/// Создание анимации перемещения на узла на пустое место (на место нуля)
 	func createMoveToZeroAction(number: UInt8) -> SCNAction?
-	
+	/// Создаем анимацию перемещения в позицию нода с номером number
+	func createMoveToNumberAction(number: UInt8) -> SCNAction?
+	/// Обновление сетки
+	func updateGrid(grid: Grid)
 }
 
 /// Занимается созданием и UI настройкой матрицы элементов. Так же отвечает за пермещение элементов
@@ -88,6 +91,17 @@ final class BoxesWorker: _BoxesWorker {
 		return action
 	}
 	
+	func createMoveToNumberAction(number: UInt8) -> SCNAction? {
+		guard let pointNumber = self.grid.getPoint(number: number) else { return nil }
+		let boxPointZero = getBoxPoint(i: Int(pointNumber.x), j: Int(pointNumber.y))
+		// Для векторов SCNVector3 на первом месте тоит Y на втором -X координаты из матрицы
+		let action = SCNAction.move(to: SCNVector3(x: Float(boxPointZero.y), y: Float(-boxPointZero.x), z: 0), duration: self.animationDuration)
+		return action
+	}
+	
+	func updateGrid(grid: Grid) {
+		self.grid = grid
+	}
 	
 	func createShakeAnimation(position vector: SCNVector3) -> CAKeyframeAnimation {
 		let animation = CAKeyframeAnimation(keyPath: "position")

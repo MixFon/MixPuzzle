@@ -57,6 +57,14 @@ final class MockWorkers: _Workers {
 }
 
 final class MockMatrixWorker: _MatrixWorker {
+	func changesParityInvariant(matrix: inout Matrix) {
+		
+	}
+	
+	func isSquereMatrix(matrix: [[MatrixElement]]) -> Bool {
+		return true
+	}
+	
 	func createMatrixRandom(size: Int) -> Matrix {
 		[[]]
 	}

@@ -111,7 +111,7 @@ struct ColorCellView: View, Identifiable {
 			Text(title)
 			ScrollView(.horizontal) {
 				HStack(alignment: .center, spacing: 16) {
-                    ColorPicker("", selection: $selectedColor)
+                    ColorPicker("Colors", selection: $selectedColor)
 					ForEach(colors, id: \.self) { color in
 						Button {
                             self.selectedColor = color
@@ -122,6 +122,7 @@ struct ColorCellView: View, Identifiable {
                                 .cornerRadius(10)
                             
 						}
+						.buttonStyle(.plain)
                     }
                 }
             }
@@ -178,24 +179,33 @@ struct TexturePicker: View {
                         Button(action: {
                             self.selectedImage = imageName
                         }) {
-                            Image(imageName + "_COL")
-                                .resizable()
-                                .scaledToFill()
-                                .clipped()
-                                .frame(width: 70, height: 70)
-                                .cornerRadius(10)
-                                .shadow(radius: 5)
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: 10)
-                                        .stroke(Color.blue, lineWidth: self.selectedImage == imageName ? 4 : 0)
-                                )
+							TextureImage(imageName: imageName + "_COL", isSelectedImage: self.selectedImage == imageName)
                         }
+						.buttonStyle(.plain)
                     }
                 }
                 .padding()
             }
         }
     }
+}
+
+struct TextureImage: View {
+	let imageName: String
+	let isSelectedImage: Bool
+	var body: some View {
+		Image(imageName)
+			.resizable()
+			.scaledToFill()
+			.clipped()
+			.frame(width: 70, height: 70)
+			.cornerRadius(10)
+			.shadow(radius: 5)
+			.overlay(
+				RoundedRectangle(cornerRadius: 10)
+					.stroke(Color.blue, lineWidth: isSelectedImage  ? 4 : 0)
+			)
+	}
 }
 
 struct DividerView: View {

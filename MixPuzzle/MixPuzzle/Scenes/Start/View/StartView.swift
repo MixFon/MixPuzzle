@@ -12,10 +12,11 @@ import MFPuzzle
 final class StartSceneModel: ObservableObject {
 	/// Паблишер для обработки нажатия кнопки сохранить
 	let saveSubject = PassthroughSubject<Void, Never>()
+	/// Паблишер для обработки нажатия кнопки начать с начала
+	let regenerateSubject = PassthroughSubject<Void, Never>()
 }
 
 struct StartView: View {
-    
     let dependency: _Dependency
 	@ObservedObject private var startSceneModel = StartSceneModel()
 	
@@ -29,6 +30,7 @@ struct StartView: View {
 				Spacer()
 			}
 		}
+		.preferredColorScheme(.dark)
 		.ignoresSafeArea()
     }
 }

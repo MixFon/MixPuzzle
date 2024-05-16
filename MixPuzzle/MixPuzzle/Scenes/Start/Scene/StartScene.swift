@@ -11,10 +11,6 @@ import SceneKit
 import MFPuzzle
 import Foundation
 
-//struct StartSceneDependency {
-//	
-//}
-
 struct StartScene: UIViewRepresentable {
 	
 	private let boxWorker: _BoxesWorker
@@ -33,6 +29,7 @@ struct StartScene: UIViewRepresentable {
 		self.settingsAsteroidsStorage = settingsAsteroidsStorage
 		
 		configureSavePublisher()
+		configureRegeneratePublisher()
 	}
 	
 	private let generator = UINotificationFeedbackGenerator()
@@ -90,11 +87,26 @@ struct StartScene: UIViewRepresentable {
     }
 	
 	private mutating func configureSavePublisher() {
-		let gameWorker = self.gameWorker
-		let boxWorker = self.boxWorker
-		self.startSceneModel.saveSubject.sink { [gameWorker, boxWorker] in
-			gameWorker.save(matrix: boxWorker.matrix)
+		self.startSceneModel.saveSubject.sink { [self] in
+			self.gameWorker.save(matrix: self.boxWorker.matrix)
 		}.store(in: &cancellables)
+	}
+	
+	private mutating func configureRegeneratePublisher() {
+		self.startSceneModel.regenerateSubject.sink { [self] in
+			self.gameWorker.regenerateMatrix()
+			self.boxWorker.updateGrid(grid: Grid(matrix: gameWorker.matrix))
+			self.moveNodeToNewPoints()
+		}.store(in: &cancellables)
+	}
+	
+	/// Перемещает кубики в новые позиции. Подразумевается, что уже будет новая Grid в
+	private func moveNodeToNewPoints() {
+		for node in self.scene.rootNode.childNodes {
+			if let name = node.name, let number = UInt8(name), let action = self.boxWorker.createMoveToNumberAction(number: number) {
+				node.runAction(action)
+			}
+		}
 	}
     
     /// Создание и конфигурация астероидойдов

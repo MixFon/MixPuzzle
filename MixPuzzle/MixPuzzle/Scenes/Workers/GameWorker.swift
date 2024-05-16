@@ -20,6 +20,9 @@ protocol _GameWorker {
 	
 	/// Функция обновления матриц
 	func updateMatrix()
+	
+	/// Создание новой матрицы
+	func regenerateMatrix()
 }
 
 /// Класс отвечающий за сохранение данных игры.
@@ -29,6 +32,7 @@ final class GameWorker: _GameWorker {
 	
 	private var matrixSolution: Matrix
 	
+	private let checker: _Checker
 	private let fileWorker: _FileWorker
 	private let matrixWorker: _MatrixWorker
 	private let settingsGameStorage: _SettingsGameStorage
@@ -46,7 +50,8 @@ final class GameWorker: _GameWorker {
 		return self.fileNameMatrixSolution + ".\(size)x\(size)"
 	}
 	
-	init(fileWorker: _FileWorker, matrixWorker: _MatrixWorker, settingsGameStorage: _SettingsGameStorage) {
+	init(checker: _Checker, fileWorker: _FileWorker, matrixWorker: _MatrixWorker, settingsGameStorage: _SettingsGameStorage) {
+		self.checker = checker
 		self.fileWorker = fileWorker
 		self.matrixWorker = matrixWorker
 		self.settingsGameStorage = settingsGameStorage
@@ -73,6 +78,15 @@ final class GameWorker: _GameWorker {
 		self.matrixSolution = loadOrCreateMatrixSolution()
 	}
 	
+	func regenerateMatrix() {
+		let size = self.settingsGameStorage.currentLevel
+		self.matrix = self.matrixWorker.createMatrixRandom(size: size)
+		if !checker.checkSolution(matrix: self.matrix, matrixTarget: self.matrixSolution) {
+			self.matrixWorker.changesParityInvariant(matrix: &self.matrix)
+			print(checker.checkSolution(matrix: self.matrix, matrixTarget: self.matrixSolution))
+		}
+	}
+	
 	/// Загружает сохраненную матрицу или создает новую
 	private func loadOrCreateMatrix() -> Matrix {
 		let size = self.settingsGameStorage.currentLevel
@@ -93,6 +107,7 @@ final class GameWorker: _GameWorker {
 }
 
 final class MockGameWorker: _GameWorker {
+	
 	var matrix: Matrix = Matrix()
 	
 	func save(matrix: Matrix) {
@@ -104,6 +119,10 @@ final class MockGameWorker: _GameWorker {
 	}
 	
 	func updateMatrix() {
+		
+	}
+	
+	func regenerateMatrix() {
 		
 	}
 	
