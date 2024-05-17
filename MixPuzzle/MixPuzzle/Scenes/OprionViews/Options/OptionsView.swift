@@ -9,10 +9,11 @@ import SwiftUI
 
 final class OptionsViewRouter: ObservableObject {
 	@Published var toBox: Bool = false
-	@Published var toGame: Bool = false
 	@Published var toStars: Bool = false
 	@Published var toLanguage: Bool = false
 	@Published var toVibration: Bool = false
+	@Published var toLevelSelect: Bool = false
+	@Published var toTargetSelect: Bool = false
 }
 
 struct OptionsView: View {
@@ -38,8 +39,8 @@ struct OptionsView: View {
 			])
 			.padding()
 			OptionsSectionsView(title: "Game", cells: [
-				AnyView(CellView(icon: "gamecontroller", text: "Game", action: { self.router.toGame = true })),
-				AnyView(CellView(icon: "square.grid.3x3.topmiddle.filled", text: "Target", action: { })),
+				AnyView(CellView(icon: "gamecontroller", text: "Game", action: { self.router.toLevelSelect = true })),
+				AnyView(CellView(icon: "square.grid.3x3.topmiddle.filled", text: "Target", action: { self.router.toTargetSelect = true })),
 				AnyView(CellView(icon: "chart.bar.xaxis", text: "Statistics", action: {  })),
 			])
 			.padding()
@@ -52,8 +53,11 @@ struct OptionsView: View {
 		.fullScreenCover(isPresented: $router.toStars) {
 			SettingsAsteroids(asteroidsModel: SettingsAsteroidsModel(asteroidsStorage: self.dependency.settingsStorages.settingsAsteroidsStorage))
 		}
-		.fullScreenCover(isPresented: $router.toGame) {
-			SettingsGameView(gameModel: SettingsGameModel(gameStorage: self.dependency.settingsStorages.settingsGameStorage))
+		.fullScreenCover(isPresented: $router.toLevelSelect) {
+			LevelSelectionView(gameModel: LevelSelectionModel(gameStorage: self.dependency.settingsStorages.settingsGameStorage))
+		}
+		.fullScreenCover(isPresented: $router.toTargetSelect) {
+			TargetSelectionView(dependncy: self.dependency)
 		}
 	}
 }
