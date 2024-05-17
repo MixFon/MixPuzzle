@@ -1,5 +1,5 @@
 //
-//  SettingsGameView.swift
+//  LevelSelectionView.swift
 //  MixPuzzle
 //
 //  Created by Михаил Фокин on 09.05.2024.
@@ -8,7 +8,7 @@
 import SwiftUI
 import Combine
 
-final class SettingsGameModel: ObservableObject {
+final class LevelSelectionModel: ObservableObject {
 	
 	@Published var currentLevel: Int
 	
@@ -25,14 +25,14 @@ final class SettingsGameModel: ObservableObject {
 	}
 }
 
-struct SettingsGameView: View {
+struct LevelSelectionView: View {
 	
-	@ObservedObject var gameModel: SettingsGameModel
+	@ObservedObject var gameModel: LevelSelectionModel
 	@State private var isShowSnackbar = false
 	
     var body: some View {
 		VStack {
-			NavigationBar(title: "Settings Game", tralingView: AnyView(
+			NavigationBar(title: "Level selection", tralingView: AnyView(
 				SaveButtonNavigationBar(action: {
 					self.isShowSnackbar = true
 					self.gameModel.saveChanges()
@@ -48,6 +48,6 @@ struct SettingsGameView: View {
 }
 
 #Preview {
-	let settingsGameModel = SettingsGameModel(gameStorage: MockSettingsGameStorage())
-	return SettingsGameView(gameModel: settingsGameModel)
+	let settingsGameModel = LevelSelectionModel(gameStorage: MockSettingsGameStorage())
+	return LevelSelectionView(gameModel: settingsGameModel)
 }
