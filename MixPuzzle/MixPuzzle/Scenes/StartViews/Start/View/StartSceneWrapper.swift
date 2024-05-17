@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import MFPuzzle
 import Foundation
 
 struct StartSceneWrapper: View {
@@ -16,6 +17,18 @@ struct StartSceneWrapper: View {
 	
 	var body: some View {
 		self.startFactory.configure(dependency: self.dependency, startSceneModel: self.startSceneModel)
+	}
+}
+
+struct TargetSelectSceneWrapper: View {
+	let matrix: Matrix
+	let dependency: _Dependency
+	let startSceneModel: StartSceneModel = StartSceneModel()
+	
+	private let startFactory = StartFactory()
+	
+	var body: some View {
+		self.startFactory.configure(matrix: self.matrix, dependency: self.dependency, startSceneModel: self.startSceneModel)
 	}
 }
 

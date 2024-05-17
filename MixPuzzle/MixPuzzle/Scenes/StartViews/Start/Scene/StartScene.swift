@@ -12,6 +12,8 @@ import MFPuzzle
 import Foundation
 
 struct StartScene: UIViewRepresentable {
+	var allowsCameraControl: Bool = true
+	var isUserInteractionEnabled: Bool = true
 	
 	private let boxWorker: _BoxesWorker
 	private let gameWorker: _GameWorker
@@ -20,6 +22,7 @@ struct StartScene: UIViewRepresentable {
     private let settingsAsteroidsStorage: _SettingsAsteroidsStorage
 	
 	private var cancellables = Set<AnyCancellable>()
+	
 	
 	init(boxWorker: _BoxesWorker, gameWorker: _GameWorker, asteroidWorker: _AsteroidsWorker, startSceneModel: StartSceneModel, settingsAsteroidsStorage: _SettingsAsteroidsStorage) {
 		self.boxWorker = boxWorker
@@ -131,11 +134,13 @@ struct StartScene: UIViewRepresentable {
         // set the scene to the view
         uiView.scene = scene
         // allows the user to manipulate the camera
-        uiView.allowsCameraControl = true
+		uiView.allowsCameraControl = self.allowsCameraControl
         // show statistics such as fps and timing information
         uiView.showsStatistics = false
         // configure the view
         uiView.backgroundColor = UIColor.black
+		// Взаимоействие с объектами
+		uiView.isUserInteractionEnabled = self.isUserInteractionEnabled
     }
     
     func makeCoordinator() -> Coordinator {

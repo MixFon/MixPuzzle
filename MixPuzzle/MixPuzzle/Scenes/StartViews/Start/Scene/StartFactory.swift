@@ -30,4 +30,22 @@ final class StartFactory {
 		)
 		return startScene
 	}
+	
+	func configure(matrix: Matrix, dependency: _Dependency, startSceneModel: StartSceneModel) -> some View {
+		let grid = Grid(matrix: matrix)
+		let boxWorker = BoxesWorker(
+			grid: grid,
+			cubeWorker: dependency.workers.cubeWorker,
+			settingsCubeStorate: dependency.settingsStorages.settingsCubeStorage
+		)
+		var startScene = StartScene(
+			boxWorker: boxWorker,
+			gameWorker: dependency.workers.gameWorker,
+			asteroidWorker: dependency.workers.asteroidWorker,
+			startSceneModel: startSceneModel,
+			settingsAsteroidsStorage: dependency.settingsStorages.settingsAsteroidsStorage
+		)
+		startScene.isUserInteractionEnabled = false
+		return startScene
+	}
 }

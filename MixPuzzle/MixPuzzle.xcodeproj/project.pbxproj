@@ -21,6 +21,7 @@
 		2944D6E72BC91770001F1A82 /* SettingsCubeScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2944D6E62BC9176F001F1A82 /* SettingsCubeScene.swift */; };
 		2944D6EC2BCC4C94001F1A82 /* ImageWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2944D6EB2BCC4C94001F1A82 /* ImageWorker.swift */; };
 		2944D6EE2BCC4FFD001F1A82 /* CubeWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2944D6ED2BCC4FFD001F1A82 /* CubeWorker.swift */; };
+		2949A2612BF791F000043A62 /* TargetSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2949A2602BF791F000043A62 /* TargetSelectionView.swift */; };
 		294E6E3A2BD27B9B00B615F1 /* CubeButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294E6E392BD27B9B00B615F1 /* CubeButtonView.swift */; };
 		2956CE762BCED46A00F17C01 /* NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2956CE752BCED46A00F17C01 /* NavigationBar.swift */; };
 		2972F3A82BF4A41100CDE8F8 /* MFPuzzle in Frameworks */ = {isa = PBXBuildFile; productRef = 2972F3A72BF4A41100CDE8F8 /* MFPuzzle */; };
@@ -32,7 +33,7 @@
 		2980BC782BEC136400866895 /* matrix.solution.mix in Resources */ = {isa = PBXBuildFile; fileRef = 2980BC762BEC136400866895 /* matrix.solution.mix */; };
 		2980BC792BEC136400866895 /* matrix.mix in Resources */ = {isa = PBXBuildFile; fileRef = 2980BC772BEC136400866895 /* matrix.mix */; };
 		2980BC7B2BED176D00866895 /* SelectLevelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2980BC7A2BED176D00866895 /* SelectLevelView.swift */; };
-		2980BC7E2BED1BE600866895 /* SettingsGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2980BC7D2BED1BE600866895 /* SettingsGameView.swift */; };
+		2980BC7E2BED1BE600866895 /* LevelSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2980BC7D2BED1BE600866895 /* LevelSelectionView.swift */; };
 		2980BC802BED62D400866895 /* SettingsGameStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2980BC7F2BED62D400866895 /* SettingsGameStorage.swift */; };
 		2985064E2B8B53A300028FA9 /* BoxesWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2985064D2B8B53A300028FA9 /* BoxesWorker.swift */; };
 		29A070332B91A5940078EB8D /* StartFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A070322B91A5940078EB8D /* StartFactory.swift */; };
@@ -69,6 +70,7 @@
 		2944D6E62BC9176F001F1A82 /* SettingsCubeScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCubeScene.swift; sourceTree = "<group>"; };
 		2944D6EB2BCC4C94001F1A82 /* ImageWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageWorker.swift; sourceTree = "<group>"; };
 		2944D6ED2BCC4FFD001F1A82 /* CubeWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CubeWorker.swift; sourceTree = "<group>"; };
+		2949A2602BF791F000043A62 /* TargetSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetSelectionView.swift; sourceTree = "<group>"; };
 		294E6E392BD27B9B00B615F1 /* CubeButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CubeButtonView.swift; sourceTree = "<group>"; };
 		2956CE752BCED46A00F17C01 /* NavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBar.swift; sourceTree = "<group>"; };
 		2979B7132BBFDE5D000839D3 /* StartSceneWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartSceneWrapper.swift; sourceTree = "<group>"; };
@@ -79,7 +81,7 @@
 		2980BC762BEC136400866895 /* matrix.solution.mix */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = matrix.solution.mix; sourceTree = "<group>"; };
 		2980BC772BEC136400866895 /* matrix.mix */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = matrix.mix; sourceTree = "<group>"; };
 		2980BC7A2BED176D00866895 /* SelectLevelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectLevelView.swift; sourceTree = "<group>"; };
-		2980BC7D2BED1BE600866895 /* SettingsGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsGameView.swift; sourceTree = "<group>"; };
+		2980BC7D2BED1BE600866895 /* LevelSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelSelectionView.swift; sourceTree = "<group>"; };
 		2980BC7F2BED62D400866895 /* SettingsGameStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsGameStorage.swift; sourceTree = "<group>"; };
 		2985064D2B8B53A300028FA9 /* BoxesWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxesWorker.swift; sourceTree = "<group>"; };
 		29A070322B91A5940078EB8D /* StartFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartFactory.swift; sourceTree = "<group>"; };
@@ -126,13 +128,9 @@
 		2944D6D92BC870FD001F1A82 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
-				2980BC7C2BED1BC300866895 /* SettingsGame */,
-				293C73BD2BDFCC5B00E183B5 /* SettingsAsteroids */,
-				2944D6E82BC91E96001F1A82 /* Workers */,
+				2949A25E2BF7901300043A62 /* OprionViews */,
+				2949A25D2BF78FEA00043A62 /* StartViews */,
 				2944D6DD2BC910FB001F1A82 /* Common */,
-				2944D6DA2BC87167001F1A82 /* SettingsCube */,
-				29A225472B89E0A2009ECD1C /* Options */,
-				29EB775B2B872DF900A494A0 /* Start */,
 				29C162D32B8491DA002E185D /* puzzle.scnassets */,
 				29C162D02B848D53002E185D /* Menu */,
 			);
@@ -191,6 +189,34 @@
 			path = Workers;
 			sourceTree = "<group>";
 		};
+		2949A25D2BF78FEA00043A62 /* StartViews */ = {
+			isa = PBXGroup;
+			children = (
+				29EB775B2B872DF900A494A0 /* Start */,
+			);
+			path = StartViews;
+			sourceTree = "<group>";
+		};
+		2949A25E2BF7901300043A62 /* OprionViews */ = {
+			isa = PBXGroup;
+			children = (
+				2949A25F2BF791C400043A62 /* TargetSelection */,
+				2944D6DA2BC87167001F1A82 /* SettingsCube */,
+				293C73BD2BDFCC5B00E183B5 /* SettingsAsteroids */,
+				2980BC7C2BED1BC300866895 /* LevelSelection */,
+				29A225472B89E0A2009ECD1C /* Options */,
+			);
+			path = OprionViews;
+			sourceTree = "<group>";
+		};
+		2949A25F2BF791C400043A62 /* TargetSelection */ = {
+			isa = PBXGroup;
+			children = (
+				2949A2602BF791F000043A62 /* TargetSelectionView.swift */,
+			);
+			path = TargetSelection;
+			sourceTree = "<group>";
+		};
 		295D81FF2BD3E31400D1C431 /* Draft */ = {
 			isa = PBXGroup;
 			children = (
@@ -245,12 +271,12 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		2980BC7C2BED1BC300866895 /* SettingsGame */ = {
+		2980BC7C2BED1BC300866895 /* LevelSelection */ = {
 			isa = PBXGroup;
 			children = (
-				2980BC7D2BED1BE600866895 /* SettingsGameView.swift */,
+				2980BC7D2BED1BE600866895 /* LevelSelectionView.swift */,
 			);
-			path = SettingsGame;
+			path = LevelSelection;
 			sourceTree = "<group>";
 		};
 		29A225472B89E0A2009ECD1C /* Options */ = {
@@ -309,6 +335,7 @@
 		29C162C02B848CC4002E185D /* MixPuzzle */ = {
 			isa = PBXGroup;
 			children = (
+				2944D6E82BC91E96001F1A82 /* Workers */,
 				2980BC732BEC11A100866895 /* Resources */,
 				29B2ADBD2BDBA402002D11D8 /* Extentions */,
 				29B2ADBA2BDB9354002D11D8 /* Dependency */,
@@ -439,7 +466,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2980BC7E2BED1BE600866895 /* SettingsGameView.swift in Sources */,
+				2980BC7E2BED1BE600866895 /* LevelSelectionView.swift in Sources */,
 				2980BC702BE7F5D300866895 /* FileWorker.swift in Sources */,
 				2980BC6E2BE7D9E500866895 /* GameWorker.swift in Sources */,
 				2980BC722BEA53A900866895 /* Workers.swift in Sources */,
@@ -470,6 +497,7 @@
 				2944D6EE2BCC4FFD001F1A82 /* CubeWorker.swift in Sources */,
 				29DFDEBE2BC5177F00791434 /* OptionsSectionsView.swift in Sources */,
 				291A07F12BC198F8008B4246 /* AsteroidsWorker.swift in Sources */,
+				2949A2612BF791F000043A62 /* TargetSelectionView.swift in Sources */,
 				29051C742BE0E6AB0064ABF0 /* Ext+View.swift in Sources */,
 				29A225492B89E0C5009ECD1C /* OptionsView.swift in Sources */,
 				2979B7182BBFDF3C000839D3 /* MenuSceneWrapper.swift in Sources */,
