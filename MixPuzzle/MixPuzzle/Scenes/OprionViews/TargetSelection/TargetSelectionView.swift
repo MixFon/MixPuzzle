@@ -21,17 +21,22 @@ struct TargetSelectionView: View {
 				})
 			))
 			.padding()
-			ForEach(matrixes, id: \.hashValue) { matrix in
-				Button {
-					
-				} label: {
-					TargetSelectSceneWrapper(matrix: matrix, dependency: self.dependncy)
-						.aspectRatio(contentMode: .fit)
-						.clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
+			ScrollView {
+				ForEach(matrixes, id: \.hashValue) { matrix in
+					Button {
+						
+					} label: {
+						TargetSelectSceneWrapper(matrix: matrix, dependency: self.dependncy)
+							.aspectRatio(contentMode: .fit)
+							.clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
+					}
+					.padding()
+					.buttonStyle(.plain)
 				}
 			}
 		}
 		.snackbar(isShowing: $isShowSnackbar, text: "The data has been saved successfully.", style: .success, extraBottomPadding: 16)
+		.background(Color.mm_background_tertiary)
     }
 	
 	private var matrixes: [Matrix] {
@@ -45,12 +50,12 @@ struct TargetSelectionView: View {
 			[6, 5, 4],
 			[7, 8, 0],
 		]
-		let spiral: Matrix = [
+		let snail: Matrix = [
 			[1, 2, 3],
 			[8, 0, 4],
 			[7, 6, 5],
 		]
-		return [classic, snake, spiral]
+		return [classic, snake, snail]
 	}
 }
 

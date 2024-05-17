@@ -28,23 +28,25 @@ struct OptionsView: View {
 		VStack {
 			NavigationBar(title: "Options")
 				.padding()
-			OptionsSectionsView(title: "Garaphics", cells: [
-				AnyView(CellView(icon: "cube", text: "Cube", action: { self.router.toBox = true })),
-				AnyView(CellView(icon: "moon.stars", text: "Asteroids", action: { self.router.toStars = true })),
-			])
-			.padding()
-			OptionsSectionsView(title: "Application", cells: [
-				AnyView(CellView(icon: "globe", text: "Language", action: { self.router.toLanguage = true })),
-				AnyView(ToggleCellView(icon: "waveform.path", text: "Vibration", isOn: $isOnVibration)),
-			])
-			.padding()
-			OptionsSectionsView(title: "Game", cells: [
-				AnyView(CellView(icon: "gamecontroller", text: "Game", action: { self.router.toLevelSelect = true })),
-				AnyView(CellView(icon: "square.grid.3x3.topmiddle.filled", text: "Target", action: { self.router.toTargetSelect = true })),
-				AnyView(CellView(icon: "chart.bar.xaxis", text: "Statistics", action: {  })),
-			])
-			.padding()
-			Spacer()
+			ScrollView {
+				OptionsSectionsView(title: "Garaphics", cells: [
+					AnyView(CellView(icon: "cube", text: "Cube", action: { self.router.toBox = true })),
+					AnyView(CellView(icon: "moon.stars", text: "Asteroids", action: { self.router.toStars = true })),
+				])
+				.padding()
+				OptionsSectionsView(title: "Application", cells: [
+					AnyView(CellView(icon: "globe", text: "Language", action: { self.router.toLanguage = true })),
+					AnyView(ToggleCellView(icon: "waveform.path", text: "Vibration", isOn: $isOnVibration)),
+				])
+				.padding()
+				OptionsSectionsView(title: "Game", cells: [
+					AnyView(CellView(icon: "gamecontroller", text: "Game", action: { self.router.toLevelSelect = true })),
+					AnyView(CellView(icon: "square.grid.3x3.topmiddle.filled", text: "Target", action: { self.router.toTargetSelect = true })),
+					AnyView(CellView(icon: "chart.bar.xaxis", text: "Statistics", action: {  })),
+				])
+				.padding()
+				Spacer()
+			}
 		}
 		.background(Color.mm_background_secondary)
 		.fullScreenCover(isPresented: $router.toBox) {
