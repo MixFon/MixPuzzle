@@ -50,7 +50,7 @@ struct TextNumberCell: View {
 		Text("\(number)x\(number)")
 			.frame(width: 70, height: 70)
 			.background(isSelect ? Color.blue : .mm_background_secondary)
-			.cornerRadius(10)
+			.clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
 			.foregroundColor(isSelect ? .white : .mm_text_primary)
 			.padding(5)
 			.overlay(showLockIcon ? lockImage : nil, alignment: .bottomTrailing)

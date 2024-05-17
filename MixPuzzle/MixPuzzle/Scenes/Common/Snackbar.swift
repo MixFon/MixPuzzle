@@ -109,7 +109,7 @@ internal struct MMSnackbar: View {
 						isShowing = false
 					}
 				}
-				.cornerRadius(16)
+				.clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
 			}
 		}
 		.opacity(isShowing ? 1 : 0)

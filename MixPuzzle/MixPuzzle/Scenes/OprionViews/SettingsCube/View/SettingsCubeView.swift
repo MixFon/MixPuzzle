@@ -53,7 +53,7 @@ struct SettingsCubeView: View {
             .padding()
 			SettingsCubeWrapper(model: self.model, dependency: self.dependency)
 				.aspectRatio(contentMode: .fit)
-				.cornerRadius(10)
+				.clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
 				.background(Color.mm_background_secondary)
 			ScrollView {
 				OptionsSectionsView(title: "Cube", cells: [
@@ -64,7 +64,7 @@ struct SettingsCubeView: View {
                     AnyView(TexturePicker(title: "Textures", selectedImage: $model.texture)),
 				])
 			}
-            .cornerRadius(16)
+			.clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
 			.padding()
 		}
 		.snackbar(isShowing: $isShowSnackbar, text: "The data has been saved successfully.", style: .success, extraBottomPadding: 16)

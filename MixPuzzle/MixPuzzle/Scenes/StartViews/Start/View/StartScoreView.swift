@@ -30,7 +30,7 @@ struct StartScoreView: View {
 			.buttonStyle(.plain)
 		}
 		.padding(.horizontal)
-		.cornerRadius(16)
+		.clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
     }
 }
 

@@ -29,7 +29,7 @@ struct OptionsSectionsView: View {
 		}
 		.padding(20)
 		.background(Color.mm_background_tertiary)
-		.cornerRadius(16)
+		.clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
 	}
 }
 
@@ -119,7 +119,7 @@ struct ColorCellView: View, Identifiable {
 							Rectangle()
                                 .frame(width: 40, height: 40)
                                 .foregroundStyle(color)
-                                .cornerRadius(10)
+								.clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
                             
 						}
 						.buttonStyle(.plain)
@@ -199,7 +199,7 @@ struct TextureImage: View {
 			.scaledToFill()
 			.clipped()
 			.frame(width: 70, height: 70)
-			.cornerRadius(10)
+			.clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
 			.shadow(radius: 5)
 			.overlay(
 				RoundedRectangle(cornerRadius: 10)
