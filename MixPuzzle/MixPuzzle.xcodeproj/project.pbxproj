@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		29051C722BE0DDF20064ABF0 /* Snackbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29051C712BE0DDF20064ABF0 /* Snackbar.swift */; };
 		29051C742BE0E6AB0064ABF0 /* Ext+View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29051C732BE0E6AB0064ABF0 /* Ext+View.swift */; };
+		290714F02BFA46CA00AD5DCE /* MFPuzzle in Frameworks */ = {isa = PBXBuildFile; productRef = 290714EF2BFA46CA00AD5DCE /* MFPuzzle */; };
 		291A07EE2BC173D6008B4246 /* StartScoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291A07ED2BC173D6008B4246 /* StartScoreView.swift */; };
 		291A07F12BC198F8008B4246 /* AsteroidsWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291A07F02BC198F8008B4246 /* AsteroidsWorker.swift */; };
 		293C73BF2BDFCCC900E183B5 /* SettingsAsteroids.swift in Sources */ = {isa = PBXBuildFile; fileRef = 293C73BE2BDFCCC900E183B5 /* SettingsAsteroids.swift */; };
@@ -24,7 +25,6 @@
 		2949A2612BF791F000043A62 /* TargetSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2949A2602BF791F000043A62 /* TargetSelectionView.swift */; };
 		294E6E3A2BD27B9B00B615F1 /* CubeButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294E6E392BD27B9B00B615F1 /* CubeButtonView.swift */; };
 		2956CE762BCED46A00F17C01 /* NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2956CE752BCED46A00F17C01 /* NavigationBar.swift */; };
-		2972F3A82BF4A41100CDE8F8 /* MFPuzzle in Frameworks */ = {isa = PBXBuildFile; productRef = 2972F3A72BF4A41100CDE8F8 /* MFPuzzle */; };
 		2979B7142BBFDE5D000839D3 /* StartSceneWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2979B7132BBFDE5D000839D3 /* StartSceneWrapper.swift */; };
 		2979B7182BBFDF3C000839D3 /* MenuSceneWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2979B7172BBFDF3C000839D3 /* MenuSceneWrapper.swift */; };
 		2980BC6E2BE7D9E500866895 /* GameWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2980BC6D2BE7D9E500866895 /* GameWorker.swift */; };
@@ -110,13 +110,20 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2972F3A82BF4A41100CDE8F8 /* MFPuzzle in Frameworks */,
+				290714F02BFA46CA00AD5DCE /* MFPuzzle in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		290714EE2BFA46CA00AD5DCE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		293C73BD2BDFCC5B00E183B5 /* SettingsAsteroids */ = {
 			isa = PBXGroup;
 			children = (
@@ -321,6 +328,7 @@
 			children = (
 				29C162C02B848CC4002E185D /* MixPuzzle */,
 				29C162BF2B848CC4002E185D /* Products */,
+				290714EE2BFA46CA00AD5DCE /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -403,7 +411,7 @@
 			);
 			name = MixPuzzle;
 			packageProductDependencies = (
-				2972F3A72BF4A41100CDE8F8 /* MFPuzzle */,
+				290714EF2BFA46CA00AD5DCE /* MFPuzzle */,
 			);
 			productName = MixPuzzle;
 			productReference = 29C162BE2B848CC4002E185D /* MixPuzzle.app */;
@@ -434,7 +442,7 @@
 			);
 			mainGroup = 29C162B52B848CC3002E185D;
 			packageReferences = (
-				2972F3A62BF4A41100CDE8F8 /* XCRemoteSwiftPackageReference "MFPuzzle" */,
+				290714ED2BFA467500AD5DCE /* XCRemoteSwiftPackageReference "MFPuzzle" */,
 			);
 			productRefGroup = 29C162BF2B848CC4002E185D /* Products */;
 			projectDirPath = "";
@@ -729,20 +737,20 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		2972F3A62BF4A41100CDE8F8 /* XCRemoteSwiftPackageReference "MFPuzzle" */ = {
+		290714ED2BFA467500AD5DCE /* XCRemoteSwiftPackageReference "MFPuzzle" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "git@github.com:MixFon/MFPuzzle.git";
 			requirement = {
-				branch = main;
-				kind = branch;
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		2972F3A72BF4A41100CDE8F8 /* MFPuzzle */ = {
+		290714EF2BFA46CA00AD5DCE /* MFPuzzle */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 2972F3A62BF4A41100CDE8F8 /* XCRemoteSwiftPackageReference "MFPuzzle" */;
+			package = 290714ED2BFA467500AD5DCE /* XCRemoteSwiftPackageReference "MFPuzzle" */;
 			productName = MFPuzzle;
 		};
 /* End XCSwiftPackageProductDependency section */

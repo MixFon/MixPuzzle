@@ -12,11 +12,19 @@ protocol _GameWorker {
 	/// Двумерный массив текущей матрицы
 	var matrix: Matrix { get }
 	
+	/// Тип решения головоломки
+	var solution: Solution { get }
+	
 	/// Сохранение матрицы. Сохраняет текущее сотояние
 	func save(matrix: Matrix)
 	
+	/// Сохранение цели решения головоломки
+	func save(solution: Solution)
+	
 	/// Проверка на то, что матрица достигла фильного результата
 	func checkSolution(matrix: Matrix) -> Bool
+	
+	var solutionOptions: [MatrixSolution] { get }
 	
 	/// Функция обновления матриц
 	func updateMatrix()
@@ -25,10 +33,25 @@ protocol _GameWorker {
 	func regenerateMatrix()
 }
 
+enum Solution: String, CaseIterable {
+	case snake
+	case snail
+	case classic
+}
+
+struct MatrixSolution {
+	let type: Solution
+	let matrix: Matrix
+}
+
 /// Класс отвечающий за сохранение данных игры.
 /// Сохранение состояния игры. Получение цели игры
 final class GameWorker: _GameWorker {
 	var matrix: Matrix
+	
+	var solutionOptions: [MatrixSolution] {
+		return Solution.allCases.map { MatrixSolution(type: $0, matrix: createMatrixSolution(solution: $0)) }
+	}
 	
 	private var matrixSolution: Matrix
 	
@@ -36,18 +59,21 @@ final class GameWorker: _GameWorker {
 	private let fileWorker: _FileWorker
 	private let matrixWorker: _MatrixWorker
 	private let settingsGameStorage: _SettingsGameStorage
+	private let defaults = UserDefaults.standard
 	
-	private let fileNameMatrix = "matrix.mix"
-	private let fileNameMatrixSolution = "matrix.solution.mix"
-	
-	private var lavelFileNameMatrix: String {
-		let size = self.settingsGameStorage.currentLevel
-		return self.fileNameMatrix + ".\(size)x\(size)"
+	private enum Keys {
+		static let solution = "solution.mix"
+		static let fileNameMatrix = "matrix.mix"
 	}
 	
-	private var lavelFileNameMatrixSolution: String {
-		let size = self.settingsGameStorage.currentLevel
-		return self.fileNameMatrixSolution + ".\(size)x\(size)"
+	var solution: Solution {
+		get {
+			if let nameSolution = self.defaults.string(forKey: Keys.solution) {
+				return Solution(rawValue: nameSolution) ?? .classic
+			} else {
+				return .classic
+			}
+		}
 	}
 	
 	init(checker: _Checker, fileWorker: _FileWorker, matrixWorker: _MatrixWorker, settingsGameStorage: _SettingsGameStorage) {
@@ -73,9 +99,17 @@ final class GameWorker: _GameWorker {
 		self.fileWorker.saveStringToFile(string: stringRepresentation, fileName: self.lavelFileNameMatrix)
 	}
 	
+	func save(solution: Solution) {
+		self.defaults.set(solution.rawValue, forKey: Keys.solution)
+	}
+	
 	func updateMatrix() {
 		self.matrix = loadOrCreateMatrix()
-		self.matrixSolution = loadOrCreateMatrixSolution()
+		self.matrixSolution = createMatrixSolution(solution: self.solution)
+		// В случае, если из матрицы нельзя получить ответ, генерируем матрицу заново
+		if !self.checker.checkSolution(matrix: self.matrix, matrixTarget: self.matrixSolution) {
+			regenerateMatrix()
+		}
 	}
 	
 	func regenerateMatrix() {
@@ -87,6 +121,11 @@ final class GameWorker: _GameWorker {
 		}
 	}
 	
+	private var lavelFileNameMatrix: String {
+		let size = self.settingsGameStorage.currentLevel
+		return Keys.fileNameMatrix + ".\(size)x\(size)"
+	}
+	
 	/// Загружает сохраненную матрицу или создает новую
 	private func loadOrCreateMatrix() -> Matrix {
 		let size = self.settingsGameStorage.currentLevel
@@ -96,21 +135,59 @@ final class GameWorker: _GameWorker {
 		return (try? matrixWorker.creationMatrix(text: textMatrix)) ?? self.matrixWorker.createMatrixRandom(size: size)
 	}
 	
-	/// Загружает сохраненную матрицу ответа или создает новую
-	private func loadOrCreateMatrixSolution() -> Matrix {
+	/// Возвращает матрицу решения сохраненного размера
+	private func createMatrixSolution(solution: Solution) -> Matrix {
 		let size = self.settingsGameStorage.currentLevel
-		guard let textMatrixSolution = self.fileWorker.readStringFromFile(fileName: self.lavelFileNameMatrixSolution) else {
-			return self.matrixWorker.createMatrixSpiral(size: size)
+		switch solution {
+		case .snake:
+			return self.matrixWorker.createMatrixSnake(size: size)
+		case .snail:
+			return self.matrixWorker.createMatrixSnail(size: size)
+		case .classic:
+			return self.matrixWorker.createMatrixClassic(size: size)
 		}
-		return (try? matrixWorker.creationMatrix(text: textMatrixSolution)) ?? self.matrixWorker.createMatrixSpiral(size: size)
 	}
 }
 
 final class MockGameWorker: _GameWorker {
 	
-	var matrix: Matrix = Matrix()
+	var solution: Solution = .classic
+	
+	var matrix: Matrix {
+		[[1, 2, 3],
+		 [4, 5, 6],
+		 [7, 8, 0]]
+	}
+	
+	var solutionOptions: [MatrixSolution] {
+		let classic: Matrix = [
+			[1, 2, 3],
+			[4, 5, 6],
+			[7, 8, 0],
+		]
+		let snake: Matrix = [
+			[1, 2, 3],
+			[6, 5, 4],
+			[7, 8, 0],
+		]
+		let snail: Matrix = [
+			[1, 2, 3],
+			[8, 0, 4],
+			[7, 6, 5],
+		]
+		let solutions: [MatrixSolution] = [
+			MatrixSolution(type: .classic, matrix: classic),
+			MatrixSolution(type: .snail, matrix: snail),
+			MatrixSolution(type: .snake, matrix: snake),
+		]
+		return solutions
+	}
 	
 	func save(matrix: Matrix) {
+		
+	}
+	
+	func save(solution: Solution) {
 		
 	}
 	

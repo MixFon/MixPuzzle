@@ -8,27 +8,50 @@
 import SwiftUI
 import MFPuzzle
 
+final class TargetSelectionModel: ObservableObject {
+	@Published var selectedSolution: Solution
+	
+	private var gameWorker: _GameWorker
+	
+	init(gameWorker: _GameWorker) {
+		self.gameWorker = gameWorker
+		self.selectedSolution = gameWorker.solution
+	}
+	
+	func saveChanges() {
+		self.gameWorker.save(solution: self.selectedSolution)
+	}
+}
+
 struct TargetSelectionView: View {
-	let dependncy: _Dependency
+	private let dependncy: _Dependency
+	private let solutionOptions: [MatrixSolution]
+	
+	@ObservedObject
+	private var model: TargetSelectionModel
+	
+	init(dependncy: _Dependency) {
+		self.dependncy = dependncy
+		self.solutionOptions = self.dependncy.workers.gameWorker.solutionOptions
+		self.model = TargetSelectionModel(gameWorker: dependncy.workers.gameWorker)
+	}
 	
 	@State private var isShowSnackbar = false
     var body: some View {
 		VStack {
 			NavigationBar(title: "Target selection", tralingView: AnyView(
 				SaveButtonNavigationBar(action: {
-					//self.model.saveChanges()
+					self.model.saveChanges()
 					self.isShowSnackbar = true
 				})
 			))
 			.padding()
 			ScrollView {
-				ForEach(matrixes, id: \.hashValue) { matrix in
+				ForEach(solutionOptions, id: \.type) { option in
 					Button {
-						
+						self.model.selectedSolution = option.type
 					} label: {
-						TargetSelectSceneWrapper(matrix: matrix, dependency: self.dependncy)
-							.aspectRatio(contentMode: .fit)
-							.clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
+						TargetView(option: option, dependncy: self.dependncy, isSelected: option.type == self.model.selectedSolution)
 					}
 					.padding()
 					.buttonStyle(.plain)
@@ -38,28 +61,28 @@ struct TargetSelectionView: View {
 		.snackbar(isShowing: $isShowSnackbar, text: "The data has been saved successfully.", style: .success, extraBottomPadding: 16)
 		.background(Color.mm_background_tertiary)
     }
-	
-	private var matrixes: [Matrix] {
-		let classic: Matrix = [
-			[1, 2, 3],
-			[4, 5, 6],
-			[7, 8, 0],
-		]
-		let snake: Matrix = [
-			[1, 2, 3],
-			[6, 5, 4],
-			[7, 8, 0],
-		]
-		let snail: Matrix = [
-			[1, 2, 3],
-			[8, 0, 4],
-			[7, 6, 5],
-		]
-		return [classic, snake, snail]
+}
+
+struct TargetView: View {
+	let option: MatrixSolution
+	let dependncy: _Dependency
+	let isSelected: Bool
+	var body: some View {
+		VStack {
+			TargetSelectSceneWrapper(matrix: option.matrix, dependency: self.dependncy)
+				.aspectRatio(contentMode: .fit)
+				.clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
+				.overlay(
+					RoundedRectangle(cornerRadius: 10)
+						.stroke(Color.blue, lineWidth: isSelected ? 3 : 0)
+				)
+			Text(option.type.rawValue.capitalized)
+		}
 	}
 }
 
 #Preview {
 	let mockDependecy = MockDependency()
-    return TargetSelectionView(dependncy: mockDependecy)
+	return TargetSelectionView(dependncy: mockDependecy)
 }
+

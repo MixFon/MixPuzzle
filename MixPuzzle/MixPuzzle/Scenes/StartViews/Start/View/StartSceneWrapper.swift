@@ -37,3 +37,9 @@ extension StartSceneWrapper: Equatable {
 		return true
 	}
 }
+
+extension TargetSelectSceneWrapper: Equatable {
+	static func == (lhs: TargetSelectSceneWrapper, rhs: TargetSelectSceneWrapper) -> Bool {
+		return true
+	}
+}
