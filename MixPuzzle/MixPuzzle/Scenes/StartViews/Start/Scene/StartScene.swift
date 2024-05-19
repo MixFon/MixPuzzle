@@ -115,7 +115,7 @@ struct StartScene: UIViewRepresentable {
     /// Создание и конфигурация астероидойдов
     private func createAndConfigureAsteroids() {
         let centerMatrix = self.boxWorker.centreMatrix
-        let nodeStars = self.asteroidWorker.createAsteroids(centre: centerMatrix)
+        let nodeStars = self.asteroidWorker.createAsteroids()
         nodeStars.forEach({
             configureStars(star: $0, centerRotation: centerMatrix)
         })

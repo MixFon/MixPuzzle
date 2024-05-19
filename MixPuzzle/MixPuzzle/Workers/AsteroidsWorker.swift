@@ -9,7 +9,7 @@ import SceneKit
 import Foundation
 
 protocol _AsteroidsWorker {
-	func createAsteroids(centre: SCNVector3) -> [SCNNode]
+	func createAsteroids() -> [SCNNode]
     func setAnimationRotationTo(node: SCNNode)
 }
 
@@ -31,12 +31,12 @@ final class AsteroidsWorker: _AsteroidsWorker {
         self.asteroidsStorage = asteroidsStorage
     }
 	
-	func createAsteroids(centre: SCNVector3) -> [SCNNode] {
-		let asteroids = (0...self.countAsteroids).map( { _ in createAsteroid(centre: centre) } )
+	func createAsteroids() -> [SCNNode] {
+		let asteroids = (0...self.countAsteroids).map( { _ in createAsteroid() } )
 		return asteroids
 	}
 	
-	private func createAsteroid(centre: SCNVector3) -> SCNNode {
+	private func createAsteroid() -> SCNNode {
         let rocks = [
             "coral_fort_wall",
             "shfsaida",
@@ -89,7 +89,7 @@ final class AsteroidsWorker: _AsteroidsWorker {
 }
 
 final class MockAsteroidsWorker: _AsteroidsWorker {
-	func createAsteroids(centre: SCNVector3) -> [SCNNode] {
+	func createAsteroids() -> [SCNNode] {
 		return []
 	}
 	
