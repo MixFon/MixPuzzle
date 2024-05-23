@@ -45,15 +45,15 @@ final class MockWorkers: _Workers {
 	
 	var gameWorker: _GameWorker = MockGameWorker()
 	
-	var cubeWorker: _CubeWorker = MockCubeWorker()
+	lazy var cubeWorker: _CubeWorker = CubeWorker(imageWorker: self.imageWorker, materialsWorker: self.materialsWorker)
 	
 	var matrixWorker: _MatrixWorker = MockMatrixWorker()
 	
-	var imageWorker: _ImageWorker = MockImageWorker()
+	var imageWorker: _ImageWorker = ImageWorker()
 	
 	var asteroidWorker: _AsteroidsWorker = MockAsteroidsWorker()
 	
-	var materialsWorker: _MaterialsWorker = MockMaterialsWorker()
+	var materialsWorker: _MaterialsWorker = MaterialsWorker()
 }
 
 final class MockMatrixWorker: _MatrixWorker {

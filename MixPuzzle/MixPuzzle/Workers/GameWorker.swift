@@ -184,11 +184,11 @@ final class MockGameWorker: _GameWorker {
 	}
 	
 	func save(matrix: Matrix) {
-		
+		print(#function)
 	}
 	
 	func save(solution: Solution) {
-		
+		print(#function)
 	}
 	
 	func checkSolution(matrix: Matrix) -> Bool {
@@ -196,11 +196,11 @@ final class MockGameWorker: _GameWorker {
 	}
 	
 	func updateMatrix() {
-		
+		print(#function)
 	}
 	
 	func regenerateMatrix() {
-		
+		print(#function)
 	}
 	
 }

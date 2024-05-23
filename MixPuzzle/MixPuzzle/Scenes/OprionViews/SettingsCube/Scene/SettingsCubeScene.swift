@@ -139,7 +139,7 @@ struct SettingsCubeScene: UIViewRepresentable {
 		let hitResults = self.scnView.hitTest(location, options: [:])
 		
 		// Обработка результата нажатия
-		if let hitNode = hitResults.first?.node {
+		if let _ = hitResults.first?.node {
 			// Обнаружен узел, который был касаем
 			
 		}
