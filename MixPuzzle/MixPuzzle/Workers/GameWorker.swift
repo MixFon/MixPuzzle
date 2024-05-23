@@ -34,9 +34,9 @@ protocol _GameWorker {
 }
 
 enum Solution: String, CaseIterable {
-	case snake
 	case snail
 	case classic
+	case boustrophedon
 }
 
 struct MatrixSolution {
@@ -139,8 +139,8 @@ final class GameWorker: _GameWorker {
 	private func createMatrixSolution(solution: Solution) -> Matrix {
 		let size = self.settingsGameStorage.currentLevel
 		switch solution {
-		case .snake:
-			return self.matrixWorker.createMatrixSnake(size: size)
+		case .boustrophedon:
+			return self.matrixWorker.createMatrixBoustrophedon(size: size)
 		case .snail:
 			return self.matrixWorker.createMatrixSnail(size: size)
 		case .classic:
@@ -178,7 +178,7 @@ final class MockGameWorker: _GameWorker {
 		let solutions: [MatrixSolution] = [
 			MatrixSolution(type: .classic, matrix: classic),
 			MatrixSolution(type: .snail, matrix: snail),
-			MatrixSolution(type: .snake, matrix: snake),
+			MatrixSolution(type: .boustrophedon, matrix: snake),
 		]
 		return solutions
 	}

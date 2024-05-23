@@ -57,16 +57,16 @@ final class MockWorkers: _Workers {
 }
 
 final class MockMatrixWorker: _MatrixWorker {
+	func createMatrixBoustrophedon(size: Int) -> MFPuzzle.Matrix {
+		Matrix()
+	}
+	
 	func createMatrixClassic(size: Int) -> MFPuzzle.Matrix {
 		Matrix()
 	}
 	
 	func createMatrixSnail(size: Int) -> Matrix {
 		[[]]
-	}
-	
-	func createMatrixSnake(size: Int) -> Matrix {
-		Matrix()
 	}
 	
 	func changesParityInvariant(matrix: inout Matrix) {
