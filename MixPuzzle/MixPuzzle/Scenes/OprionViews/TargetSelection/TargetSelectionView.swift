@@ -67,13 +67,15 @@ struct TargetView: View {
 	let option: MatrixSolution
 	let dependncy: _Dependency
 	let isSelected: Bool
+	
+	private let radius: CGFloat = 20
 	var body: some View {
 		VStack {
-			TargetSelectSceneWrapper(matrix: option.matrix, dependency: self.dependncy)
+			TargetSelectSceneWrapper(matrix: option.matrix, dependency: dependncy)
 				.aspectRatio(contentMode: .fit)
-				.clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
+				.clipShape(RoundedRectangle(cornerRadius: radius, style: .continuous))
 				.overlay(
-					RoundedRectangle(cornerRadius: 10)
+					RoundedRectangle(cornerRadius: radius)
 						.stroke(Color.blue, lineWidth: isSelected ? 3 : 0)
 				)
 			Text(option.type.rawValue.capitalized)

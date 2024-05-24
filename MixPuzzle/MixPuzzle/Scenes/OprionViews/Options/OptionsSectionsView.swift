@@ -18,7 +18,7 @@ struct OptionsSectionsView: View {
 				.font(.title2)
 				.bold()
 				.foregroundStyle(Color.mm_text_primary)
-			VStack(spacing: 8) {
+			VStack(spacing: 10) {
 				ForEach(cells.indices, id: \.self) { index in
 					self.cells[index]
 					if index != self.cells.indices.last {

@@ -25,6 +25,7 @@
 		2949A2612BF791F000043A62 /* TargetSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2949A2602BF791F000043A62 /* TargetSelectionView.swift */; };
 		294E6E3A2BD27B9B00B615F1 /* CubeButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294E6E392BD27B9B00B615F1 /* CubeButtonView.swift */; };
 		2956CE762BCED46A00F17C01 /* NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2956CE752BCED46A00F17C01 /* NavigationBar.swift */; };
+		296846CF2C0101200046862C /* FindSolutionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296846CE2C0101200046862C /* FindSolutionView.swift */; };
 		2979B7142BBFDE5D000839D3 /* StartSceneWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2979B7132BBFDE5D000839D3 /* StartSceneWrapper.swift */; };
 		2979B7182BBFDF3C000839D3 /* MenuSceneWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2979B7172BBFDF3C000839D3 /* MenuSceneWrapper.swift */; };
 		2980BC6E2BE7D9E500866895 /* GameWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2980BC6D2BE7D9E500866895 /* GameWorker.swift */; };
@@ -73,6 +74,7 @@
 		2949A2602BF791F000043A62 /* TargetSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetSelectionView.swift; sourceTree = "<group>"; };
 		294E6E392BD27B9B00B615F1 /* CubeButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CubeButtonView.swift; sourceTree = "<group>"; };
 		2956CE752BCED46A00F17C01 /* NavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBar.swift; sourceTree = "<group>"; };
+		296846CE2C0101200046862C /* FindSolutionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindSolutionView.swift; sourceTree = "<group>"; };
 		2979B7132BBFDE5D000839D3 /* StartSceneWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartSceneWrapper.swift; sourceTree = "<group>"; };
 		2979B7172BBFDF3C000839D3 /* MenuSceneWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuSceneWrapper.swift; sourceTree = "<group>"; };
 		2980BC6D2BE7D9E500866895 /* GameWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameWorker.swift; sourceTree = "<group>"; };
@@ -135,6 +137,7 @@
 		2944D6D92BC870FD001F1A82 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				296846CD2C0100E30046862C /* FindSolutionViews */,
 				2949A25E2BF7901300043A62 /* OprionViews */,
 				2949A25D2BF78FEA00043A62 /* StartViews */,
 				2944D6DD2BC910FB001F1A82 /* Common */,
@@ -231,6 +234,14 @@
 				2980BC7A2BED176D00866895 /* SelectLevelView.swift */,
 			);
 			path = Draft;
+			sourceTree = "<group>";
+		};
+		296846CD2C0100E30046862C /* FindSolutionViews */ = {
+			isa = PBXGroup;
+			children = (
+				296846CE2C0101200046862C /* FindSolutionView.swift */,
+			);
+			path = FindSolutionViews;
 			sourceTree = "<group>";
 		};
 		2979B7112BBFDDB3000839D3 /* Scene */ = {
@@ -484,6 +495,7 @@
 				29EB775D2B872E0D00A494A0 /* StartView.swift in Sources */,
 				29D3D1A32B8A0BF600E3EE6A /* StartScene.swift in Sources */,
 				294E6E3A2BD27B9B00B615F1 /* CubeButtonView.swift in Sources */,
+				296846CF2C0101200046862C /* FindSolutionView.swift in Sources */,
 				293C73BF2BDFCCC900E183B5 /* SettingsAsteroids.swift in Sources */,
 				2944D6DC2BC871A6001F1A82 /* SettingsCubeView.swift in Sources */,
 				2944D6E52BC916F9001F1A82 /* SettingsCubeFactory.swift in Sources */,
