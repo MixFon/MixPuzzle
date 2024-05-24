@@ -99,6 +99,8 @@ struct MenuScene: UIViewRepresentable {
                     complition(.toStart)
                 case "options_node":
                     complition(.toOprionts)
+				case "find_solution_node":
+					complition(.toFindSolution)
                 default:
                     break
                 }

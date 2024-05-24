@@ -9,20 +9,27 @@ import SwiftUI
 import SceneKit
 import MFPuzzle
 
+final class MenuViewRouter: ObservableObject {
+	@Published var toStart: Bool = false
+	@Published var toOprionts: Bool = false
+	@Published var toFindSolution: Bool = false
+}
+
 struct MenuView: View {
     
     let dependency: _Dependency
-	
-	@State private var toStart: Bool = false
-	@State private var toOprionts: Bool = false
+	@ObservedObject private var router = MenuViewRouter()
 	
 	var body: some View {
-		MenuSceneWrapper(toStart: $toStart, toOprionts: $toOprionts)
-			.fullScreenCover(isPresented: self.$toStart) {
+		MenuSceneWrapper(toStart: $router.toStart, toOprionts: $router.toOprionts, toFindSolution: $router.toFindSolution)
+			.fullScreenCover(isPresented: self.$router.toStart) {
 				StartView(dependency: self.dependency)
 			}
-			.fullScreenCover(isPresented: self.$toOprionts) {
+			.fullScreenCover(isPresented: self.$router.toOprionts) {
 				OptionsView(dependency: self.dependency)
+			}
+			.fullScreenCover(isPresented: self.$router.toFindSolution) {
+				FindSolutionView(dependency: self.dependency)
 			}
 			.edgesIgnoringSafeArea(.all)
 	}

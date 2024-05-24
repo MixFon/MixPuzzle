@@ -11,10 +11,12 @@ struct MenuSceneWrapper: View {
 	
 	@Binding var toStart: Bool
 	@Binding var toOprionts: Bool
+	@Binding var toFindSolution: Bool
 	
 	enum Router: Hashable {
 		case toStart
 		case toOprionts
+		case toFindSolution
 	}
 
     var body: some View {
@@ -25,6 +27,8 @@ struct MenuSceneWrapper: View {
 				self.toStart = true
 			case .toOprionts:
 				self.toOprionts = true
+			case .toFindSolution:
+				self.toFindSolution = true
 			}
 		}
     }
@@ -39,5 +43,6 @@ extension MenuSceneWrapper: Equatable {
 #Preview {
 	@State var toStart: Bool = false
 	@State var toOprionts: Bool = false
-	return MenuSceneWrapper(toStart: $toStart, toOprionts: $toOprionts)
+	@State var toFindSolution: Bool = false
+	return MenuSceneWrapper(toStart: $toStart, toOprionts: $toOprionts, toFindSolution: $toFindSolution)
 }
