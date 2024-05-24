@@ -23,9 +23,11 @@ struct StartScene: UIViewRepresentable {
 	
 	private var cancellables = Set<AnyCancellable>()
 	
+	private let generator: UINotificationFeedbackGenerator?
 	
-	init(boxWorker: _BoxesWorker, gameWorker: _GameWorker, asteroidWorker: _AsteroidsWorker, startSceneModel: StartSceneModel, settingsAsteroidsStorage: _SettingsAsteroidsStorage) {
+	init(boxWorker: _BoxesWorker, generator: UINotificationFeedbackGenerator?, gameWorker: _GameWorker, asteroidWorker: _AsteroidsWorker, startSceneModel: StartSceneModel, settingsAsteroidsStorage: _SettingsAsteroidsStorage) {
 		self.boxWorker = boxWorker
+		self.generator = generator
 		self.gameWorker = gameWorker
 		self.asteroidWorker = asteroidWorker
 		self.startSceneModel = startSceneModel
@@ -34,8 +36,6 @@ struct StartScene: UIViewRepresentable {
 		configureSavePublisher()
 		configureRegeneratePublisher()
 	}
-	
-	private let generator = UINotificationFeedbackGenerator()
 	
 	private let scene: SCNScene = {
 		let scene = SCNScene()
@@ -155,16 +155,16 @@ struct StartScene: UIViewRepresentable {
 		// Обработка результата нажатия
 		if let hitNode = hitResults.first?.node {
 			// Обнаружен узел, который был касаем
-			self.generator.prepare()
+			self.generator?.prepare()
 		
 			if let hitNodeName = hitNode.name, let number = UInt8(hitNodeName), let moveToZeroAction = self.boxWorker.createMoveToZeroAction(number: number) {
 				hitNode.runAction(moveToZeroAction)
-				self.generator.notificationOccurred(.success)
+				self.generator?.notificationOccurred(.success)
 				checkSolution()
 			} else {
 				let shameAnimation = self.boxWorker.createShakeAnimation(position: hitNode.position)
 				hitNode.addAnimation(shameAnimation, forKey: "shake")
-				self.generator.notificationOccurred(.error)
+				self.generator?.notificationOccurred(.error)
 			}
 		}
 	}

@@ -23,6 +23,7 @@ final class StartFactory {
 		)
 		let startScene = StartScene(
 			boxWorker: boxWorker,
+			generator: dependency.settingsStorages.settingsGameStorage.isUseVibration ? UINotificationFeedbackGenerator() : nil,
 			gameWorker: dependency.workers.gameWorker,
 			asteroidWorker: dependency.workers.asteroidWorker,
 			startSceneModel: startSceneModel,
@@ -31,6 +32,7 @@ final class StartFactory {
 		return startScene
 	}
 	
+	/// Создает сцену по матрице, сцена не будет реагировать на жесты
 	func configure(matrix: Matrix, dependency: _Dependency, startSceneModel: StartSceneModel) -> some View {
 		let grid = Grid(matrix: matrix)
 		let boxWorker = BoxesWorker(
@@ -40,6 +42,7 @@ final class StartFactory {
 		)
 		var startScene = StartScene(
 			boxWorker: boxWorker,
+			generator: nil,
 			gameWorker: dependency.workers.gameWorker,
 			asteroidWorker: dependency.workers.asteroidWorker,
 			startSceneModel: startSceneModel,

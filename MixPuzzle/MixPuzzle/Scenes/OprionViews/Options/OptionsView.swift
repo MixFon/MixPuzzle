@@ -11,18 +11,37 @@ final class OptionsViewRouter: ObservableObject {
 	@Published var toBox: Bool = false
 	@Published var toStars: Bool = false
 	@Published var toLanguage: Bool = false
-	@Published var toVibration: Bool = false
 	@Published var toLevelSelect: Bool = false
 	@Published var toTargetSelect: Bool = false
 }
 
+final class OptionsViewModel: ObservableObject {
+	
+	@Published var isUseVibration: Bool {
+		didSet {
+			self.settingsGameStorage.isUseVibration = self.isUseVibration
+		}
+	}
+	
+	private var settingsGameStorage: _SettingsGameStorage
+	
+	init(settingsGameStorage: _SettingsGameStorage) {
+		self.settingsGameStorage = settingsGameStorage
+		self.isUseVibration = settingsGameStorage.isUseVibration
+	}
+}
+
 struct OptionsView: View {
     
-	let dependency: _Dependency
+	private let dependency: _Dependency
 	
+	@ObservedObject private var model: OptionsViewModel
 	@ObservedObject private var router = OptionsViewRouter()
 	
-	@State private var isOnVibration: Bool = false
+	init(dependency: _Dependency) {
+		self.dependency = dependency
+		self.model = OptionsViewModel(settingsGameStorage: dependency.settingsStorages.settingsGameStorage)
+	}
 	
 	var body: some View {
 		VStack {
@@ -36,7 +55,7 @@ struct OptionsView: View {
 				.padding()
 				OptionsSectionsView(title: "Application", cells: [
 					AnyView(CellView(icon: "globe", text: "Language", action: { self.router.toLanguage = true })),
-					AnyView(ToggleCellView(icon: "waveform.path", text: "Vibration", isOn: $isOnVibration)),
+					AnyView(ToggleCellView(icon: "waveform.path", text: "Vibration", isOn: self.$model.isUseVibration)),
 				])
 				.padding()
 				OptionsSectionsView(title: "Game", cells: [
