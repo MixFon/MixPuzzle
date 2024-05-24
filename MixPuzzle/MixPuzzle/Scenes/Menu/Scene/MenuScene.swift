@@ -23,10 +23,36 @@ struct MenuScene: UIViewRepresentable {
         if let floor = scene?.rootNode.childNodes.first(where: { $0.name == "floor" } ) {
             setupFloor(floor: floor)
         }
+		configureCSNText(nodes: self.scene?.rootNode.childNodes ?? [])
 		return scnView
 	}
+	
+	private func configureCSNText(nodes: [SCNNode]) {
+		// Порядок обусловнен порядком добавления нод в поддерево
+		var displayName: [String] = [
+			"Start", // 0
+			"Options", // 2
+			"Find a solution" // 1
+		]
+		for node in nodes {
+			if let textGeometry = node.geometry as? SCNText {
+				textGeometry.string = displayName.removeFirst()
+				let boundingBox = node.boundingBox
+				let min = boundingBox.min
+				let max = boundingBox.max
+				
+				// Рассчитываем размеры
+				let width = Float(max.x - min.x)
+				let height = Float(max.y - min.y)
+				let length = Float(max.z - min.z)
+				
+				print("Width: \(width), Height: \(height), Length: \(length)")
+				node.position = SCNVector3(x: -(width / 1) / 65, y: node.position.y, z: node.position.z)
+			}
+		}
+	}
     
-    func setupFloor(floor: SCNNode) {
+	private func setupFloor(floor: SCNNode) {
         let configurationTexture = ConfigurationTexture(texture: "GroundGrassGreen002")
         guard let floorMaterial = floor.geometry?.firstMaterial else { return }
         self.materialsWorker.configureMaterial(material: floorMaterial, texture: configurationTexture)
