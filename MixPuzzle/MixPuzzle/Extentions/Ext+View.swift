@@ -27,7 +27,11 @@ extension View {
 	/// - Version: 0.1
 	@available(iOS 14.0, *)
 	func snackbar(isShowing: Binding<Bool>, text: String = "Как дела?", style: MMSnackbarStyle, dismissOnTap: Bool = true, dismissAfter: Double? = 4, extraBottomPadding: CGFloat = 0) -> some View {
-		
 		MMSnackbar(isShowing: isShowing, presenting: self, text: text, style: style, extraBottomPadding: extraBottomPadding, dismissOnTap: dismissOnTap, dismissAfter: dismissAfter)
+	}
+	
+	// Модификатор для окраничения ввода количества символов в String
+	func limitedText(_ text: Binding<String>, to limit: Int) -> some View {
+		self.modifier(LimitedTextField(text: text, limit: limit))
 	}
 }
