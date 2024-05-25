@@ -29,7 +29,7 @@ struct MenuView: View {
 				OptionsView(dependency: self.dependency)
 			}
 			.fullScreenCover(isPresented: self.$router.toFindSolution) {
-				FindSolutionView(dependency: self.dependency)
+				ChooseMethodView(dependency: self.dependency)
 			}
 			.edgesIgnoringSafeArea(.all)
 	}

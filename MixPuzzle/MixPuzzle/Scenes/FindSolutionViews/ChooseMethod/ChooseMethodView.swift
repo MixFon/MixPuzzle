@@ -18,10 +18,10 @@ struct ChooseMethodView: View {
 	
 	@ObservedObject private var router = ChooseMethodRouter()
 	
-    var body: some View {
+	var body: some View {
 		VStack {
 			NavigationBar(title: "Find a solution")
-			.padding()
+				.padding()
 			VStack {
 				ChooseMethodButton(title: "Manual", subtitle: "You will need to set and fill in the matrix yourself.", systemIcon: "hand.point.up.braille") {
 					self.router.toManual = true
@@ -37,7 +37,10 @@ struct ChooseMethodView: View {
 			Spacer()
 		}
 		.background(Color.mm_background_secondary)
-    }
+		.fullScreenCover(isPresented: $router.toManual) {
+			ManualFillingView(dependency: self.dependency)
+		}
+	}
 }
 
 struct ChooseMethodButton: View {

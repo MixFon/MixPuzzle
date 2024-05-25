@@ -30,13 +30,15 @@ struct TargetSelectionView: View {
 	@ObservedObject
 	private var model: TargetSelectionModel
 	
+	@State
+	private var isShowSnackbar = false
+	
 	init(dependncy: _Dependency) {
 		self.dependncy = dependncy
 		self.solutionOptions = self.dependncy.workers.gameWorker.solutionOptions
 		self.model = TargetSelectionModel(gameWorker: dependncy.workers.gameWorker)
 	}
 	
-	@State private var isShowSnackbar = false
     var body: some View {
 		VStack {
 			NavigationBar(title: "Target selection", tralingView: AnyView(

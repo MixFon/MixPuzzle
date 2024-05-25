@@ -25,7 +25,9 @@
 		2949A2612BF791F000043A62 /* TargetSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2949A2602BF791F000043A62 /* TargetSelectionView.swift */; };
 		294E6E3A2BD27B9B00B615F1 /* CubeButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294E6E392BD27B9B00B615F1 /* CubeButtonView.swift */; };
 		2956CE762BCED46A00F17C01 /* NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2956CE752BCED46A00F17C01 /* NavigationBar.swift */; };
-		296846CF2C0101200046862C /* FindSolutionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296846CE2C0101200046862C /* FindSolutionView.swift */; };
+		296846CF2C0101200046862C /* ChooseMethodView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296846CE2C0101200046862C /* ChooseMethodView.swift */; };
+		296846D32C01C6130046862C /* ManualFillingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296846D22C01C6130046862C /* ManualFillingView.swift */; };
+		296846D52C01D0070046862C /* LimitedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296846D42C01D0070046862C /* LimitedTextField.swift */; };
 		2979B7142BBFDE5D000839D3 /* StartSceneWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2979B7132BBFDE5D000839D3 /* StartSceneWrapper.swift */; };
 		2979B7182BBFDF3C000839D3 /* MenuSceneWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2979B7172BBFDF3C000839D3 /* MenuSceneWrapper.swift */; };
 		2980BC6E2BE7D9E500866895 /* GameWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2980BC6D2BE7D9E500866895 /* GameWorker.swift */; };
@@ -74,7 +76,9 @@
 		2949A2602BF791F000043A62 /* TargetSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetSelectionView.swift; sourceTree = "<group>"; };
 		294E6E392BD27B9B00B615F1 /* CubeButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CubeButtonView.swift; sourceTree = "<group>"; };
 		2956CE752BCED46A00F17C01 /* NavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBar.swift; sourceTree = "<group>"; };
-		296846CE2C0101200046862C /* FindSolutionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindSolutionView.swift; sourceTree = "<group>"; };
+		296846CE2C0101200046862C /* ChooseMethodView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseMethodView.swift; sourceTree = "<group>"; };
+		296846D22C01C6130046862C /* ManualFillingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManualFillingView.swift; sourceTree = "<group>"; };
+		296846D42C01D0070046862C /* LimitedTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LimitedTextField.swift; sourceTree = "<group>"; };
 		2979B7132BBFDE5D000839D3 /* StartSceneWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartSceneWrapper.swift; sourceTree = "<group>"; };
 		2979B7172BBFDF3C000839D3 /* MenuSceneWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuSceneWrapper.swift; sourceTree = "<group>"; };
 		2980BC6D2BE7D9E500866895 /* GameWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameWorker.swift; sourceTree = "<group>"; };
@@ -162,6 +166,7 @@
 				29051C712BE0DDF20064ABF0 /* Snackbar.swift */,
 				2944D6DE2BC91166001F1A82 /* BackButtonToolbarItem.swift */,
 				2956CE752BCED46A00F17C01 /* NavigationBar.swift */,
+				296846D42C01D0070046862C /* LimitedTextField.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -239,9 +244,26 @@
 		296846CD2C0100E30046862C /* FindSolutionViews */ = {
 			isa = PBXGroup;
 			children = (
-				296846CE2C0101200046862C /* FindSolutionView.swift */,
+				296846D12C01C5F00046862C /* ManualFilling */,
+				296846D02C01C2410046862C /* ChooseMethod */,
 			);
 			path = FindSolutionViews;
+			sourceTree = "<group>";
+		};
+		296846D02C01C2410046862C /* ChooseMethod */ = {
+			isa = PBXGroup;
+			children = (
+				296846CE2C0101200046862C /* ChooseMethodView.swift */,
+			);
+			path = ChooseMethod;
+			sourceTree = "<group>";
+		};
+		296846D12C01C5F00046862C /* ManualFilling */ = {
+			isa = PBXGroup;
+			children = (
+				296846D22C01C6130046862C /* ManualFillingView.swift */,
+			);
+			path = ManualFilling;
 			sourceTree = "<group>";
 		};
 		2979B7112BBFDDB3000839D3 /* Scene */ = {
@@ -495,10 +517,11 @@
 				29EB775D2B872E0D00A494A0 /* StartView.swift in Sources */,
 				29D3D1A32B8A0BF600E3EE6A /* StartScene.swift in Sources */,
 				294E6E3A2BD27B9B00B615F1 /* CubeButtonView.swift in Sources */,
-				296846CF2C0101200046862C /* FindSolutionView.swift in Sources */,
+				296846CF2C0101200046862C /* ChooseMethodView.swift in Sources */,
 				293C73BF2BDFCCC900E183B5 /* SettingsAsteroids.swift in Sources */,
 				2944D6DC2BC871A6001F1A82 /* SettingsCubeView.swift in Sources */,
 				2944D6E52BC916F9001F1A82 /* SettingsCubeFactory.swift in Sources */,
+				296846D32C01C6130046862C /* ManualFillingView.swift in Sources */,
 				29B2ADBF2BDBA415002D11D8 /* Ext+Color.swift in Sources */,
 				2956CE762BCED46A00F17C01 /* NavigationBar.swift in Sources */,
 				2944D6DF2BC91166001F1A82 /* BackButtonToolbarItem.swift in Sources */,
@@ -522,6 +545,7 @@
 				29A225492B89E0C5009ECD1C /* OptionsView.swift in Sources */,
 				2979B7182BBFDF3C000839D3 /* MenuSceneWrapper.swift in Sources */,
 				29C162C22B848CC4002E185D /* MixPuzzleApp.swift in Sources */,
+				296846D52C01D0070046862C /* LimitedTextField.swift in Sources */,
 				2944D6EC2BCC4C94001F1A82 /* ImageWorker.swift in Sources */,
 				2985064E2B8B53A300028FA9 /* BoxesWorker.swift in Sources */,
 				2944D6E32BC9163C001F1A82 /* SettingsCubeWrapper.swift in Sources */,
