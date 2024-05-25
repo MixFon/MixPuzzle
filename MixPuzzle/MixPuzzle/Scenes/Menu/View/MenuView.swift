@@ -41,6 +41,23 @@ struct MenuView: View {
 }
 
 final class MockDependency: _Dependency {
+	var checker: _Checker = MockChecker()
 	var workers: _Workers = MockWorkers()
     var settingsStorages: _SettingsStorage = MockSettingsStorage()
+}
+
+final class MockChecker: _Checker {
+	func checkUniqueElementsMatrix(matrix: Matrix) -> Bool {
+		return true
+	}
+	
+	func isSquereMatrix(matrix: Matrix) -> Bool {
+		return true
+	}
+	
+	func checkSolution(matrix: Matrix, matrixTarget: MFPuzzle.Matrix) -> Bool {
+		return true
+	}
+	
+	
 }

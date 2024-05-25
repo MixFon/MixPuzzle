@@ -9,11 +9,13 @@ import MFPuzzle
 import Foundation
 
 protocol _Dependency {
+	var checker: _Checker { get }
 	var workers: _Workers { get }
     var settingsStorages: _SettingsStorage { get }
 }
 
 struct Dependency: _Dependency {
+	let checker: _Checker
 	let workers: _Workers
     let settingsStorages: _SettingsStorage
     
@@ -31,10 +33,11 @@ struct Dependency: _Dependency {
 		let asteroidworker = AsteroidsWorker(materialsWorker: materialsWorker, asteroidsStorage: settingsAsteroidsStorage)
 		
 		let checker = Checker()
+		self.checker = checker
 		let imageWorker = ImageWorker()
 		let cubeWorker = CubeWorker(imageWorker: imageWorker, materialsWorker: materialsWorker)
 		let fileForker = FileWorker()
-		let matrixWorker = MatrixWorker()
+		let matrixWorker = MatrixWorker(checker: checker)
 		let gameWorker = GameWorker(
 			checker: checker,
 			fileWorker: fileForker,
