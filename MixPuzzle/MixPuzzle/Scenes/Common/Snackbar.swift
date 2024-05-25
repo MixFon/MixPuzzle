@@ -7,6 +7,12 @@
 
 import SwiftUI
 
+final class MMSnackbarModel: ObservableObject {
+	@Published var text: String = ""
+	@Published var style: MMSnackbarStyle = .success
+	@Published var isShowing: Bool = false
+}
+
 public enum MMSnackbarStyle {
 	case error
 	case warning

@@ -6,12 +6,15 @@
 //
 
 import SwiftUI
+import MFPuzzle
 	
 struct ManualFillingView: View {
 	let dependency: _Dependency
 	
 	@State private var matrix: [[String]] = Array(repeating: Array(repeating: "", count: 4), count: 4)
 	@State private var isShowSnackbar = false
+	
+	@ObservedObject var snackbarModel = MMSnackbarModel()
 
 	var body: some View {
 		VStack {
@@ -24,7 +27,7 @@ struct ManualFillingView: View {
 			FillingMatrixView(matrix: $matrix)
 			Spacer()
 		}
-		.snackbar(isShowing: $isShowSnackbar, text: "The data has been saved successfully.", style: .success, extraBottomPadding: 16)
+		.snackbar(isShowing: self.$snackbarModel.isShowing, text: self.snackbarModel.text, style: self.snackbarModel.style, extraBottomPadding: 16)
 	}
 	
 	private func printMatrix() {
@@ -34,7 +37,16 @@ struct ManualFillingView: View {
 	}
 	
 	private func checkMatrix() {
-		
+		let size = matrix.count
+		var matrixDigit = Array(repeating: Array(repeating: MatrixElement(0), count: size), count: size)
+		for (i, row) in self.matrix.enumerated() {
+			for (j, elem) in row.enumerated() {
+				matrixDigit[i][j] = MatrixElement(elem) ?? 0
+			}
+		}
+		if !self.dependency.checker.checkUniqueElementsMatrix(matrix: matrixDigit) {
+			showSnackbarError()
+		}
 	}
 	
 	private func showSnackbarError() {
