@@ -35,6 +35,7 @@ struct StartScene: UIViewRepresentable {
 		
 		configureSavePublisher()
 		configureRegeneratePublisher()
+		configureShowSolutionPublisher()
 	}
 	
 	private let scene: SCNScene = {
@@ -98,7 +99,21 @@ struct StartScene: UIViewRepresentable {
 	private mutating func configureRegeneratePublisher() {
 		self.startSceneModel.regenerateSubject.sink { [self] in
 			self.gameWorker.regenerateMatrix()
-			self.boxWorker.updateGrid(grid: Grid(matrix: gameWorker.matrix))
+			self.boxWorker.updateGrid(grid: Grid(matrix: self.gameWorker.matrix))
+			self.moveNodeToNewPoints()
+		}.store(in: &cancellables)
+	}
+	
+	private mutating func configureShowSolutionPublisher() {
+		self.startSceneModel.showSolution.sink { [self] bool in
+			let matrix: Matrix
+			if bool {
+				self.gameWorker.updateMatrix(matrix: self.boxWorker.matrix)
+				matrix = self.gameWorker.matrixSolution
+			} else {
+				matrix = self.gameWorker.matrix
+			}
+			self.boxWorker.updateGrid(grid: Grid(matrix: matrix))
 			self.moveNodeToNewPoints()
 		}.store(in: &cancellables)
 	}

@@ -23,6 +23,21 @@ struct StartScoreView: View {
 			.buttonStyle(.plain)
 			Spacer()
 			Button {
+				
+			} label: {
+				ImageButton(systemName: "square.grid.3x3.middle.filled")
+			}
+			.onLongPressGesture(
+				perform: {
+					
+				}, onPressingChanged: { bool in
+					print(bool)
+					self.startSceneDependency.showSolution.send(bool)
+				}
+			)
+			.buttonStyle(.plain)
+			Spacer()
+			Button {
 				self.startSceneDependency.regenerateSubject.send()
 			} label: {
 				ImageButton(systemName: "gobackward")

@@ -12,6 +12,8 @@ import MFPuzzle
 final class StartSceneModel: ObservableObject {
 	/// Паблишер для обработки нажатия кнопки сохранить
 	let saveSubject = PassthroughSubject<Void, Never>()
+	/// Паблишер для показа решения
+	let showSolution = PassthroughSubject<Bool, Never>()
 	/// Паблишер для обработки нажатия кнопки начать с начала
 	let regenerateSubject = PassthroughSubject<Void, Never>()
 }

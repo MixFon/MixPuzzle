@@ -11,9 +11,14 @@ import Foundation
 protocol _GameWorker {
 	/// Двумерный массив текущей матрицы
 	var matrix: Matrix { get }
+	/// Двумерный массив матрицы решения
+	var matrixSolution: Matrix { get }
 	
 	/// Тип решения головоломки
 	var solution: Solution { get }
+	
+	/// Возможные решения коловоломки
+	var solutionOptions: [MatrixSolution] { get }
 	
 	/// Сохранение матрицы. Сохраняет текущее сотояние
 	func save(matrix: Matrix)
@@ -24,10 +29,11 @@ protocol _GameWorker {
 	/// Проверка на то, что матрица достигла фильного результата
 	func checkSolution(matrix: Matrix) -> Bool
 	
-	var solutionOptions: [MatrixSolution] { get }
-	
-	/// Функция обновления матриц
+	/// Функция обновления матриц, загружает или создает новую
 	func updateMatrix()
+	
+	/// Обновляет текущую матрицу
+	func updateMatrix(matrix: Matrix)
 	
 	/// Создание новой матрицы
 	func regenerateMatrix()
@@ -42,13 +48,13 @@ struct MatrixSolution {
 /// Сохранение состояния игры. Получение цели игры
 final class GameWorker: _GameWorker {
 	var matrix: Matrix
+	var matrixSolution: Matrix
 	
 	var solutionOptions: [MatrixSolution] {
 		let size = self.settingsGameStorage.currentLevel
 		return Solution.allCases.map { MatrixSolution(type: $0, matrix: self.matrixWorker.createMatrixSolution(size: size, solution: $0)) }
 	}
 	
-	private var matrixSolution: Matrix
 	
 	private let checker: _Checker
 	private let fileWorker: _FileWorker
@@ -108,6 +114,10 @@ final class GameWorker: _GameWorker {
 		}
 	}
 	
+	func updateMatrix(matrix: Matrix) {
+		self.matrix = matrix
+	}
+	
 	func regenerateMatrix() {
 		let size = self.settingsGameStorage.currentLevel
 		self.matrix = self.matrixWorker.createMatrixRandom(size: size)
@@ -137,6 +147,12 @@ final class MockGameWorker: _GameWorker {
 	var solution: Solution = .classic
 	
 	var matrix: Matrix {
+		[[1, 2, 3],
+		 [4, 5, 6],
+		 [7, 8, 0]]
+	}
+	
+	var matrixSolution: Matrix {
 		[[1, 2, 3],
 		 [4, 5, 6],
 		 [7, 8, 0]]
@@ -179,6 +195,10 @@ final class MockGameWorker: _GameWorker {
 	}
 	
 	func updateMatrix() {
+		print(#function)
+	}
+	
+	func updateMatrix(matrix: Matrix) {
 		print(#function)
 	}
 	
