@@ -80,7 +80,7 @@ struct TargetView: View {
 					RoundedRectangle(cornerRadius: radius)
 						.stroke(Color.blue, lineWidth: isSelected ? 3 : 0)
 				)
-			Text(option.type.rawValue.capitalized)
+			Text(option.type.description)
 		}
 	}
 }

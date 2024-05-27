@@ -33,12 +33,6 @@ protocol _GameWorker {
 	func regenerateMatrix()
 }
 
-enum Solution: String, CaseIterable {
-	case snail
-	case classic
-	case boustrophedon
-}
-
 struct MatrixSolution {
 	let type: Solution
 	let matrix: Matrix
@@ -50,7 +44,8 @@ final class GameWorker: _GameWorker {
 	var matrix: Matrix
 	
 	var solutionOptions: [MatrixSolution] {
-		return Solution.allCases.map { MatrixSolution(type: $0, matrix: createMatrixSolution(solution: $0)) }
+		let size = self.settingsGameStorage.currentLevel
+		return Solution.allCases.map { MatrixSolution(type: $0, matrix: self.matrixWorker.createMatrixSolution(size: size, solution: $0)) }
 	}
 	
 	private var matrixSolution: Matrix
@@ -105,7 +100,8 @@ final class GameWorker: _GameWorker {
 	
 	func updateMatrix() {
 		self.matrix = loadOrCreateMatrix()
-		self.matrixSolution = createMatrixSolution(solution: self.solution)
+		let size = self.settingsGameStorage.currentLevel
+		self.matrixSolution = self.matrixWorker.createMatrixSolution(size: size, solution: self.solution)
 		// В случае, если из матрицы нельзя получить ответ, генерируем матрицу заново
 		if !self.checker.checkSolution(matrix: self.matrix, matrixTarget: self.matrixSolution) {
 			regenerateMatrix()
@@ -133,19 +129,6 @@ final class GameWorker: _GameWorker {
 			return self.matrixWorker.createMatrixRandom(size: size)
 		}
 		return (try? matrixWorker.creationMatrix(text: textMatrix)) ?? self.matrixWorker.createMatrixRandom(size: size)
-	}
-	
-	/// Возвращает матрицу решения сохраненного размера
-	private func createMatrixSolution(solution: Solution) -> Matrix {
-		let size = self.settingsGameStorage.currentLevel
-		switch solution {
-		case .boustrophedon:
-			return self.matrixWorker.createMatrixBoustrophedon(size: size)
-		case .snail:
-			return self.matrixWorker.createMatrixSnail(size: size)
-		case .classic:
-			return self.matrixWorker.createMatrixClassic(size: size)
-		}
 	}
 }
 
