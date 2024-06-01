@@ -24,6 +24,8 @@ protocol _BoxesWorker {
 	func calculateCameraPosition() -> SCNVector3
 	/// Создание анимации перемещения на узла на пустое место (на место нуля)
 	func createMoveToZeroAction(number: UInt8) -> SCNAction?
+	/// Создание анимации перемещения на узла на пустое место (на место нуля) по компасу
+	func createMoveToZeroAction(compass: Compass) -> SCNAction?
 	/// Создаем анимацию перемещения в позицию нода с номером number
 	func createMoveToNumberAction(number: UInt8) -> SCNAction?
 	/// Обновление сетки
@@ -69,7 +71,6 @@ final class BoxesWorker: _BoxesWorker {
         self.cubeWorker = cubeWorker
         self.settingsCubeStorate = settingsCubeStorate
     }
-	
 
     func crateMatrixBox() -> [SCNNode] {
         return createNodesFormMatrix(matrix: self.grid.matrix)
@@ -89,6 +90,11 @@ final class BoxesWorker: _BoxesWorker {
 		let action = SCNAction.move(to: SCNVector3(x: Float(boxPointZero.y), y: Float(-boxPointZero.x), z: 0), duration: self.animationDuration)
 		self.grid.swapNumber(number: number)
 		return action
+	}
+	
+	func createMoveToZeroAction(compass: Compass) -> SCNAction? {
+		guard let number = self.grid.getNumber(for: compass) else { return nil }
+		return createMoveToZeroAction(number: number)
 	}
 	
 	func createMoveToNumberAction(number: UInt8) -> SCNAction? {

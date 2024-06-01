@@ -51,4 +51,24 @@ final class StartFactory {
 		startScene.isUserInteractionEnabled = false
 		return startScene
 	}
+	
+	/// Создает сцену для показа ходов решения. В ней отключены перемещения элементов
+	func configureShowPathCompasses(matrix: Matrix, dependency: _Dependency, startSceneModel: StartSceneModel) -> some View {
+		let grid = Grid(matrix: matrix)
+		let boxWorker = BoxesWorker(
+			grid: grid,
+			cubeWorker: dependency.workers.cubeWorker,
+			settingsCubeStorate: dependency.settingsStorages.settingsCubeStorage
+		)
+		var startScene = StartScene(
+			boxWorker: boxWorker,
+			generator: nil,
+			gameWorker: dependency.workers.gameWorker,
+			asteroidWorker: dependency.workers.asteroidWorker,
+			startSceneModel: startSceneModel,
+			settingsAsteroidsStorage: dependency.settingsStorages.settingsAsteroidsStorage
+		)
+		startScene.isMoveOn = false
+		return startScene
+	}
 }

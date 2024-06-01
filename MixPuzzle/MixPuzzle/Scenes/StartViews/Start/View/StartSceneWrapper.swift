@@ -9,6 +9,7 @@ import SwiftUI
 import MFPuzzle
 import Foundation
 
+/// Обертка для вредставления основной игры
 struct StartSceneWrapper: View {
     let dependency: _Dependency
 	let startSceneModel: StartSceneModel
@@ -20,6 +21,13 @@ struct StartSceneWrapper: View {
 	}
 }
 
+extension StartSceneWrapper: Equatable {
+	static func == (lhs: StartSceneWrapper, rhs: StartSceneWrapper) -> Bool {
+		return true
+	}
+}
+
+/// Обертка для представления возможных решений
 struct TargetSelectSceneWrapper: View {
 	let matrix: Matrix
 	let dependency: _Dependency
@@ -32,14 +40,27 @@ struct TargetSelectSceneWrapper: View {
 	}
 }
 
-extension StartSceneWrapper: Equatable {
-	static func == (lhs: StartSceneWrapper, rhs: StartSceneWrapper) -> Bool {
+extension TargetSelectSceneWrapper: Equatable {
+	static func == (lhs: TargetSelectSceneWrapper, rhs: TargetSelectSceneWrapper) -> Bool {
 		return true
 	}
 }
 
-extension TargetSelectSceneWrapper: Equatable {
-	static func == (lhs: TargetSelectSceneWrapper, rhs: TargetSelectSceneWrapper) -> Bool {
+/// Обертка для показа решения головоломки
+struct VisualizationSolutionWrapper: View {
+	let matrix: Matrix
+	let dependency: _Dependency
+	let startSceneModel: StartSceneModel = StartSceneModel()
+	
+	private let startFactory = StartFactory()
+	
+	var body: some View {
+		self.startFactory.configure(matrix: self.matrix, dependency: self.dependency, startSceneModel: self.startSceneModel)
+	}
+}
+
+extension VisualizationSolutionWrapper: Equatable {
+	static func == (lhs: VisualizationSolutionWrapper, rhs: VisualizationSolutionWrapper) -> Bool {
 		return true
 	}
 }

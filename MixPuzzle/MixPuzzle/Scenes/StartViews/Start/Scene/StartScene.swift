@@ -12,6 +12,7 @@ import MFPuzzle
 import Foundation
 
 struct StartScene: UIViewRepresentable {
+	var isMoveOn = true
 	var allowsCameraControl: Bool = true
 	var isUserInteractionEnabled: Bool = true
 	
@@ -118,6 +119,18 @@ struct StartScene: UIViewRepresentable {
 		}.store(in: &cancellables)
 	}
 	
+	private mutating func configureShowPathCompasses() {
+		self.startSceneModel.pathSubject.sink { [self] compasses in
+			createPathCompassesAnamations(compasses: compasses)
+		}.store(in: &cancellables)
+	}
+	
+	private func createPathCompassesAnamations(compasses: [Compass]) {
+		for compass in compasses {
+			//let number =
+		}
+	}
+	
 	/// Перемещает кубики в новые позиции. Подразумевается, что уже будет новая Grid в
 	private func moveNodeToNewPoints() {
 		for node in self.scene.rootNode.childNodes {
@@ -163,6 +176,7 @@ struct StartScene: UIViewRepresentable {
     }
 	
 	private func handleTap(_ gestureRecognize: UIGestureRecognizer) {
+		guard self.isMoveOn else { return }
 		// check what nodes are tapped
 		let location = gestureRecognize.location(in: self.scnView)
 		let hitResults = self.scnView.hitTest(location, options: [:])

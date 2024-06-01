@@ -16,9 +16,6 @@ struct MixPuzzleApp: App {
     var body: some Scene {
         WindowGroup {
             MenuView(dependency: self.dependency)
-			//SettingsCubeView()
-			//OptionsView()
-			//self.startFactory.configure(complition: {_ in })
         }
     }
 }

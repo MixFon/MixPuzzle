@@ -10,6 +10,8 @@ import Combine
 import MFPuzzle
 
 final class StartSceneModel: ObservableObject {
+	/// Паблишер отправляющий массив направлений перемещений нуля
+	let pathSubject = PassthroughSubject<[Compass], Never>()
 	/// Паблишер для обработки нажатия кнопки сохранить
 	let saveSubject = PassthroughSubject<Void, Never>()
 	/// Паблишер для показа решения
