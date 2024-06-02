@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		29051C722BE0DDF20064ABF0 /* Snackbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29051C712BE0DDF20064ABF0 /* Snackbar.swift */; };
 		29051C742BE0E6AB0064ABF0 /* Ext+View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29051C732BE0E6AB0064ABF0 /* Ext+View.swift */; };
-		290714F02BFA46CA00AD5DCE /* MFPuzzle in Frameworks */ = {isa = PBXBuildFile; productRef = 290714EF2BFA46CA00AD5DCE /* MFPuzzle */; };
 		291A07EE2BC173D6008B4246 /* StartScoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291A07ED2BC173D6008B4246 /* StartScoreView.swift */; };
 		291A07F12BC198F8008B4246 /* AsteroidsWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291A07F02BC198F8008B4246 /* AsteroidsWorker.swift */; };
 		293C73BF2BDFCCC900E183B5 /* SettingsAsteroids.swift in Sources */ = {isa = PBXBuildFile; fileRef = 293C73BE2BDFCCC900E183B5 /* SettingsAsteroids.swift */; };
@@ -41,6 +40,7 @@
 		2985064E2B8B53A300028FA9 /* BoxesWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2985064D2B8B53A300028FA9 /* BoxesWorker.swift */; };
 		29A070332B91A5940078EB8D /* StartFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A070322B91A5940078EB8D /* StartFactory.swift */; };
 		29A225492B89E0C5009ECD1C /* OptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A225482B89E0C5009ECD1C /* OptionsView.swift */; };
+		29A49FD52C0C5C75006AF9DB /* MFPuzzle in Frameworks */ = {isa = PBXBuildFile; productRef = 29A49FD42C0C5C75006AF9DB /* MFPuzzle */; };
 		29B2ADB92BDAD18A002D11D8 /* SettingsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B2ADB82BDAD18A002D11D8 /* SettingsStorage.swift */; };
 		29B2ADBC2BDB9369002D11D8 /* Dependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B2ADBB2BDB9369002D11D8 /* Dependency.swift */; };
 		29B2ADBF2BDBA415002D11D8 /* Ext+Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B2ADBE2BDBA415002D11D8 /* Ext+Color.swift */; };
@@ -57,6 +57,7 @@
 		29DFDEBC2BC50D9500791434 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 29DFDEBA2BC50D9500791434 /* Colors.xcassets */; };
 		29DFDEBE2BC5177F00791434 /* OptionsSectionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29DFDEBD2BC5177F00791434 /* OptionsSectionsView.swift */; };
 		29EB775D2B872E0D00A494A0 /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29EB775C2B872E0D00A494A0 /* StartView.swift */; };
+		29FCC9642C0C4A3E003604AD /* Ext+Compass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29FCC9632C0C4A3E003604AD /* Ext+Compass.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -111,6 +112,7 @@
 		29DFDEBA2BC50D9500791434 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		29DFDEBD2BC5177F00791434 /* OptionsSectionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsSectionsView.swift; sourceTree = "<group>"; };
 		29EB775C2B872E0D00A494A0 /* StartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; };
+		29FCC9632C0C4A3E003604AD /* Ext+Compass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ext+Compass.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,7 +120,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				290714F02BFA46CA00AD5DCE /* MFPuzzle in Frameworks */,
+				29A49FD52C0C5C75006AF9DB /* MFPuzzle in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -355,6 +357,7 @@
 			children = (
 				29B2ADBE2BDBA415002D11D8 /* Ext+Color.swift */,
 				29051C732BE0E6AB0064ABF0 /* Ext+View.swift */,
+				29FCC9632C0C4A3E003604AD /* Ext+Compass.swift */,
 			);
 			path = Extentions;
 			sourceTree = "<group>";
@@ -455,7 +458,7 @@
 			);
 			name = MixPuzzle;
 			packageProductDependencies = (
-				290714EF2BFA46CA00AD5DCE /* MFPuzzle */,
+				29A49FD42C0C5C75006AF9DB /* MFPuzzle */,
 			);
 			productName = MixPuzzle;
 			productReference = 29C162BE2B848CC4002E185D /* MixPuzzle.app */;
@@ -486,7 +489,7 @@
 			);
 			mainGroup = 29C162B52B848CC3002E185D;
 			packageReferences = (
-				290714ED2BFA467500AD5DCE /* XCRemoteSwiftPackageReference "MFPuzzle" */,
+				29A49FD32C0C5C75006AF9DB /* XCRemoteSwiftPackageReference "MFPuzzle" */,
 			);
 			productRefGroup = 29C162BF2B848CC4002E185D /* Products */;
 			projectDirPath = "";
@@ -540,6 +543,7 @@
 				293C73C32BDFCE0700E183B5 /* SettingsAsteroidsStorage.swift in Sources */,
 				29051C722BE0DDF20064ABF0 /* Snackbar.swift in Sources */,
 				2980BC7B2BED176D00866895 /* SelectLevelView.swift in Sources */,
+				29FCC9642C0C4A3E003604AD /* Ext+Compass.swift in Sources */,
 				2944D6E72BC91770001F1A82 /* SettingsCubeScene.swift in Sources */,
 				29A070332B91A5940078EB8D /* StartFactory.swift in Sources */,
 				29DFDEBB2BC50D9500791434 /* Colors.swift in Sources */,
@@ -785,7 +789,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		290714ED2BFA467500AD5DCE /* XCRemoteSwiftPackageReference "MFPuzzle" */ = {
+		29A49FD32C0C5C75006AF9DB /* XCRemoteSwiftPackageReference "MFPuzzle" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "git@github.com:MixFon/MFPuzzle.git";
 			requirement = {
@@ -796,9 +800,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		290714EF2BFA46CA00AD5DCE /* MFPuzzle */ = {
+		29A49FD42C0C5C75006AF9DB /* MFPuzzle */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 290714ED2BFA467500AD5DCE /* XCRemoteSwiftPackageReference "MFPuzzle" */;
+			package = 29A49FD32C0C5C75006AF9DB /* XCRemoteSwiftPackageReference "MFPuzzle" */;
 			productName = MFPuzzle;
 		};
 /* End XCSwiftPackageProductDependency section */

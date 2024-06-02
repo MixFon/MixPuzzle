@@ -50,12 +50,12 @@ extension TargetSelectSceneWrapper: Equatable {
 struct VisualizationSolutionWrapper: View {
 	let matrix: Matrix
 	let dependency: _Dependency
-	let startSceneModel: StartSceneModel = StartSceneModel()
+	let startSceneModel: StartSceneModel
 	
 	private let startFactory = StartFactory()
 	
 	var body: some View {
-		self.startFactory.configure(matrix: self.matrix, dependency: self.dependency, startSceneModel: self.startSceneModel)
+		self.startFactory.configureShowPathCompasses(matrix: self.matrix, dependency: self.dependency, startSceneModel: self.startSceneModel)
 	}
 }
 

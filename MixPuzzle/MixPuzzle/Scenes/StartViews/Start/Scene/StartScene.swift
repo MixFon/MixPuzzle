@@ -35,6 +35,7 @@ struct StartScene: UIViewRepresentable {
 		self.settingsAsteroidsStorage = settingsAsteroidsStorage
 		
 		configureSavePublisher()
+		configureShowPathCompasses()
 		configureRegeneratePublisher()
 		configureShowSolutionPublisher()
 	}
@@ -126,9 +127,14 @@ struct StartScene: UIViewRepresentable {
 	}
 	
 	private func createPathCompassesAnamations(compasses: [Compass]) {
+		var actions: [SCNAction] = []
 		for compass in compasses {
-			//let number =
+			guard let number = self.boxWorker.getNumber(for: compass) else { continue }
+			guard let node = self.scene.rootNode.childNodes.first(where: { $0.name == String(number) }) else { continue }
+			guard let action = self.boxWorker.createCustomMoveToZeroAction(number: number, complerion: { node.runAction($0) }) else { continue }
+			actions.append(action)
 		}
+		self.scene.rootNode.runAction(SCNAction.sequence(actions))
 	}
 	
 	/// Перемещает кубики в новые позиции. Подразумевается, что уже будет новая Grid в

@@ -23,13 +23,17 @@ protocol _BoxesWorker {
 	/// Опредляет координаты камеры так, чтобы все пазды были видны на экране
 	func calculateCameraPosition() -> SCNVector3
 	/// Создание анимации перемещения на узла на пустое место (на место нуля)
-	func createMoveToZeroAction(number: UInt8) -> SCNAction?
+	func createMoveToZeroAction(number: MatrixElement) -> SCNAction?
 	/// Создание анимации перемещения на узла на пустое место (на место нуля) по компасу
 	func createMoveToZeroAction(compass: Compass) -> SCNAction?
 	/// Создаем анимацию перемещения в позицию нода с номером number
-	func createMoveToNumberAction(number: UInt8) -> SCNAction?
+	func createMoveToNumberAction(number: MatrixElement) -> SCNAction?
+	/// Создаем собственной анимации перемещения в позицию нода с номером number. Для последовательных перемещений
+	func createCustomMoveToZeroAction(number: MatrixElement, complerion: @escaping (SCNAction) -> Void) -> SCNAction?
 	/// Обновление сетки
 	func updateGrid(grid: Grid)
+	/// Возвращает элемен по компасу, который находится около нуля
+	func getNumber(for compass: Compass) -> MatrixElement?
 }
 
 /// Занимается созданием и UI настройкой матрицы элементов. Так же отвечает за пермещение элементов
@@ -75,6 +79,10 @@ final class BoxesWorker: _BoxesWorker {
     func crateMatrixBox() -> [SCNNode] {
         return createNodesFormMatrix(matrix: self.grid.matrix)
     }
+	
+	func getNumber(for compass: Compass) -> MatrixElement? {
+		return self.grid.getNumber(for: compass)
+	}
     
     func calculateCameraPosition() -> SCNVector3 {
 		let centre = self.centreMatrix
@@ -82,7 +90,7 @@ final class BoxesWorker: _BoxesWorker {
 		return SCNVector3(x: centre.x, y: centre.y, z: Float(height))
     }
 	
-	func createMoveToZeroAction(number: UInt8) -> SCNAction? {
+	func createMoveToZeroAction(number: MatrixElement) -> SCNAction? {
 		guard self.grid.isNeighbors(one: number, two: 0) == true else { return nil }
 		guard let pointZero = self.grid.getPoint(number: 0) else { return nil }
 		let boxPointZero = getBoxPoint(i: Int(pointZero.x), j: Int(pointZero.y))
@@ -92,12 +100,26 @@ final class BoxesWorker: _BoxesWorker {
 		return action
 	}
 	
+	func createCustomMoveToZeroAction(number: MatrixElement, complerion: @escaping (SCNAction) -> Void) -> SCNAction? {
+		guard self.grid.isNeighbors(one: number, two: 0) == true else { return nil }
+		guard let pointZero = self.grid.getPoint(number: 0) else { return nil }
+		let boxPointZero = getBoxPoint(i: Int(pointZero.x), j: Int(pointZero.y))
+		// Для векторов SCNVector3 на первом месте тоит Y на втором -X координаты из матрицы
+		let customAction = SCNAction.customAction(duration: self.animationDuration, action: { [weak self] (_, _) in
+			guard let self else { return }
+			let action = SCNAction.move(to: SCNVector3(x: Float(boxPointZero.y), y: Float(-boxPointZero.x), z: 0), duration: self.animationDuration)
+			complerion(action)
+		})
+		self.grid.swapNumber(number: number)
+		return customAction
+	}
+	
 	func createMoveToZeroAction(compass: Compass) -> SCNAction? {
 		guard let number = self.grid.getNumber(for: compass) else { return nil }
 		return createMoveToZeroAction(number: number)
 	}
 	
-	func createMoveToNumberAction(number: UInt8) -> SCNAction? {
+	func createMoveToNumberAction(number: MatrixElement) -> SCNAction? {
 		guard let pointNumber = self.grid.getPoint(number: number) else { return nil }
 		let boxPointZero = getBoxPoint(i: Int(pointNumber.x), j: Int(pointNumber.y))
 		// Для векторов SCNVector3 на первом месте тоит Y на втором -X координаты из матрицы
