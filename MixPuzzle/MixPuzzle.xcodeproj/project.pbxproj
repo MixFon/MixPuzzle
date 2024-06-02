@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		290441252C0CC224009A58E2 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 290441242C0CC224009A58E2 /* LoadingView.swift */; };
+		290441272C0CC389009A58E2 /* Squeres.swift in Sources */ = {isa = PBXBuildFile; fileRef = 290441262C0CC389009A58E2 /* Squeres.swift */; };
 		29051C722BE0DDF20064ABF0 /* Snackbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29051C712BE0DDF20064ABF0 /* Snackbar.swift */; };
 		29051C742BE0E6AB0064ABF0 /* Ext+View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29051C732BE0E6AB0064ABF0 /* Ext+View.swift */; };
 		291A07EE2BC173D6008B4246 /* StartScoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291A07ED2BC173D6008B4246 /* StartScoreView.swift */; };
@@ -61,6 +63,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		290441242C0CC224009A58E2 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		290441262C0CC389009A58E2 /* Squeres.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Squeres.swift; sourceTree = "<group>"; };
 		29051C712BE0DDF20064ABF0 /* Snackbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Snackbar.swift; sourceTree = "<group>"; };
 		29051C732BE0E6AB0064ABF0 /* Ext+View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ext+View.swift"; sourceTree = "<group>"; };
 		291A07ED2BC173D6008B4246 /* StartScoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartScoreView.swift; sourceTree = "<group>"; };
@@ -127,6 +131,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		290441232C0CC214009A58E2 /* LoadingView */ = {
+			isa = PBXGroup;
+			children = (
+				290441242C0CC224009A58E2 /* LoadingView.swift */,
+			);
+			path = LoadingView;
+			sourceTree = "<group>";
+		};
 		290714EE2BFA46CA00AD5DCE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -241,6 +253,7 @@
 			children = (
 				294E6E392BD27B9B00B615F1 /* CubeButtonView.swift */,
 				2980BC7A2BED176D00866895 /* SelectLevelView.swift */,
+				290441262C0CC389009A58E2 /* Squeres.swift */,
 			);
 			path = Draft;
 			sourceTree = "<group>";
@@ -248,6 +261,7 @@
 		296846CD2C0100E30046862C /* FindSolutionViews */ = {
 			isa = PBXGroup;
 			children = (
+				290441232C0CC214009A58E2 /* LoadingView */,
 				29DBBA7B2C0BA4140046179F /* VisualizationSolution */,
 				296846D12C01C5F00046862C /* ManualFilling */,
 				296846D02C01C2410046862C /* ChooseMethod */,
@@ -529,6 +543,7 @@
 				2979B7142BBFDE5D000839D3 /* StartSceneWrapper.swift in Sources */,
 				29B2ADBC2BDB9369002D11D8 /* Dependency.swift in Sources */,
 				29EB775D2B872E0D00A494A0 /* StartView.swift in Sources */,
+				290441252C0CC224009A58E2 /* LoadingView.swift in Sources */,
 				29D3D1A32B8A0BF600E3EE6A /* StartScene.swift in Sources */,
 				294E6E3A2BD27B9B00B615F1 /* CubeButtonView.swift in Sources */,
 				296846CF2C0101200046862C /* ChooseMethodView.swift in Sources */,
@@ -558,6 +573,7 @@
 				291A07F12BC198F8008B4246 /* AsteroidsWorker.swift in Sources */,
 				2949A2612BF791F000043A62 /* TargetSelectionView.swift in Sources */,
 				29051C742BE0E6AB0064ABF0 /* Ext+View.swift in Sources */,
+				290441272C0CC389009A58E2 /* Squeres.swift in Sources */,
 				29A225492B89E0C5009ECD1C /* OptionsView.swift in Sources */,
 				2979B7182BBFDF3C000839D3 /* MenuSceneWrapper.swift in Sources */,
 				29C162C22B848CC4002E185D /* MixPuzzleApp.swift in Sources */,

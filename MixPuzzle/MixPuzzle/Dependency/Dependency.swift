@@ -9,12 +9,14 @@ import MFPuzzle
 import Foundation
 
 protocol _Dependency {
+	var puzzle: _Puzzle { get }
 	var checker: _Checker { get }
 	var workers: _Workers { get }
     var settingsStorages: _SettingsStorage { get }
 }
 
 struct Dependency: _Dependency {
+	let puzzle: _Puzzle
 	let checker: _Checker
 	let workers: _Workers
     let settingsStorages: _SettingsStorage
@@ -34,6 +36,7 @@ struct Dependency: _Dependency {
 		
 		let checker = Checker()
 		self.checker = checker
+		self.puzzle = Puzzle(heuristic: .manhattan, checker: checker)
 		let imageWorker = ImageWorker()
 		let cubeWorker = CubeWorker(imageWorker: imageWorker, materialsWorker: materialsWorker)
 		let fileForker = FileWorker()

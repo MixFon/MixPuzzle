@@ -41,6 +41,7 @@ struct MenuView: View {
 }
 
 final class MockDependency: _Dependency {
+	var puzzle: _Puzzle = MockPuzzle()
 	var checker: _Checker = MockChecker()
 	var workers: _Workers = MockWorkers()
     var settingsStorages: _SettingsStorage = MockSettingsStorage()
@@ -57,6 +58,16 @@ final class MockChecker: _Checker {
 	
 	func checkSolution(matrix: Matrix, matrixTarget: MFPuzzle.Matrix) -> Bool {
 		return true
+	}
+}
+
+final class MockPuzzle: _Puzzle {
+	func createPath(board: Board?) -> [Compass] {
+		return []
+	}
+	
+	func searchSolutionWithHeap(board: Board, boardTarget: Board) -> Board? {
+		return nil
 	}
 	
 	

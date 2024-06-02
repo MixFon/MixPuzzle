@@ -18,6 +18,23 @@ final class StartSceneModel: ObservableObject {
 	let showSolution = PassthroughSubject<Bool, Never>()
 	/// Паблишер для обработки нажатия кнопки начать с начала
 	let regenerateSubject = PassthroughSubject<Void, Never>()
+	
+	let compasses: [Compass]
+	
+	init(compasses: [Compass] = []) {
+		self.compasses = compasses
+	}
+	
+	func createRange(currentIndex: Int, selectedIndex: Int) {
+		if currentIndex < 0 || selectedIndex < 0 || currentIndex >= self.compasses.count || selectedIndex >= self.compasses.count { return }
+		let start = min(currentIndex, selectedIndex)
+		let end = max(currentIndex, selectedIndex)
+		var range =  Array(self.compasses[start..<end])
+		if selectedIndex < currentIndex {
+			range = range.reversed().map( { $0.opposite } )
+		}
+		self.pathSubject.send(range)
+	}
 }
 
 struct StartView: View {

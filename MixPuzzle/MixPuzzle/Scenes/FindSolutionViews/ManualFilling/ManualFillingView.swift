@@ -7,6 +7,10 @@
 
 import SwiftUI
 import MFPuzzle
+
+final class ManualFillingRouter: ObservableObject {
+	@Published var toLoading = false
+}
 	
 struct ManualFillingView: View {
 	private let dependency: _Dependency
@@ -18,7 +22,11 @@ struct ManualFillingView: View {
 	@State private var selectedSolution: Solution = .classic
 	@State private var isShowSnackbar = false
 	
+	@ObservedObject private var router = ManualFillingRouter()
 	@ObservedObject private var snackbarModel = MMSnackbarModel()
+	
+	@State private var fillingMatrix: Matrix = [[]]
+	@State private var matrixSolution: Matrix = [[]]
 	
 	init(dependency: _Dependency) {
 		self.dependency = dependency
@@ -49,6 +57,9 @@ struct ManualFillingView: View {
 			updateMatrix(size: value)
 		})
 		.snackbar(isShowing: self.$snackbarModel.isShowing, text: self.snackbarModel.text, style: self.snackbarModel.style, extraBottomPadding: 16)
+		.fullScreenCover(isPresented: $router.toLoading) {
+			LoadingView(matrix: fillingMatrix, dependency: dependency, matrixTarger: matrixSolution)
+		}
 		.background(Color.mm_background_secondary)
 	}
 
@@ -65,7 +76,7 @@ struct ManualFillingView: View {
 	/// Создается матрица из MatrixElement и проверяется Cheker
 	private func checkMatrix() {
 		let size = matrix.count
-		var matrixDigit = Array(repeating: Array(repeating: MatrixElement(0), count: size), count: size)
+		var matrixDigit: Matrix = Array(repeating: Array(repeating: MatrixElement(0), count: size), count: size)
 		let matrixSolution = self.dependency.workers.matrixWorker.createMatrixSolution(size: size, solution: self.selectedSolution)
 		for (i, row) in self.matrix.enumerated() {
 			for (j, elem) in row.enumerated() {
@@ -77,7 +88,7 @@ struct ManualFillingView: View {
 		} else if !self.dependency.checker.checkSolution(matrix: matrixDigit, matrixTarget: matrixSolution) {
 			showSnackbarErrorNotSolution()
 		} else {
-			showSnackbarSuccesee()
+			showSnackbarSuccesee(fillingMatrix: matrixDigit, matrixSolution: matrixSolution)
 		}
 	}
 	
@@ -96,8 +107,10 @@ struct ManualFillingView: View {
 		self.snackbarModel.isShowing = true
 	}
 	
-	private func showSnackbarSuccesee() {
-		print("Matrix success!")
+	private func showSnackbarSuccesee(fillingMatrix: Matrix, matrixSolution: Matrix) {
+		self.fillingMatrix = fillingMatrix
+		self.matrixSolution = matrixSolution
+		self.router.toLoading = true
 	}
 }
 
