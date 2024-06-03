@@ -19,11 +19,7 @@ final class StartSceneModel: ObservableObject {
 	/// Паблишер для обработки нажатия кнопки начать с начала
 	let regenerateSubject = PassthroughSubject<Void, Never>()
 	
-	let compasses: [Compass]
-	
-	init(compasses: [Compass] = []) {
-		self.compasses = compasses
-	}
+	var compasses: [Compass] = []
 	
 	func createRange(currentIndex: Int, selectedIndex: Int) {
 		if currentIndex < 0 || selectedIndex < 0 || currentIndex >= self.compasses.count || selectedIndex >= self.compasses.count { return }

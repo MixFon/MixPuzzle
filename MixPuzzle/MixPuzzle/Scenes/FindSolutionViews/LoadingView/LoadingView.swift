@@ -12,7 +12,8 @@ struct LoadingView: View {
 	let matrix: Matrix
 	let dependency: _Dependency
 	let matrixTarger: Matrix
-	@State private var compasses: [Compass] = []
+	//@State private var compasses: [Compass] = []
+	@ObservedObject private var startSceneModel = StartSceneModel()
 	@State private var isLoading = false
 	@State private var onClose = false
 	@Environment(\.dismiss) private var dismiss
@@ -29,7 +30,7 @@ struct LoadingView: View {
 				self.dismiss()
 			}
 			.fullScreenCover(isPresented: $isLoading) {
-				VisualizationSolutionView(matrix: matrix, compasses: compasses, dependency: dependency, onClose: $onClose)
+				VisualizationSolutionView(matrix: matrix, onClose: $onClose, dependency: dependency, startSceneModel: self.startSceneModel)
 			}
 	}
 	
@@ -39,8 +40,9 @@ struct LoadingView: View {
 			let boardTarget = Board(grid: Grid(matrix: self.matrixTarger))
 			if let finalBoard = self.dependency.puzzle.searchSolutionWithHeap(board: board, boardTarget: boardTarget) {
 				Task { @MainActor in
-					self.compasses = self.dependency.puzzle.createPath(board: finalBoard).reversed()
-					self.compasses.append(.needle)
+					var compasses: [Compass] = self.dependency.puzzle.createPath(board: finalBoard).reversed()
+					compasses.append(.needle)
+					self.startSceneModel.compasses = compasses
 					self.isLoading = true
 				}
 			} else {

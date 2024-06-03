@@ -17,7 +17,12 @@ struct ManualFillingView: View {
 	private let numbersSize = Array(3...5)
 	private let possibleSolution: [Solution] = Solution.allCases
 	
-	@State private var matrix: [[String]] = Array(repeating: Array(repeating: "", count: 3), count: 3)
+	//@State private var matrix: [[String]] = Array(repeating: Array(repeating: "", count: 3), count: 3)
+	@State private var matrix: [[String]] = [
+	["1", "3", "5"],
+	["2", "4", "6"],
+	["8", "7", ""],
+	]
 	@State private var selectedSize = 3
 	@State private var selectedSolution: Solution = .classic
 	@State private var isShowSnackbar = false

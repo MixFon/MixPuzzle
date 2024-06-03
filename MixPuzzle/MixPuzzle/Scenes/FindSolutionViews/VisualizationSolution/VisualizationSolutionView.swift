@@ -9,18 +9,10 @@ import SwiftUI
 import MFPuzzle
 
 struct VisualizationSolutionView: View {
+	let matrix: Matrix
 	@Binding var onClose: Bool
-	
-	private let matrix: Matrix
-	private let dependency: _Dependency
-	private let startSceneModel: StartSceneModel
-	
-	init(matrix: Matrix, compasses: [Compass], dependency: _Dependency, onClose: Binding<Bool>) {
-		_onClose = onClose
-		self.matrix = matrix
-		self.dependency = dependency
-		self.startSceneModel = StartSceneModel(compasses: compasses)
-	}
+	let dependency: _Dependency
+	@ObservedObject var startSceneModel: StartSceneModel
 	
 	var body: some View {
 		ZStack {
@@ -62,7 +54,7 @@ struct VisualizationSolutionScoreView: View {
 
 struct VisualizationSolutionPathView: View {
 	@State private var selectedIndex: Int = 0
-	@ObservedObject var startSceneModel: StartSceneModel
+	let startSceneModel: StartSceneModel
 	
 	var body: some View {
 		HStack {
@@ -110,7 +102,7 @@ struct VisualizationSolutionButton: View {
 
 struct ScrollPathView: View {
 	@Binding var selectedIndex: Int
-	@ObservedObject var startSceneModel: StartSceneModel
+	let startSceneModel: StartSceneModel
 	
 	var body: some View {
 		ScrollViewReader { scrollViewProxy in
@@ -131,6 +123,7 @@ struct ScrollPathView: View {
 				}
 				.padding(4)
 			}
+			.frame(height: 100)
 			.onChange(of: self.selectedIndex, perform: { value in
 				withAnimation {
 					scrollViewProxy.scrollTo(value, anchor: .center)
@@ -149,5 +142,7 @@ struct ScrollPathView: View {
 	let compasses: [Compass] = [.north, .west, .north, .east, .east, .south, .south, .south, .west, .west, .north]
 	let dependency = MockDependency()
 	@State var onClose = true
-	return VisualizationSolutionView(matrix: matrix, compasses: compasses, dependency: dependency, onClose: $onClose)
+	@ObservedObject var startSceneModel = StartSceneModel()
+	startSceneModel.compasses = compasses
+	return VisualizationSolutionView(matrix: matrix, onClose: $onClose, dependency: dependency, startSceneModel: startSceneModel)
 }
