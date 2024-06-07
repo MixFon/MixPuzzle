@@ -12,12 +12,11 @@ struct LoadingView: View {
 	let matrix: Matrix
 	let dependency: _Dependency
 	let matrixTarger: Matrix
-	//@State private var compasses: [Compass] = []
 	@ObservedObject private var startSceneModel = StartSceneModel()
 	@State private var isLoading = false
 	@State private var onClose = false
 	@Environment(\.dismiss) private var dismiss
-
+	
 	var body: some View {
 		ProgressView("Calculating...")
 			.foregroundStyle(Color.mm_divider_opaque)

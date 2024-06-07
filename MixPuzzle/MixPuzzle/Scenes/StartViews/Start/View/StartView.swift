@@ -35,6 +35,7 @@ final class StartSceneModel: ObservableObject {
 
 struct StartView: View {
     let dependency: _Dependency
+	
 	@ObservedObject private var startSceneModel = StartSceneModel()
 	
     var body: some View {

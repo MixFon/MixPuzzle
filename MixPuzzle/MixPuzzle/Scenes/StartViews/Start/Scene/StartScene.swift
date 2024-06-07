@@ -13,6 +13,7 @@ import Foundation
 
 struct StartScene: UIViewRepresentable {
 	var isMoveOn = true
+	var usegeContext: UsageContext = .game
 	var allowsCameraControl: Bool = true
 	var isUserInteractionEnabled: Bool = true
 	
@@ -20,24 +21,37 @@ struct StartScene: UIViewRepresentable {
 	private let gameWorker: _GameWorker
 	private let asteroidWorker: _AsteroidsWorker
 	private let startSceneModel: StartSceneModel
+	private var notificationCenter: NotificationCenter?
     private let settingsAsteroidsStorage: _SettingsAsteroidsStorage
 	
 	private var cancellables = Set<AnyCancellable>()
 	
 	private let generator: UINotificationFeedbackGenerator?
 	
-	init(boxWorker: _BoxesWorker, generator: UINotificationFeedbackGenerator?, gameWorker: _GameWorker, asteroidWorker: _AsteroidsWorker, startSceneModel: StartSceneModel, settingsAsteroidsStorage: _SettingsAsteroidsStorage) {
+	// TODO: Можно удалить будет
+	enum UsageContext {
+		/// Используется когда пользователь играет. Используется как основной.
+		case game
+		/// Используется когда нужно выбрать решение в настройках
+		case choice
+		/// Используется для показа решений.
+		case solution
+	}
+	
+	init(boxWorker: _BoxesWorker, generator: UINotificationFeedbackGenerator?, gameWorker: _GameWorker, asteroidWorker: _AsteroidsWorker, startSceneModel: StartSceneModel, notificationCenter: NotificationCenter? = nil, settingsAsteroidsStorage: _SettingsAsteroidsStorage) {
 		self.boxWorker = boxWorker
 		self.generator = generator
 		self.gameWorker = gameWorker
 		self.asteroidWorker = asteroidWorker
 		self.startSceneModel = startSceneModel
+		self.notificationCenter = notificationCenter
 		self.settingsAsteroidsStorage = settingsAsteroidsStorage
 		
 		configureSavePublisher()
 		configureShowPathCompasses()
 		configureRegeneratePublisher()
 		configureShowSolutionPublisher()
+		configureNotificationCenterPublisher()
 	}
 	
 	private let scene: SCNScene = {
@@ -92,9 +106,20 @@ struct StartScene: UIViewRepresentable {
         return self.scnView
     }
 	
+	private func saveMatrix() {
+		self.gameWorker.save(matrix: self.boxWorker.matrix)
+	}
+	
 	private mutating func configureSavePublisher() {
 		self.startSceneModel.saveSubject.sink { [self] in
-			self.gameWorker.save(matrix: self.boxWorker.matrix)
+			saveMatrix()
+		}.store(in: &cancellables)
+	}
+	
+	/// Создаем поблишер который будте сохранять при сворачивании или при закрытии приложения
+	private mutating func configureNotificationCenterPublisher() {
+		self.notificationCenter?.publisher(for: UIApplication.didEnterBackgroundNotification).sink { [self] temp in
+			saveMatrix()
 		}.store(in: &cancellables)
 	}
 	

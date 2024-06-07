@@ -27,6 +27,7 @@ final class StartFactory {
 			gameWorker: dependency.workers.gameWorker,
 			asteroidWorker: dependency.workers.asteroidWorker,
 			startSceneModel: startSceneModel,
+			notificationCenter: NotificationCenter.default,
 			settingsAsteroidsStorage: dependency.settingsStorages.settingsAsteroidsStorage
 		)
 		return startScene
@@ -49,6 +50,7 @@ final class StartFactory {
 			settingsAsteroidsStorage: dependency.settingsStorages.settingsAsteroidsStorage
 		)
 		startScene.isUserInteractionEnabled = false
+		startScene.usegeContext = .choice
 		return startScene
 	}
 	
@@ -69,6 +71,7 @@ final class StartFactory {
 			settingsAsteroidsStorage: dependency.settingsStorages.settingsAsteroidsStorage
 		)
 		startScene.isMoveOn = false
+		startScene.usegeContext = .solution
 		return startScene
 	}
 }
