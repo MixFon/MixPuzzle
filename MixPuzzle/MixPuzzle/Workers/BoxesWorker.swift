@@ -34,6 +34,8 @@ protocol _BoxesWorker {
 	func updateGrid(grid: Grid)
 	/// Возвращает элемен по компасу, который находится около нуля
 	func getNumber(for compass: Compass) -> MatrixElement?
+	/// Возвращает компас для номера
+	func getCompass(for number: MatrixElement) -> Compass?
 }
 
 /// Занимается созданием и UI настройкой матрицы элементов. Так же отвечает за пермещение элементов
@@ -82,6 +84,10 @@ final class BoxesWorker: _BoxesWorker {
 	
 	func getNumber(for compass: Compass) -> MatrixElement? {
 		return self.grid.getNumber(for: compass)
+	}
+	
+	func getCompass(for number: MatrixElement) -> Compass? {
+		return self.grid.getCompass(for: number)
 	}
     
     func calculateCameraPosition() -> SCNVector3 {

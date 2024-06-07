@@ -17,6 +17,7 @@ struct VisualizationSolutionView: View {
 	var body: some View {
 		ZStack {
 			VisualizationSolutionWrapper(matrix: self.matrix, dependency: self.dependency, startSceneModel: self.startSceneModel)
+				.equatable()
 				.ignoresSafeArea()
 			VStack {
 				VisualizationSolutionScoreView(onClose: $onClose)

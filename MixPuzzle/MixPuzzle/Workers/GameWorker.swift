@@ -37,6 +37,18 @@ protocol _GameWorker {
 	
 	/// Создание новой матрицы
 	func regenerateMatrix()
+	
+	/// Устанавливает направление передвижения нуля. Куда передвинуля ноль
+	func setCompass(compass: Compass)
+	
+	/// Загружает компасы из хранилища
+	func loadCompasses() -> [Compass]
+	
+	/// Сохраняет компаты в хранилище
+	func saveCompasses()
+	
+	/// Стирает все компасы из хранилища
+	func deleteCompasses()
 }
 
 struct MatrixSolution {
@@ -50,11 +62,12 @@ final class GameWorker: _GameWorker {
 	var matrix: Matrix
 	var matrixSolution: Matrix
 	
+	private var compasses: [Compass]
+	
 	var solutionOptions: [MatrixSolution] {
 		let size = self.settingsGameStorage.currentLevel
 		return Solution.allCases.map { MatrixSolution(type: $0, matrix: self.matrixWorker.createMatrixSolution(size: size, solution: $0)) }
 	}
-	
 	
 	private let checker: _Checker
 	private let fileWorker: _FileWorker
@@ -64,6 +77,7 @@ final class GameWorker: _GameWorker {
 	
 	private enum Keys {
 		static let solution = "solution.mix"
+		static let compasses = "compasses.mix"
 		static let fileNameMatrix = "matrix.mix"
 	}
 	
@@ -84,6 +98,7 @@ final class GameWorker: _GameWorker {
 		self.settingsGameStorage = settingsGameStorage
 		
 		self.matrix = Matrix()
+		self.compasses = []
 		self.matrixSolution = Matrix()
 	}
 	
@@ -127,9 +142,39 @@ final class GameWorker: _GameWorker {
 		}
 	}
 	
+	func setCompass(compass: Compass) {
+		self.compasses.append(compass)
+	}
+	
+	func saveCompasses() {
+		var savedCompasses = loadCompasses()
+		savedCompasses.append(contentsOf: self.compasses)
+		let compassesString = savedCompasses.compactMap( { $0.toString } ).joined(separator: ",")
+		self.compasses.removeAll()
+		self.fileWorker.saveStringToFile(string: compassesString, fileName: self.lavelFileNameCompasses)
+	}
+	
+	func loadCompasses() -> [Compass] {
+		if let compassesString = self.fileWorker.readStringFromFile(fileName: self.lavelFileNameCompasses) {
+			return compassesString.split(separator: ",").compactMap( { Compass(string: String($0)) } )
+		} else {
+			return []
+		}
+	}
+	
+	func deleteCompasses() {
+		self.compasses.removeAll()
+		self.fileWorker.saveStringToFile(string: "", fileName: self.lavelFileNameCompasses)
+	}
+	
 	private var lavelFileNameMatrix: String {
 		let size = self.settingsGameStorage.currentLevel
 		return Keys.fileNameMatrix + ".\(size)x\(size)"
+	}
+	
+	private var lavelFileNameCompasses: String {
+		let size = self.settingsGameStorage.currentLevel
+		return Keys.compasses + ".\(size)x\(size)"
 	}
 	
 	/// Загружает сохраненную матрицу или создает новую
@@ -139,6 +184,41 @@ final class GameWorker: _GameWorker {
 			return self.matrixWorker.createMatrixRandom(size: size)
 		}
 		return (try? matrixWorker.creationMatrix(text: textMatrix)) ?? self.matrixWorker.createMatrixRandom(size: size)
+	}
+}
+
+extension Compass {
+	
+	init?(string: String) {
+		switch string {
+		case "north":
+			self = .north
+		case "west":
+			self = .west
+		case "east":
+			self = .east
+		case "south":
+			self = .south
+		case "needle":
+			self = .needle
+		default:
+			return nil
+		}
+	}
+	
+	var toString: String {
+		switch self {
+		case .west:
+			"west"
+		case .east:
+			"east"
+		case .north:
+			"north"
+		case .south:
+			"south"
+		case .needle:
+			"needle"
+		}
 	}
 }
 
@@ -203,6 +283,22 @@ final class MockGameWorker: _GameWorker {
 	}
 	
 	func regenerateMatrix() {
+		print(#function)
+	}
+	
+	func setCompass(compass: Compass) {
+		print(#function)
+	}
+	
+	func saveCompasses() {
+		print(#function)
+	}
+	
+	func loadCompasses() -> [Compass] {
+		return []
+	}
+	
+	func deleteCompasses() {
 		print(#function)
 	}
 	

@@ -9,6 +9,10 @@ import SwiftUI
 import Combine
 import MFPuzzle
 
+final class StartSceneRouter: ObservableObject {
+	@Published var toSolution = false
+}
+
 final class StartSceneModel: ObservableObject {
 	/// Паблишер отправляющий массив направлений перемещений нуля
 	let pathSubject = PassthroughSubject<[Compass], Never>()
@@ -18,7 +22,10 @@ final class StartSceneModel: ObservableObject {
 	let showSolution = PassthroughSubject<Bool, Never>()
 	/// Паблишер для обработки нажатия кнопки начать с начала
 	let regenerateSubject = PassthroughSubject<Void, Never>()
+	/// Паблишер возврашает массив ходом и финальную матрицу. Массив сохраняется в compasses
+	let pathSolutionSubject = PassthroughSubject<Void, Never>()
 	
+	var matrix: Matrix = [[]]
 	var compasses: [Compass] = []
 	
 	func createRange(currentIndex: Int, selectedIndex: Int) {
@@ -35,8 +42,9 @@ final class StartSceneModel: ObservableObject {
 
 struct StartView: View {
     let dependency: _Dependency
-	
+	@ObservedObject private var router = StartSceneRouter()
 	@ObservedObject private var startSceneModel = StartSceneModel()
+	@State private var onClose: Bool = false
 	
     var body: some View {
 		ZStack {
@@ -47,6 +55,12 @@ struct StartView: View {
 					.padding(.top, 50)
 				Spacer()
 			}
+		}
+		.onReceive(self.startSceneModel.pathSolutionSubject, perform: { compasses in
+			self.router.toSolution = true
+		})
+		.fullScreenCover(isPresented: $router.toSolution) {
+			VisualizationSolutionView(matrix: self.startSceneModel.matrix, onClose: $onClose, dependency: self.dependency, startSceneModel: startSceneModel)
 		}
 		.preferredColorScheme(.dark)
 		.ignoresSafeArea()

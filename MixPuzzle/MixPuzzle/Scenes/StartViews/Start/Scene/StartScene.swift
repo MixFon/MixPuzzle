@@ -107,6 +107,7 @@ struct StartScene: UIViewRepresentable {
     }
 	
 	private func saveMatrix() {
+		self.gameWorker.saveCompasses()
 		self.gameWorker.save(matrix: self.boxWorker.matrix)
 	}
 	
@@ -125,6 +126,7 @@ struct StartScene: UIViewRepresentable {
 	
 	private mutating func configureRegeneratePublisher() {
 		self.startSceneModel.regenerateSubject.sink { [self] in
+			self.gameWorker.deleteCompasses()
 			self.gameWorker.regenerateMatrix()
 			self.boxWorker.updateGrid(grid: Grid(matrix: self.gameWorker.matrix))
 			self.moveNodeToNewPoints()
@@ -217,8 +219,11 @@ struct StartScene: UIViewRepresentable {
 			// Обнаружен узел, который был касаем
 			self.generator?.prepare()
 		
-			if let hitNodeName = hitNode.name, let number = UInt8(hitNodeName), let moveToZeroAction = self.boxWorker.createMoveToZeroAction(number: number) {
+			if let hitNodeName = hitNode.name, let number = MatrixElement(hitNodeName), let moveToZeroAction = self.boxWorker.createMoveToZeroAction(number: number) {
 				hitNode.runAction(moveToZeroAction)
+				if let compass = self.boxWorker.getCompass(for: number) {
+					self.gameWorker.setCompass(compass: compass)
+				}
 				self.generator?.notificationOccurred(.success)
 				checkSolution()
 			} else {
@@ -231,7 +236,13 @@ struct StartScene: UIViewRepresentable {
 	
 	private func checkSolution() {
 		if self.gameWorker.checkSolution(matrix: self.boxWorker.matrix) {
-			print("Solution found!")
+			self.gameWorker.saveCompasses()
+			let compasses = self.gameWorker.loadCompasses()
+			self.startSceneModel.compasses = compasses.reversed()
+			self.startSceneModel.compasses.append(.needle)
+			self.startSceneModel.matrix = self.boxWorker.matrix
+			self.startSceneModel.pathSolutionSubject.send()
+			self.gameWorker.deleteCompasses()
 		}
 	}
 
