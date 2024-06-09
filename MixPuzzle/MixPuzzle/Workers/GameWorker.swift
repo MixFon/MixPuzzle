@@ -49,6 +49,9 @@ protocol _GameWorker {
 	
 	/// Стирает все компасы из хранилища
 	func deleteCompasses()
+	
+	/// Повышение текущего уровня игры
+	func increaseLavel()
 }
 
 struct MatrixSolution {
@@ -72,7 +75,7 @@ final class GameWorker: _GameWorker {
 	private let checker: _Checker
 	private let fileWorker: _FileWorker
 	private let matrixWorker: _MatrixWorker
-	private let settingsGameStorage: _SettingsGameStorage
+	private var settingsGameStorage: _SettingsGameStorage
 	private let defaults = UserDefaults.standard
 	
 	private enum Keys {
@@ -165,6 +168,14 @@ final class GameWorker: _GameWorker {
 	func deleteCompasses() {
 		self.compasses.removeAll()
 		self.fileWorker.saveStringToFile(string: "", fileName: self.lavelFileNameCompasses)
+	}
+	
+	func increaseLavel() {
+		guard settingsGameStorage.currentLevel <= settingsGameStorage.availableLevel else { return }
+		self.settingsGameStorage.currentLevel += 1
+		if self.settingsGameStorage.currentLevel > self.settingsGameStorage.maxAchievedLevel {
+			self.settingsGameStorage.maxAchievedLevel += 1
+		}
 	}
 	
 	private var lavelFileNameMatrix: String {
@@ -299,6 +310,10 @@ final class MockGameWorker: _GameWorker {
 	}
 	
 	func deleteCompasses() {
+		print(#function)
+	}
+	
+	func increaseLavel() {
 		print(#function)
 	}
 	
