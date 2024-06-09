@@ -12,11 +12,8 @@ import MFPuzzle
 import Foundation
 
 struct StartScene: UIViewRepresentable {
-	var isMoveOn = true
-	var usegeContext: UsageContext = .game
-	var allowsCameraControl: Bool = true
-	var isUserInteractionEnabled: Bool = true
 	
+	var settings: Settings = Settings()
 	private let boxWorker: _BoxesWorker
 	private let gameWorker: _GameWorker
 	private let asteroidWorker: _AsteroidsWorker
@@ -28,14 +25,10 @@ struct StartScene: UIViewRepresentable {
 	
 	private let generator: UINotificationFeedbackGenerator?
 	
-	// TODO: Можно удалить будет
-	enum UsageContext {
-		/// Используется когда пользователь играет. Используется как основной.
-		case game
-		/// Используется когда нужно выбрать решение в настройках
-		case choice
-		/// Используется для показа решений.
-		case solution
+	final class Settings {
+		var isMoveOn = true
+		var allowsCameraControl: Bool = true
+		var isUserInteractionEnabled: Bool = true
 	}
 	
 	init(boxWorker: _BoxesWorker, generator: UINotificationFeedbackGenerator?, gameWorker: _GameWorker, asteroidWorker: _AsteroidsWorker, startSceneModel: StartSceneModel, notificationCenter: NotificationCenter? = nil, settingsAsteroidsStorage: _SettingsAsteroidsStorage) {
@@ -48,6 +41,7 @@ struct StartScene: UIViewRepresentable {
 		self.settingsAsteroidsStorage = settingsAsteroidsStorage
 		
 		configureSavePublisher()
+		configureFinishPublisher()
 		configureShowPathCompasses()
 		configureRegeneratePublisher()
 		configureShowSolutionPublisher()
@@ -124,12 +118,21 @@ struct StartScene: UIViewRepresentable {
 		}.store(in: &cancellables)
 	}
 	
+	private mutating func configureFinishPublisher() {
+		self.startSceneModel.finishSubject.sink { [self] in
+			self.gameWorker.increaseLavel()
+			self.startSceneModel.pathSolutionSubject.send(false)
+		}.store(in: &cancellables)
+	}
+	
 	private mutating func configureRegeneratePublisher() {
 		self.startSceneModel.regenerateSubject.sink { [self] in
 			self.gameWorker.deleteCompasses()
 			self.gameWorker.regenerateMatrix()
 			self.boxWorker.updateGrid(grid: Grid(matrix: self.gameWorker.matrix))
 			self.moveNodeToNewPoints()
+			self.startSceneModel.pathSolutionSubject.send(false)
+			self.settings.isMoveOn = true
 		}.store(in: &cancellables)
 	}
 	
@@ -195,13 +198,13 @@ struct StartScene: UIViewRepresentable {
         // set the scene to the view
         uiView.scene = scene
         // allows the user to manipulate the camera
-		uiView.allowsCameraControl = self.allowsCameraControl
+		uiView.allowsCameraControl = self.settings.allowsCameraControl
         // show statistics such as fps and timing information
         uiView.showsStatistics = false
         // configure the view
         uiView.backgroundColor = UIColor.black
 		// Взаимоействие с объектами
-		uiView.isUserInteractionEnabled = self.isUserInteractionEnabled
+		uiView.isUserInteractionEnabled = self.settings.isUserInteractionEnabled
     }
     
     func makeCoordinator() -> Coordinator {
@@ -209,7 +212,7 @@ struct StartScene: UIViewRepresentable {
     }
 	
 	private func handleTap(_ gestureRecognize: UIGestureRecognizer) {
-		guard self.isMoveOn else { return }
+		guard self.settings.isMoveOn else { return }
 		// check what nodes are tapped
 		let location = gestureRecognize.location(in: self.scnView)
 		let hitResults = self.scnView.hitTest(location, options: [:])
@@ -240,9 +243,8 @@ struct StartScene: UIViewRepresentable {
 			let compasses = self.gameWorker.loadCompasses()
 			self.startSceneModel.compasses = compasses.reversed()
 			self.startSceneModel.compasses.append(.needle)
-			self.startSceneModel.matrix = self.boxWorker.matrix
-			self.startSceneModel.pathSolutionSubject.send()
-			self.gameWorker.deleteCompasses()
+			self.startSceneModel.pathSolutionSubject.send(true)
+			self.settings.isMoveOn = false
 		}
 	}
 

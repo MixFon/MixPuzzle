@@ -10,6 +10,7 @@ import SwiftUI
 struct StartScoreView: View {
 	
 	let startSceneDependency: StartSceneModel
+	@Binding var showFinishButton: Bool
 	@Environment(\.dismiss) var dismiss
 	
     var body: some View {
@@ -36,6 +37,15 @@ struct StartScoreView: View {
 				}
 			)
 			.buttonStyle(.plain)
+			if showFinishButton {
+				Spacer()
+				Button {
+					self.startSceneDependency.finishSubject.send()
+				} label: {
+					ImageButton(systemName: "flag.checkered")
+				}
+				.buttonStyle(.plain)
+			}
 			Spacer()
 			Button {
 				self.startSceneDependency.regenerateSubject.send()
@@ -44,6 +54,7 @@ struct StartScoreView: View {
 			}
 			.buttonStyle(.plain)
 		}
+		.animation(.default, value: self.showFinishButton)
 		.padding(.horizontal)
 		.clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
     }
@@ -61,6 +72,7 @@ struct ImageButton: View {
 
 #Preview {
 	let startSceneDependency = StartSceneModel()
-    return StartScoreView(startSceneDependency: startSceneDependency)
+	@State var isShowFinishButton = true
+    return StartScoreView(startSceneDependency: startSceneDependency, showFinishButton: $isShowFinishButton)
 }
 

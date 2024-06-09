@@ -49,8 +49,7 @@ final class StartFactory {
 			startSceneModel: startSceneModel,
 			settingsAsteroidsStorage: dependency.settingsStorages.settingsAsteroidsStorage
 		)
-		startScene.isUserInteractionEnabled = false
-		startScene.usegeContext = .choice
+		startScene.settings.isUserInteractionEnabled = false
 		return startScene
 	}
 	
@@ -70,8 +69,7 @@ final class StartFactory {
 			startSceneModel: startSceneModel,
 			settingsAsteroidsStorage: dependency.settingsStorages.settingsAsteroidsStorage
 		)
-		startScene.isMoveOn = false
-		startScene.usegeContext = .solution
+		startScene.settings.isMoveOn = false
 		return startScene
 	}
 }
