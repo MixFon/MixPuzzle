@@ -115,7 +115,12 @@ struct ScrollPathView: View {
 							self.startSceneModel.createRange(currentIndex: self.selectedIndex, selectedIndex: index)
 							self.selectedIndex = index
 						} label: {
-							VisualizationSolutionButton(imageName: self.startSceneModel.compasses[index].imageName, isSelected: self.selectedIndex == index)
+							VStack {
+								VisualizationSolutionButton(imageName: self.startSceneModel.compasses[index].imageName, isSelected: self.selectedIndex == index)
+								Text("\(index + 1)")
+									.font(.caption)
+									.foregroundStyle(Color.mm_text_primary)
+							}
 						}
 						.buttonStyle(.plain)
 						.id(index)

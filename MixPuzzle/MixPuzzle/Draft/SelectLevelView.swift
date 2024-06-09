@@ -8,15 +8,15 @@
 import SwiftUI
 
 struct SelectLevelView: View {
-	private let items = Array(3...15)
-	let currentLevel: Int
+	let items: [Int]
+	let maxAchievedLevel: Int
 	@Binding var selectNumber: Int
 	
 	var body: some View {
 		ScrollView {
 			LazyVGrid(columns: [GridItem(.adaptive(minimum: 70))]) {
 				ForEach(items, id: \.self) { item in
-					NumberCell(number: item, isSelect: self.selectNumber == item, showLockIcon: item > currentLevel, selectNumber: $selectNumber)
+					NumberCell(number: item, isSelect: self.selectNumber == item, showLockIcon: item > maxAchievedLevel, selectNumber: $selectNumber)
 				}
 			}
 			.padding()
@@ -66,5 +66,5 @@ struct TextNumberCell: View {
 #Preview {
 	let currentLavel = 5
 	@State var selectetLavel = 3
-	return SelectLevelView(currentLevel: currentLavel, selectNumber: $selectetLavel)
+	return SelectLevelView(items: Array(3...15), maxAchievedLevel: currentLavel, selectNumber: $selectetLavel)
 }
