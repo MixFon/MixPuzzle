@@ -85,16 +85,15 @@ struct StartScene: UIViewRepresentable {
         self.scene.rootNode.addChildNode(self.cameraNode)
         self.scene.rootNode.addChildNode(self.ambientLightNode)
         // Добавление матрицы объектов
-        let nodeBoxes = self.boxWorker.crateMatrixBox()
+        let nodeBoxes = self.boxWorker.createMatrixBox()
         nodeBoxes.forEach({ self.scene.rootNode.addChildNode($0) })
 		
         if self.settingsAsteroidsStorage.isShowAsteroids {
             createAndConfigureAsteroids()
         }
 		
-        if self.cameraNode.camera?.fieldOfView != nil {
-            self.cameraNode.position = self.boxWorker.calculateCameraPosition()
-        }
+		self.cameraNode.position = self.boxWorker.calculateCameraPosition()
+		
         let tapGesture = UITapGestureRecognizer(target: context.coordinator, action: #selector(context.coordinator.handleTap(_:)))
         self.scnView.addGestureRecognizer(tapGesture)
         return self.scnView
@@ -121,6 +120,12 @@ struct StartScene: UIViewRepresentable {
 	private mutating func configureFinishPublisher() {
 		self.startSceneModel.finishSubject.sink { [self] in
 			self.gameWorker.increaseLavel()
+			self.gameWorker.regenerateMatrix()
+			self.boxWorker.updateGrid(grid: Grid(matrix: self.gameWorker.matrix))
+			expandBoard()
+			moveNodeToNewPoints()
+			self.settings.isMoveOn = true
+			self.cameraNode.position = self.boxWorker.calculateCameraPosition()
 			self.startSceneModel.pathSolutionSubject.send(false)
 		}.store(in: &cancellables)
 	}
@@ -130,7 +135,7 @@ struct StartScene: UIViewRepresentable {
 			self.gameWorker.deleteCompasses()
 			self.gameWorker.regenerateMatrix()
 			self.boxWorker.updateGrid(grid: Grid(matrix: self.gameWorker.matrix))
-			self.moveNodeToNewPoints()
+			moveNodeToNewPoints()
 			self.startSceneModel.pathSolutionSubject.send(false)
 			self.settings.isMoveOn = true
 		}.store(in: &cancellables)
@@ -146,7 +151,7 @@ struct StartScene: UIViewRepresentable {
 				matrix = self.gameWorker.matrix
 			}
 			self.boxWorker.updateGrid(grid: Grid(matrix: matrix))
-			self.moveNodeToNewPoints()
+			moveNodeToNewPoints()
 		}.store(in: &cancellables)
 	}
 	
@@ -193,6 +198,19 @@ struct StartScene: UIViewRepresentable {
         orbitNode.addChildNode(star)
         self.asteroidWorker.setAnimationRotationTo(node: orbitNode)
     }
+	
+	/// Добавляем на доску недостоющте элементы
+	private func expandBoard() {
+		let numbers = self.boxWorker.matrix.flatMap( {$0} )
+		let childNodes = self.scene.rootNode.childNodes.compactMap( { $0.name } ).compactMap( { MatrixElement($0) } )
+		for number in numbers {
+			if number == 0 { continue }
+			if !childNodes.contains(number) {
+				let box = self.boxWorker.createBoxInRandomPlace(number: number)
+				self.scene.rootNode.addChildNode(box)
+			}
+		}
+	}
     
     func updateUIView(_ uiView: SCNView, context: Context) {
         // set the scene to the view

@@ -17,9 +17,11 @@ protocol _BoxesWorker {
 	var centreMatrix: SCNVector3 { get }
 	
 	/// Создает матрицу кубиков с позицией, с геометрией и материалом.
-	func crateMatrixBox() -> [SCNNode]
+	func createMatrixBox() -> [SCNNode]
 	/// Создание анимации тряски кубика.
 	func createShakeAnimation(position: SCNVector3) -> CAKeyframeAnimation
+	/// Создает кубик в случайном месте
+	func createBoxInRandomPlace(number: MatrixElement) -> SCNNode
 	/// Опредляет координаты камеры так, чтобы все пазды были видны на экране
 	func calculateCameraPosition() -> SCNVector3
 	/// Создание анимации перемещения на узла на пустое место (на место нуля)
@@ -78,7 +80,7 @@ final class BoxesWorker: _BoxesWorker {
         self.settingsCubeStorate = settingsCubeStorate
     }
 
-    func crateMatrixBox() -> [SCNNode] {
+    func createMatrixBox() -> [SCNNode] {
         return createNodesFormMatrix(matrix: self.grid.matrix)
     }
 	
@@ -131,6 +133,23 @@ final class BoxesWorker: _BoxesWorker {
 		// Для векторов SCNVector3 на первом месте тоит Y на втором -X координаты из матрицы
 		let action = SCNAction.move(to: SCNVector3(x: Float(boxPointZero.y), y: Float(-boxPointZero.x), z: 0), duration: self.animationDuration)
 		return action
+	}
+	
+	func createBoxInRandomPlace(number: MatrixElement) -> SCNNode {
+		let i = Int.random(in: -100...100)
+		let j = Int.random(in: -100...100)
+		let configurationCube = ConfigurationCube(
+			texture: ConfigurationTexture(texture: self.settingsCubeStorate.texture ?? ""),
+			lengthEdge: self.lengthEdge,
+			radiusChamfer: self.settingsCubeStorate.radiusChamfer
+		)
+		let box = Box(
+			point: getBoxPoint(i: i, j: j),
+			number: Int(number),
+			lengthEdge: lengthEdge
+		)
+		let node = getBox(box: box, configurationCube: configurationCube)
+		return node
 	}
 	
 	func updateGrid(grid: Grid) {
