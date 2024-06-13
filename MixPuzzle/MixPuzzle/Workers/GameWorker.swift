@@ -65,23 +65,9 @@ final class GameWorker: _GameWorker {
 	var matrix: Matrix
 	var matrixSolution: Matrix
 	
-	private var compasses: [Compass]
-	
 	var solutionOptions: [MatrixSolution] {
 		let size = self.settingsGameStorage.currentLevel
 		return Solution.allCases.map { MatrixSolution(type: $0, matrix: self.matrixWorker.createMatrixSolution(size: size, solution: $0)) }
-	}
-	
-	private let checker: _Checker
-	private let fileWorker: _FileWorker
-	private let matrixWorker: _MatrixWorker
-	private var settingsGameStorage: _SettingsGameStorage
-	private let defaults = UserDefaults.standard
-	
-	private enum Keys {
-		static let solution = "solution.mix"
-		static let compasses = "compasses.mix"
-		static let fileNameMatrix = "matrix.mix"
 	}
 	
 	var solution: Solution {
@@ -94,9 +80,23 @@ final class GameWorker: _GameWorker {
 		}
 	}
 	
-	init(checker: _Checker, fileWorker: _FileWorker, matrixWorker: _MatrixWorker, settingsGameStorage: _SettingsGameStorage) {
+	private var compasses: [Compass]
+	
+	private let checker: _Checker
+	private let keeper: _Keeper
+	private let matrixWorker: _MatrixWorker
+	private var settingsGameStorage: _SettingsGameStorage
+	private let defaults = UserDefaults.standard
+	
+	private enum Keys {
+		static let solution = "solution.mix"
+		static let compasses = "compasses.mix"
+		static let fileNameMatrix = "matrix.mix"
+	}
+	
+	init(checker: _Checker, keeper: _Keeper, matrixWorker: _MatrixWorker, settingsGameStorage: _SettingsGameStorage) {
 		self.checker = checker
-		self.fileWorker = fileWorker
+		self.keeper = keeper
 		self.matrixWorker = matrixWorker
 		self.settingsGameStorage = settingsGameStorage
 		
@@ -115,7 +115,7 @@ final class GameWorker: _GameWorker {
 			let rowString = row.map { String($0) }.joined(separator: " ")
 			stringRepresentation.append(rowString + "\n")
 		}
-		self.fileWorker.saveStringToFile(string: stringRepresentation, fileName: self.lavelFileNameMatrix)
+		self.keeper.saveString(string: stringRepresentation, fileName: self.lavelFileNameMatrix)
 	}
 	
 	func save(solution: Solution) {
@@ -155,11 +155,11 @@ final class GameWorker: _GameWorker {
 		savedCompasses.append(contentsOf: self.compasses)
 		let compassesString = savedCompasses.compactMap( { $0.toString } ).joined(separator: ",")
 		self.compasses.removeAll()
-		self.fileWorker.saveStringToFile(string: compassesString, fileName: self.lavelFileNameCompasses)
+		self.keeper.saveString(string: compassesString, fileName: self.lavelFileNameCompasses)
 	}
 	
 	func loadCompasses() -> [Compass] {
-		if let compassesString = self.fileWorker.readStringFromFile(fileName: self.lavelFileNameCompasses) {
+		if let compassesString = self.keeper.readString(fileName: self.lavelFileNameCompasses) {
 			return compassesString.split(separator: ",").compactMap( { Compass(string: String($0)) } )
 		} else {
 			return []
@@ -168,7 +168,7 @@ final class GameWorker: _GameWorker {
 	
 	func deleteCompasses() {
 		self.compasses.removeAll()
-		self.fileWorker.saveStringToFile(string: "", fileName: self.lavelFileNameCompasses)
+		self.keeper.saveString(string: "", fileName: self.lavelFileNameCompasses)
 	}
 	
 	func increaseLavel() {
@@ -192,7 +192,7 @@ final class GameWorker: _GameWorker {
 	/// Загружает сохраненную матрицу или создает новую
 	private func loadOrCreateMatrix() -> Matrix {
 		let size = self.settingsGameStorage.currentLevel
-		guard let textMatrix = self.fileWorker.readStringFromFile(fileName: self.lavelFileNameMatrix) else {
+		guard let textMatrix = self.keeper.readString(fileName: self.lavelFileNameMatrix) else {
 			return self.matrixWorker.createMatrixRandom(size: size)
 		}
 		return (try? matrixWorker.creationMatrix(text: textMatrix)) ?? self.matrixWorker.createMatrixRandom(size: size)

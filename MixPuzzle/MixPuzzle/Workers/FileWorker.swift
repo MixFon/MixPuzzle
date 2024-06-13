@@ -7,15 +7,15 @@
 
 import Foundation
 
-protocol _FileWorker {
-	func saveStringToFile(string: String, fileName: String)
-	func readStringFromFile(fileName: String) -> String?
+protocol _Keeper {
+	func saveString(string: String, fileName: String)
+	func readString(fileName: String) -> String?
 }
 
-final class FileWorker: _FileWorker {
+final class FileWorker: _Keeper {
 	
 	/// Функция для сохранения строки в файл
-	func saveStringToFile(string: String, fileName: String) {
+	func saveString(string: String, fileName: String) {
 		guard let fileURL = getFileURL(fileName: fileName) else { return }
 		
 		do {
@@ -27,7 +27,7 @@ final class FileWorker: _FileWorker {
 	}
 	
 	/// Функция для чтения строки из файла
-	func readStringFromFile(fileName: String) -> String? {
+	func readString(fileName: String) -> String? {
 		guard let fileURL = getFileURL(fileName: fileName) else { return nil }
 		
 		do {
@@ -47,12 +47,12 @@ final class FileWorker: _FileWorker {
 	}
 }
 
-final class MockFileWorker: _FileWorker {
-	func saveStringToFile(string: String, fileName: String) {
+final class MockFileWorker: _Keeper {
+	func saveString(string: String, fileName: String) {
 		print(#function)
 	}
 	
-	func readStringFromFile(fileName: String) -> String? {
+	func readString(fileName: String) -> String? {
 		return """
 4
 1 2 3 4

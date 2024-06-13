@@ -9,7 +9,7 @@ import MFPuzzle
 import Foundation
 
 protocol _Workers {
-	var fileWorker: _FileWorker { get }
+	var keeper: _Keeper { get }
 	var gameWorker: _GameWorker { get }
 	var cubeWorker: _CubeWorker { get }
 	var imageWorker: _ImageWorker { get }
@@ -20,7 +20,7 @@ protocol _Workers {
 
 
 final class Workers: _Workers {
-	var fileWorker: _FileWorker
+	var keeper: _Keeper
 	var gameWorker: _GameWorker
 	var cubeWorker: _CubeWorker
 	var imageWorker: _ImageWorker
@@ -28,8 +28,8 @@ final class Workers: _Workers {
 	var asteroidWorker: _AsteroidsWorker
 	var materialsWorker: _MaterialsWorker
 	
-	init(fileWorker: _FileWorker, gameWorker: _GameWorker, cubeWorker: _CubeWorker, imageWorker: _ImageWorker, matrixWorker: _MatrixWorker, asteroidWorker: _AsteroidsWorker, materialsWorker: _MaterialsWorker) {
-		self.fileWorker = fileWorker
+	init(keeper: _Keeper, gameWorker: _GameWorker, cubeWorker: _CubeWorker, imageWorker: _ImageWorker, matrixWorker: _MatrixWorker, asteroidWorker: _AsteroidsWorker, materialsWorker: _MaterialsWorker) {
+		self.keeper = keeper
 		self.gameWorker = gameWorker
 		self.cubeWorker = cubeWorker
 		self.imageWorker = imageWorker
@@ -41,7 +41,7 @@ final class Workers: _Workers {
 }
 
 final class MockWorkers: _Workers {
-	var fileWorker: _FileWorker = MockFileWorker()
+	var keeper: _Keeper = MockFileWorker()
 	
 	var gameWorker: _GameWorker = MockGameWorker()
 	

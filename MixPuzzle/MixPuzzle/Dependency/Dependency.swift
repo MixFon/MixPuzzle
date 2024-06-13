@@ -39,17 +39,17 @@ struct Dependency: _Dependency {
 		self.puzzle = Puzzle(heuristic: .manhattan, checker: checker)
 		let imageWorker = ImageWorker()
 		let cubeWorker = CubeWorker(imageWorker: imageWorker, materialsWorker: materialsWorker)
-		let fileForker = FileWorker()
+		let fileWorker = FileWorker()
 		let matrixWorker = MatrixWorker(checker: checker)
 		let gameWorker = GameWorker(
 			checker: checker,
-			fileWorker: fileForker,
+			keeper: fileWorker,
 			matrixWorker: matrixWorker,
 			settingsGameStorage: settingsGameStorage
 		)
 		
 		self.workers = Workers(
-			fileWorker: fileForker,
+			keeper: fileWorker,
 			gameWorker: gameWorker,
 			cubeWorker: cubeWorker,
 			imageWorker: imageWorker,

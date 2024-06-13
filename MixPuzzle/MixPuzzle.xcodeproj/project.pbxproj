@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2901B4D62C1B92D80015E9A3 /* StatisticsWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2901B4D52C1B92D80015E9A3 /* StatisticsWorker.swift */; };
 		290441252C0CC224009A58E2 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 290441242C0CC224009A58E2 /* LoadingView.swift */; };
 		290441272C0CC389009A58E2 /* Squeres.swift in Sources */ = {isa = PBXBuildFile; fileRef = 290441262C0CC389009A58E2 /* Squeres.swift */; };
 		29051C722BE0DDF20064ABF0 /* Snackbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29051C712BE0DDF20064ABF0 /* Snackbar.swift */; };
@@ -64,6 +65,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2901B4D52C1B92D80015E9A3 /* StatisticsWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsWorker.swift; sourceTree = "<group>"; };
 		290441242C0CC224009A58E2 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		290441262C0CC389009A58E2 /* Squeres.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Squeres.swift; sourceTree = "<group>"; };
 		29051C712BE0DDF20064ABF0 /* Snackbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Snackbar.swift; sourceTree = "<group>"; };
@@ -218,6 +220,7 @@
 				29DEED102BDECD6600DCE4EB /* MaterialsWorker.swift */,
 				2980BC6D2BE7D9E500866895 /* GameWorker.swift */,
 				2980BC712BEA53A900866895 /* Workers.swift */,
+				2901B4D52C1B92D80015E9A3 /* StatisticsWorker.swift */,
 			);
 			path = Workers;
 			sourceTree = "<group>";
@@ -572,6 +575,7 @@
 				29B2ADB92BDAD18A002D11D8 /* SettingsStorage.swift in Sources */,
 				2980BC802BED62D400866895 /* SettingsGameStorage.swift in Sources */,
 				29DEED112BDECD6600DCE4EB /* MaterialsWorker.swift in Sources */,
+				2901B4D62C1B92D80015E9A3 /* StatisticsWorker.swift in Sources */,
 				2944D6EE2BCC4FFD001F1A82 /* CubeWorker.swift in Sources */,
 				29DFDEBE2BC5177F00791434 /* OptionsSectionsView.swift in Sources */,
 				291A07F12BC198F8008B4246 /* AsteroidsWorker.swift in Sources */,
