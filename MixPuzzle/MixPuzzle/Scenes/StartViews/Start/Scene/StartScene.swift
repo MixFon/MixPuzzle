@@ -100,7 +100,7 @@ struct StartScene: UIViewRepresentable {
     }
 	
 	private func saveMatrix() {
-		self.gameWorker.save(statistics: self.statistics)
+		self.gameWorker.saveStatistics()
 		self.gameWorker.saveCompasses()
 		self.gameWorker.save(matrix: self.boxWorker.matrix)
 	}
@@ -120,7 +120,6 @@ struct StartScene: UIViewRepresentable {
 	
 	private mutating func configureFinishPublisher() {
 		self.startSceneModel.finishSubject.sink { [self] in
-			self.gameWorker.save(statistics: self.statistics)
 			self.gameWorker.increaseLavel()
 			self.gameWorker.regenerateMatrix()
 			self.boxWorker.updateGrid(grid: Grid(matrix: self.gameWorker.matrix))
@@ -134,6 +133,7 @@ struct StartScene: UIViewRepresentable {
 	
 	private mutating func configureRegeneratePublisher() {
 		self.startSceneModel.regenerateSubject.sink { [self] in
+			self.gameWorker.statisticsWorker.increaseRegenerations()
 			self.gameWorker.deleteCompasses()
 			self.gameWorker.regenerateMatrix()
 			self.boxWorker.updateGrid(grid: Grid(matrix: self.gameWorker.matrix))
@@ -244,12 +244,14 @@ struct StartScene: UIViewRepresentable {
 		
 			if let hitNodeName = hitNode.name, let number = MatrixElement(hitNodeName), let moveToZeroAction = self.boxWorker.createMoveToZeroAction(number: number) {
 				hitNode.runAction(moveToZeroAction)
+				self.gameWorker.statisticsWorker.increaseSuccessfulMoves()
 				if let compass = self.boxWorker.getCompass(for: number) {
 					self.gameWorker.setCompass(compass: compass)
 				}
 				self.generator?.notificationOccurred(.success)
 				checkSolution()
 			} else {
+				self.gameWorker.statisticsWorker.increaseFailedMoves()
 				let shameAnimation = self.boxWorker.createShakeAnimation(position: hitNode.position)
 				hitNode.addAnimation(shameAnimation, forKey: "shake")
 				self.generator?.notificationOccurred(.error)
@@ -259,6 +261,8 @@ struct StartScene: UIViewRepresentable {
 	
 	private func checkSolution() {
 		if self.gameWorker.checkSolution(matrix: self.boxWorker.matrix) {
+			self.gameWorker.statisticsWorker.increaseWins()
+			self.gameWorker.saveStatistics()
 			self.gameWorker.saveCompasses()
 			let compasses = self.gameWorker.loadCompasses()
 			self.startSceneModel.compasses = compasses.reversed()

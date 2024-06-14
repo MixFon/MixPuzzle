@@ -13,6 +13,8 @@ protocol _GameWorker {
 	var matrix: Matrix { get }
 	/// Двумерный массив матрицы решения
 	var matrixSolution: Matrix { get }
+	/// Воркер для управления статистикой
+	var statisticsWorker: _StatisticsWorker { get }
 	
 	/// Тип решения головоломки
 	var solution: Solution { get }
@@ -26,9 +28,8 @@ protocol _GameWorker {
 	/// Сохранение цели решения головоломки
 	func save(solution: Solution)
 	
-	/// Сохранение статистики
-	func save(statistics: Statistics)
-
+	/// Сохранение статистики для текущего состояния
+	func saveStatistics()
 
 	/// Проверка на то, что матрица достигла фильного результата
 	func checkSolution(matrix: Matrix) -> Bool
@@ -68,6 +69,7 @@ struct MatrixSolution {
 final class GameWorker: _GameWorker {
 	var matrix: Matrix
 	var matrixSolution: Matrix
+	var statisticsWorker: _StatisticsWorker
 
 	var solutionOptions: [MatrixSolution] {
 		let size = self.settingsGameStorage.currentLevel
@@ -89,7 +91,6 @@ final class GameWorker: _GameWorker {
 	private let keeper: _Keeper
 	private let checker: _Checker
 	private let matrixWorker: _MatrixWorker
-	private let statisticsWorker: _StatisticsWorker
 	private var settingsGameStorage: _SettingsGameStorage
 	private let defaults = UserDefaults.standard
 	
@@ -129,16 +130,10 @@ final class GameWorker: _GameWorker {
 		self.defaults.set(solution.rawValue, forKey: Keys.solution)
 	}
 	
-	func save(statistics: Statistics) {
+	func saveStatistics() {
 		let name = self.solution.rawValue
 		let size = self.settingsGameStorage.currentLevel
-		let savedStatistic: Statistics
-		if let loaded = self.statisticsWorker.loadStatistic(name: name, size: size) {
-			savedStatistic = loaded + statistics
-		} else {
-			savedStatistic = statistics
-		}
-		self.statisticsWorker.saveStatistic(name: name, size: size, statistic: savedStatistic)
+		self.statisticsWorker.saveStatistics(name: name, size: size)
 	}
 	
 	func updateMatrix() {
@@ -255,6 +250,8 @@ extension Compass {
 
 final class MockGameWorker: _GameWorker {
 	
+	var statisticsWorker:  _StatisticsWorker = MockStatisticsWorker()
+
 	var solution: Solution = .classic
 	
 	var matrix: Matrix {
@@ -301,10 +298,10 @@ final class MockGameWorker: _GameWorker {
 		print(#function)
 	}
 	
-	func save(statistics: Statistics) {
+	func saveStatistics() {
 		print(#function)
 	}
-	
+
 	func checkSolution(matrix: Matrix) -> Bool {
 		return true
 	}
