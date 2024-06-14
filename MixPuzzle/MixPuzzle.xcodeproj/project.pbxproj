@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2901B4D62C1B92D80015E9A3 /* StatisticsWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2901B4D52C1B92D80015E9A3 /* StatisticsWorker.swift */; };
+		2901B4D82C1C1CF50015E9A3 /* Decoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2901B4D72C1C1CF50015E9A3 /* Decoder.swift */; };
 		290441252C0CC224009A58E2 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 290441242C0CC224009A58E2 /* LoadingView.swift */; };
 		290441272C0CC389009A58E2 /* Squeres.swift in Sources */ = {isa = PBXBuildFile; fileRef = 290441262C0CC389009A58E2 /* Squeres.swift */; };
 		29051C722BE0DDF20064ABF0 /* Snackbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29051C712BE0DDF20064ABF0 /* Snackbar.swift */; };
@@ -66,6 +67,7 @@
 
 /* Begin PBXFileReference section */
 		2901B4D52C1B92D80015E9A3 /* StatisticsWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsWorker.swift; sourceTree = "<group>"; };
+		2901B4D72C1C1CF50015E9A3 /* Decoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Decoder.swift; sourceTree = "<group>"; };
 		290441242C0CC224009A58E2 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		290441262C0CC389009A58E2 /* Squeres.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Squeres.swift; sourceTree = "<group>"; };
 		29051C712BE0DDF20064ABF0 /* Snackbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Snackbar.swift; sourceTree = "<group>"; };
@@ -221,6 +223,7 @@
 				2980BC6D2BE7D9E500866895 /* GameWorker.swift */,
 				2980BC712BEA53A900866895 /* Workers.swift */,
 				2901B4D52C1B92D80015E9A3 /* StatisticsWorker.swift */,
+				2901B4D72C1C1CF50015E9A3 /* Decoder.swift */,
 			);
 			path = Workers;
 			sourceTree = "<group>";
@@ -492,7 +495,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1520;
-				LastUpgradeCheck = 1520;
+				LastUpgradeCheck = 1540;
 				TargetAttributes = {
 					29C162BD2B848CC4002E185D = {
 						CreatedOnToolsVersion = 15.2;
@@ -573,6 +576,7 @@
 				29DBBA7D2C0BA43D0046179F /* VisualizationSolutionView.swift in Sources */,
 				291A07EE2BC173D6008B4246 /* StartScoreView.swift in Sources */,
 				29B2ADB92BDAD18A002D11D8 /* SettingsStorage.swift in Sources */,
+				2901B4D82C1C1CF50015E9A3 /* Decoder.swift in Sources */,
 				2980BC802BED62D400866895 /* SettingsGameStorage.swift in Sources */,
 				29DEED112BDECD6600DCE4EB /* MaterialsWorker.swift in Sources */,
 				2901B4D62C1B92D80015E9A3 /* StatisticsWorker.swift in Sources */,
@@ -629,6 +633,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -692,6 +697,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -721,6 +727,7 @@
 				CODE_SIGN_ENTITLEMENTS = MixPuzzle/MixPuzzle.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"MixPuzzle/Preview Content\"";
 				DEVELOPMENT_TEAM = 7SNPDG93FF;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -759,6 +766,7 @@
 				CODE_SIGN_ENTITLEMENTS = MixPuzzle/MixPuzzle.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"MixPuzzle/Preview Content\"";
 				DEVELOPMENT_TEAM = 7SNPDG93FF;
 				ENABLE_HARDENED_RUNTIME = YES;

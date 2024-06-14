@@ -41,10 +41,13 @@ struct Dependency: _Dependency {
 		let cubeWorker = CubeWorker(imageWorker: imageWorker, materialsWorker: materialsWorker)
 		let fileWorker = FileWorker()
 		let matrixWorker = MatrixWorker(checker: checker)
+		let decoder = Decoder()
+		let statisticsWorker = StatisticsWorker(keeper: fileWorker, decoder: decoder)
 		let gameWorker = GameWorker(
 			checker: checker,
 			keeper: fileWorker,
 			matrixWorker: matrixWorker,
+			statisticsWorker: statisticsWorker,
 			settingsGameStorage: settingsGameStorage
 		)
 		

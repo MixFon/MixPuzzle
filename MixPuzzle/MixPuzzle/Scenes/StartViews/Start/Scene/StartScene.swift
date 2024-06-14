@@ -13,9 +13,9 @@ import Foundation
 
 struct StartScene: UIViewRepresentable {
 	
-	var settings: Settings = Settings()
+	var settings = Settings()
 	private let boxWorker: _BoxesWorker
-	private let gameWorker: _GameWorker
+	private var gameWorker: _GameWorker
 	private let asteroidWorker: _AsteroidsWorker
 	private let startSceneModel: StartSceneModel
 	private var notificationCenter: NotificationCenter?
@@ -100,6 +100,7 @@ struct StartScene: UIViewRepresentable {
     }
 	
 	private func saveMatrix() {
+		self.gameWorker.save(statistics: self.statistics)
 		self.gameWorker.saveCompasses()
 		self.gameWorker.save(matrix: self.boxWorker.matrix)
 	}
@@ -119,6 +120,7 @@ struct StartScene: UIViewRepresentable {
 	
 	private mutating func configureFinishPublisher() {
 		self.startSceneModel.finishSubject.sink { [self] in
+			self.gameWorker.save(statistics: self.statistics)
 			self.gameWorker.increaseLavel()
 			self.gameWorker.regenerateMatrix()
 			self.boxWorker.updateGrid(grid: Grid(matrix: self.gameWorker.matrix))

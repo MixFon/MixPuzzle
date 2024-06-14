@@ -26,6 +26,10 @@ protocol _GameWorker {
 	/// Сохранение цели решения головоломки
 	func save(solution: Solution)
 	
+	/// Сохранение статистики
+	func save(statistics: Statistics)
+
+
 	/// Проверка на то, что матрица достигла фильного результата
 	func checkSolution(matrix: Matrix) -> Bool
 	
@@ -64,7 +68,7 @@ struct MatrixSolution {
 final class GameWorker: _GameWorker {
 	var matrix: Matrix
 	var matrixSolution: Matrix
-	
+
 	var solutionOptions: [MatrixSolution] {
 		let size = self.settingsGameStorage.currentLevel
 		return Solution.allCases.map { MatrixSolution(type: $0, matrix: self.matrixWorker.createMatrixSolution(size: size, solution: $0)) }
@@ -82,22 +86,25 @@ final class GameWorker: _GameWorker {
 	
 	private var compasses: [Compass]
 	
-	private let checker: _Checker
 	private let keeper: _Keeper
+	private let checker: _Checker
 	private let matrixWorker: _MatrixWorker
+	private let statisticsWorker: _StatisticsWorker
 	private var settingsGameStorage: _SettingsGameStorage
 	private let defaults = UserDefaults.standard
 	
 	private enum Keys {
 		static let solution = "solution.mix"
 		static let compasses = "compasses.mix"
+		static let statistics = "statistics.mix"
 		static let fileNameMatrix = "matrix.mix"
 	}
 	
-	init(checker: _Checker, keeper: _Keeper, matrixWorker: _MatrixWorker, settingsGameStorage: _SettingsGameStorage) {
+	init(checker: _Checker, keeper: _Keeper, matrixWorker: _MatrixWorker, statisticsWorker: _StatisticsWorker, settingsGameStorage: _SettingsGameStorage) {
 		self.checker = checker
 		self.keeper = keeper
 		self.matrixWorker = matrixWorker
+		self.statisticsWorker = statisticsWorker
 		self.settingsGameStorage = settingsGameStorage
 		
 		self.matrix = Matrix()
@@ -120,6 +127,18 @@ final class GameWorker: _GameWorker {
 	
 	func save(solution: Solution) {
 		self.defaults.set(solution.rawValue, forKey: Keys.solution)
+	}
+	
+	func save(statistics: Statistics) {
+		let name = self.solution.rawValue
+		let size = self.settingsGameStorage.currentLevel
+		let savedStatistic: Statistics
+		if let loaded = self.statisticsWorker.loadStatistic(name: name, size: size) {
+			savedStatistic = loaded + statistics
+		} else {
+			savedStatistic = statistics
+		}
+		self.statisticsWorker.saveStatistic(name: name, size: size, statistic: savedStatistic)
 	}
 	
 	func updateMatrix() {
@@ -279,6 +298,10 @@ final class MockGameWorker: _GameWorker {
 	}
 	
 	func save(solution: Solution) {
+		print(#function)
+	}
+	
+	func save(statistics: Statistics) {
 		print(#function)
 	}
 	

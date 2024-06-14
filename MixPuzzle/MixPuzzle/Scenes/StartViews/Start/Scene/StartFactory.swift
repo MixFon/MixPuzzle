@@ -41,7 +41,7 @@ final class StartFactory {
 			cubeWorker: dependency.workers.cubeWorker,
 			settingsCubeStorate: dependency.settingsStorages.settingsCubeStorage
 		)
-		var startScene = StartScene(
+		let startScene = StartScene(
 			boxWorker: boxWorker,
 			generator: nil,
 			gameWorker: dependency.workers.gameWorker,
@@ -61,7 +61,7 @@ final class StartFactory {
 			cubeWorker: dependency.workers.cubeWorker,
 			settingsCubeStorate: dependency.settingsStorages.settingsCubeStorage
 		)
-		var startScene = StartScene(
+		let startScene = StartScene(
 			boxWorker: boxWorker,
 			generator: nil,
 			gameWorker: dependency.workers.gameWorker,
