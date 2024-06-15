@@ -11,6 +11,7 @@ final class OptionsViewRouter: ObservableObject {
 	@Published var toBox: Bool = false
 	@Published var toStars: Bool = false
 	@Published var toLanguage: Bool = false
+	@Published var toStatistics: Bool = false
 	@Published var toLevelSelect: Bool = false
 	@Published var toTargetSelect: Bool = false
 }
@@ -58,11 +59,7 @@ struct OptionsView: View {
 					AnyView(ToggleCellView(icon: "waveform.path", text: "Vibration", isOn: self.$model.isUseVibration)),
 				])
 				.padding()
-				OptionsSectionsView(title: "Game", cells: [
-					AnyView(CellView(icon: "gamecontroller", text: "Game", action: { self.router.toLevelSelect = true })),
-					AnyView(CellView(icon: "square.grid.3x3.topmiddle.filled", text: "Target", action: { self.router.toTargetSelect = true })),
-					AnyView(CellView(icon: "chart.bar.xaxis", text: "Statistics", action: {  })),
-				])
+				OptionsSectionsView(title: "Game", cells: self.gameSectionCells)
 				.padding()
 				Spacer()
 			}
@@ -80,6 +77,22 @@ struct OptionsView: View {
 		.fullScreenCover(isPresented: $router.toTargetSelect) {
 			TargetSelectionView(dependncy: self.dependency)
 		}
+		.fullScreenCover(isPresented: $router.toStatistics) {
+			if #available(iOS 16.0, *) {
+				StatisticsView(statisticsData: self.dependency.workers.gameWorker.getStatistics())
+			}
+		}
+	}
+	
+	private var gameSectionCells: [AnyView] {
+		var cells = [
+			AnyView(CellView(icon: "gamecontroller", text: "Game", action: { self.router.toLevelSelect = true })),
+			AnyView(CellView(icon: "square.grid.3x3.topmiddle.filled", text: "Target", action: { self.router.toTargetSelect = true })),
+		]
+		if #available(iOS 16.0, *) {
+			cells.append(AnyView(CellView(icon: "chart.bar.xaxis", text: "Statistics", action: { self.router.toStatistics = true })))
+		}
+		return cells
 	}
 }
 

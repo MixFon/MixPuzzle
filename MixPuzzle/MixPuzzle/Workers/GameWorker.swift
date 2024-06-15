@@ -57,6 +57,9 @@ protocol _GameWorker {
 	
 	/// Повышение текущего уровня игры
 	func increaseLavel()
+	
+	/// Возвращает статистику по всем уровням
+	func getStatistics() -> [StatisticsDataView]
 }
 
 struct MatrixSolution {
@@ -193,6 +196,19 @@ final class GameWorker: _GameWorker {
 		}
 	}
 	
+	func getStatistics() -> [StatisticsDataView] {
+		var statisticsData: [StatisticsDataView] = []
+		for solution in Solution.allCases {
+			let name = solution.rawValue
+			for size in 3...self.settingsGameStorage.maxAchievedLevel {
+				guard let loadedStatistics = self.statisticsWorker.loadStatistics(name: name, size: size) else { continue }
+				let data = StatisticsDataView(name: name.capitalized, size: size, data: loadedStatistics)
+				statisticsData.append(data)
+			}
+		}
+		return statisticsData
+	}
+	
 	private var lavelFileNameMatrix: String {
 		let size = self.settingsGameStorage.currentLevel
 		return Keys.fileNameMatrix + ".\(size)x\(size)"
@@ -320,6 +336,10 @@ final class MockGameWorker: _GameWorker {
 	
 	func setCompass(compass: Compass) {
 		print(#function)
+	}
+	
+	func getStatistics() -> [StatisticsDataView] {
+		[]
 	}
 	
 	func saveCompasses() {
