@@ -64,6 +64,8 @@
 		29DFDEBE2BC5177F00791434 /* OptionsSectionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29DFDEBD2BC5177F00791434 /* OptionsSectionsView.swift */; };
 		29EB775D2B872E0D00A494A0 /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29EB775C2B872E0D00A494A0 /* StartView.swift */; };
 		29FCC9642C0C4A3E003604AD /* Ext+Compass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29FCC9632C0C4A3E003604AD /* Ext+Compass.swift */; };
+		29FDAA552C20C03200EFD8DD /* SwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29FDAA542C20C03200EFD8DD /* SwiftUIView.swift */; };
+		29FDAA572C20C82F00EFD8DD /* TextNodeWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29FDAA562C20C82F00EFD8DD /* TextNodeWorker.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -125,6 +127,8 @@
 		29DFDEBD2BC5177F00791434 /* OptionsSectionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsSectionsView.swift; sourceTree = "<group>"; };
 		29EB775C2B872E0D00A494A0 /* StartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; };
 		29FCC9632C0C4A3E003604AD /* Ext+Compass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ext+Compass.swift"; sourceTree = "<group>"; };
+		29FDAA542C20C03200EFD8DD /* SwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIView.swift; sourceTree = "<group>"; };
+		29FDAA562C20C82F00EFD8DD /* TextNodeWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextNodeWorker.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -226,6 +230,7 @@
 				2980BC712BEA53A900866895 /* Workers.swift */,
 				2901B4D52C1B92D80015E9A3 /* StatisticsWorker.swift */,
 				2901B4D72C1C1CF50015E9A3 /* Decoder.swift */,
+				29FDAA562C20C82F00EFD8DD /* TextNodeWorker.swift */,
 			);
 			path = Workers;
 			sourceTree = "<group>";
@@ -266,6 +271,7 @@
 				2980BC7A2BED176D00866895 /* SelectLevelView.swift */,
 				290441262C0CC389009A58E2 /* Squeres.swift */,
 				2953EC5D2C15894700EC9834 /* CandyDropView.swift */,
+				29FDAA542C20C03200EFD8DD /* SwiftUIView.swift */,
 			);
 			path = Draft;
 			sourceTree = "<group>";
@@ -557,6 +563,7 @@
 			files = (
 				2980BC7E2BED1BE600866895 /* LevelSelectionView.swift in Sources */,
 				29DD46872C1E098E000FF047 /* StatisticsView.swift in Sources */,
+				29FDAA552C20C03200EFD8DD /* SwiftUIView.swift in Sources */,
 				2980BC702BE7F5D300866895 /* FileWorker.swift in Sources */,
 				2980BC6E2BE7D9E500866895 /* GameWorker.swift in Sources */,
 				2980BC722BEA53A900866895 /* Workers.swift in Sources */,
@@ -602,6 +609,7 @@
 				2979B7182BBFDF3C000839D3 /* MenuSceneWrapper.swift in Sources */,
 				29C162C22B848CC4002E185D /* MixPuzzleApp.swift in Sources */,
 				296846D52C01D0070046862C /* LimitedTextField.swift in Sources */,
+				29FDAA572C20C82F00EFD8DD /* TextNodeWorker.swift in Sources */,
 				2944D6EC2BCC4C94001F1A82 /* ImageWorker.swift in Sources */,
 				2985064E2B8B53A300028FA9 /* BoxesWorker.swift in Sources */,
 				2944D6E32BC9163C001F1A82 /* SettingsCubeWrapper.swift in Sources */,

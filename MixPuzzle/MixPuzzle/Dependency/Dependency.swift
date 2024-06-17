@@ -35,6 +35,7 @@ struct Dependency: _Dependency {
 		let asteroidworker = AsteroidsWorker(materialsWorker: materialsWorker, asteroidsStorage: settingsAsteroidsStorage)
 		
 		let checker = Checker()
+		let textNodeWorker = TextNodeWorker()
 		self.checker = checker
 		self.puzzle = Puzzle(heuristic: .manhattan, checker: checker)
 		let imageWorker = ImageWorker()
@@ -57,6 +58,7 @@ struct Dependency: _Dependency {
 			cubeWorker: cubeWorker,
 			imageWorker: imageWorker,
 			matrixWorker: matrixWorker,
+			textNodeWorker: textNodeWorker,
 			asteroidWorker: asteroidworker,
 			materialsWorker: materialsWorker
 		)

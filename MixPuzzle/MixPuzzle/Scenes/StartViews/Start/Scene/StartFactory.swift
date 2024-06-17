@@ -26,6 +26,7 @@ final class StartFactory {
 			generator: dependency.settingsStorages.settingsGameStorage.isUseVibration ? UINotificationFeedbackGenerator() : nil,
 			gameWorker: dependency.workers.gameWorker,
 			asteroidWorker: dependency.workers.asteroidWorker,
+			textNodeWorker: dependency.workers.textNodeWorker,
 			startSceneModel: startSceneModel,
 			notificationCenter: NotificationCenter.default,
 			settingsAsteroidsStorage: dependency.settingsStorages.settingsAsteroidsStorage
@@ -46,6 +47,7 @@ final class StartFactory {
 			generator: nil,
 			gameWorker: dependency.workers.gameWorker,
 			asteroidWorker: dependency.workers.asteroidWorker,
+			textNodeWorker: dependency.workers.textNodeWorker,
 			startSceneModel: startSceneModel,
 			settingsAsteroidsStorage: dependency.settingsStorages.settingsAsteroidsStorage
 		)
@@ -66,6 +68,7 @@ final class StartFactory {
 			generator: nil,
 			gameWorker: dependency.workers.gameWorker,
 			asteroidWorker: dependency.workers.asteroidWorker,
+			textNodeWorker: dependency.workers.textNodeWorker,
 			startSceneModel: startSceneModel,
 			settingsAsteroidsStorage: dependency.settingsStorages.settingsAsteroidsStorage
 		)

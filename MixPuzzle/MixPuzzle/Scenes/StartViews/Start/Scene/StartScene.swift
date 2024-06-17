@@ -17,6 +17,7 @@ struct StartScene: UIViewRepresentable {
 	private let boxWorker: _BoxesWorker
 	private var gameWorker: _GameWorker
 	private let asteroidWorker: _AsteroidsWorker
+	private let textNodeWorker: _TextNodeWorker
 	private let startSceneModel: StartSceneModel
 	private var notificationCenter: NotificationCenter?
     private let settingsAsteroidsStorage: _SettingsAsteroidsStorage
@@ -31,11 +32,12 @@ struct StartScene: UIViewRepresentable {
 		var isUserInteractionEnabled: Bool = true
 	}
 	
-	init(boxWorker: _BoxesWorker, generator: UINotificationFeedbackGenerator?, gameWorker: _GameWorker, asteroidWorker: _AsteroidsWorker, startSceneModel: StartSceneModel, notificationCenter: NotificationCenter? = nil, settingsAsteroidsStorage: _SettingsAsteroidsStorage) {
+	init(boxWorker: _BoxesWorker, generator: UINotificationFeedbackGenerator?, gameWorker: _GameWorker, asteroidWorker: _AsteroidsWorker, textNodeWorker: _TextNodeWorker, startSceneModel: StartSceneModel, notificationCenter: NotificationCenter? = nil, settingsAsteroidsStorage: _SettingsAsteroidsStorage) {
 		self.boxWorker = boxWorker
 		self.generator = generator
 		self.gameWorker = gameWorker
 		self.asteroidWorker = asteroidWorker
+		self.textNodeWorker = textNodeWorker
 		self.startSceneModel = startSceneModel
 		self.notificationCenter = notificationCenter
 		self.settingsAsteroidsStorage = settingsAsteroidsStorage
@@ -172,6 +174,21 @@ struct StartScene: UIViewRepresentable {
 			actions.append(action)
 		}
 		self.scene.rootNode.runAction(SCNAction.sequence(actions))
+	}
+	
+	/// Создаем финальное меню
+	private func createFinalMenu() {
+		let textes = self.textNodeWorker.createFinalName(center: self.boxWorker.calculateCameraPosition())
+		textes.forEach({ self.scene.rootNode.addChildNode($0) })
+		removeFinalMenu()
+	}
+	
+	private func removeFinalMenu() {
+		for nameTextNode in self.textNodeWorker.names {
+			if let textNode = self.scene.rootNode.childNodes.first(where: { $0.name == nameTextNode }) {
+				textNode.removeFromParentNode()
+			}
+		}
 	}
 	
 	/// Перемещает кубики в новые позиции. Подразумевается, что уже будет новая Grid в

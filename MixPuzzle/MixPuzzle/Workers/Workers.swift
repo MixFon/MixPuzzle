@@ -14,6 +14,7 @@ protocol _Workers {
 	var cubeWorker: _CubeWorker { get }
 	var imageWorker: _ImageWorker { get }
 	var matrixWorker: _MatrixWorker { get }
+	var textNodeWorker: _TextNodeWorker { get }
 	var asteroidWorker: _AsteroidsWorker { get }
 	var materialsWorker: _MaterialsWorker { get }
 }
@@ -25,15 +26,17 @@ final class Workers: _Workers {
 	var cubeWorker: _CubeWorker
 	var imageWorker: _ImageWorker
 	var matrixWorker: _MatrixWorker
+	var textNodeWorker: _TextNodeWorker
 	var asteroidWorker: _AsteroidsWorker
 	var materialsWorker: _MaterialsWorker
 	
-	init(keeper: _Keeper, gameWorker: _GameWorker, cubeWorker: _CubeWorker, imageWorker: _ImageWorker, matrixWorker: _MatrixWorker, asteroidWorker: _AsteroidsWorker, materialsWorker: _MaterialsWorker) {
+	init(keeper: _Keeper, gameWorker: _GameWorker, cubeWorker: _CubeWorker, imageWorker: _ImageWorker, matrixWorker: _MatrixWorker, textNodeWorker: _TextNodeWorker, asteroidWorker: _AsteroidsWorker, materialsWorker: _MaterialsWorker) {
 		self.keeper = keeper
 		self.gameWorker = gameWorker
 		self.cubeWorker = cubeWorker
 		self.imageWorker = imageWorker
 		self.matrixWorker = matrixWorker
+		self.textNodeWorker = textNodeWorker
 		self.asteroidWorker = asteroidWorker
 		self.materialsWorker = materialsWorker
 	}
@@ -44,6 +47,8 @@ final class MockWorkers: _Workers {
 	var keeper: _Keeper = MockFileWorker()
 	
 	var gameWorker: _GameWorker = MockGameWorker()
+	
+	var textNodeWorker: _TextNodeWorker = MockTextNodeWorker()
 	
 	lazy var cubeWorker: _CubeWorker = CubeWorker(imageWorker: self.imageWorker, materialsWorker: self.materialsWorker)
 	
