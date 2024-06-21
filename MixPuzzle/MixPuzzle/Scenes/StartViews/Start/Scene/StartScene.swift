@@ -98,6 +98,7 @@ struct StartScene: UIViewRepresentable {
 		
         let tapGesture = UITapGestureRecognizer(target: context.coordinator, action: #selector(context.coordinator.handleTap(_:)))
         self.scnView.addGestureRecognizer(tapGesture)
+		createFinalMenu()
         return self.scnView
     }
 	
@@ -142,6 +143,7 @@ struct StartScene: UIViewRepresentable {
 			moveNodeToNewPoints()
 			self.startSceneModel.pathSolutionSubject.send(false)
 			self.settings.isMoveOn = true
+			removeFinalMenu()
 		}.store(in: &cancellables)
 	}
 	
@@ -178,16 +180,17 @@ struct StartScene: UIViewRepresentable {
 	
 	/// Создаем финальное меню
 	private func createFinalMenu() {
-		let textes = self.textNodeWorker.createFinalName(center: self.boxWorker.calculateCameraPosition())
+		let textes = self.textNodeWorker.createNodesInRandomPosition()
 		textes.forEach({ self.scene.rootNode.addChildNode($0) })
-		removeFinalMenu()
+		let menuAction = self.textNodeWorker.createMenu(centre: self.boxWorker.centreMatrix)
+		self.scene.rootNode.runAction(menuAction)
 	}
 	
+	/// Удаление меню
 	private func removeFinalMenu() {
-		for nameTextNode in self.textNodeWorker.names {
-			if let textNode = self.scene.rootNode.childNodes.first(where: { $0.name == nameTextNode }) {
-				textNode.removeFromParentNode()
-			}
+		let deleteAction = self.textNodeWorker.deleteMenu()
+		self.scene.rootNode.runAction(deleteAction) {
+			self.textNodeWorker.deleteNodesFormParent()
 		}
 	}
 	
