@@ -30,12 +30,11 @@ struct NavigationBar: View {
 
 struct BackButtonNavigationBar: View {
 	
-	@Environment(\.presentationMode)
-	private var presentationMode: Binding<PresentationMode>
+	@Environment(\.dismiss) private var dismiss
 	
 	var body: some View {
 		Button {
-			self.presentationMode.wrappedValue.dismiss()
+			self.dismiss()
 		} label: {
 			Image(systemName: "arrow.left")
 				.resizable()
