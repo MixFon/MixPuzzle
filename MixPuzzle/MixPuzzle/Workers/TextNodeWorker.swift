@@ -14,12 +14,21 @@ protocol _TextNodeWorker {
 	func createMenu(centre: SCNVector3) -> SCNAction
 	/// Создает анимацю при удалении текста
 	func deleteMenu() -> SCNAction
+	/// Пренадлежит ли нода к тексту из меню
+	func isTextNode(node: SCNNode) -> Bool
 	func deleteNodesFormParent()
 	func createTextNode(text: String) -> SCNNode
 	func createTextNode(text: String, position: SCNVector3) -> SCNNode
 	/// Создает ноды текта в слуайном месте
 	func createNodesInRandomPosition() -> [SCNNode]
 
+}
+
+enum FinalMenuText: String, CaseIterable {
+	/// Сдующий уровень
+	case next = "Raise the level"
+	/// Повторить текущий уровень
+	case retry = "Retry"
 }
 
 final class TextNodeWorker: _TextNodeWorker {
@@ -34,21 +43,11 @@ final class TextNodeWorker: _TextNodeWorker {
 
 	
 	var names: [String] {
-		Text.allCases.map({$0.rawValue})
+		FinalMenuText.allCases.map({$0.rawValue})
 	}
 	
-	private enum Text: String, CaseIterable {
-		case new
-		case next
-		case retry
-		
-		var text: String {
-			switch self {
-			case .new: return "Another goal"
-			case .next: return "Raise the level"
-			case .retry: return "Retry"
-			}
-		}
+	func isTextNode(node: SCNNode) -> Bool {
+		FinalMenuText.allCases.contains(where: { $0.rawValue == node.name} )
 	}
 	
 	func createTextNode(text: String, position: SCNVector3) -> SCNNode {
@@ -66,8 +65,9 @@ final class TextNodeWorker: _TextNodeWorker {
 	
 	func createNodesInRandomPosition() -> [SCNNode] {
 		var nodes: [SCNNode] = []
-		for text in Text.allCases {
-			let node = createTextNode(text: text.text, position: self.randomPosition)
+		for text in FinalMenuText.allCases {
+			let node = createTextNode(text: text.rawValue, position: self.randomPosition)
+			node.name = text.rawValue
 			nodes.append(node)
 		}
 		self.textNodes = nodes
@@ -120,6 +120,10 @@ final class MockTextNodeWorker: _TextNodeWorker {
 	
 	func createTextNode(text: String) -> SCNNode {
 		SCNNode()
+	}
+	
+	func isTextNode(node: SCNNode) -> Bool {
+		return true
 	}
 	
 	func createTextNode(text: String, position: SCNVector3) -> SCNNode {

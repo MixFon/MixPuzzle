@@ -83,17 +83,12 @@ struct StartScene: UIViewRepresentable {
 	}()
     
     func makeUIView(context: Context) -> SCNView {
-        self.scene.rootNode.addChildNode(self.lightNode)
-        self.scene.rootNode.addChildNode(self.cameraNode)
-        self.scene.rootNode.addChildNode(self.ambientLightNode)
-        // Добавление матрицы объектов
-        let nodeBoxes = self.boxWorker.createMatrixBox()
-        nodeBoxes.forEach({ self.scene.rootNode.addChildNode($0) })
+		self.scene.rootNode.addChildNode(self.lightNode)
+		self.scene.rootNode.addChildNode(self.cameraNode)
+		self.scene.rootNode.addChildNode(self.ambientLightNode)
 		
-        if self.settingsAsteroidsStorage.isShowAsteroids {
-            createAndConfigureAsteroids()
-        }
-		
+		addBoxes()
+		createAndConfigureAsteroids()
 		self.cameraNode.position = self.boxWorker.calculateCameraPosition()
 		
         let tapGesture = UITapGestureRecognizer(target: context.coordinator, action: #selector(context.coordinator.handleTap(_:)))
@@ -101,6 +96,19 @@ struct StartScene: UIViewRepresentable {
 		createFinalMenu()
         return self.scnView
     }
+	
+	private func deleteAllBoxes() {
+		let boxes = self.gameWorker.matrix.flatMap( {$0} )
+		for box in boxes {
+			let boxNode = self.scene.rootNode.childNode(withName: String(box), recursively: false)
+			boxNode?.removeFromParentNode()
+		}
+	}
+	
+	private func addBoxes() {
+		let nodeBoxes = self.boxWorker.createMatrixBox()
+		nodeBoxes.forEach({ self.scene.rootNode.addChildNode($0) })
+	}
 	
 	private func saveMatrix() {
 		self.gameWorker.saveStatistics()
@@ -122,15 +130,23 @@ struct StartScene: UIViewRepresentable {
 	}
 	
 	private mutating func configureFinishPublisher() {
-		self.startSceneModel.finishSubject.sink { [self] in
+		self.startSceneModel.nextLavelSubject.sink { [self] in
 			self.gameWorker.increaseLavel()
 			self.gameWorker.regenerateMatrix()
 			self.boxWorker.updateGrid(grid: Grid(matrix: self.gameWorker.matrix))
 			expandBoard()
-			moveNodeToNewPoints()
+			//moveNodeToNewPoints()
+			deleteAllBoxes()
+			deleteAsteroids()
+			addBoxes()
+			createAndConfigureAsteroids()
+			
 			self.settings.isMoveOn = true
 			self.cameraNode.position = self.boxWorker.calculateCameraPosition()
 			self.startSceneModel.pathSolutionSubject.send(false)
+
+//			let moveAction = SCNAction.move(to: self.boxWorker.calculateCameraPosition(), duration: 1.0)
+//			self.cameraNode.runAction(moveAction)
 		}.store(in: &cancellables)
 	}
 	
@@ -197,7 +213,7 @@ struct StartScene: UIViewRepresentable {
 	/// Перемещает кубики в новые позиции. Подразумевается, что уже будет новая Grid в
 	private func moveNodeToNewPoints() {
 		for node in self.scene.rootNode.childNodes {
-			if let name = node.name, let number = UInt8(name), let action = self.boxWorker.createMoveToNumberAction(number: number) {
+			if let name = node.name, let number = MatrixElement(name), let action = self.boxWorker.createMoveToNumberAction(number: number) {
 				node.runAction(action)
 			}
 		}
@@ -205,12 +221,18 @@ struct StartScene: UIViewRepresentable {
     
     /// Создание и конфигурация астероидойдов
     private func createAndConfigureAsteroids() {
+		guard self.settingsAsteroidsStorage.isShowAsteroids else { return }
         let centerMatrix = self.boxWorker.centreMatrix
-        let nodeStars = self.asteroidWorker.createAsteroids()
-        nodeStars.forEach({
+        let nodeAsteroids = self.asteroidWorker.createAsteroids()
+		nodeAsteroids.forEach({
             configureStars(star: $0, centerRotation: centerMatrix)
         })
     }
+	
+	/// Удаление всех астеройдов
+	private func deleteAsteroids() {
+		self.asteroidWorker.deleteAsteroids()
+	}
     
     private func configureStars(star: SCNNode, centerRotation: SCNVector3) {
         let orbitNode = SCNNode()
@@ -261,21 +283,43 @@ struct StartScene: UIViewRepresentable {
 		if let hitNode = hitResults.first?.node {
 			// Обнаружен узел, который был касаем
 			self.generator?.prepare()
-		
-			if let hitNodeName = hitNode.name, let number = MatrixElement(hitNodeName), let moveToZeroAction = self.boxWorker.createMoveToZeroAction(number: number) {
-				hitNode.runAction(moveToZeroAction)
-				self.gameWorker.statisticsWorker.increaseSuccessfulMoves()
-				if let compass = self.boxWorker.getCompass(for: number) {
-					self.gameWorker.setCompass(compass: compass)
-				}
-				self.generator?.notificationOccurred(.success)
-				checkSolution()
-			} else {
-				self.gameWorker.statisticsWorker.increaseFailedMoves()
-				let shameAnimation = self.boxWorker.createShakeAnimation(position: hitNode.position)
-				hitNode.addAnimation(shameAnimation, forKey: "shake")
-				self.generator?.notificationOccurred(.error)
+			if let hitNodeName = hitNode.name, let number = MatrixElement(hitNodeName) {
+				// Проверка на то что мы нажали на кубик матрицы
+				handleNodeOnMatrix(hitNode: hitNode, number: number)
+			} else if self.textNodeWorker.isTextNode(node: hitNode) {
+				// Проверка на то что нода относится к тексту меню
+				handleMenuText(hitNode: hitNode)
 			}
+			
+		}
+	}
+	
+	/// Обработка кубика матрицы
+	private func handleNodeOnMatrix(hitNode: SCNNode, number: MatrixElement) {
+		if let moveToZeroAction = self.boxWorker.createMoveToZeroAction(number: number) {
+			hitNode.runAction(moveToZeroAction)
+			self.gameWorker.statisticsWorker.increaseSuccessfulMoves()
+			if let compass = self.boxWorker.getCompass(for: number) {
+				self.gameWorker.setCompass(compass: compass)
+			}
+			self.generator?.notificationOccurred(.success)
+			checkSolution()
+		} else {
+			self.gameWorker.statisticsWorker.increaseFailedMoves()
+			let shameAnimation = self.boxWorker.createShakeAnimation(position: hitNode.position)
+			hitNode.addAnimation(shameAnimation, forKey: "shake")
+			self.generator?.notificationOccurred(.error)
+		}
+	}
+	
+	/// Обработка ноды текста меню.
+	private func handleMenuText(hitNode: SCNNode) {
+		guard let hitName = hitNode.name, let textMenu = FinalMenuText(rawValue: hitName) else { return }
+		switch textMenu {
+		case .next:
+			self.startSceneModel.nextLavelSubject.send()
+		case .retry:
+			self.startSceneModel.regenerateSubject.send()
 		}
 	}
 	

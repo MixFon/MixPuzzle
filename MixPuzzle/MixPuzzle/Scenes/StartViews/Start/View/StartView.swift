@@ -10,7 +10,8 @@ import Combine
 import MFPuzzle
 
 final class StartSceneRouter: ObservableObject {
-	@Published var toSolution = false
+	@Published var onClose: Bool = false
+	@Published var showVisualizationView = false
 }
 
 final class StartSceneModel: ObservableObject {
@@ -20,13 +21,13 @@ final class StartSceneModel: ObservableObject {
 	let saveSubject = PassthroughSubject<Void, Never>()
 	/// Паблишер для показа решения
 	let showSolution = PassthroughSubject<Bool, Never>()
-	/// Паблишер для обработки окончания инры и создания новой.
-	let finishSubject = PassthroughSubject<Void, Never>()
+	/// Паблишер для обработки окончания игры и создания новой.
+	let nextLavelSubject = PassthroughSubject<Void, Never>()
 	/// Паблишер для обработки нажатия кнопки начать с начала
 	let regenerateSubject = PassthroughSubject<Void, Never>()
 	/// Паблишер для управления поднятия вью с показом пути
 	let pathSolutionSubject = PassthroughSubject<Bool, Never>()
-	
+
 	var compasses: [Compass] = []
 	
 	func createRange(currentIndex: Int, selectedIndex: Int) {
@@ -45,18 +46,16 @@ struct StartView: View {
     let dependency: _Dependency
 	@ObservedObject private var router = StartSceneRouter()
 	@ObservedObject private var startSceneModel = StartSceneModel()
-	@State private var onClose: Bool = false
-	@State private var showVisualizationView = false
-	
+
     var body: some View {
 		ZStack {
             StartSceneWrapper(dependency: self.dependency, startSceneModel: startSceneModel)
 				.equatable() // Отключение обновления сцены
 			VStack {
-				StartScoreView(startSceneDependency: startSceneModel, showFinishButton: $showVisualizationView)
+				StartScoreView(startSceneDependency: startSceneModel, showFinishButton: $router.showVisualizationView)
 					.padding(.top, 50)
 				Spacer()
-				if showVisualizationView {
+				if self.router.showVisualizationView {
 					VisualizationSolutionPathView(startSceneModel: self.startSceneModel)
 						.background(Color.mm_background_tertiary)
 						.transition(.move(edge: .bottom))
@@ -66,7 +65,7 @@ struct StartView: View {
 		}
 		.onReceive(self.startSceneModel.pathSolutionSubject, perform: { isShowPath in
 			withAnimation {
-				self.showVisualizationView = isShowPath
+				self.router.showVisualizationView = isShowPath
 			}
 		})
 		.preferredColorScheme(.dark)

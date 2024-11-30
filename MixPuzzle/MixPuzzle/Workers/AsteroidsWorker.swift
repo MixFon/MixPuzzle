@@ -10,13 +10,15 @@ import Foundation
 
 protocol _AsteroidsWorker {
 	func createAsteroids() -> [SCNNode]
+	func deleteAsteroids()
     func setAnimationRotationTo(node: SCNNode)
 }
 
 final class AsteroidsWorker: _AsteroidsWorker {
     
-    let materialsWorker: _MaterialsWorker
-    let asteroidsStorage: _SettingsAsteroidsStorage
+    private let materialsWorker: _MaterialsWorker
+    private let asteroidsStorage: _SettingsAsteroidsStorage
+	private var asteroids: [SCNNode]?
 	
 	private var radiusSphere: Double {
 		self.asteroidsStorage.radiusSphere
@@ -33,7 +35,12 @@ final class AsteroidsWorker: _AsteroidsWorker {
 	
 	func createAsteroids() -> [SCNNode] {
 		let asteroids = (0...self.countAsteroids).map( { _ in createAsteroid() } )
+		self.asteroids = asteroids
 		return asteroids
+	}
+	
+	func deleteAsteroids() {
+		self.asteroids?.forEach( { $0.removeFromParentNode() } )
 	}
 	
 	private func createAsteroid() -> SCNNode {
@@ -89,6 +96,9 @@ final class AsteroidsWorker: _AsteroidsWorker {
 }
 
 final class MockAsteroidsWorker: _AsteroidsWorker {
+	func deleteAsteroids() {
+	}
+	
 	func createAsteroids() -> [SCNNode] {
 		return []
 	}

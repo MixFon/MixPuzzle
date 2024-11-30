@@ -40,7 +40,7 @@ struct StartScoreView: View {
 			if showFinishButton {
 				Spacer()
 				Button {
-					self.startSceneDependency.finishSubject.send()
+					self.startSceneDependency.nextLavelSubject.send()
 				} label: {
 					ImageButton(systemName: "flag.checkered")
 				}
