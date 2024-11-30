@@ -41,12 +41,17 @@ struct TargetSelectionView: View {
 	
     var body: some View {
 		VStack {
-			NavigationBar(title: "Target selection", tralingView: AnyView(
-				SaveButtonNavigationBar(action: {
-					self.model.saveChanges()
-					self.isShowSnackbar = true
-				})
-			))
+			NavigationBar(
+				title: "Target selection",
+				tralingView: AnyView(
+					SaveButtonNavigationBar(
+						action: {
+							self.model.saveChanges()
+							self.isShowSnackbar = true
+						}
+					)
+				)
+			)
 			.padding()
 			ScrollView {
 				ForEach(solutionOptions, id: \.type) { option in
