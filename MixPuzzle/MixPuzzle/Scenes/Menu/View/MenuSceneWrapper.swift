@@ -40,9 +40,10 @@ extension MenuSceneWrapper: Equatable {
 	}
 }
 
+@available(iOS 17.0, *)
 #Preview {
-	@State var toStart: Bool = false
-	@State var toOprionts: Bool = false
-	@State var toFindSolution: Bool = false
+	@Previewable @State var toStart: Bool = false
+	@Previewable @State var toOprionts: Bool = false
+	@Previewable @State var toFindSolution: Bool = false
 	return MenuSceneWrapper(toStart: $toStart, toOprionts: $toOprionts, toFindSolution: $toFindSolution)
 }

@@ -70,9 +70,9 @@ struct ImageButton: View {
 	}
 }
 
+@available(iOS 17.0, *)
 #Preview {
+	@Previewable @State var isShowFinishButton = true
 	let startSceneDependency = StartSceneModel()
-	@State var isShowFinishButton = true
-    return StartScoreView(startSceneDependency: startSceneDependency, showFinishButton: $isShowFinishButton)
+	return StartScoreView(startSceneDependency: startSceneDependency, showFinishButton: $isShowFinishButton)
 }
-

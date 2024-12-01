@@ -45,7 +45,11 @@ final class SettingsGameStorage: _SettingsGameStorage {
 			self.defaults.integer(forKey: Keys.currentLevel)
 		}
 		set {
-			self.defaults.set(newValue, forKey: Keys.currentLevel)
+			var value = newValue % 6
+			if value < 3 {
+				value = 3
+			}
+			self.defaults.set(value, forKey: Keys.currentLevel)
 		}
 	}
 	

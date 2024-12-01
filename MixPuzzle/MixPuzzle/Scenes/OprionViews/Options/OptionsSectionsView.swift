@@ -216,11 +216,12 @@ struct DividerView: View {
 	}
 }
 
+@available(iOS 17.0, *)
 #Preview {
-    @State var radius: Double = 10.0
-    @State var isOn: Bool = false
-    @State var selectedColor: Color = .red
-    @State var selectedImage = "TerrazzoSlab028_COL_1K_SPECULAR"
+	@Previewable @State var radius: Double = 10.0
+	@Previewable @State var isOn: Bool = false
+	@Previewable @State var selectedColor: Color = .red
+	@Previewable @State var selectedImage = "TerrazzoSlab028_COL_1K_SPECULAR"
 	return VStack {
 		OptionsSectionsView(title: "Hello", cells: [
 			AnyView(CellView(icon: "plus", text: "Hello", action: { print(1) })),

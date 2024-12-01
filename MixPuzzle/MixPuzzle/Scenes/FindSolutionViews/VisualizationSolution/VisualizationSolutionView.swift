@@ -139,9 +139,9 @@ struct ScrollPathView: View {
 	}
 }
 
-
+@available(iOS 17.0, *)
 #Preview {
-	@State var onClose = true
+	@Previewable @State var onClose = true
 	let matrix: Matrix =
 	[[1, 2, 3],
 	 [4, 5, 6],

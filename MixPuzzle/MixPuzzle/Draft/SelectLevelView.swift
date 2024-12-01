@@ -63,8 +63,9 @@ struct TextNumberCell: View {
 	}
 }
 
+@available(iOS 17.0, *)
 #Preview {
+	@Previewable @State var selectetLavel = 3
 	let currentLavel = 5
-	@State var selectetLavel = 3
 	return SelectLevelView(items: Array(3...15), maxAchievedLevel: currentLavel, selectNumber: $selectetLavel)
 }
