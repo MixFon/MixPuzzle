@@ -11,7 +11,7 @@ import Foundation
 protocol _TextNodeWorker {
 	var names: [String] { get }
 	/// Создает анимацю переменуния текста относительно центра
-	func createMenu(centre: SCNVector3) -> SCNAction
+	func moveMenuTo(centre: SCNVector3, rootNode: SCNNode)
 	/// Создает анимацю при удалении текста
 	func deleteMenu() -> SCNAction
 	/// Пренадлежит ли нода к тексту из меню
@@ -20,7 +20,7 @@ protocol _TextNodeWorker {
 	func createTextNode(text: String) -> SCNNode
 	func createTextNode(text: String, position: SCNVector3) -> SCNNode
 	/// Создает ноды текта в слуайном месте
-	func createNodesInRandomPosition() -> [SCNNode]
+	func createNodesInRandomPosition(rootNode: SCNNode)
 
 }
 
@@ -63,18 +63,18 @@ final class TextNodeWorker: _TextNodeWorker {
 		return textNode
 	}
 	
-	func createNodesInRandomPosition() -> [SCNNode] {
+	func createNodesInRandomPosition(rootNode: SCNNode) {
 		var nodes: [SCNNode] = []
 		for text in FinalMenuText.allCases {
 			let node = createTextNode(text: text.rawValue, position: self.randomPosition)
 			node.name = text.rawValue
 			nodes.append(node)
+			rootNode.addChildNode(node)
 		}
 		self.textNodes = nodes
-		return nodes
 	}
 	
-	func createMenu(centre: SCNVector3) -> SCNAction {
+	func moveMenuTo(centre: SCNVector3, rootNode: SCNNode) {
 		var actions: [SCNAction] = []
 		for (i, node) in self.textNodes.enumerated() {
 			let boundingBox = node.boundingBox
@@ -87,7 +87,7 @@ final class TextNodeWorker: _TextNodeWorker {
 			let action = createAnimation(to: position, complerion: { node.runAction($0) })
 			actions.append(action)
 		}
-		return SCNAction.sequence(actions)
+		rootNode.runAction(SCNAction.sequence(actions))
 	}
 	
 	func deleteMenu() -> SCNAction {
@@ -130,12 +130,12 @@ final class MockTextNodeWorker: _TextNodeWorker {
 		SCNNode()
 	}
 	
-	func createNodesInRandomPosition() -> [SCNNode] {
-		[]
+	func createNodesInRandomPosition(rootNode: SCNNode) {
+		
 	}
 	
-	func createMenu(centre: SCNVector3) -> SCNAction {
-		return SCNAction()
+	func moveMenuTo(centre: SCNVector3, rootNode: SCNNode) {
+		
 	}
 	
 	func deleteMenu() -> SCNAction {

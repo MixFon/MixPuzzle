@@ -9,16 +9,22 @@ import SceneKit
 import Foundation
 
 protocol _AsteroidsWorker {
-	func createAsteroids() -> [SCNNode]
+	func createAsteroids(rootNode: SCNNode, centerOrbit: SCNVector3)
 	func deleteAsteroids()
-    func setAnimationRotationTo(node: SCNNode)
 }
 
 final class AsteroidsWorker: _AsteroidsWorker {
     
+	/// Разброс смещения от точки центра берется случайное число из -delta...delta
+	private let delta: Float = 3
+	private var asteroids: [Asteroid]?
     private let materialsWorker: _MaterialsWorker
     private let asteroidsStorage: _SettingsAsteroidsStorage
-	private var asteroids: [SCNNode]?
+	
+	private struct Asteroid {
+		var node: SCNNode
+		var orbitNode: SCNNode
+	}
 	
 	private var radiusSphere: Double {
 		self.asteroidsStorage.radiusSphere
@@ -33,14 +39,38 @@ final class AsteroidsWorker: _AsteroidsWorker {
         self.asteroidsStorage = asteroidsStorage
     }
 	
-	func createAsteroids() -> [SCNNode] {
-		let asteroids = (0...self.countAsteroids).map( { _ in createAsteroid() } )
+	func createAsteroids(rootNode: SCNNode, centerOrbit: SCNVector3) {
+		var asteroids: [Asteroid] = []
+		for _ in (0...self.countAsteroids) {
+			let node = createAsteroid()
+			let orbitNode = SCNNode()
+			rootNode.addChildNode(orbitNode)
+			rootNode.addChildNode(node)
+			orbitNode.addChildNode(node)
+			orbitNode.position = positionWithDelta(position: centerOrbit)
+			setAnimationRotationTo(node: orbitNode)
+			let asteroid = Asteroid(
+				node: node,
+				orbitNode: orbitNode
+			)
+			asteroids.append(asteroid)
+		}
 		self.asteroids = asteroids
-		return asteroids
 	}
 	
 	func deleteAsteroids() {
-		self.asteroids?.forEach( { $0.removeFromParentNode() } )
+		self.asteroids?.forEach{ asteroid in
+			asteroid.node.removeFromParentNode()
+			asteroid.orbitNode.removeFromParentNode()
+		}
+	}
+	 
+	private func positionWithDelta(position: SCNVector3) -> SCNVector3 {
+		var positionDelta = SCNVector3()
+		positionDelta.x = position.x + Float.random(in: -delta...delta)
+		positionDelta.y = position.y + Float.random(in: -delta...delta)
+		positionDelta.z = position.z + Float.random(in: -delta...delta)
+		return positionDelta
 	}
 	
 	private func createAsteroid() -> SCNNode {
@@ -61,13 +91,13 @@ final class AsteroidsWorker: _AsteroidsWorker {
         
 		let sphereNode = SCNNode(geometry: sphereGeometry)
 		let position = calculatePositionOnSphere(radius: self.radiusSphere)
-        setAnimationRotationTo(node: sphereNode)
+		setAnimationRotationTo(node: sphereNode)
         sphereNode.position = position
 		return sphereNode
 	}
     
-    func setAnimationRotationTo(node: SCNNode) {
-        // Анимация вращения сферы вокруг узла
+	/// Ствие анимацию вращения сферы вокруг узла
+    private func setAnimationRotationTo(node: SCNNode) {
         let a = Double.random(in: 1...3)
         let b = Double.random(in: 1...3)
         let c = Double.random(in: 1...3)
@@ -96,11 +126,13 @@ final class AsteroidsWorker: _AsteroidsWorker {
 }
 
 final class MockAsteroidsWorker: _AsteroidsWorker {
+	
 	func deleteAsteroids() {
+		
 	}
 	
-	func createAsteroids() -> [SCNNode] {
-		return []
+	func createAsteroids(rootNode: SCNNode, centerOrbit: SCNVector3) {
+		
 	}
 	
 	func setAnimationRotationTo(node: SCNNode) {

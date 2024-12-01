@@ -141,13 +141,13 @@ struct ScrollPathView: View {
 
 
 #Preview {
+	@State var onClose = true
 	let matrix: Matrix =
 	[[1, 2, 3],
 	 [4, 5, 6],
 	 [7, 0, 8]]
 	let compasses: [Compass] = [.north, .west, .north, .east, .east, .south, .south, .south, .west, .west, .north]
 	let dependency = MockDependency()
-	@State var onClose = true
 	@ObservedObject var startSceneModel = StartSceneModel()
 	startSceneModel.compasses = compasses
 	return VisualizationSolutionView(matrix: matrix, onClose: $onClose, dependency: dependency, startSceneModel: startSceneModel)
