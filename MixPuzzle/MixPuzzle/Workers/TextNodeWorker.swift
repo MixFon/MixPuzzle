@@ -11,14 +11,16 @@ import Foundation
 protocol _TextNodeWorker {
 	var names: [String] { get }
 	/// Создает анимацю переменуния текста относительно центра
-	func moveMenuTo(centre: SCNVector3, rootNode: SCNNode)
+	func moveMenuTo(position: SCNVector3, rootNode: SCNNode)
 	/// Создает анимацю при удалении текста
 	func deleteMenu() -> SCNAction
 	/// Пренадлежит ли нода к тексту из меню
 	func isTextNode(node: SCNNode) -> Bool
-	func deleteNodesFormParent()
 	func createTextNode(text: String) -> SCNNode
 	func createTextNode(text: String, position: SCNVector3) -> SCNNode
+	/// Устанавливаем в меню в новую позицию
+	func setPositionMenu(position: SCNVector3)
+	func deleteNodesFormParent()
 	/// Создает ноды текта в слуайном месте
 	func createNodesInRandomPosition(rootNode: SCNNode)
 
@@ -74,20 +76,21 @@ final class TextNodeWorker: _TextNodeWorker {
 		self.textNodes = nodes
 	}
 	
-	func moveMenuTo(centre: SCNVector3, rootNode: SCNNode) {
+	func moveMenuTo(position: SCNVector3, rootNode: SCNNode) {
 		var actions: [SCNAction] = []
-		for (i, node) in self.textNodes.enumerated() {
-			let boundingBox = node.boundingBox
-			let min = boundingBox.min
-			let max = boundingBox.max
-			
-			// Рассчитываем размеры
-			let width = Float(max.x - min.x)
-			let position = SCNVector3(x: centre.x - width / 2, y: centre.y + (self.distanceBetweenLinesMenu * Float(i)), z: 4)
+		let positions = createPsitionForEachTextNode(position: position)
+		for (node, position) in zip(self.textNodes, positions) {
 			let action = createAnimation(to: position, complerion: { node.runAction($0) })
 			actions.append(action)
 		}
 		rootNode.runAction(SCNAction.sequence(actions))
+	}
+	
+	func setPositionMenu(position: SCNVector3) {
+		let positions = createPsitionForEachTextNode(position: position)
+		for (node, position) in zip(self.textNodes, positions) {
+			node.position = position
+		}
 	}
 	
 	func deleteMenu() -> SCNAction {
@@ -101,6 +104,21 @@ final class TextNodeWorker: _TextNodeWorker {
 	
 	func deleteNodesFormParent() {
 		self.textNodes.forEach({ $0.removeFromParentNode() })
+	}
+	
+	private func createPsitionForEachTextNode(position: SCNVector3) -> [SCNVector3] {
+		var positions: [SCNVector3] = []
+		for (i, node) in self.textNodes.enumerated() {
+			let boundingBox = node.boundingBox
+			let min = boundingBox.min
+			let max = boundingBox.max
+			
+			// Рассчитываем размеры
+			let width = Float(max.x - min.x)
+			let position = SCNVector3(x: position.x - width / 2, y: position.y + (self.distanceBetweenLinesMenu * Float(i)), z: 4)
+			positions.append(position)
+		}
+		return positions
 	}
 	
 	private func createAnimation(to position: SCNVector3, complerion: @escaping (SCNAction) -> Void) -> SCNAction {
@@ -122,6 +140,10 @@ final class MockTextNodeWorker: _TextNodeWorker {
 		SCNNode()
 	}
 	
+	func setPositionMenu(position: SCNVector3) {
+		
+	}
+
 	func isTextNode(node: SCNNode) -> Bool {
 		return true
 	}
@@ -134,7 +156,7 @@ final class MockTextNodeWorker: _TextNodeWorker {
 		
 	}
 	
-	func moveMenuTo(centre: SCNVector3, rootNode: SCNNode) {
+	func moveMenuTo(position: SCNVector3, rootNode: SCNNode) {
 		
 	}
 	

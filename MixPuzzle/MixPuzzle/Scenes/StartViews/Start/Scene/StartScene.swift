@@ -106,8 +106,7 @@ struct StartScene: UIViewRepresentable {
 	}
 	
 	private func addBoxes() {
-		let nodeBoxes = self.boxWorker.createMatrixBox()
-		nodeBoxes.forEach({ self.scene.rootNode.addChildNode($0) })
+		self.boxWorker.createMatrixBox(rootNode: self.scene.rootNode)
 	}
 	
 	private func saveMatrix() {
@@ -131,22 +130,34 @@ struct StartScene: UIViewRepresentable {
 	
 	private mutating func configureFinishPublisher() {
 		self.startSceneModel.nextLavelSubject.sink { [self] in
+			deleteAllBoxes()
 			self.gameWorker.increaseLavel()
 			self.gameWorker.regenerateMatrix()
 			self.boxWorker.updateGrid(grid: Grid(matrix: self.gameWorker.matrix))
-			expandBoard()
+			//expandBoard()
 			//moveNodeToNewPoints()
-			deleteAllBoxes()
-			deleteAsteroids()
+			//deleteAsteroids()
 			addBoxes()
-			createAndConfigureAsteroids()
+			//createAndConfigureAsteroids()
 			
 			self.settings.isMoveOn = true
 			self.cameraNode.position = self.boxWorker.calculateCameraPosition()
 			self.startSceneModel.pathSolutionSubject.send(false)
+			
+			SCNTransaction.begin()
+			SCNTransaction.animationDuration = 1.0 // продолжительность анимации
 
-//			let moveAction = SCNAction.move(to: self.boxWorker.calculateCameraPosition(), duration: 1.0)
+			self.scnView.pointOfView?.position = self.boxWorker.calculateCameraPosition()
+			self.scnView.pointOfView?.eulerAngles = self.cameraNode.eulerAngles
+			self.textNodeWorker.setPositionMenu(position: self.boxWorker.centreMatrix)
+			
+			SCNTransaction.commit()
+
+			//self.textNodeWorker.moveMenuTo(position: self.boxWorker.centreMatrix, rootNode: self.scene.rootNode)
+			
 //			self.cameraNode.runAction(moveAction)
+			
+			//self.scnView.pointOfView?.look(at: self.boxWorker.centreMatrix)
 		}.store(in: &cancellables)
 	}
 	
@@ -194,12 +205,10 @@ struct StartScene: UIViewRepresentable {
 		self.scene.rootNode.runAction(SCNAction.sequence(actions))
 	}
 	
-	/// Создаем финальное меню
+	/// Создаем финальное меню. Создается в центре матрицы
 	private func createFinalMenu() {
-		let textes = self.textNodeWorker.createNodesInRandomPosition()
-		textes.forEach({ self.scene.rootNode.addChildNode($0) })
-		let menuAction = self.textNodeWorker.createMenu(centre: self.boxWorker.centreMatrix)
-		self.scene.rootNode.runAction(menuAction)
+		self.textNodeWorker.createNodesInRandomPosition(rootNode: self.scene.rootNode)
+		self.textNodeWorker.moveMenuTo(position: self.boxWorker.centreMatrix, rootNode: self.scene.rootNode)
 	}
 	
 	/// Удаление меню
@@ -223,35 +232,35 @@ struct StartScene: UIViewRepresentable {
     private func createAndConfigureAsteroids() {
 		guard self.settingsAsteroidsStorage.isShowAsteroids else { return }
         let centerMatrix = self.boxWorker.centreMatrix
-        let nodeAsteroids = self.asteroidWorker.createAsteroids()
-		nodeAsteroids.forEach({
-            configureStars(star: $0, centerRotation: centerMatrix)
-        })
+		self.asteroidWorker.createAsteroids(rootNode: self.scene.rootNode, centerOrbit: centerMatrix)
     }
 	
 	/// Удаление всех астеройдов
 	private func deleteAsteroids() {
 		self.asteroidWorker.deleteAsteroids()
 	}
-    
-    private func configureStars(star: SCNNode, centerRotation: SCNVector3) {
-        let orbitNode = SCNNode()
-        orbitNode.position = centerRotation
-        self.scene.rootNode.addChildNode(orbitNode)
-        self.scene.rootNode.addChildNode(star)
-        orbitNode.addChildNode(star)
-        self.asteroidWorker.setAnimationRotationTo(node: orbitNode)
-    }
 	
+    	
 	/// Добавляем на доску недостоющте элементы
 	private func expandBoard() {
 		let numbers = self.boxWorker.matrix.flatMap( {$0} )
+		let setNumbers = Set(numbers)
 		let childNodes = self.scene.rootNode.childNodes.compactMap( { $0.name } ).compactMap( { MatrixElement($0) } )
-		for number in numbers {
-			if number == 0 { continue }
-			if !childNodes.contains(number) {
+		let setChildNodes = Set(childNodes)
+		let addNodes = setChildNodes.subtracting(setNumbers)
+		let deleteNodes = setNumbers.subtracting(setChildNodes)
+		if numbers.count > childNodes.count {
+			for number in addNodes {
+				if number == 0 { continue }
 				let box = self.boxWorker.createBoxInRandomPlace(number: number)
 				self.scene.rootNode.addChildNode(box)
+			}
+		} else {
+			for number in deleteNodes {
+				if number == 0 { continue }
+				if let deleteNode = self.scene.rootNode.childNode(withName: String(number), recursively: false) {
+					deleteNode.removeFromParentNode()
+				}
 			}
 		}
 	}

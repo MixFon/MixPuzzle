@@ -17,7 +17,7 @@ protocol _BoxesWorker {
 	var centreMatrix: SCNVector3 { get }
 	
 	/// Создает матрицу кубиков с позицией, с геометрией и материалом.
-	func createMatrixBox() -> [SCNNode]
+	func createMatrixBox(rootNode: SCNNode)
 	/// Создание анимации тряски кубика.
 	func createShakeAnimation(position: SCNVector3) -> CAKeyframeAnimation
 	/// Создает кубик в случайном месте
@@ -46,6 +46,8 @@ final class BoxesWorker: _BoxesWorker {
 	var matrix: Matrix {
 		self.grid.matrix
 	}
+	
+	private var boxesNode: [SCNNode]?
 	/// Модель сетки, на основе нее строится отобрадение
 	private var grid: Grid
     private let lengthEdge: CGFloat = 4
@@ -80,8 +82,10 @@ final class BoxesWorker: _BoxesWorker {
         self.settingsCubeStorate = settingsCubeStorate
     }
 
-    func createMatrixBox() -> [SCNNode] {
-        return createNodesFormMatrix(matrix: self.grid.matrix)
+    func createMatrixBox(rootNode: SCNNode) {
+		let boxes = createNodesFormMatrix(matrix: self.grid.matrix)
+		self.boxesNode = boxes
+		boxes.forEach { rootNode.addChildNode($0) }
     }
 	
 	func getNumber(for compass: Compass) -> MatrixElement? {
