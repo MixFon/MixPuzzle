@@ -140,8 +140,14 @@ final class GameWorker: _GameWorker {
 	}
 	
 	func updateMatrix() {
-		self.matrix = loadOrCreateMatrix()
-		let size = self.settingsGameStorage.currentLevel
+		//self.matrix = loadOrCreateMatrix()
+		self.matrix = [
+			[1, 2, 3],
+			[4, 5, 6],
+			[7, 0, 8]
+		]
+		//let size = self.settingsGameStorage.currentLevel
+		let size = 3
 		self.matrixSolution = self.matrixWorker.createMatrixSolution(size: size, solution: self.solution)
 		// В случае, если из матрицы нельзя получить ответ, генерируем матрицу заново
 		if !self.checker.checkSolution(matrix: self.matrix, matrixTarget: self.matrixSolution) {

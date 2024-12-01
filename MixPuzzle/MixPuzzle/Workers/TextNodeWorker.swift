@@ -34,7 +34,7 @@ enum FinalMenuText: String, CaseIterable {
 }
 
 final class TextNodeWorker: _TextNodeWorker {
-	private var textNodes: [SCNNode] = []
+	private var textNodes: [SCNNode]?
 	private let animationDuration: CGFloat = 0.1
 	/// Расстояние между строками
 	private let distanceBetweenLinesMenu: Float = 2.0
@@ -66,6 +66,7 @@ final class TextNodeWorker: _TextNodeWorker {
 	}
 	
 	func createNodesInRandomPosition(rootNode: SCNNode) {
+		guard self.textNodes == nil else { return }
 		var nodes: [SCNNode] = []
 		for text in FinalMenuText.allCases {
 			let node = createTextNode(text: text.rawValue, position: self.randomPosition)
@@ -77,9 +78,10 @@ final class TextNodeWorker: _TextNodeWorker {
 	}
 	
 	func moveMenuTo(position: SCNVector3, rootNode: SCNNode) {
+		guard let textNodes else { return }
 		var actions: [SCNAction] = []
 		let positions = createPsitionForEachTextNode(position: position)
-		for (node, position) in zip(self.textNodes, positions) {
+		for (node, position) in zip(textNodes, positions) {
 			let action = createAnimation(to: position, complerion: { node.runAction($0) })
 			actions.append(action)
 		}
@@ -87,15 +89,16 @@ final class TextNodeWorker: _TextNodeWorker {
 	}
 	
 	func setPositionMenu(position: SCNVector3) {
+		guard let textNodes else { return }
 		let positions = createPsitionForEachTextNode(position: position)
-		for (node, position) in zip(self.textNodes, positions) {
+		for (node, position) in zip(textNodes, positions) {
 			node.position = position
 		}
 	}
 	
 	func createDeleteAnimationMenu() -> SCNAction {
 		var actions: [SCNAction] = []
-		for node in self.textNodes {
+		for node in self.textNodes ?? [] {
 			let action = createAnimation(to: self.randomPosition, complerion: { node.runAction($0) })
 			actions.append(action)
 		}
@@ -103,12 +106,14 @@ final class TextNodeWorker: _TextNodeWorker {
 	}
 	
 	func deleteNodesFormParent() {
-		self.textNodes.forEach({ $0.removeFromParentNode() })
+		self.textNodes?.forEach({ $0.removeFromParentNode() })
+		self.textNodes = nil
 	}
 	
 	private func createPsitionForEachTextNode(position: SCNVector3) -> [SCNVector3] {
+		guard let textNodes else { return [] }
 		var positions: [SCNVector3] = []
-		for (i, node) in self.textNodes.enumerated() {
+		for (i, node) in textNodes.enumerated() {
 			let boundingBox = node.boundingBox
 			let min = boundingBox.min
 			let max = boundingBox.max
@@ -165,10 +170,6 @@ final class MockTextNodeWorker: _TextNodeWorker {
 	}
 	
 	func deleteNodesFormParent() {
+		
 	}
-	
-
-	
-
-	
 }

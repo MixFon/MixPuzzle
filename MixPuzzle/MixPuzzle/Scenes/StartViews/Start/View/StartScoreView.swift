@@ -9,8 +9,8 @@ import SwiftUI
 
 struct StartScoreView: View {
 	
+	var state: StartState
 	let startSceneDependency: StartSceneModel
-	@Binding var showFinishButton: Bool
 	@Environment(\.dismiss) var dismiss
 	
     var body: some View {
@@ -23,38 +23,41 @@ struct StartScoreView: View {
 			}
 			.buttonStyle(.plain)
 			Spacer()
-			Button {
-				
-			} label: {
-				ImageButton(systemName: "square.grid.3x3.middle.filled")
-			}
-			.onLongPressGesture(
-				perform: {
+			if self.state == .game {
+				Button {
 					
-				}, onPressingChanged: { bool in
-					print(bool)
-					self.startSceneDependency.showSolution.send(bool)
+				} label: {
+					ImageButton(systemName: "square.grid.3x3.middle.filled")
 				}
-			)
-			.buttonStyle(.plain)
-			if showFinishButton {
+				.onLongPressGesture(
+					perform: {
+						
+					}, onPressingChanged: { bool in
+						self.startSceneDependency.showSolution.send(bool)
+					}
+				)
+				.buttonStyle(.plain)
+			}
+			if self.state == .solution {
 				Spacer()
 				Button {
-					self.startSceneDependency.nextLavelSubject.send()
+					self.startSceneDependency.showMenuSubject.send()
 				} label: {
 					ImageButton(systemName: "flag.checkered")
 				}
 				.buttonStyle(.plain)
 			}
-			Spacer()
-			Button {
-				self.startSceneDependency.regenerateSubject.send()
-			} label: {
-				ImageButton(systemName: "gobackward")
+			if self.state == .game {
+				Spacer()
+				Button {
+					self.startSceneDependency.regenerateSubject.send()
+				} label: {
+					ImageButton(systemName: "gobackward")
+				}
+				.buttonStyle(.plain)
 			}
-			.buttonStyle(.plain)
 		}
-		.animation(.default, value: self.showFinishButton)
+		.animation(.default, value: self.state)
 		.padding(.horizontal)
 		.clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
     }
@@ -72,7 +75,7 @@ struct ImageButton: View {
 
 @available(iOS 17.0, *)
 #Preview {
-	@Previewable @State var isShowFinishButton = true
+	@Previewable @State var state = StartState.game
 	let startSceneDependency = StartSceneModel()
-	return StartScoreView(startSceneDependency: startSceneDependency, showFinishButton: $isShowFinishButton)
+	return StartScoreView(state: state, startSceneDependency: startSceneDependency)
 }

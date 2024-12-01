@@ -9,9 +9,18 @@ import SwiftUI
 import Combine
 import MFPuzzle
 
+enum StartState {
+	/// Состояние игры. Ввержу 3 кнопки
+	case game
+	/// Состояние меню. Вверху только назад и показано меню.
+	case menu
+	/// Показ решения. Вниду компас. Вверху назад и флаг
+	case solution
+}
+
 final class StartSceneRouter: ObservableObject {
+	@Published var state: StartState = .game
 	@Published var onClose: Bool = false
-	@Published var showVisualizationView = false
 }
 
 final class StartSceneModel: ObservableObject {
@@ -21,12 +30,14 @@ final class StartSceneModel: ObservableObject {
 	let saveSubject = PassthroughSubject<Void, Never>()
 	/// Паблишер для показа решения
 	let showSolution = PassthroughSubject<Bool, Never>()
+	/// Паблишер для показа меню
+	let showMenuSubject = PassthroughSubject<Void, Never>()
 	/// Паблишер для обработки окончания игры и создания новой.
 	let nextLavelSubject = PassthroughSubject<Void, Never>()
 	/// Паблишер для обработки нажатия кнопки начать с начала
 	let regenerateSubject = PassthroughSubject<Void, Never>()
 	/// Паблишер для управления поднятия вью с показом пути
-	let pathSolutionSubject = PassthroughSubject<Bool, Never>()
+	let pathSolutionSubject = PassthroughSubject<StartState, Never>()
 
 	var compasses: [Compass] = []
 	
@@ -52,10 +63,10 @@ struct StartView: View {
             StartSceneWrapper(dependency: self.dependency, startSceneModel: startSceneModel)
 				.equatable() // Отключение обновления сцены
 			VStack {
-				StartScoreView(startSceneDependency: startSceneModel, showFinishButton: $router.showVisualizationView)
+				StartScoreView(state: self.router.state, startSceneDependency: startSceneModel)
 					.padding(.top, 50)
 				Spacer()
-				if self.router.showVisualizationView {
+				if self.router.state == .solution {
 					VisualizationSolutionPathView(startSceneModel: self.startSceneModel)
 						.background(Color.mm_background_tertiary)
 						.transition(.move(edge: .bottom))
@@ -65,7 +76,7 @@ struct StartView: View {
 		}
 		.onReceive(self.startSceneModel.pathSolutionSubject, perform: { isShowPath in
 			withAnimation {
-				self.router.showVisualizationView = isShowPath
+				self.router.state = isShowPath
 			}
 		})
 		.preferredColorScheme(.dark)
