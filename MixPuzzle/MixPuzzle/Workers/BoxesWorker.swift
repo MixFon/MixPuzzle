@@ -16,6 +16,10 @@ protocol _BoxesWorker {
 	/// Центр матрицы
 	var centreMatrix: SCNVector3 { get }
 	
+	/// Удаление кубиков со сцены
+	func deleteAllBoxes()
+	/// Перемещает кубики в новые позиции. Подразумевается, что уже будет новая Grid в
+	func moveNodeToNewPoints()
 	/// Создает матрицу кубиков с позицией, с геометрией и материалом.
 	func createMatrixBox(rootNode: SCNNode)
 	/// Создание анимации тряски кубика.
@@ -42,14 +46,14 @@ protocol _BoxesWorker {
 
 /// Занимается созданием и UI настройкой матрицы элементов. Так же отвечает за пермещение элементов
 final class BoxesWorker: _BoxesWorker {
-	
+
 	var matrix: Matrix {
 		self.grid.matrix
 	}
 	
-	private var boxesNode: [SCNNode]?
 	/// Модель сетки, на основе нее строится отобрадение
 	private var grid: Grid
+	private var boxesNode: [SCNNode]?
     private let lengthEdge: CGFloat = 4
     private let verticalPadding: CGFloat = 0.4
 	/// Длительность анимации передвижения в позицию 0
@@ -81,6 +85,20 @@ final class BoxesWorker: _BoxesWorker {
         self.cubeWorker = cubeWorker
         self.settingsCubeStorate = settingsCubeStorate
     }
+	
+	func deleteAllBoxes() {
+		self.boxesNode?.forEach { $0.removeFromParentNode() }
+		self.boxesNode = nil
+	}
+	
+	func moveNodeToNewPoints() {
+		guard let boxesNode else { return }
+		for node in boxesNode {
+			if let name = node.name, let number = MatrixElement(name), let action = createMoveToNumberAction(number: number) {
+				node.runAction(action)
+			}
+		}
+	}
 
     func createMatrixBox(rootNode: SCNNode) {
 		let boxes = createNodesFormMatrix(matrix: self.grid.matrix)

@@ -12,8 +12,6 @@ protocol _TextNodeWorker {
 	var names: [String] { get }
 	/// Создает анимацю переменуния текста относительно центра
 	func moveMenuTo(position: SCNVector3, rootNode: SCNNode)
-	/// Создает анимацю при удалении текста
-	func deleteMenu() -> SCNAction
 	/// Пренадлежит ли нода к тексту из меню
 	func isTextNode(node: SCNNode) -> Bool
 	func createTextNode(text: String) -> SCNNode
@@ -21,6 +19,8 @@ protocol _TextNodeWorker {
 	/// Устанавливаем в меню в новую позицию
 	func setPositionMenu(position: SCNVector3)
 	func deleteNodesFormParent()
+	/// Создает анимацю при удалении текста
+	func createDeleteAnimationMenu() -> SCNAction
 	/// Создает ноды текта в слуайном месте
 	func createNodesInRandomPosition(rootNode: SCNNode)
 
@@ -93,7 +93,7 @@ final class TextNodeWorker: _TextNodeWorker {
 		}
 	}
 	
-	func deleteMenu() -> SCNAction {
+	func createDeleteAnimationMenu() -> SCNAction {
 		var actions: [SCNAction] = []
 		for node in self.textNodes {
 			let action = createAnimation(to: self.randomPosition, complerion: { node.runAction($0) })
@@ -160,7 +160,7 @@ final class MockTextNodeWorker: _TextNodeWorker {
 		
 	}
 	
-	func deleteMenu() -> SCNAction {
+	func createDeleteAnimationMenu() -> SCNAction {
 		return SCNAction()
 	}
 	

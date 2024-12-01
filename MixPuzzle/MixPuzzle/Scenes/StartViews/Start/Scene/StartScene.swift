@@ -97,18 +97,14 @@ struct StartScene: UIViewRepresentable {
         return self.scnView
     }
 	
-	private func deleteAllBoxes() {
-		let boxes = self.gameWorker.matrix.flatMap( {$0} )
-		for box in boxes {
-			let boxNode = self.scene.rootNode.childNode(withName: String(box), recursively: false)
-			boxNode?.removeFromParentNode()
-		}
-	}
-	
 	private func addBoxes() {
 		self.boxWorker.createMatrixBox(rootNode: self.scene.rootNode)
 	}
 	
+	private func deleteAllBoxes() {
+		self.boxWorker.deleteAllBoxes()
+	}
+
 	private func saveMatrix() {
 		self.gameWorker.saveStatistics()
 		self.gameWorker.saveCompasses()
@@ -134,8 +130,6 @@ struct StartScene: UIViewRepresentable {
 			self.gameWorker.increaseLavel()
 			self.gameWorker.regenerateMatrix()
 			self.boxWorker.updateGrid(grid: Grid(matrix: self.gameWorker.matrix))
-			//expandBoard()
-			//moveNodeToNewPoints()
 			//deleteAsteroids()
 			addBoxes()
 			//createAndConfigureAsteroids()
@@ -153,11 +147,6 @@ struct StartScene: UIViewRepresentable {
 			
 			SCNTransaction.commit()
 
-			//self.textNodeWorker.moveMenuTo(position: self.boxWorker.centreMatrix, rootNode: self.scene.rootNode)
-			
-//			self.cameraNode.runAction(moveAction)
-			
-			//self.scnView.pointOfView?.look(at: self.boxWorker.centreMatrix)
 		}.store(in: &cancellables)
 	}
 	
@@ -166,8 +155,10 @@ struct StartScene: UIViewRepresentable {
 			self.gameWorker.statisticsWorker.increaseRegenerations()
 			self.gameWorker.deleteCompasses()
 			self.gameWorker.regenerateMatrix()
+			
 			self.boxWorker.updateGrid(grid: Grid(matrix: self.gameWorker.matrix))
-			moveNodeToNewPoints()
+			self.boxWorker.moveNodeToNewPoints()
+			
 			self.startSceneModel.pathSolutionSubject.send(false)
 			self.settings.isMoveOn = true
 			removeFinalMenu()
@@ -184,7 +175,7 @@ struct StartScene: UIViewRepresentable {
 				matrix = self.gameWorker.matrix
 			}
 			self.boxWorker.updateGrid(grid: Grid(matrix: matrix))
-			moveNodeToNewPoints()
+			self.boxWorker.moveNodeToNewPoints()
 		}.store(in: &cancellables)
 	}
 	
@@ -213,18 +204,9 @@ struct StartScene: UIViewRepresentable {
 	
 	/// Удаление меню
 	private func removeFinalMenu() {
-		let deleteAction = self.textNodeWorker.deleteMenu()
+		let deleteAction = self.textNodeWorker.createDeleteAnimationMenu()
 		self.scene.rootNode.runAction(deleteAction) {
 			self.textNodeWorker.deleteNodesFormParent()
-		}
-	}
-	
-	/// Перемещает кубики в новые позиции. Подразумевается, что уже будет новая Grid в
-	private func moveNodeToNewPoints() {
-		for node in self.scene.rootNode.childNodes {
-			if let name = node.name, let number = MatrixElement(name), let action = self.boxWorker.createMoveToNumberAction(number: number) {
-				node.runAction(action)
-			}
 		}
 	}
     
@@ -240,31 +222,6 @@ struct StartScene: UIViewRepresentable {
 		self.asteroidWorker.deleteAsteroids()
 	}
 	
-    	
-	/// Добавляем на доску недостоющте элементы
-	private func expandBoard() {
-		let numbers = self.boxWorker.matrix.flatMap( {$0} )
-		let setNumbers = Set(numbers)
-		let childNodes = self.scene.rootNode.childNodes.compactMap( { $0.name } ).compactMap( { MatrixElement($0) } )
-		let setChildNodes = Set(childNodes)
-		let addNodes = setChildNodes.subtracting(setNumbers)
-		let deleteNodes = setNumbers.subtracting(setChildNodes)
-		if numbers.count > childNodes.count {
-			for number in addNodes {
-				if number == 0 { continue }
-				let box = self.boxWorker.createBoxInRandomPlace(number: number)
-				self.scene.rootNode.addChildNode(box)
-			}
-		} else {
-			for number in deleteNodes {
-				if number == 0 { continue }
-				if let deleteNode = self.scene.rootNode.childNode(withName: String(number), recursively: false) {
-					deleteNode.removeFromParentNode()
-				}
-			}
-		}
-	}
-    
     func updateUIView(_ uiView: SCNView, context: Context) {
         // set the scene to the view
         uiView.scene = scene
