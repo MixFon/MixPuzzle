@@ -12,6 +12,7 @@ struct MenuSceneWrapper: View {
 	@Binding var toStart: Bool
 	@Binding var toOprionts: Bool
 	@Binding var toFindSolution: Bool
+	let viewModel: MenuViewModel
 	
 	enum Router: Hashable {
 		case toStart
@@ -21,7 +22,7 @@ struct MenuSceneWrapper: View {
 
     var body: some View {
         // TODO: Перенести в dependency
-        MenuScene(materialsWorker: MaterialsWorker()) { goTo in
+		MenuScene(viewModel: viewModel, materialsWorker: MaterialsWorker()) { goTo in
 			switch goTo {
 			case .toStart:
 				self.toStart = true
@@ -45,5 +46,5 @@ extension MenuSceneWrapper: Equatable {
 	@Previewable @State var toStart: Bool = false
 	@Previewable @State var toOprionts: Bool = false
 	@Previewable @State var toFindSolution: Bool = false
-	return MenuSceneWrapper(toStart: $toStart, toOprionts: $toOprionts, toFindSolution: $toFindSolution)
+	return MenuSceneWrapper(toStart: $toStart, toOprionts: $toOprionts, toFindSolution: $toFindSolution, viewModel: MenuViewModel())
 }

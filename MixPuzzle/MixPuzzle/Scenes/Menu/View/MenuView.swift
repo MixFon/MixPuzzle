@@ -5,11 +5,17 @@
 //  Created by Михаил Фокин on 20.02.2024.
 //
 
+import Combine
 import SwiftUI
 import SceneKit
 import MFPuzzle
 
+final class MenuViewModel: ObservableObject {
+	let floorAnimationSubject = PassthroughSubject<MenuScene.AnimationComand, Never>()
+}
+
 final class MenuViewRouter: ObservableObject {
+	
 	@Published var toStart: Bool = false
 	@Published var toOprionts: Bool = false
 	@Published var toFindSolution: Bool = false
@@ -19,9 +25,10 @@ struct MenuView: View {
     
     let dependency: _Dependency
 	@ObservedObject private var router = MenuViewRouter()
+	@ObservedObject private var viewModel = MenuViewModel()
 	
 	var body: some View {
-		MenuSceneWrapper(toStart: $router.toStart, toOprionts: $router.toOprionts, toFindSolution: $router.toFindSolution)
+		MenuSceneWrapper(toStart: $router.toStart, toOprionts: $router.toOprionts, toFindSolution: $router.toFindSolution, viewModel: self.viewModel)
 			.fullScreenCover(isPresented: self.$router.toStart) {
 				StartView(dependency: self.dependency)
 			}
@@ -30,6 +37,19 @@ struct MenuView: View {
 			}
 			.fullScreenCover(isPresented: self.$router.toFindSolution) {
 				ChooseMethodView(dependency: self.dependency)
+			}
+			.onAppear {
+				self.viewModel.floorAnimationSubject.send(.start)
+			}
+			.onDisappear {
+				self.viewModel.floorAnimationSubject.send(.stop)
+			}
+			.onChange(of: self.router.toStart) { newValue in
+				if newValue {
+					self.viewModel.floorAnimationSubject.send(.stop)
+				} else {
+					self.viewModel.floorAnimationSubject.send(.start)
+				}
 			}
 			.edgesIgnoringSafeArea(.all)
 	}

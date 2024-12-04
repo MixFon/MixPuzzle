@@ -5,23 +5,44 @@
 //  Created by Михаил Фокин on 20.02.2024.
 //
 
+import Combine
 import SwiftUI
 import SceneKit
 import Foundation
 
 struct MenuScene: UIViewRepresentable {
 	
+	let viewModel: MenuViewModel
     let materialsWorker: _MaterialsWorker
     var complition: (MenuSceneWrapper.Router) -> ()
 	
 	private let scene = SCNScene(named: "puzzle.scnassets/menu.scn")
 	private let scnView = SCNView()
+	private var cancellables = Set<AnyCancellable>()
+	
+	private var floorNode: SCNNode? {
+		self.scene?.rootNode.childNodes.first(where: { $0.name == "floor" } )
+	}
+	
+	enum AnimationComand {
+		case stop
+		case start
+	}
+	
+	init(viewModel: MenuViewModel, materialsWorker: _MaterialsWorker, complition: @escaping (MenuSceneWrapper.Router) -> Void) {
+		self.viewModel = viewModel
+		self.materialsWorker = materialsWorker
+		self.complition = complition
+		
+		configureFloorAnimationSubject()
+	}
 	
 	func makeUIView(context: Context) -> SCNView {
 		let tapGesture = UITapGestureRecognizer(target: context.coordinator, action: #selector(context.coordinator.handleTap(_:)))
 		scnView.addGestureRecognizer(tapGesture)
-        if let floor = scene?.rootNode.childNodes.first(where: { $0.name == "floor" } ) {
+		if let floor = self.floorNode {
             setupFloor(floor: floor)
+			//setupMovingAnimationFloor(floor: floor)
         }
 		configureCSNText(nodes: self.scene?.rootNode.childNodes ?? [])
 		return scnView
@@ -50,6 +71,26 @@ struct MenuScene: UIViewRepresentable {
 				node.position = SCNVector3(x: -(width / 1) / 65, y: node.position.y, z: node.position.z)
 			}
 		}
+	}
+	
+	private mutating func configureFloorAnimationSubject() {
+		self.viewModel.floorAnimationSubject.sink { [self] command in
+			switch command {
+			case .stop:
+				self.floorNode?.removeAllActions()
+			case .start:
+				if let floorNode = self.floorNode {
+					setupMovingAnimationFloor(floor: floorNode)
+				}
+			}
+		}.store(in: &self.cancellables)
+	}
+	
+	/// Устанавливаем анимацию движения для пола
+	private func setupMovingAnimationFloor(floor: SCNNode) {
+		let moveLeft = SCNAction.moveBy(x: 0, y: 0, z: 5, duration: 5)
+		let loop = SCNAction.repeatForever(moveLeft) // Зацикливаем
+		floor.runAction(loop) // Запускаем анимацию
 	}
     
 	private func setupFloor(floor: SCNNode) {
