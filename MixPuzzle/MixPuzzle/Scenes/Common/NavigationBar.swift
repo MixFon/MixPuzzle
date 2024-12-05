@@ -63,6 +63,6 @@ struct SaveButtonNavigationBar: View {
 	VStack {
 		NavigationBar(title: "Hello")
 		NavigationBar(title: "Hello", tralingView: AnyView(Text("Hello")))
-        NavigationBar(title: "Hello", tralingView: AnyView(SaveButtonNavigationBar(action: {print("Save")})))
+        NavigationBar(title: "Hello", tralingView: AnyView(SaveButtonNavigationBar(action: {debugPrint("Save")})))
 	}
 }

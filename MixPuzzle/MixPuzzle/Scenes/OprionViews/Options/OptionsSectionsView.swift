@@ -72,7 +72,7 @@ struct SliderCellView: View, Identifiable {
 					.foregroundStyle(Color.mm_text_primary)
 			}
 			Slider(value: $radius, in: range, onEditingChanged: { editing in
-				print(editing)
+				debugPrint(editing)
 			})
 			.accentColor(Color.mm_green) // Изменяем цвет трека
 		}
@@ -224,14 +224,14 @@ struct DividerView: View {
 	@Previewable @State var selectedImage = "TerrazzoSlab028_COL_1K_SPECULAR"
 	return VStack {
 		OptionsSectionsView(title: "Hello", cells: [
-			AnyView(CellView(icon: "plus", text: "Hello", action: { print(1) })),
-			AnyView(CellView(icon: "checkmark", text: "word", action: { print(2) })),
+			AnyView(CellView(icon: "plus", text: "Hello", action: { debugPrint(1) })),
+			AnyView(CellView(icon: "checkmark", text: "word", action: { debugPrint(2) })),
 		])
 		.padding()
 		OptionsSectionsView(title: "Two", cells: [
-			AnyView(CellView(icon: "plus", text: "Hello", action: { print(1) })),
-			AnyView(CellView(icon: "checkmark", text: "word", action: { print(2) })),
-			AnyView(CellView(icon: "checkmark", text: "text text", action: { print(2) })),
+			AnyView(CellView(icon: "plus", text: "Hello", action: { debugPrint(1) })),
+			AnyView(CellView(icon: "checkmark", text: "word", action: { debugPrint(2) })),
+			AnyView(CellView(icon: "checkmark", text: "text text", action: { debugPrint(2) })),
 		])
 		.padding()
 		OptionsSectionsView(title: "Two", cells: [

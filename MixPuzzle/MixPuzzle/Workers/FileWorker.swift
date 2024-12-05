@@ -20,9 +20,9 @@ final class FileWorker: _Keeper {
 		
 		do {
 			try string.write(to: fileURL, atomically: true, encoding: .utf8)
-			print("Строка успешно сохранена в файл: \(fileName)")
+			debugPrint("Строка успешно сохранена в файл: \(fileName)")
 		} catch {
-			print("Ошибка при сохранении строки в файл: \(fileName), \(error)")
+			debugPrint("Ошибка при сохранении строки в файл: \(fileName), \(error)")
 		}
 	}
 	
@@ -34,7 +34,7 @@ final class FileWorker: _Keeper {
 			let string = try String(contentsOf: fileURL, encoding: .utf8)
 			return string
 		} catch {
-			print("Ошибка при чтении строки из файла: \(error.localizedDescription)")
+			debugPrint("Ошибка при чтении строки из файла: \(error.localizedDescription)")
 			return nil
 		}
 	}
@@ -49,7 +49,7 @@ final class FileWorker: _Keeper {
 
 final class MockFileWorker: _Keeper {
 	func saveString(string: String, fileName: String) {
-		print(#function)
+		debugPrint(#function)
 	}
 	
 	func readString(fileName: String) -> String? {

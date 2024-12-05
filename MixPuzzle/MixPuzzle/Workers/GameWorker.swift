@@ -165,7 +165,7 @@ final class GameWorker: _GameWorker {
 		self.matrixSolution = self.matrixWorker.createMatrixSolution(size: size, solution: self.solution)
 		if !checker.checkSolution(matrix: self.matrix, matrixTarget: self.matrixSolution) {
 			self.matrixWorker.changesParityInvariant(matrix: &self.matrix)
-			print(checker.checkSolution(matrix: self.matrix, matrixTarget: self.matrixSolution))
+			debugPrint(checker.checkSolution(matrix: self.matrix, matrixTarget: self.matrixSolution))
 		}
 	}
 	
@@ -313,15 +313,15 @@ final class MockGameWorker: _GameWorker {
 	}
 	
 	func save(matrix: Matrix) {
-		print(#function)
+		debugPrint(#function)
 	}
 	
 	func save(solution: Solution) {
-		print(#function)
+		debugPrint(#function)
 	}
 	
 	func saveStatistics() {
-		print(#function)
+		debugPrint(#function)
 	}
 
 	func checkSolution(matrix: Matrix) -> Bool {
@@ -329,19 +329,19 @@ final class MockGameWorker: _GameWorker {
 	}
 	
 	func updateMatrix() {
-		print(#function)
+		debugPrint(#function)
 	}
 	
 	func updateMatrix(matrix: Matrix) {
-		print(#function)
+		debugPrint(#function)
 	}
 	
 	func regenerateMatrix() {
-		print(#function)
+		debugPrint(#function)
 	}
 	
 	func setCompass(compass: Compass) {
-		print(#function)
+		debugPrint(#function)
 	}
 	
 	func getStatistics() -> [StatisticsDataView] {
@@ -349,7 +349,7 @@ final class MockGameWorker: _GameWorker {
 	}
 	
 	func saveCompasses() {
-		print(#function)
+		debugPrint(#function)
 	}
 	
 	func loadCompasses() -> [Compass] {
@@ -357,11 +357,11 @@ final class MockGameWorker: _GameWorker {
 	}
 	
 	func deleteCompasses() {
-		print(#function)
+		debugPrint(#function)
 	}
 	
 	func increaseLavel() {
-		print(#function)
+		debugPrint(#function)
 	}
 	
 }

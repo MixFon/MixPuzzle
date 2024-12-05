@@ -87,7 +87,7 @@ final class StatisticsWorker: _StatisticsWorker {
 		if let statisticsString = self.decoder.encode(saveStatistics) {
 			self.keeper.saveString(string: statisticsString, fileName: fileName)
 		} else {
-			print("Ошибка кодирования объекта.")
+			debugPrint("Ошибка кодирования объекта.")
 		}
 		clear()
 	}
@@ -117,7 +117,7 @@ final class StatisticsWorker: _StatisticsWorker {
 		if let statisticsString = self.keeper.readString(fileName: fileName) {
 			return self.decoder.decode(Statistics.self, from: statisticsString)
 		} else {
-			print("Ошибка чтения из файла \(fileName)")
+			debugPrint("Ошибка чтения из файла \(fileName)")
 			return nil
 		}
 	}
@@ -125,15 +125,15 @@ final class StatisticsWorker: _StatisticsWorker {
 
 final class MockStatisticsWorker: _StatisticsWorker {
 	func clear() {
-		print(#function)
+		debugPrint(#function)
 	}
 	
 	func increaseWins() {
-		print(#function)
+		debugPrint(#function)
 	}
 	
 	func saveStatistics(name: String, size: Int) {
-		print(#function)
+		debugPrint(#function)
 	}
 	
 	func loadStatistics(name: String, size: Int) -> Statistics? {
@@ -146,14 +146,14 @@ final class MockStatisticsWorker: _StatisticsWorker {
 	}
 	
 	func increaseFailedMoves() {
-		print(#function)
+		debugPrint(#function)
 	}
 	
 	func increaseRegenerations() {
-		print(#function)
+		debugPrint(#function)
 	}
 	
 	func increaseSuccessfulMoves() {
-		print(#function)
+		debugPrint(#function)
 	}
 }

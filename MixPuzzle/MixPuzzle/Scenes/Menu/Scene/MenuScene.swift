@@ -67,7 +67,7 @@ struct MenuScene: UIViewRepresentable {
 				let height = Float(max.y - min.y)
 				let length = Float(max.z - min.z)
 				
-				print("Width: \(width), Height: \(height), Length: \(length)")
+				debugPrint("Width: \(width), Height: \(height), Length: \(length)")
 				node.position = SCNVector3(x: -(width / 1) / 65, y: node.position.y, z: node.position.z)
 			}
 		}
@@ -134,7 +134,7 @@ struct MenuScene: UIViewRepresentable {
 			// Обработка результата нажатия
 			if let hitNode = hitResults.first?.node {
 				// Обнаружен узел, который был касаем
-				print("Node tapped: \(hitNode.name ?? "no name")")
+				debugPrint("Node tapped: \(hitNode.name ?? "no name")")
                 switch hitNode.name {
                 case "start_node":
                     complition(.toStart)
