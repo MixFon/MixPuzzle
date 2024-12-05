@@ -49,6 +49,7 @@
 		29B2ADB92BDAD18A002D11D8 /* SettingsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B2ADB82BDAD18A002D11D8 /* SettingsStorage.swift */; };
 		29B2ADBC2BDB9369002D11D8 /* Dependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B2ADBB2BDB9369002D11D8 /* Dependency.swift */; };
 		29B2ADBF2BDBA415002D11D8 /* Ext+Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B2ADBE2BDBA415002D11D8 /* Ext+Color.swift */; };
+		29B8B3E12D018B8800A3AEF4 /* LongPress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B8B3E02D018B8800A3AEF4 /* LongPress.swift */; };
 		29C162C22B848CC4002E185D /* MixPuzzleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C162C12B848CC4002E185D /* MixPuzzleApp.swift */; };
 		29C162C42B848CC4002E185D /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C162C32B848CC4002E185D /* MenuView.swift */; };
 		29C162C62B848CC5002E185D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 29C162C52B848CC5002E185D /* Assets.xcassets */; };
@@ -110,6 +111,7 @@
 		29B2ADB82BDAD18A002D11D8 /* SettingsStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsStorage.swift; sourceTree = "<group>"; };
 		29B2ADBB2BDB9369002D11D8 /* Dependency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dependency.swift; sourceTree = "<group>"; };
 		29B2ADBE2BDBA415002D11D8 /* Ext+Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ext+Color.swift"; sourceTree = "<group>"; };
+		29B8B3E02D018B8800A3AEF4 /* LongPress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LongPress.swift; sourceTree = "<group>"; };
 		29C162BE2B848CC4002E185D /* MixPuzzle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MixPuzzle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		29C162C12B848CC4002E185D /* MixPuzzleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MixPuzzleApp.swift; sourceTree = "<group>"; };
 		29C162C32B848CC4002E185D /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
@@ -272,6 +274,7 @@
 				290441262C0CC389009A58E2 /* Squeres.swift */,
 				2953EC5D2C15894700EC9834 /* CandyDropView.swift */,
 				29FDAA542C20C03200EFD8DD /* SwiftUIView.swift */,
+				29B8B3E02D018B8800A3AEF4 /* LongPress.swift */,
 			);
 			path = Draft;
 			sourceTree = "<group>";
@@ -583,6 +586,7 @@
 				2956CE762BCED46A00F17C01 /* NavigationBar.swift in Sources */,
 				2944D6DF2BC91166001F1A82 /* BackButtonToolbarItem.swift in Sources */,
 				29C162D22B848D89002E185D /* MenuScene.swift in Sources */,
+				29B8B3E12D018B8800A3AEF4 /* LongPress.swift in Sources */,
 				293C73C32BDFCE0700E183B5 /* SettingsAsteroidsStorage.swift in Sources */,
 				29051C722BE0DDF20064ABF0 /* Snackbar.swift in Sources */,
 				2980BC7B2BED176D00866895 /* SelectLevelView.swift in Sources */,

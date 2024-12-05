@@ -11,6 +11,8 @@ struct StartScoreView: View {
 	
 	var state: StartState
 	let startSceneDependency: StartSceneModel
+	private let generator = UIImpactFeedbackGenerator(style: .light)
+	@State private var feedbackTimer: Timer?
 	@Environment(\.dismiss) var dismiss
 	
     var body: some View {
@@ -49,18 +51,37 @@ struct StartScoreView: View {
 			}
 			if self.state == .game {
 				Spacer()
-				Button {
-					self.startSceneDependency.regenerateSubject.send()
-				} label: {
-					ImageButton(systemName: "gobackward")
-				}
-				.buttonStyle(.plain)
+				ImageButton(systemName: "gobackward")
+					.onLongPressGesture(minimumDuration: 1.5) {
+						print("Long pressed!")
+						self.startSceneDependency.regenerateSubject.send()
+						stopContinuousHapticFeedback()
+					} onPressingChanged: { inProgress in
+						if inProgress {
+							performHapticFeedback()
+						} else {
+							stopContinuousHapticFeedback()
+						}
+					}
 			}
 		}
 		.animation(.default, value: self.state)
 		.padding(.horizontal)
 		.clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
     }
+	
+	private func performHapticFeedback() {
+		guard feedbackTimer == nil else { return }
+		feedbackTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { _ in
+			generator.prepare()
+			generator.impactOccurred()
+		}
+	}
+	
+	private func stopContinuousHapticFeedback() {
+		feedbackTimer?.invalidate()
+		feedbackTimer = nil
+	}
 }
 
 struct ImageButton: View {
