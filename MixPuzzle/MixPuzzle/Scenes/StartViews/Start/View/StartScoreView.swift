@@ -56,7 +56,9 @@ struct StartScoreView: View {
 						print("Long pressed!")
 						self.startSceneDependency.regenerateSubject.send()
 						stopContinuousHapticFeedback()
+						self.startSceneDependency.manageShakeAnimationSubject.send(false)
 					} onPressingChanged: { inProgress in
+						self.startSceneDependency.manageShakeAnimationSubject.send(inProgress)
 						if inProgress {
 							performHapticFeedback()
 						} else {

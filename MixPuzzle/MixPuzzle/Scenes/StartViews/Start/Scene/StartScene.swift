@@ -49,6 +49,7 @@ struct StartScene: UIViewRepresentable {
 		configureRegeneratePublisher()
 		configureShowSolutionPublisher()
 		configureNotificationCenterPublisher()
+		configureManageShakeAnimationPublisher()
 	}
 	
 	private let scene: SCNScene = {
@@ -175,6 +176,16 @@ struct StartScene: UIViewRepresentable {
 			}
 			self.boxWorker.updateGrid(grid: Grid(matrix: matrix))
 			self.boxWorker.moveNodeToNewPoints()
+		}.store(in: &cancellables)
+	}
+	
+	private mutating func configureManageShakeAnimationPublisher() {
+		self.startSceneModel.manageShakeAnimationSubject.sink { [self] bool in
+			if bool {
+				self.boxWorker.runShakeAnimationForAllBoxes()
+			} else {
+				self.boxWorker.stopShakeAnimationForAllBoxes()
+			}
 		}.store(in: &cancellables)
 	}
 	

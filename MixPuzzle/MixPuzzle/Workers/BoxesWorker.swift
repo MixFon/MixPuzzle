@@ -36,6 +36,10 @@ protocol _BoxesWorker {
 	func createMoveToNumberAction(number: MatrixElement) -> SCNAction?
 	/// Создаем собственной анимации перемещения в позицию нода с номером number. Для последовательных перемещений
 	func createCustomMoveToZeroAction(number: MatrixElement, complerion: @escaping (SCNAction) -> Void) -> SCNAction?
+	/// Запускаю анимацию тряски для всехкубиков
+	func runShakeAnimationForAllBoxes()
+	/// Останавливаю анимацию тряски для всехкубиков
+	func stopShakeAnimationForAllBoxes()
 	/// Обновление сетки
 	func updateGrid(grid: Grid)
 	/// Возвращает элемен по компасу, который находится около нуля
@@ -56,6 +60,7 @@ final class BoxesWorker: _BoxesWorker {
 	private var boxesNode: [SCNNode]?
     private let lengthEdge: CGFloat = 4
     private let verticalPadding: CGFloat = 0.4
+	private let keyForGroupAnimation: String = "mix.animation.group"
 	/// Длительность анимации передвижения в позицию 0
 	private let animationDuration: TimeInterval = 0.2
     private let horisontalPadding: CGFloat = 0.2
@@ -193,9 +198,60 @@ final class BoxesWorker: _BoxesWorker {
 		animation.timingFunction = CAMediaTimingFunction(name: .linear)
 		animation.duration = 0.2 // Продолжительность анимации
 		animation.repeatCount = 1 // Количество повторений
-
+		
 		return animation
 	}
+	
+	func runShakeAnimationForAllBoxes() {
+		self.boxesNode?.forEach( {addComplexShakeAnimation(to: $0)} )
+	}
+	
+	func stopShakeAnimationForAllBoxes() {
+		self.boxesNode?.forEach( {$0.removeAnimation(forKey: self.keyForGroupAnimation, blendOutDuration: 0.3)})
+	}
+	
+	private func addComplexShakeAnimation(to node: SCNNode) {
+		// Анимация смещения вдоль осей OX и OY
+		let positionAnimation = CAKeyframeAnimation(keyPath: "position")
+		let originalPosition = node.position
+		
+		let delta = Float.random(in: -0.3...0.3)
+		
+		// Значения для смещения
+		positionAnimation.values = [
+			SCNVector3(originalPosition.x, originalPosition.y, originalPosition.z),
+			SCNVector3(originalPosition.x + delta, originalPosition.y + delta, originalPosition.z),
+			SCNVector3(originalPosition.x - delta, originalPosition.y - delta, originalPosition.z),
+			SCNVector3(originalPosition.x + delta, originalPosition.y - delta, originalPosition.z),
+			SCNVector3(originalPosition.x - delta, originalPosition.y + delta, originalPosition.z),
+			SCNVector3(originalPosition.x, originalPosition.y, originalPosition.z)
+		]
+		positionAnimation.duration = 0.25
+		positionAnimation.repeatCount = 4 // Повторяем анимацию 4 раза
+		
+		let deltaAngle = Float.random(in: 12...18)
+
+		// Анимация вращения вокруг оси Z
+		let rotationAnimation = CAKeyframeAnimation(keyPath: "rotation")
+		rotationAnimation.values = [
+			SCNVector4(0, 0, 1, 0),              // Без вращения
+			SCNVector4(0, 0, 1, Float.pi / deltaAngle),  // Поворот на небольшой угол по часовой стрелке
+			SCNVector4(0, 0, 1, -Float.pi / deltaAngle), // Поворот на небольшой угол против часовой
+			SCNVector4(0, 0, 1, 0)               // Возвращение в исходное положение
+		]
+		rotationAnimation.duration = 0.25
+		rotationAnimation.repeatCount = 4
+		
+		// Группируем анимации
+		let group = CAAnimationGroup()
+		group.animations = [positionAnimation, rotationAnimation]
+		group.duration = 0.5
+		group.repeatCount = Float.infinity
+		
+		// Добавляем анимацию к узлу
+		node.addAnimation(group, forKey: self.keyForGroupAnimation)
+	}
+
 	
 	private func getBoxPoint(i: Int, j: Int) -> Box.Point {
 		let verticalEdge = self.lengthEdge + self.verticalPadding

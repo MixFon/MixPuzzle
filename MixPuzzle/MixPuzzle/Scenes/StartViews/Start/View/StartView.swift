@@ -38,6 +38,8 @@ final class StartSceneModel: ObservableObject {
 	let regenerateSubject = PassthroughSubject<Void, Never>()
 	/// Паблишер для управления поднятия вью с показом пути
 	let pathSolutionSubject = PassthroughSubject<StartState, Never>()
+	/// Паблишер для управления запуском и остановки анимации тряски кубиков
+	let manageShakeAnimationSubject = PassthroughSubject<Bool, Never>()
 
 	var compasses: [Compass] = []
 	
