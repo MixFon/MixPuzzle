@@ -39,7 +39,7 @@ protocol _BoxesWorker {
 	/// Запускаю анимацию тряски для всехкубиков
 	func runShakeAnimationForAllBoxes()
 	/// Останавливаю анимацию тряски для всехкубиков
-	func stopShakeAnimationForAllBoxes()
+	func stopShakeAnimationForAllBoxes(blendOutDuration: CGFloat?)
 	/// Обновление сетки
 	func updateGrid(grid: Grid)
 	/// Возвращает элемен по компасу, который находится около нуля
@@ -206,8 +206,12 @@ final class BoxesWorker: _BoxesWorker {
 		self.boxesNode?.forEach( {addComplexShakeAnimation(to: $0)} )
 	}
 	
-	func stopShakeAnimationForAllBoxes() {
-		self.boxesNode?.forEach( {$0.removeAnimation(forKey: self.keyForGroupAnimation, blendOutDuration: 0.3)})
+	func stopShakeAnimationForAllBoxes(blendOutDuration: CGFloat?) {
+		if let blendOutDuration {
+			self.boxesNode?.forEach( {$0.removeAnimation(forKey: self.keyForGroupAnimation, blendOutDuration: blendOutDuration)})
+		} else {
+			self.boxesNode?.forEach( {$0.removeAnimation(forKey: self.keyForGroupAnimation)})
+		}
 	}
 	
 	private func addComplexShakeAnimation(to node: SCNNode) {
@@ -227,17 +231,17 @@ final class BoxesWorker: _BoxesWorker {
 			SCNVector3(originalPosition.x, originalPosition.y, originalPosition.z)
 		]
 		positionAnimation.duration = 0.25
-		positionAnimation.repeatCount = 4 // Повторяем анимацию 4 раза
+		positionAnimation.repeatCount = 4
 		
 		let deltaAngle = Float.random(in: 12...18)
 
 		// Анимация вращения вокруг оси Z
 		let rotationAnimation = CAKeyframeAnimation(keyPath: "rotation")
 		rotationAnimation.values = [
-			SCNVector4(0, 0, 1, 0),              // Без вращения
-			SCNVector4(0, 0, 1, Float.pi / deltaAngle),  // Поворот на небольшой угол по часовой стрелке
-			SCNVector4(0, 0, 1, -Float.pi / deltaAngle), // Поворот на небольшой угол против часовой
-			SCNVector4(0, 0, 1, 0)               // Возвращение в исходное положение
+			SCNVector4(0, 0, 1, 0),
+			SCNVector4(0, 0, 1, Float.pi / deltaAngle),
+			SCNVector4(0, 0, 1, -Float.pi / deltaAngle),
+			SCNVector4(0, 0, 1, 0)
 		]
 		rotationAnimation.duration = 0.25
 		rotationAnimation.repeatCount = 4

@@ -52,17 +52,17 @@ struct StartScoreView: View {
 			if self.state == .game {
 				Spacer()
 				ImageButton(systemName: "gobackward")
-					.onLongPressGesture(minimumDuration: 1.5) {
-						print("Long pressed!")
-						self.startSceneDependency.regenerateSubject.send()
+					.onLongPressGesture(minimumDuration: 1) {
+						self.startSceneDependency.manageShakeAnimationSubject.send(.stop(blendOutDuration: nil))
 						stopContinuousHapticFeedback()
-						self.startSceneDependency.manageShakeAnimationSubject.send(false)
+						self.startSceneDependency.regenerateSubject.send()
 					} onPressingChanged: { inProgress in
-						self.startSceneDependency.manageShakeAnimationSubject.send(inProgress)
 						if inProgress {
 							performHapticFeedback()
+							self.startSceneDependency.manageShakeAnimationSubject.send(.start)
 						} else {
 							stopContinuousHapticFeedback()
+							self.startSceneDependency.manageShakeAnimationSubject.send(.stop(blendOutDuration: 0.3))
 						}
 					}
 			}

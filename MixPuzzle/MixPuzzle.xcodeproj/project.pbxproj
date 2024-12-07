@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2900FC7C2D04247C009F3C07 /* StartState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2900FC7B2D04247C009F3C07 /* StartState.swift */; };
+		2900FC7E2D042564009F3C07 /* ManageShakeMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2900FC7D2D042564009F3C07 /* ManageShakeMode.swift */; };
 		2901B4D62C1B92D80015E9A3 /* StatisticsWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2901B4D52C1B92D80015E9A3 /* StatisticsWorker.swift */; };
 		2901B4D82C1C1CF50015E9A3 /* Decoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2901B4D72C1C1CF50015E9A3 /* Decoder.swift */; };
 		290441252C0CC224009A58E2 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 290441242C0CC224009A58E2 /* LoadingView.swift */; };
@@ -70,6 +72,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2900FC7B2D04247C009F3C07 /* StartState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartState.swift; sourceTree = "<group>"; };
+		2900FC7D2D042564009F3C07 /* ManageShakeMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageShakeMode.swift; sourceTree = "<group>"; };
 		2901B4D52C1B92D80015E9A3 /* StatisticsWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsWorker.swift; sourceTree = "<group>"; };
 		2901B4D72C1C1CF50015E9A3 /* Decoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Decoder.swift; sourceTree = "<group>"; };
 		290441242C0CC224009A58E2 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
@@ -145,6 +149,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2900FC7A2D042457009F3C07 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				2900FC7B2D04247C009F3C07 /* StartState.swift */,
+				2900FC7D2D042564009F3C07 /* ManageShakeMode.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		290441232C0CC214009A58E2 /* LoadingView */ = {
 			isa = PBXGroup;
 			children = (
@@ -478,6 +491,7 @@
 		29EB775B2B872DF900A494A0 /* Start */ = {
 			isa = PBXGroup;
 			children = (
+				2900FC7A2D042457009F3C07 /* Models */,
 				2979B7122BBFDE25000839D3 /* View */,
 				2979B7112BBFDDB3000839D3 /* Scene */,
 			);
@@ -566,6 +580,7 @@
 			files = (
 				2980BC7E2BED1BE600866895 /* LevelSelectionView.swift in Sources */,
 				29DD46872C1E098E000FF047 /* StatisticsView.swift in Sources */,
+				2900FC7C2D04247C009F3C07 /* StartState.swift in Sources */,
 				29FDAA552C20C03200EFD8DD /* SwiftUIView.swift in Sources */,
 				2980BC702BE7F5D300866895 /* FileWorker.swift in Sources */,
 				2980BC6E2BE7D9E500866895 /* GameWorker.swift in Sources */,
@@ -605,6 +620,7 @@
 				2901B4D62C1B92D80015E9A3 /* StatisticsWorker.swift in Sources */,
 				2944D6EE2BCC4FFD001F1A82 /* CubeWorker.swift in Sources */,
 				29DFDEBE2BC5177F00791434 /* OptionsSectionsView.swift in Sources */,
+				2900FC7E2D042564009F3C07 /* ManageShakeMode.swift in Sources */,
 				291A07F12BC198F8008B4246 /* AsteroidsWorker.swift in Sources */,
 				2949A2612BF791F000043A62 /* TargetSelectionView.swift in Sources */,
 				29051C742BE0E6AB0064ABF0 /* Ext+View.swift in Sources */,

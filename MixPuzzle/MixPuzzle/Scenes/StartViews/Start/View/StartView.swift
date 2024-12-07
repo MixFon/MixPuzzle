@@ -9,15 +9,6 @@ import SwiftUI
 import Combine
 import MFPuzzle
 
-enum StartState {
-	/// Состояние игры. Ввержу 3 кнопки
-	case game
-	/// Состояние меню. Вверху только назад и показано меню.
-	case menu
-	/// Показ решения. Вниду компас. Вверху назад и флаг
-	case solution
-}
-
 final class StartSceneRouter: ObservableObject {
 	@Published var state: StartState = .game
 	@Published var onClose: Bool = false
@@ -39,7 +30,7 @@ final class StartSceneModel: ObservableObject {
 	/// Паблишер для управления поднятия вью с показом пути
 	let pathSolutionSubject = PassthroughSubject<StartState, Never>()
 	/// Паблишер для управления запуском и остановки анимации тряски кубиков
-	let manageShakeAnimationSubject = PassthroughSubject<Bool, Never>()
+	let manageShakeAnimationSubject = PassthroughSubject<ManageShakeMode, Never>()
 
 	var compasses: [Compass] = []
 	

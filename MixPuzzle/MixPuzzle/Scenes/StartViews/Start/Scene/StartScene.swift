@@ -180,11 +180,12 @@ struct StartScene: UIViewRepresentable {
 	}
 	
 	private mutating func configureManageShakeAnimationPublisher() {
-		self.startSceneModel.manageShakeAnimationSubject.sink { [self] bool in
-			if bool {
+		self.startSceneModel.manageShakeAnimationSubject.sink { [self] mode in
+			switch mode {
+			case .start:
 				self.boxWorker.runShakeAnimationForAllBoxes()
-			} else {
-				self.boxWorker.stopShakeAnimationForAllBoxes()
+			case .stop(blendOutDuration: let blendOutDuration):
+				self.boxWorker.stopShakeAnimationForAllBoxes(blendOutDuration: blendOutDuration)
 			}
 		}.store(in: &cancellables)
 	}
