@@ -105,7 +105,9 @@ struct StartScene: UIViewRepresentable {
 	}
 	
 	private mutating func configureSavePublisher() {
-		self.startSceneModel.saveSubject.sink { [self] in
+		self.startSceneModel.prepareCloseSubject.sink { [self] in
+			self.boxWorker.deleteAllBoxes()
+			self.textNodeWorker.deleteNodesFormParent()
 			saveMatrix()
 		}.store(in: &cancellables)
 	}

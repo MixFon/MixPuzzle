@@ -17,8 +17,6 @@ final class StartSceneRouter: ObservableObject {
 final class StartSceneModel: ObservableObject {
 	/// Паблишер отправляющий массив направлений перемещений нуля
 	let pathSubject = PassthroughSubject<[Compass], Never>()
-	/// Паблишер для обработки нажатия кнопки сохранить
-	let saveSubject = PassthroughSubject<Void, Never>()
 	/// Паблишер для показа решения
 	let showSolution = PassthroughSubject<Bool, Never>()
 	/// Паблишер для показа меню
@@ -27,6 +25,8 @@ final class StartSceneModel: ObservableObject {
 	let nextLavelSubject = PassthroughSubject<Void, Never>()
 	/// Паблишер для обработки нажатия кнопки начать с начала
 	let regenerateSubject = PassthroughSubject<Void, Never>()
+	/// Паблишер вызывающий действия перез закрытием экрана
+	let prepareCloseSubject = PassthroughSubject<Void, Never>()
 	/// Паблишер для управления поднятия вью с показом пути
 	let pathSolutionSubject = PassthroughSubject<StartState, Never>()
 	/// Паблишер для управления запуском и остановки анимации тряски кубиков

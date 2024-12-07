@@ -18,7 +18,7 @@ struct StartScoreView: View {
     var body: some View {
 		HStack(spacing: 32) {
 			Button {
-				self.startSceneDependency.saveSubject.send()
+				self.startSceneDependency.prepareCloseSubject.send()
 				self.dismiss()
 			} label: {
 				ImageButton(systemName: "arrow.backward")
