@@ -106,6 +106,7 @@ struct StartScene: UIViewRepresentable {
 	
 	private mutating func configureSavePublisher() {
 		self.startSceneModel.prepareCloseSubject.sink { [self] in
+			self.asteroidWorker.deleteAsteroids()
 			self.boxWorker.deleteAllBoxes()
 			self.textNodeWorker.deleteNodesFormParent()
 			saveMatrix()
@@ -159,7 +160,7 @@ struct StartScene: UIViewRepresentable {
 			self.gameWorker.regenerateMatrix()
 			
 			self.boxWorker.updateGrid(grid: Grid(matrix: self.gameWorker.matrix))
-			self.boxWorker.moveNodeToNewPoints()
+			self.boxWorker.moveNodeToPointsOfGrid()
 			
 			self.startSceneModel.pathSolutionSubject.send(.game)
 			self.settings.isMoveOn = true
@@ -177,7 +178,7 @@ struct StartScene: UIViewRepresentable {
 				matrix = self.gameWorker.matrix
 			}
 			self.boxWorker.updateGrid(grid: Grid(matrix: matrix))
-			self.boxWorker.moveNodeToNewPoints()
+			self.boxWorker.moveNodeToPointsOfGrid()
 		}.store(in: &cancellables)
 	}
 	

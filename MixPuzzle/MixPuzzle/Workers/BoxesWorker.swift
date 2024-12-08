@@ -18,12 +18,12 @@ protocol _BoxesWorker {
 	
 	/// Удаление кубиков со сцены
 	func deleteAllBoxes()
-	/// Перемещает кубики в новые позиции. Подразумевается, что уже будет новая Grid в
-	func moveNodeToNewPoints()
 	/// Создает матрицу кубиков с позицией, с геометрией и материалом.
 	func createMatrixBox(rootNode: SCNNode)
 	/// Создание анимации тряски кубика.
 	func createShakeAnimation(position: SCNVector3) -> CAKeyframeAnimation
+	/// Перемещает кубики в позиции соответствующие Grid. Подразумевается, что уже будет новая Grid в
+	func moveNodeToPointsOfGrid()
 	/// Создает кубик в случайном месте
 	func createBoxInRandomPlace(number: MatrixElement) -> SCNNode
 	/// Опредляет координаты камеры так, чтобы все пазды были видны на экране
@@ -96,7 +96,7 @@ final class BoxesWorker: _BoxesWorker {
 		self.boxesNode = nil
 	}
 	
-	func moveNodeToNewPoints() {
+	func moveNodeToPointsOfGrid() {
 		guard let boxesNode else { return }
 		for node in boxesNode {
 			if let name = node.name, let number = MatrixElement(name), let action = createMoveToNumberAction(number: number) {
@@ -129,7 +129,7 @@ final class BoxesWorker: _BoxesWorker {
 		guard self.grid.isNeighbors(one: number, two: 0) == true else { return nil }
 		guard let pointZero = self.grid.getPoint(number: 0) else { return nil }
 		let boxPointZero = getBoxPoint(i: Int(pointZero.x), j: Int(pointZero.y))
-		// Для векторов SCNVector3 на первом месте тоит Y на втором -X координаты из матрицы
+		// Для векторов SCNVector3 на первом месте стоит Y на втором -X координаты из матрицы
 		let action = SCNAction.move(to: SCNVector3(x: Float(boxPointZero.y), y: Float(-boxPointZero.x), z: 0), duration: self.animationDuration)
 		self.grid.swapNumber(number: number)
 		return action

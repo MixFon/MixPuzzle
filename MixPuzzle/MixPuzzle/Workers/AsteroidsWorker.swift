@@ -63,6 +63,7 @@ final class AsteroidsWorker: _AsteroidsWorker {
 			asteroid.node.removeFromParentNode()
 			asteroid.orbitNode.removeFromParentNode()
 		}
+		self.asteroids = nil
 	}
 	 
 	private func positionWithDelta(position: SCNVector3) -> SCNVector3 {
