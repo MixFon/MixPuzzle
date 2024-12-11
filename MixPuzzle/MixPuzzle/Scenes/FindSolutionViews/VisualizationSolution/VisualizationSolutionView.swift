@@ -43,7 +43,7 @@ struct VisualizationSolutionScoreView: View {
 				self.dismiss()
 				self.onClose.toggle()
 			} label: {
-				ImageButton(systemName: "arrow.backward")
+				SystemImageButton(systemName: "arrow.backward")
 			}
 			.buttonStyle(.plain)
 			Spacer()

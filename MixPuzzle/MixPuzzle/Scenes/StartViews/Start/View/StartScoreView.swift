@@ -21,7 +21,7 @@ struct StartScoreView: View {
 				self.startSceneDependency.prepareCloseSubject.send()
 				self.dismiss()
 			} label: {
-				ImageButton(systemName: "arrow.backward")
+				AssetsImageButton(assetsName: "close")
 			}
 			.buttonStyle(.plain)
 			Spacer()
@@ -29,7 +29,7 @@ struct StartScoreView: View {
 				Button {
 					
 				} label: {
-					ImageButton(systemName: "square.grid.3x3.middle.filled")
+					AssetsImageButton(assetsName: "help")
 				}
 				.onLongPressGesture(
 					perform: {
@@ -45,13 +45,13 @@ struct StartScoreView: View {
 				Button {
 					self.startSceneDependency.showMenuSubject.send()
 				} label: {
-					ImageButton(systemName: "flag.checkered")
+					AssetsImageButton(assetsName: "menu")
 				}
 				.buttonStyle(.plain)
 			}
 			if self.state == .game {
 				Spacer()
-				ImageButton(systemName: "gobackward")
+				AssetsImageButton(assetsName: "updates")
 					.onLongPressGesture(minimumDuration: 1) {
 						self.startSceneDependency.manageShakeAnimationSubject.send(.stop(blendOutDuration: nil))
 						stopContinuousHapticFeedback()
@@ -86,13 +86,21 @@ struct StartScoreView: View {
 	}
 }
 
-struct ImageButton: View {
+struct SystemImageButton: View {
 	let systemName: String
 	var body: some View {
 		Image(systemName: self.systemName)
 			.resizable()
 			.frame(width: 24, height: 24)
 			.foregroundColor(Color.mm_tint_primary)
+	}
+}
+struct AssetsImageButton: View {
+	let assetsName: String
+	var body: some View {
+		Image(self.assetsName)
+			.resizable()
+			.frame(width: 48, height: 48)
 	}
 }
 
