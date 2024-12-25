@@ -22,7 +22,7 @@ protocol _BoxesWorker {
 	func createMatrixBox(rootNode: SCNNode)
 	/// Создание анимации тряски кубика.
 	func createShakeAnimation(position: SCNVector3) -> CAKeyframeAnimation
-	/// Перемещает кубики в позиции соответствующие Grid. Подразумевается, что уже будет новая Grid в
+	/// Перемещает кубики в позиции соответствующие Grid. Подразумевается, что уже будет новая Grid в gameWorker
 	func moveNodeToPointsOfGrid()
 	/// Создает кубик в случайном месте
 	func createBoxInRandomPlace(number: MatrixElement) -> SCNNode
@@ -46,6 +46,8 @@ protocol _BoxesWorker {
 	func getNumber(for compass: Compass) -> MatrixElement?
 	/// Возвращает компас для номера
 	func getCompass(for number: MatrixElement) -> Compass?
+	/// Удаляем все анимации у кубиков
+	func deleteAnimationFromBoxes()
 }
 
 /// Занимается созданием и UI настройкой матрицы элементов. Так же отвечает за пермещение элементов
@@ -60,9 +62,10 @@ final class BoxesWorker: _BoxesWorker {
 	private var boxesNode: [SCNNode]?
     private let lengthEdge: CGFloat = 4
     private let verticalPadding: CGFloat = 0.4
+	/// Ключ для анимации тряски
 	private let keyForGroupAnimation: String = "mix.animation.group"
 	/// Длительность анимации передвижения в позицию 0
-	private let animationDuration: TimeInterval = 0.2
+	private let animationDuration: TimeInterval = 0.3
     private let horisontalPadding: CGFloat = 0.2
 	
 	private let cubeWorker: _CubeWorker
@@ -94,6 +97,10 @@ final class BoxesWorker: _BoxesWorker {
 	func deleteAllBoxes() {
 		self.boxesNode?.forEach { $0.removeFromParentNode() }
 		self.boxesNode = nil
+	}
+	
+	func deleteAnimationFromBoxes() {
+		self.boxesNode?.forEach { $0.removeAllActions() }
 	}
 	
 	func moveNodeToPointsOfGrid() {

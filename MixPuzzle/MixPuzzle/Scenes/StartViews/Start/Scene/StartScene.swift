@@ -50,6 +50,7 @@ struct StartScene: UIViewRepresentable {
 		configureShowSolutionPublisher()
 		configureNotificationCenterPublisher()
 		configureManageShakeAnimationPublisher()
+		configureDeleteAllAnimationFromNodeSubject()
 	}
 	
 	private let scene: SCNScene = {
@@ -127,6 +128,13 @@ struct StartScene: UIViewRepresentable {
 			self.textNodeWorker.moveMenuTo(position: self.boxWorker.centreMatrix, rootNode: self.scene.rootNode)
 			self.startSceneModel.pathSolutionSubject.send(.menu)
 			self.settings.isMoveOn = true
+		}.store(in: &cancellables)
+	}
+	
+	/// Создаем паблишен, который удаляет все анимации у кубиков
+	private mutating func configureDeleteAllAnimationFromNodeSubject() {
+		self.startSceneModel.deleteAllAnimationFromNodeSubject.sink { [self] in
+			self.boxWorker.deleteAnimationFromBoxes()
 		}.store(in: &cancellables)
 	}
 
@@ -207,7 +215,12 @@ struct StartScene: UIViewRepresentable {
 			guard let action = self.boxWorker.createCustomMoveToZeroAction(number: number, complerion: { node.runAction($0) }) else { continue }
 			actions.append(action)
 		}
-		self.scene.rootNode.runAction(SCNAction.sequence(actions))
+		self.startSceneModel.disablePathButtonsViewSubject.send(true)
+		self.scene.rootNode.runAction(SCNAction.sequence(actions)) {
+			Task { @MainActor in
+				self.startSceneModel.disablePathButtonsViewSubject.send(false)
+			}
+		}
 	}
 		
 	/// Удаление меню

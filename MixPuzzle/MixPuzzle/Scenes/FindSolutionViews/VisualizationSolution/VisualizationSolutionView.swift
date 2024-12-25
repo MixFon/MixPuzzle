@@ -55,13 +55,15 @@ struct VisualizationSolutionScoreView: View {
 
 struct VisualizationSolutionPathView: View {
 	@State private var selectedIndex: Int = 0
+	@State private var isDesable: Bool = false
 	let startSceneModel: StartSceneModel
 	
 	var body: some View {
 		HStack {
 			Button {
+				self.startSceneModel.deleteAllAnimationFromNodeSubject.send()
 				let count = self.startSceneModel.compasses.count
-				self.startSceneModel.createRange(currentIndex: selectedIndex, selectedIndex: count - 1)
+				self.startSceneModel.createRange(currentIndex: self.selectedIndex, selectedIndex: count - 1)
 				self.selectedIndex = count - 1
 			} label: {
 				VisualizationSolutionButton(imageName: "forward.fill", isSelected: false)
@@ -69,13 +71,18 @@ struct VisualizationSolutionPathView: View {
 			.buttonStyle(.plain)
 			ScrollPathView(selectedIndex: $selectedIndex, startSceneModel: self.startSceneModel)
 			Button {
-				self.startSceneModel.createRange(currentIndex: selectedIndex, selectedIndex: 0)
+				self.startSceneModel.deleteAllAnimationFromNodeSubject.send()
+				self.startSceneModel.createRange(currentIndex: self.selectedIndex, selectedIndex: 0)
 				self.selectedIndex = 0
 			} label: {
 				VisualizationSolutionButton(imageName: "backward.fill", isSelected: false)
 			}
 			.buttonStyle(.plain)
 		}
+		.onReceive(self.startSceneModel.disablePathButtonsViewSubject, perform: { isDisable in
+			self.isDesable = isDisable
+		})
+		.disabled(isDesable)
 	}
 	
 }
@@ -124,7 +131,6 @@ struct ScrollPathView: View {
 						}
 						.buttonStyle(.plain)
 						.id(index)
-
 					}
 				}
 				.padding(4)

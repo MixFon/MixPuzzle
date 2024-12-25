@@ -13,6 +13,8 @@ protocol _GameWorker {
 	var matrix: Matrix { get }
 	/// Двумерный массив матрицы решения
 	var matrixSolution: Matrix { get }
+	/// Двумерный массив из которого начинается игра
+	var matrixInitiate: Matrix { get }
 	/// Воркер для управления статистикой
 	var statisticsWorker: _StatisticsWorker { get }
 	
@@ -71,6 +73,7 @@ struct MatrixSolution {
 /// Сохранение состояния игры. Получение цели игры
 final class GameWorker: _GameWorker {
 	var matrix: Matrix
+	var matrixInitiate: Matrix
 	var matrixSolution: Matrix
 	var statisticsWorker: _StatisticsWorker
 
@@ -113,6 +116,7 @@ final class GameWorker: _GameWorker {
 		
 		self.matrix = Matrix()
 		self.compasses = []
+		self.matrixInitiate = Matrix()
 		self.matrixSolution = Matrix()
 	}
 	
@@ -140,14 +144,14 @@ final class GameWorker: _GameWorker {
 	}
 	
 	func updateMatrix() {
-		//self.matrix = loadOrCreateMatrix()
-		self.matrix = [
-			[1, 2, 3],
-			[4, 5, 6],
-			[7, 0, 8]
-		]
-		//let size = self.settingsGameStorage.currentLevel
-		let size = 3
+		self.matrix = loadOrCreateMatrix()
+//		self.matrix = [
+//			[1, 2, 3],
+//			[4, 5, 6],
+//			[7, 0, 8]
+//		]
+		let size = self.settingsGameStorage.currentLevel
+//		let size = 3
 		self.matrixSolution = self.matrixWorker.createMatrixSolution(size: size, solution: self.solution)
 		// В случае, если из матрицы нельзя получить ответ, генерируем матрицу заново
 		if !self.checker.checkSolution(matrix: self.matrix, matrixTarget: self.matrixSolution) {
@@ -163,6 +167,7 @@ final class GameWorker: _GameWorker {
 		let size = self.settingsGameStorage.currentLevel
 		self.matrix = self.matrixWorker.createMatrixRandom(size: size)
 		self.matrixSolution = self.matrixWorker.createMatrixSolution(size: size, solution: self.solution)
+		defer { self.matrixInitiate = self.matrix }
 		if !checker.checkSolution(matrix: self.matrix, matrixTarget: self.matrixSolution) {
 			self.matrixWorker.changesParityInvariant(matrix: &self.matrix)
 			debugPrint(checker.checkSolution(matrix: self.matrix, matrixTarget: self.matrixSolution))
@@ -277,6 +282,12 @@ final class MockGameWorker: _GameWorker {
 	var solution: Solution = .classic
 	
 	var matrix: Matrix {
+		[[1, 2, 3],
+		 [4, 5, 6],
+		 [7, 8, 0]]
+	}
+	
+	var matrixInitiate: Matrix {
 		[[1, 2, 3],
 		 [4, 5, 6],
 		 [7, 8, 0]]

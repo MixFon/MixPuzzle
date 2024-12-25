@@ -43,6 +43,7 @@ struct StartScoreView: View {
 			if self.state == .solution {
 				Spacer()
 				Button {
+					self.startSceneDependency.deleteAllAnimationFromNodeSubject.send()
 					self.startSceneDependency.showMenuSubject.send()
 				} label: {
 					AssetsImageButton(assetsName: "menu")

@@ -31,6 +31,10 @@ final class StartSceneModel: ObservableObject {
 	let pathSolutionSubject = PassthroughSubject<StartState, Never>()
 	/// Паблишер для управления запуском и остановки анимации тряски кубиков
 	let manageShakeAnimationSubject = PassthroughSubject<ManageShakeMode, Never>()
+	/// Паблишер делающий неактивным вью с кнопками по показу пути
+	let disablePathButtonsViewSubject = PassthroughSubject<Bool, Never>()
+	/// Паблишер удаляющий все анимации у кубиков
+	let deleteAllAnimationFromNodeSubject = PassthroughSubject<Void, Never>()
 
 	var compasses: [Compass] = []
 	
@@ -64,6 +68,7 @@ struct StartView: View {
 						.background(Color.mm_background_tertiary)
 						.transition(.move(edge: .bottom))
 						.padding(.bottom)
+						.ignoresSafeArea()
 				}
 			}
 		}
