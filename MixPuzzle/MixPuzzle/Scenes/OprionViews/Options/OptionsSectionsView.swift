@@ -162,6 +162,7 @@ struct TexturePicker: View {
         "RoofShinglesOld002",
         "WaterDropletsMixedBubbled001",
         "TilesSquarePoolMixed001",
+		"Lava004_1K-JPG",
         "WoodPlanksWorn001",
         "TilesTravertine001",
     ]

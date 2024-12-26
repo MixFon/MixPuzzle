@@ -31,8 +31,13 @@ struct Dependency: _Dependency {
 			settingsAsteroidsStorage: settingsAsteroidsStorage
 		)
 		
+		let rotationWorker = RotationWorker()
 		let materialsWorker = MaterialsWorker()
-		let asteroidworker = AsteroidsWorker(materialsWorker: materialsWorker, asteroidsStorage: settingsAsteroidsStorage)
+		let asteroidworker = AsteroidsWorker(
+			rotationWorker: rotationWorker,
+			materialsWorker: materialsWorker,
+			asteroidsStorage: settingsAsteroidsStorage
+		)
 		
 		let checker = Checker()
 		let textNodeWorker = TextNodeWorker()
@@ -58,6 +63,7 @@ struct Dependency: _Dependency {
 			cubeWorker: cubeWorker,
 			imageWorker: imageWorker,
 			matrixWorker: matrixWorker,
+			rotationWorker: rotationWorker,
 			textNodeWorker: textNodeWorker,
 			asteroidWorker: asteroidworker,
 			materialsWorker: materialsWorker

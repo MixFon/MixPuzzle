@@ -68,9 +68,9 @@ struct StartView: View {
 						.background(Color.mm_background_tertiary)
 						.transition(.move(edge: .bottom))
 						.padding(.bottom)
-						.ignoresSafeArea()
 				}
 			}
+			.ignoresSafeArea()
 		}
 		.onReceive(self.startSceneModel.pathSolutionSubject, perform: { isShowPath in
 			withAnimation {

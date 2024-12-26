@@ -14,6 +14,7 @@ protocol _Workers {
 	var cubeWorker: _CubeWorker { get }
 	var imageWorker: _ImageWorker { get }
 	var matrixWorker: _MatrixWorker { get }
+	var rotationWorker: _RotationWorker { get }
 	var textNodeWorker: _TextNodeWorker { get }
 	var asteroidWorker: _AsteroidsWorker { get }
 	var materialsWorker: _MaterialsWorker { get }
@@ -26,16 +27,18 @@ final class Workers: _Workers {
 	var cubeWorker: _CubeWorker
 	var imageWorker: _ImageWorker
 	var matrixWorker: _MatrixWorker
+	let rotationWorker: _RotationWorker
 	var textNodeWorker: _TextNodeWorker
 	var asteroidWorker: _AsteroidsWorker
 	var materialsWorker: _MaterialsWorker
 	
-	init(keeper: _Keeper, gameWorker: _GameWorker, cubeWorker: _CubeWorker, imageWorker: _ImageWorker, matrixWorker: _MatrixWorker, textNodeWorker: _TextNodeWorker, asteroidWorker: _AsteroidsWorker, materialsWorker: _MaterialsWorker) {
+	init(keeper: _Keeper, gameWorker: _GameWorker, cubeWorker: _CubeWorker, imageWorker: _ImageWorker, matrixWorker: _MatrixWorker, rotationWorker: _RotationWorker, textNodeWorker: _TextNodeWorker, asteroidWorker: _AsteroidsWorker, materialsWorker: _MaterialsWorker) {
 		self.keeper = keeper
 		self.gameWorker = gameWorker
 		self.cubeWorker = cubeWorker
 		self.imageWorker = imageWorker
 		self.matrixWorker = matrixWorker
+		self.rotationWorker = rotationWorker
 		self.textNodeWorker = textNodeWorker
 		self.asteroidWorker = asteroidWorker
 		self.materialsWorker = materialsWorker
@@ -44,21 +47,23 @@ final class Workers: _Workers {
 }
 
 final class MockWorkers: _Workers {
-	var keeper: _Keeper = MockFileWorker()
+	var keeper: any _Keeper = MockFileWorker()
 	
-	var gameWorker: _GameWorker = MockGameWorker()
+	var gameWorker: any _GameWorker = MockGameWorker()
 	
-	var textNodeWorker: _TextNodeWorker = MockTextNodeWorker()
+	var textNodeWorker: any _TextNodeWorker = MockTextNodeWorker()
 	
-	lazy var cubeWorker: _CubeWorker = CubeWorker(imageWorker: self.imageWorker, materialsWorker: self.materialsWorker)
+	let rotationWorker: any _RotationWorker = MockRotationWorker()
 	
-	var matrixWorker: _MatrixWorker = MockMatrixWorker()
+	lazy var cubeWorker: any _CubeWorker = CubeWorker(imageWorker: self.imageWorker, materialsWorker: self.materialsWorker)
 	
-	var imageWorker: _ImageWorker = ImageWorker()
+	var matrixWorker: any _MatrixWorker = MockMatrixWorker()
 	
-	var asteroidWorker: _AsteroidsWorker = MockAsteroidsWorker()
+	var imageWorker: any _ImageWorker = ImageWorker()
 	
-	var materialsWorker: _MaterialsWorker = MaterialsWorker()
+	var asteroidWorker: any _AsteroidsWorker = MockAsteroidsWorker()
+	
+	var materialsWorker: any _MaterialsWorker = MaterialsWorker()
 }
 
 final class MockMatrixWorker: _MatrixWorker {

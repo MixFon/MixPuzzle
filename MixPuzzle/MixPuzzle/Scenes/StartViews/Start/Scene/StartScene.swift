@@ -16,6 +16,7 @@ struct StartScene: UIViewRepresentable {
 	var settings = Settings()
 	private let boxWorker: _BoxesWorker
 	private var gameWorker: _GameWorker
+	private let rotationWorker: _RotationWorker
 	private let asteroidWorker: _AsteroidsWorker
 	private let textNodeWorker: _TextNodeWorker
 	private let startSceneModel: StartSceneModel
@@ -32,10 +33,11 @@ struct StartScene: UIViewRepresentable {
 		var isUserInteractionEnabled: Bool = true
 	}
 	
-	init(boxWorker: _BoxesWorker, generator: UINotificationFeedbackGenerator?, gameWorker: _GameWorker, asteroidWorker: _AsteroidsWorker, textNodeWorker: _TextNodeWorker, startSceneModel: StartSceneModel, notificationCenter: NotificationCenter? = nil, settingsAsteroidsStorage: _SettingsAsteroidsStorage) {
+	init(boxWorker: _BoxesWorker, generator: UINotificationFeedbackGenerator?, gameWorker: _GameWorker, rotationWorker: _RotationWorker, asteroidWorker: _AsteroidsWorker, textNodeWorker: _TextNodeWorker, startSceneModel: StartSceneModel, notificationCenter: NotificationCenter? = nil, settingsAsteroidsStorage: _SettingsAsteroidsStorage) {
 		self.boxWorker = boxWorker
 		self.generator = generator
 		self.gameWorker = gameWorker
+		self.rotationWorker = rotationWorker
 		self.asteroidWorker = asteroidWorker
 		self.textNodeWorker = textNodeWorker
 		self.startSceneModel = startSceneModel
@@ -73,7 +75,16 @@ struct StartScene: UIViewRepresentable {
 		let lightNode = SCNNode()
 		lightNode.light = SCNLight()
 		lightNode.light?.type = .omni
+		
+		let sphere = SCNSphere(radius: 2)
+		let sphereMaterial = SCNMaterial()
+		sphereMaterial.diffuse.contents = UIColor.white // Цвет шара.
+		sphereMaterial.emission.contents = UIColor.white
+		sphere.materials = [sphereMaterial]
+		lightNode.geometry = sphere
+		
 		lightNode.position = SCNVector3(x: 0, y: 10, z: 10)
+
 		return lightNode
 	}()
 	
@@ -86,9 +97,15 @@ struct StartScene: UIViewRepresentable {
 	}()
     
     func makeUIView(context: Context) -> SCNView {
-		self.scene.rootNode.addChildNode(self.lightNode)
+		//self.scene.rootNode.addChildNode(self.lightNode)
 		self.scene.rootNode.addChildNode(self.cameraNode)
-		self.scene.rootNode.addChildNode(self.ambientLightNode)
+		//self.scene.rootNode.addChildNode(self.ambientLightNode)
+		
+		self.rotationWorker.createRotation(
+			node: self.lightNode,
+			rootNode: self.scene.rootNode,
+			centerOrbit: self.boxWorker.centreMatrix
+		)
 		
 		self.boxWorker.createMatrixBox(rootNode: self.scene.rootNode)
 		createAndConfigureAsteroids()
