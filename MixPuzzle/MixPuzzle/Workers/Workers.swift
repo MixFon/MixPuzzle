@@ -13,6 +13,7 @@ protocol _Workers {
 	var gameWorker: _GameWorker { get }
 	var cubeWorker: _CubeWorker { get }
 	var imageWorker: _ImageWorker { get }
+	var lightsWorker: _LightsWorker { get }
 	var matrixWorker: _MatrixWorker { get }
 	var rotationWorker: _RotationWorker { get }
 	var textNodeWorker: _TextNodeWorker { get }
@@ -22,21 +23,23 @@ protocol _Workers {
 
 
 final class Workers: _Workers {
-	var keeper: _Keeper
-	var gameWorker: _GameWorker
-	var cubeWorker: _CubeWorker
-	var imageWorker: _ImageWorker
-	var matrixWorker: _MatrixWorker
+	let keeper: _Keeper
+	let gameWorker: _GameWorker
+	let cubeWorker: _CubeWorker
+	let imageWorker: _ImageWorker
+	let lightsWorker: _LightsWorker
+	let matrixWorker: _MatrixWorker
 	let rotationWorker: _RotationWorker
-	var textNodeWorker: _TextNodeWorker
-	var asteroidWorker: _AsteroidsWorker
-	var materialsWorker: _MaterialsWorker
+	let textNodeWorker: _TextNodeWorker
+	let asteroidWorker: _AsteroidsWorker
+	let materialsWorker: _MaterialsWorker
 	
-	init(keeper: _Keeper, gameWorker: _GameWorker, cubeWorker: _CubeWorker, imageWorker: _ImageWorker, matrixWorker: _MatrixWorker, rotationWorker: _RotationWorker, textNodeWorker: _TextNodeWorker, asteroidWorker: _AsteroidsWorker, materialsWorker: _MaterialsWorker) {
+	init(keeper: _Keeper, gameWorker: _GameWorker, cubeWorker: _CubeWorker, imageWorker: _ImageWorker, lightsWorker: _LightsWorker, matrixWorker: _MatrixWorker, rotationWorker: _RotationWorker, textNodeWorker: _TextNodeWorker, asteroidWorker: _AsteroidsWorker, materialsWorker: _MaterialsWorker) {
 		self.keeper = keeper
 		self.gameWorker = gameWorker
 		self.cubeWorker = cubeWorker
 		self.imageWorker = imageWorker
+		self.lightsWorker = lightsWorker
 		self.matrixWorker = matrixWorker
 		self.rotationWorker = rotationWorker
 		self.textNodeWorker = textNodeWorker
@@ -47,23 +50,25 @@ final class Workers: _Workers {
 }
 
 final class MockWorkers: _Workers {
-	var keeper: any _Keeper = MockFileWorker()
+	let keeper: any _Keeper = MockFileWorker()
 	
-	var gameWorker: any _GameWorker = MockGameWorker()
+	let gameWorker: any _GameWorker = MockGameWorker()
 	
-	var textNodeWorker: any _TextNodeWorker = MockTextNodeWorker()
+	let textNodeWorker: any _TextNodeWorker = MockTextNodeWorker()
 	
 	let rotationWorker: any _RotationWorker = MockRotationWorker()
 	
 	lazy var cubeWorker: any _CubeWorker = CubeWorker(imageWorker: self.imageWorker, materialsWorker: self.materialsWorker)
 	
-	var matrixWorker: any _MatrixWorker = MockMatrixWorker()
+	let matrixWorker: any _MatrixWorker = MockMatrixWorker()
 	
-	var imageWorker: any _ImageWorker = ImageWorker()
+	let imageWorker: any _ImageWorker = ImageWorker()
 	
-	var asteroidWorker: any _AsteroidsWorker = MockAsteroidsWorker()
+	let lightsWorker: any _LightsWorker = MockLightsWorker()
 	
-	var materialsWorker: any _MaterialsWorker = MaterialsWorker()
+	let asteroidWorker: any _AsteroidsWorker = MockAsteroidsWorker()
+	
+	let materialsWorker: any _MaterialsWorker = MaterialsWorker()
 }
 
 final class MockMatrixWorker: _MatrixWorker {

@@ -16,6 +16,7 @@ struct StartScene: UIViewRepresentable {
 	var settings = Settings()
 	private let boxWorker: _BoxesWorker
 	private var gameWorker: _GameWorker
+	private let lightsWorker: _LightsWorker
 	private let rotationWorker: _RotationWorker
 	private let asteroidWorker: _AsteroidsWorker
 	private let textNodeWorker: _TextNodeWorker
@@ -33,10 +34,11 @@ struct StartScene: UIViewRepresentable {
 		var isUserInteractionEnabled: Bool = true
 	}
 	
-	init(boxWorker: _BoxesWorker, generator: UINotificationFeedbackGenerator?, gameWorker: _GameWorker, rotationWorker: _RotationWorker, asteroidWorker: _AsteroidsWorker, textNodeWorker: _TextNodeWorker, startSceneModel: StartSceneModel, notificationCenter: NotificationCenter? = nil, settingsAsteroidsStorage: _SettingsAsteroidsStorage) {
+	init(boxWorker: _BoxesWorker, generator: UINotificationFeedbackGenerator?, gameWorker: _GameWorker, lightsWorker: _LightsWorker, rotationWorker: _RotationWorker, asteroidWorker: _AsteroidsWorker, textNodeWorker: _TextNodeWorker, startSceneModel: StartSceneModel, notificationCenter: NotificationCenter? = nil, settingsAsteroidsStorage: _SettingsAsteroidsStorage) {
 		self.boxWorker = boxWorker
 		self.generator = generator
 		self.gameWorker = gameWorker
+		self.lightsWorker = lightsWorker
 		self.rotationWorker = rotationWorker
 		self.asteroidWorker = asteroidWorker
 		self.textNodeWorker = textNodeWorker
@@ -70,43 +72,16 @@ struct StartScene: UIViewRepresentable {
 		cameraNode.camera = SCNCamera()
 		return cameraNode
 	}()
-	
-	private let lightNode: SCNNode = {
-		let lightNode = SCNNode()
-		lightNode.light = SCNLight()
-		lightNode.light?.type = .omni
-		
-		let sphere = SCNSphere(radius: 2)
-		let sphereMaterial = SCNMaterial()
-		sphereMaterial.diffuse.contents = UIColor.white // Цвет шара.
-		sphereMaterial.emission.contents = UIColor.white
-		sphere.materials = [sphereMaterial]
-		lightNode.geometry = sphere
-		
-		lightNode.position = SCNVector3(x: 0, y: 10, z: 10)
-
-		return lightNode
-	}()
-	
-	private let ambientLightNode: SCNNode = {
-		let ambientLightNode = SCNNode()
-		ambientLightNode.light = SCNLight()
-		ambientLightNode.light?.type = .ambient
-		ambientLightNode.light?.color = UIColor.darkGray.cgColor
-		return ambientLightNode
-	}()
     
     func makeUIView(context: Context) -> SCNView {
-		//self.scene.rootNode.addChildNode(self.lightNode)
 		self.scene.rootNode.addChildNode(self.cameraNode)
-		//self.scene.rootNode.addChildNode(self.ambientLightNode)
 		
-		self.rotationWorker.createRotation(
-			node: self.lightNode,
-			rootNode: self.scene.rootNode,
-			centerOrbit: self.boxWorker.centreMatrix
+		self.lightsWorker.setupLights(
+			center: self.boxWorker.centreMatrix,
+			radius: self.boxWorker.radiusMatrix,
+			rootNode: self.scene.rootNode
 		)
-		
+
 		self.boxWorker.createMatrixBox(rootNode: self.scene.rootNode)
 		createAndConfigureAsteroids()
 		self.cameraNode.position = self.boxWorker.calculateCameraPosition()
