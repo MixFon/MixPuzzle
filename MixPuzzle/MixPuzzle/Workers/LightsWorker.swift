@@ -40,12 +40,12 @@ final class LightsWorker: _LightsWorker {
 	private lazy var sunNode: SCNNode = {
 		let sunNode = SCNNode()
 		sunNode.light = SCNLight()
-		sunNode.light?.type = .directional
+		sunNode.light?.type = .omni
 		
 		let sphere = SCNSphere(radius: CGFloat(self.radiusSunNode))
 		let sphereMaterial = SCNMaterial()
 		sphereMaterial.diffuse.contents = UIColor.white
-		sphereMaterial.emission.contents = UIColor.yellow
+		sphereMaterial.emission.contents = UIColor.white
 		sphere.materials = [sphereMaterial]
 		sunNode.geometry = sphere
 		
@@ -87,14 +87,14 @@ final class LightsWorker: _LightsWorker {
 	/// - node: устанавливаемый узел
 	/// - radius: радиус сферы на которой нужно назместить node
 	private func setPositionToRadiusMatrix(node: SCNNode, radius: Float) {
-		let x = Float.random(in: -radius...radius)
-		let x2 = x * x
-		let r2 = radius * radius
-		let y = sqrt(r2 - x2) * (Bool.random() ? 1 : -1)
-		var z = sqrt(r2 - x2 - y * y) * (Bool.random() ? 1 : -1)
-		if z.isNaN {
-			z = 0
-		}
+		// Генерация случайных углов
+		let theta = Float.random(in: 0...2 * Float.pi) // Азимутальный угол (0 до 2π)
+		let phi = acos(2 * Float.random(in: 0...1) - 1) // Полярный угол (0 до π)
+		
+		// Перевод сферических координат в декартовы
+		let x = radius * sin(phi) * cos(theta)
+		let y = radius * sin(phi) * sin(theta)
+		let z = radius * cos(phi)
 		node.position = SCNVector3(x: x, y: y, z: z)
 	}
 }
