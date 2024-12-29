@@ -49,6 +49,13 @@ struct ManualFillingView: View {
 				VStack(spacing: 8){
 					SelectSizePicker(selectedSize: $selectedSolution, numbersSize: possibleSolution)
 					SelectSizePicker(selectedSize: $selectedSize, numbersSize: numbersSize)
+					Button {
+						regenerateMatrix()
+					} label: {
+						Image("restart")
+							.resizable()
+							.frame(width: 64, height: 64)
+					}
 				}
 				FillingMatrixView(matrix: $matrix)
 					.padding()
@@ -66,6 +73,26 @@ struct ManualFillingView: View {
 			LoadingView(matrix: fillingMatrix, dependency: dependency, matrixTarger: matrixSolution)
 		}
 		.background(Color.mm_background_secondary)
+	}
+	
+	private func regenerateMatrix() {
+		var randomMatrix = self.dependency.workers.matrixWorker.createMatrixRandom(size: self.selectedSize)
+		let matrixSolution = self.dependency.workers.matrixWorker.createMatrixSolution(size: self.selectedSize, solution: self.selectedSolution)
+		if !self.dependency.checker.checkSolution(matrix: randomMatrix, matrixTarget: matrixSolution) {
+			self.dependency.workers.matrixWorker.changesParityInvariant(matrix: &randomMatrix)
+		}
+		self.matrix = convertMatrixToString(matrix: randomMatrix)
+		updateMatrix(size: self.matrix.count)
+	}
+	
+	private func convertMatrixToString(matrix: Matrix) -> [[String]] {
+		var newMatrix = Array(repeating: Array(repeating: "", count: matrix.count), count: matrix.count)
+		for (i, zipElem) in zip(newMatrix, matrix).enumerated() {
+			for (j, elem) in zip(zipElem.0, zipElem.1).enumerated() {
+				newMatrix[i][j] = String(elem.1)
+			}
+		}
+		return newMatrix
 	}
 
 	private func updateMatrix(size: Int) {
