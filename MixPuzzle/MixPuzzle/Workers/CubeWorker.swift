@@ -61,7 +61,7 @@ struct ConfigurationTexture {
 
 struct ConfigurationCube {
     let texture: ConfigurationTexture
-    let lengthEdge: CGFloat
+    let lengthEdge: Float
     let radiusChamfer: Double
 }
 
@@ -79,7 +79,7 @@ final class CubeWorker: _CubeWorker {
     func getCube(configurationCube: ConfigurationCube, configurationImage: ConfigurationImage) -> SCNNode {
         let boxNode = SCNNode()
         let lengthEdge = configurationCube.lengthEdge
-        boxNode.geometry = SCNBox(width: lengthEdge, height: lengthEdge, length: lengthEdge, chamferRadius: configurationCube.radiusChamfer)
+		boxNode.geometry = SCNBox(width: CGFloat(lengthEdge), height: CGFloat(lengthEdge), length: CGFloat(lengthEdge), chamferRadius: configurationCube.radiusChamfer)
         
         //let im = UIImage(systemName: "\(box.number).circle.fill")
         let image = self.imageWorker.imageWith(configuration: configurationImage)

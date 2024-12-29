@@ -13,6 +13,8 @@ protocol _BoxesWorker {
 	
 	/// Матрица элементов. Двумерный массив
 	var matrix: Matrix { get }
+	/// Радиус окружности описанной около матрицы
+	var radiusMatrix: Float { get }
 	/// Центр матрицы
 	var centreMatrix: SCNVector3 { get }
 	
@@ -28,7 +30,7 @@ protocol _BoxesWorker {
 	func createBoxInRandomPlace(number: MatrixElement) -> SCNNode
 	/// Опредляет координаты камеры так, чтобы все пазды были видны на экране
 	func calculateCameraPosition() -> SCNVector3
-	/// Создание анимации перемещения на узла на пустое место (на место нуля)
+	/// Создание анимации перемещения узла на пустое место (на место нуля)
 	func createMoveToZeroAction(number: MatrixElement) -> SCNAction?
 	/// Создание анимации перемещения на узла на пустое место (на место нуля) по компасу
 	func createMoveToZeroAction(compass: Compass) -> SCNAction?
@@ -60,31 +62,41 @@ final class BoxesWorker: _BoxesWorker {
 	/// Модель сетки, на основе нее строится отобрадение
 	private var grid: Grid
 	private var boxesNode: [SCNNode]?
-    private let lengthEdge: CGFloat = 4
-    private let verticalPadding: CGFloat = 0.4
+    private let lengthEdge: Float = 4
+    private let verticalPadding: Float = 0.4
 	/// Ключ для анимации тряски
 	private let keyForGroupAnimation: String = "mix.animation.group"
 	/// Длительность анимации передвижения в позицию 0
 	private let animationDuration: TimeInterval = 0.3
-    private let horisontalPadding: CGFloat = 0.2
+    private let horisontalPadding: Float = 0.2
 	
 	private let cubeWorker: _CubeWorker
     private let settingsCubeStorate: _SettingsCubeStorage
+	
+	private var widthMatrix: Float {
+		Float(self.grid.size) * (self.lengthEdge + self.horisontalPadding) - self.horisontalPadding - self.lengthEdge
+	}
+	
+	private var heightMatrix: Float {
+		Float(self.grid.size) * (self.lengthEdge + self.verticalPadding) - self.verticalPadding - self.lengthEdge
+	}
 		
 	var centreMatrix: SCNVector3 {
-		let centreX = CGFloat(self.grid.size) * (self.lengthEdge + self.horisontalPadding) - self.horisontalPadding - self.lengthEdge
-		let centreY = CGFloat(self.grid.size) * (self.lengthEdge + self.verticalPadding) - self.verticalPadding - self.lengthEdge
-		return SCNVector3(x: Float(centreX / 2), y: Float(-centreY / 2), z: 0)
+		return SCNVector3(x: self.widthMatrix / 2.0, y: -self.heightMatrix / 2.0, z: 0)
+	}
+	
+	var radiusMatrix: Float {
+		return sqrt(self.widthMatrix * self.widthMatrix + self.heightMatrix * self.heightMatrix) / 2.0
 	}
     
     struct Box {
 		let point: Point
         let number: Int
-        let lengthEdge: CGFloat
+        let lengthEdge: Float
 		
 		struct Point {
-			let x: CGFloat
-			let y: CGFloat
+			let x: Float
+			let y: Float
 		}
     }
     
@@ -128,7 +140,7 @@ final class BoxesWorker: _BoxesWorker {
     
     func calculateCameraPosition() -> SCNVector3 {
 		let centre = self.centreMatrix
-		let height = CGFloat(self.grid.size) * (self.lengthEdge + self.horisontalPadding) + CGFloat(self.grid.size) * self.lengthEdge
+		let height = Float(self.grid.size) * (self.lengthEdge + self.horisontalPadding) + Float(self.grid.size) * self.lengthEdge
 		return SCNVector3(x: centre.x, y: centre.y, z: Float(height))
     }
 	
@@ -147,9 +159,9 @@ final class BoxesWorker: _BoxesWorker {
 		guard let pointZero = self.grid.getPoint(number: 0) else { return nil }
 		let boxPointZero = getBoxPoint(i: Int(pointZero.x), j: Int(pointZero.y))
 		// Для векторов SCNVector3 на первом месте тоит Y на втором -X координаты из матрицы
-		let customAction = SCNAction.customAction(duration: self.animationDuration, action: { [weak self] (_, _) in
-			guard let self else { return }
-			let action = SCNAction.move(to: SCNVector3(x: Float(boxPointZero.y), y: Float(-boxPointZero.x), z: 0), duration: self.animationDuration)
+		// Длительность customAction должна быть больше чем длительность action. Это нужно чтобы кубики не наслаивались друг на друга
+		let customAction = SCNAction.customAction(duration: 0.2, action: { (_, _) in
+			let action = SCNAction.move(to: SCNVector3(x: Float(boxPointZero.y), y: Float(-boxPointZero.x), z: 0), duration: 0.1)
 			complerion(action)
 		})
 		self.grid.swapNumber(number: number)
@@ -268,8 +280,8 @@ final class BoxesWorker: _BoxesWorker {
 		let verticalEdge = self.lengthEdge + self.verticalPadding
 		let horisontalEdge = self.lengthEdge + self.horisontalPadding
 		let point = Box.Point(
-			x: CGFloat(i) * verticalEdge,
-			y: CGFloat(j) * horisontalEdge
+			x: Float(i) * verticalEdge,
+			y: Float(j) * horisontalEdge
 		)
 		return point
 	}
