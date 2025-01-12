@@ -36,7 +36,7 @@ struct MenuView: View {
 				OptionsView(dependency: self.dependency)
 			}
 			.fullScreenCover(isPresented: self.$router.toFindSolution) {
-				ChooseMethodView(dependency: self.dependency)
+				ManualFillingView(dependency: self.dependency)
 			}
 			.onAppear {
 				self.viewModel.floorAnimationSubject.send(.start)

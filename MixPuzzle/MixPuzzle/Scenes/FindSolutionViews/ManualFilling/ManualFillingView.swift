@@ -17,11 +17,10 @@ struct ManualFillingView: View {
 	private let numbersSize = Array(3...5)
 	private let possibleSolution: [Solution] = Solution.allCases
 	
-	//@State private var matrix: [[String]] = Array(repeating: Array(repeating: "", count: 3), count: 3)
 	@State private var matrix: [[String]] = [
-	["1", "3", "5"],
-	["2", "4", "6"],
-	["8", "7", ""],
+		["1", "3", "5"],
+		["2", "4", "6"],
+		["8", "7", ""],
 	]
 	@State private var selectedSize = 3
 	@State private var selectedSolution: Solution = .classic
@@ -46,13 +45,13 @@ struct ManualFillingView: View {
 			))
 			.padding()
 			ScrollView {
-				VStack(spacing: 8){
+				VStack(spacing: 8) {
 					SelectSizePicker(selectedSize: $selectedSolution, numbersSize: possibleSolution)
 					SelectSizePicker(selectedSize: $selectedSize, numbersSize: numbersSize)
 					Button {
 						regenerateMatrix()
 					} label: {
-						Image("restart")
+						Image.mix_icon_restart
 							.resizable()
 							.frame(width: 64, height: 64)
 					}
