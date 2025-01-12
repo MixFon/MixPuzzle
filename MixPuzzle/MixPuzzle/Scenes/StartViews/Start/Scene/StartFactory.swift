@@ -30,14 +30,14 @@ final class StartFactory {
 			asteroidWorker: dependency.workers.asteroidWorker,
 			textNodeWorker: dependency.workers.textNodeWorker,
 			startSceneModel: startSceneModel,
-			notificationCenter: NotificationCenter.default,
-			settingsAsteroidsStorage: dependency.settingsStorages.settingsAsteroidsStorage
+			notificationCenter: NotificationCenter.default
 		)
+		startScene.settings.isShowAsteroids = dependency.settingsStorages.settingsAsteroidsStorage.isShowAsteroids
 		return startScene
 	}
 	
-	/// Создает сцену по матрице, сцена не будет реагировать на жесты
-	func configure(matrix: Matrix, dependency: _Dependency, startSceneModel: StartSceneModel) -> some View {
+	/// Создает сцену по матрице, только для отображения, тут небудет реакции на движения, текста и игры
+	func configure(matrix: Matrix, dependency: _Dependency) -> some View {
 		let grid = Grid(matrix: matrix)
 		let boxWorker = BoxesWorker(
 			grid: grid,
@@ -47,13 +47,12 @@ final class StartFactory {
 		let startScene = StartScene(
 			boxWorker: boxWorker,
 			generator: nil,
-			gameWorker: dependency.workers.gameWorker,
-			lightsWorker: dependency.workers.lightsWorker,
+			gameWorker: MockGameWorker(),
+			lightsWorker: LightsWorker(rotationWorker: dependency.workers.rotationWorker),
 			rotationWorker: dependency.workers.rotationWorker,
 			asteroidWorker: dependency.workers.asteroidWorker,
-			textNodeWorker: dependency.workers.textNodeWorker,
-			startSceneModel: startSceneModel,
-			settingsAsteroidsStorage: dependency.settingsStorages.settingsAsteroidsStorage
+			textNodeWorker: MockTextNodeWorker(),
+			startSceneModel: nil
 		)
 		startScene.settings.isUserInteractionEnabled = false
 		return startScene
@@ -75,10 +74,10 @@ final class StartFactory {
 			rotationWorker: dependency.workers.rotationWorker,
 			asteroidWorker: dependency.workers.asteroidWorker,
 			textNodeWorker: dependency.workers.textNodeWorker,
-			startSceneModel: startSceneModel,
-			settingsAsteroidsStorage: dependency.settingsStorages.settingsAsteroidsStorage
+			startSceneModel: startSceneModel
 		)
 		startScene.settings.isMoveOn = false
+		startScene.settings.isShowAsteroids = dependency.settingsStorages.settingsAsteroidsStorage.isShowAsteroids
 		return startScene
 	}
 }

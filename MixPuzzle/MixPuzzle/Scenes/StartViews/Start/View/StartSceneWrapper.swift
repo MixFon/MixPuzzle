@@ -31,12 +31,11 @@ extension StartSceneWrapper: Equatable {
 struct TargetSelectSceneWrapper: View {
 	let matrix: Matrix
 	let dependency: _Dependency
-	let startSceneModel: StartSceneModel = StartSceneModel()
 	
 	private let startFactory = StartFactory()
 	
 	var body: some View {
-		self.startFactory.configure(matrix: self.matrix, dependency: self.dependency, startSceneModel: self.startSceneModel)
+		self.startFactory.configure(matrix: self.matrix, dependency: self.dependency)
 	}
 }
 

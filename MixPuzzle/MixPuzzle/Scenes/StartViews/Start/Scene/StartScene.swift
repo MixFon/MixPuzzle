@@ -20,9 +20,8 @@ struct StartScene: UIViewRepresentable {
 	private let rotationWorker: _RotationWorker
 	private let asteroidWorker: _AsteroidsWorker
 	private let textNodeWorker: _TextNodeWorker
-	private let startSceneModel: StartSceneModel
+	private let startSceneModel: StartSceneModel?
 	private var notificationCenter: NotificationCenter?
-    private let settingsAsteroidsStorage: _SettingsAsteroidsStorage
 	
 	private var cancellables = Set<AnyCancellable>()
 	
@@ -30,11 +29,12 @@ struct StartScene: UIViewRepresentable {
 	
 	final class Settings {
 		var isMoveOn = true
+		var isShowAsteroids = true
 		var allowsCameraControl: Bool = true
 		var isUserInteractionEnabled: Bool = true
 	}
 	
-	init(boxWorker: _BoxesWorker, generator: UINotificationFeedbackGenerator?, gameWorker: _GameWorker, lightsWorker: _LightsWorker, rotationWorker: _RotationWorker, asteroidWorker: _AsteroidsWorker, textNodeWorker: _TextNodeWorker, startSceneModel: StartSceneModel, notificationCenter: NotificationCenter? = nil, settingsAsteroidsStorage: _SettingsAsteroidsStorage) {
+	init(boxWorker: _BoxesWorker, generator: UINotificationFeedbackGenerator?, gameWorker: _GameWorker, lightsWorker: _LightsWorker, rotationWorker: _RotationWorker, asteroidWorker: _AsteroidsWorker, textNodeWorker: _TextNodeWorker, startSceneModel: StartSceneModel?, notificationCenter: NotificationCenter? = nil) {
 		self.boxWorker = boxWorker
 		self.generator = generator
 		self.gameWorker = gameWorker
@@ -44,7 +44,6 @@ struct StartScene: UIViewRepresentable {
 		self.textNodeWorker = textNodeWorker
 		self.startSceneModel = startSceneModel
 		self.notificationCenter = notificationCenter
-		self.settingsAsteroidsStorage = settingsAsteroidsStorage
 		
 		configureSavePublisher()
 		configureFinishPublisher()
@@ -76,6 +75,7 @@ struct StartScene: UIViewRepresentable {
     func makeUIView(context: Context) -> SCNView {
 		self.scene.rootNode.addChildNode(self.cameraNode)
 		
+		debugPrint(#function)
 		self.lightsWorker.setupLights(
 			center: self.boxWorker.centreMatrix,
 			radius: self.boxWorker.radiusMatrix,
@@ -98,7 +98,7 @@ struct StartScene: UIViewRepresentable {
 	}
 	
 	private mutating func configureSavePublisher() {
-		self.startSceneModel.prepareCloseSubject.sink { [self] in
+		self.startSceneModel?.prepareCloseSubject.sink { [self] in
 			self.asteroidWorker.deleteAsteroids()
 			self.boxWorker.deleteAllBoxes()
 			self.textNodeWorker.deleteNodesFormParent()
@@ -115,23 +115,23 @@ struct StartScene: UIViewRepresentable {
 	
 	/// Создаем паблишен, который будет показывать меню
 	private mutating func configureShowMenuPublisher() {
-		self.startSceneModel.showMenuSubject.sink { [self] in
+		self.startSceneModel?.showMenuSubject.sink { [self] in
 			self.textNodeWorker.createNodesInRandomPosition(rootNode: self.scene.rootNode)
 			self.textNodeWorker.moveMenuTo(position: self.boxWorker.centreMatrix, rootNode: self.scene.rootNode)
-			self.startSceneModel.pathSolutionSubject.send(.menu)
+			self.startSceneModel?.pathSolutionSubject.send(.menu)
 			self.settings.isMoveOn = true
 		}.store(in: &cancellables)
 	}
 	
 	/// Создаем паблишен, который удаляет все анимации у кубиков
 	private mutating func configureDeleteAllAnimationFromNodeSubject() {
-		self.startSceneModel.deleteAllAnimationFromNodeSubject.sink { [self] in
+		self.startSceneModel?.deleteAllAnimationFromNodeSubject.sink { [self] in
 			self.boxWorker.deleteAnimationFromBoxes()
 		}.store(in: &cancellables)
 	}
 
 	private mutating func configureFinishPublisher() {
-		self.startSceneModel.nextLavelSubject.sink { [self] in
+		self.startSceneModel?.nextLavelSubject.sink { [self] in
 			self.boxWorker.deleteAllBoxes()
 			self.gameWorker.increaseLavel()
 			self.gameWorker.regenerateMatrix()
@@ -139,7 +139,7 @@ struct StartScene: UIViewRepresentable {
 			self.boxWorker.createMatrixBox(rootNode: self.scene.rootNode)
 			
 			self.settings.isMoveOn = true
-			self.startSceneModel.pathSolutionSubject.send(.game)
+			self.startSceneModel?.pathSolutionSubject.send(.game)
 			
 			SCNTransaction.begin()
 			SCNTransaction.animationDuration = 1.0 // продолжительность анимации
@@ -154,7 +154,7 @@ struct StartScene: UIViewRepresentable {
 	}
 	
 	private mutating func configureRegeneratePublisher() {
-		self.startSceneModel.regenerateSubject.sink { [self] in
+		self.startSceneModel?.regenerateSubject.sink { [self] in
 			self.gameWorker.statisticsWorker.increaseRegenerations()
 			self.gameWorker.deleteCompasses()
 			self.gameWorker.regenerateMatrix()
@@ -162,14 +162,14 @@ struct StartScene: UIViewRepresentable {
 			self.boxWorker.updateGrid(grid: Grid(matrix: self.gameWorker.matrix))
 			self.boxWorker.moveNodeToPointsOfGrid()
 			
-			self.startSceneModel.pathSolutionSubject.send(.game)
+			self.startSceneModel?.pathSolutionSubject.send(.game)
 			self.settings.isMoveOn = true
 			removeFinalMenu()
 		}.store(in: &cancellables)
 	}
 	
 	private mutating func configureShowSolutionPublisher() {
-		self.startSceneModel.showSolution.sink { [self] bool in
+		self.startSceneModel?.showSolution.sink { [self] bool in
 			let matrix: Matrix
 			if bool {
 				self.gameWorker.updateMatrix(matrix: self.boxWorker.matrix)
@@ -183,7 +183,7 @@ struct StartScene: UIViewRepresentable {
 	}
 	
 	private mutating func configureManageShakeAnimationPublisher() {
-		self.startSceneModel.manageShakeAnimationSubject.sink { [self] mode in
+		self.startSceneModel?.manageShakeAnimationSubject.sink { [self] mode in
 			switch mode {
 			case .start:
 				self.boxWorker.runShakeAnimationForAllBoxes()
@@ -194,7 +194,7 @@ struct StartScene: UIViewRepresentable {
 	}
 	
 	private mutating func configureShowPathCompasses() {
-		self.startSceneModel.pathSubject.sink { [self] compasses in
+		self.startSceneModel?.pathSubject.sink { [self] compasses in
 			createPathCompassesAnamations(compasses: compasses)
 		}.store(in: &cancellables)
 	}
@@ -207,10 +207,10 @@ struct StartScene: UIViewRepresentable {
 			guard let action = self.boxWorker.createCustomMoveToZeroAction(number: number, complerion: { node.runAction($0) }) else { continue }
 			actions.append(action)
 		}
-		self.startSceneModel.disablePathButtonsViewSubject.send(true)
+		self.startSceneModel?.disablePathButtonsViewSubject.send(true)
 		self.scene.rootNode.runAction(SCNAction.sequence(actions)) {
 			Task { @MainActor in
-				self.startSceneModel.disablePathButtonsViewSubject.send(false)
+				self.startSceneModel?.disablePathButtonsViewSubject.send(false)
 			}
 		}
 	}
@@ -225,7 +225,7 @@ struct StartScene: UIViewRepresentable {
     
     /// Создание и конфигурация астероидойдов
     private func createAndConfigureAsteroids() {
-		guard self.settingsAsteroidsStorage.isShowAsteroids else { return }
+		guard self.settings.isShowAsteroids else { return }
         let centerMatrix = self.boxWorker.centreMatrix
 		self.asteroidWorker.createAsteroids(rootNode: self.scene.rootNode, centerOrbit: centerMatrix)
     }
@@ -291,9 +291,9 @@ struct StartScene: UIViewRepresentable {
 		guard let hitName = hitNode.name, let textMenu = FinalMenuText(rawValue: hitName) else { return }
 		switch textMenu {
 		case .next:
-			self.startSceneModel.nextLavelSubject.send()
+			self.startSceneModel?.nextLavelSubject.send()
 		case .retry:
-			self.startSceneModel.regenerateSubject.send()
+			self.startSceneModel?.regenerateSubject.send()
 		}
 	}
 	
@@ -303,9 +303,9 @@ struct StartScene: UIViewRepresentable {
 			self.gameWorker.saveStatistics()
 			self.gameWorker.saveCompasses()
 			let compasses = self.gameWorker.loadCompasses()
-			self.startSceneModel.compasses = compasses.reversed()
-			self.startSceneModel.compasses.append(.needle)
-			self.startSceneModel.pathSolutionSubject.send(.solution)
+			self.startSceneModel?.compasses = compasses.reversed()
+			self.startSceneModel?.compasses.append(.needle)
+			self.startSceneModel?.pathSolutionSubject.send(.solution)
 			self.settings.isMoveOn = false
 		}
 	}
