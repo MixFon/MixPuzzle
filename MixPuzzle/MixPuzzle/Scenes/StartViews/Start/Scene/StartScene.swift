@@ -75,7 +75,6 @@ struct StartScene: UIViewRepresentable {
     func makeUIView(context: Context) -> SCNView {
 		self.scene.rootNode.addChildNode(self.cameraNode)
 		
-		debugPrint(#function)
 		self.lightsWorker.setupLights(
 			center: self.boxWorker.centreMatrix,
 			radius: self.boxWorker.radiusMatrix,
