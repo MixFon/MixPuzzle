@@ -1,12 +1,13 @@
 {
+  "originHash" : "8dd65b326ce0d05b9e7b26cfec63f53c3029514713fd0a6214de359a4c0a2110",
   "pins" : [
     {
       "identity" : "mfpuzzle",
       "kind" : "remoteSourceControl",
       "location" : "git@github.com:MixFon/MFPuzzle.git",
       "state" : {
-        "branch" : "main",
-        "revision" : "82008f42de67025931c3fb53f11fd02c64f37eac"
+        "revision" : "917cedfcb37519354ec03e7972cf78bf9f21cbac",
+        "version" : "1.0.3"
       }
     },
     {
@@ -14,10 +15,10 @@
       "kind" : "remoteSourceControl",
       "location" : "git@github.com:MixFon/MFStructs.git",
       "state" : {
-        "revision" : "b3254474206737488074e8af33e552a82cdeb5ff",
-        "version" : "0.0.1"
+        "revision" : "b35bbd09da2a32d754f7378f6dfba74842c2e58b",
+        "version" : "0.0.2"
       }
     }
   ],
-  "version" : 2
+  "version" : 3
 }

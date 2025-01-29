@@ -12,6 +12,7 @@ struct LoadingView: View {
 	let matrix: Matrix
 	let dependency: _Dependency
 	let matrixTarger: Matrix
+	private let limiter: Int = 600
 	@ObservedObject private var startSceneModel = StartSceneModel()
 	@State private var isLoading = false
 	@State private var onClose = false
@@ -37,7 +38,7 @@ struct LoadingView: View {
 		Task {
 			let board = Board(grid: Grid(matrix: self.matrix))
 			let boardTarget = Board(grid: Grid(matrix: self.matrixTarger))
-			if let finalBoard = self.dependency.puzzle.searchSolutionWithHeap(board: board, boardTarget: boardTarget) {
+			if let finalBoard = self.dependency.puzzle.searchSolutionWithHeap(board: board, limiter: self.limiter, boardTarget: boardTarget) {
 				Task { @MainActor in
 					var compasses: [Compass] = self.dependency.puzzle.createPath(board: finalBoard).reversed()
 					compasses.append(.needle)

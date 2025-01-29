@@ -86,9 +86,8 @@ final class MockPuzzle: _Puzzle {
 		return []
 	}
 	
-	func searchSolutionWithHeap(board: Board, boardTarget: Board) -> Board? {
+	func searchSolutionWithHeap(board: Board, limiter: Int?, boardTarget: Board) -> Board? {
 		return nil
 	}
-	
-	
+
 }
