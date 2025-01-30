@@ -12,7 +12,7 @@ struct LoadingView: View {
 	let matrix: Matrix
 	let dependency: _Dependency
 	let matrixTarger: Matrix
-	private let limiter: Int = 600
+	private let limiter: Int = 1000000
 	@ObservedObject private var startSceneModel = StartSceneModel()
 	@State private var isLoading = false
 	@State private var onClose = false
