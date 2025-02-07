@@ -164,10 +164,6 @@ final class GameWorker: _GameWorker {
 	}
 	
 	func regenerateMatrix() {
-		print("Hello")
-		
-		
-		
 		let size = self.settingsGameStorage.currentLevel
 		self.matrix = self.matrixWorker.createMatrixRandom(size: size)
 		self.matrixSolution = self.matrixWorker.createMatrixSolution(size: size, solution: self.solution)
