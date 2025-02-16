@@ -61,10 +61,13 @@ struct MenuView: View {
 }
 
 final class MockDependency: _Dependency {
-	var puzzle: _Puzzle = MockPuzzle()
 	var checker: _Checker = MockChecker()
 	var workers: _Workers = MockWorkers()
     var settingsStorages: _SettingsStorage = MockSettingsStorage()
+	
+	func createPuzzle() -> any _Puzzle {
+		MockPuzzle()
+	}
 }
 
 final class MockChecker: _Checker {

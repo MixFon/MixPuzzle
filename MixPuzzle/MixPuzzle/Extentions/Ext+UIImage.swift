@@ -9,6 +9,10 @@ import UIKit
 
 extension UIImage {
 	
+	static var mix_icon_cancel: UIImage {
+		return UIImage(named: "mix.icon.cancel", in: Bundle.main, with: nil) ?? .add
+	}
+
 	static var mix_icon_close: UIImage {
 		return UIImage(named: "mix.icon.close", in: Bundle.main, with: nil) ?? .add
 	}

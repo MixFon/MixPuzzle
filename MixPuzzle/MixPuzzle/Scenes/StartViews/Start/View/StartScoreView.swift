@@ -96,6 +96,7 @@ struct SystemImageButton: View {
 			.foregroundColor(Color.mm_tint_primary)
 	}
 }
+
 struct AssetsImageButton: View {
 	let image: Image
 	var body: some View {

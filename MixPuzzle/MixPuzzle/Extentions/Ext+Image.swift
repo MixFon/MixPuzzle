@@ -9,6 +9,10 @@ import SwiftUI
 
 extension Image {
 	
+	static var mix_icon_cancel: Image {
+		return Image("mix.icon.cancel", bundle: Bundle.main)
+	}
+	
 	static var mix_icon_close: Image {
 		return Image("mix.icon.close", bundle: Bundle.main)
 	}
