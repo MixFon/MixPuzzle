@@ -16,12 +16,14 @@ struct LoadingView: View {
 	@ObservedObject private var startSceneModel = StartSceneModel()
 	@State private var isLoading = false
 	@State private var onClose = false
+	@State private var calculationTask: Task<Void, Error>?
 	@Environment(\.dismiss) private var dismiss
 	
 	var body: some View {
 		VStack(spacing: 16) {
 			MovingSquaresLoader()
 			Button {
+				self.calculationTask?.cancel()
 				self.dismiss()
 			} label: {
 				Image.mix_icon_cancel
@@ -29,8 +31,10 @@ struct LoadingView: View {
 					.frame(width: 64, height: 64)
 			}
 		}
-		.task {
-			await performCalculation()
+		.onAppear {
+			self.calculationTask = Task {
+				try await performCalculation()
+			}
 		}
 		.onChange(of: onClose) { value in
 			self.dismiss()
@@ -38,23 +42,28 @@ struct LoadingView: View {
 		.fullScreenCover(isPresented: $isLoading) {
 			VisualizationSolutionView(matrix: matrix, onClose: $onClose, dependency: dependency, startSceneModel: self.startSceneModel)
 		}
+		.onDisappear {
+			self.calculationTask?.cancel()
+		}
 	}
 	
-	public func performCalculation() async {
+	public func performCalculation() async throws {
 		let board = Board(grid: Grid(matrix: self.matrix))
 		let boardTarget = Board(grid: Grid(matrix: self.matrixTarger))
 		let puzzle = self.dependency.createPuzzle()
-		if let finalBoard = puzzle.searchSolutionWithHeap(board: board, limiter: self.limiter, boardTarget: boardTarget) {
-//			Task { @MainActor in
-//				var compasses: [Compass] = puzzle.createPath(board: finalBoard).reversed()
-//				compasses.append(.needle)
-//				self.startSceneModel.compasses = compasses
-//				self.isLoading = true
-//			}
+		if let finalBoard = try await puzzle.searchSolutionWithHeap(board: board, limiter: self.limiter, boardTarget: boardTarget) {
+			await MainActor.run {
+				guard !Task.isCancelled else { return }
+				var compasses: [Compass] = puzzle.createPath(board: finalBoard).reversed()
+				compasses.append(.needle)
+				self.startSceneModel.compasses = compasses
+				self.isLoading = true
+			}
 		} else {
-//			Task { @MainActor in
-//				self.dismiss()
-//			}
+			await MainActor.run {
+				guard !Task.isCancelled else { return }
+				self.dismiss()
+			}
 		}
 	}
 }

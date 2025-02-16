@@ -18,6 +18,7 @@
 		291A07EE2BC173D6008B4246 /* StartScoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291A07ED2BC173D6008B4246 /* StartScoreView.swift */; };
 		291A07F12BC198F8008B4246 /* AsteroidsWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291A07F02BC198F8008B4246 /* AsteroidsWorker.swift */; };
 		2930F1A62D1DCABF00D49632 /* RotationWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2930F1A52D1DCABF00D49632 /* RotationWorker.swift */; };
+		2934B0E62D62641700BE7216 /* MFPuzzle in Frameworks */ = {isa = PBXBuildFile; productRef = 2934B0E52D62641700BE7216 /* MFPuzzle */; };
 		293C73BF2BDFCCC900E183B5 /* SettingsAsteroids.swift in Sources */ = {isa = PBXBuildFile; fileRef = 293C73BE2BDFCCC900E183B5 /* SettingsAsteroids.swift */; };
 		293C73C12BDFCDAF00E183B5 /* SettingsCubeStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 293C73C02BDFCDAF00E183B5 /* SettingsCubeStorage.swift */; };
 		293C73C32BDFCE0700E183B5 /* SettingsAsteroidsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 293C73C22BDFCE0700E183B5 /* SettingsAsteroidsStorage.swift */; };
@@ -48,7 +49,6 @@
 		2985064E2B8B53A300028FA9 /* BoxesWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2985064D2B8B53A300028FA9 /* BoxesWorker.swift */; };
 		29A070332B91A5940078EB8D /* StartFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A070322B91A5940078EB8D /* StartFactory.swift */; };
 		29A225492B89E0C5009ECD1C /* OptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A225482B89E0C5009ECD1C /* OptionsView.swift */; };
-		29A49FD52C0C5C75006AF9DB /* MFPuzzle in Frameworks */ = {isa = PBXBuildFile; productRef = 29A49FD42C0C5C75006AF9DB /* MFPuzzle */; };
 		29B2ADB92BDAD18A002D11D8 /* SettingsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B2ADB82BDAD18A002D11D8 /* SettingsStorage.swift */; };
 		29B2ADBC2BDB9369002D11D8 /* Dependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B2ADBB2BDB9369002D11D8 /* Dependency.swift */; };
 		29B2ADBF2BDBA415002D11D8 /* Ext+Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B2ADBE2BDBA415002D11D8 /* Ext+Color.swift */; };
@@ -150,7 +150,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				29A49FD52C0C5C75006AF9DB /* MFPuzzle in Frameworks */,
+				2934B0E62D62641700BE7216 /* MFPuzzle in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -527,7 +527,7 @@
 			);
 			name = MixPuzzle;
 			packageProductDependencies = (
-				29A49FD42C0C5C75006AF9DB /* MFPuzzle */,
+				2934B0E52D62641700BE7216 /* MFPuzzle */,
 			);
 			productName = MixPuzzle;
 			productReference = 29C162BE2B848CC4002E185D /* MixPuzzle.app */;
@@ -558,7 +558,7 @@
 			);
 			mainGroup = 29C162B52B848CC3002E185D;
 			packageReferences = (
-				29A49FD32C0C5C75006AF9DB /* XCRemoteSwiftPackageReference "MFPuzzle" */,
+				2934B0E42D62641700BE7216 /* XCRemoteSwiftPackageReference "MFPuzzle" */,
 			);
 			productRefGroup = 29C162BF2B848CC4002E185D /* Products */;
 			projectDirPath = "";
@@ -877,20 +877,20 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		29A49FD32C0C5C75006AF9DB /* XCRemoteSwiftPackageReference "MFPuzzle" */ = {
+		2934B0E42D62641700BE7216 /* XCRemoteSwiftPackageReference "MFPuzzle" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "git@github.com:MixFon/MFPuzzle.git";
 			requirement = {
-				branch = main;
-				kind = branch;
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		29A49FD42C0C5C75006AF9DB /* MFPuzzle */ = {
+		2934B0E52D62641700BE7216 /* MFPuzzle */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 29A49FD32C0C5C75006AF9DB /* XCRemoteSwiftPackageReference "MFPuzzle" */;
+			package = 2934B0E42D62641700BE7216 /* XCRemoteSwiftPackageReference "MFPuzzle" */;
 			productName = MFPuzzle;
 		};
 /* End XCSwiftPackageProductDependency section */
