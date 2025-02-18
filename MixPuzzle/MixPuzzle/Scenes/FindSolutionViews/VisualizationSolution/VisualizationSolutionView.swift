@@ -10,7 +10,6 @@ import MFPuzzle
 
 struct VisualizationSolutionView: View {
 	let matrix: Matrix
-	@Binding var onClose: Bool
 	let dependency: _Dependency
 	@ObservedObject var startSceneModel: StartSceneModel
 	
@@ -20,7 +19,7 @@ struct VisualizationSolutionView: View {
 				.equatable()
 				.ignoresSafeArea()
 			VStack {
-				VisualizationSolutionScoreView(onClose: $onClose)
+				VisualizationSolutionScoreView()
 					.padding()
 				Spacer()
 				VisualizationSolutionPathView(startSceneModel: self.startSceneModel)
@@ -35,13 +34,11 @@ struct VisualizationSolutionView: View {
 struct VisualizationSolutionScoreView: View {
 	
 	@Environment(\.dismiss) private var dismiss
-	@Binding var onClose: Bool
 	
 	var body: some View {
 		HStack(spacing: 32) {
 			Button {
 				self.dismiss()
-				self.onClose.toggle()
 			} label: {
 				AssetsImageButton(image: .mix_icon_close)
 			}
@@ -156,5 +153,5 @@ struct ScrollPathView: View {
 	let dependency = MockDependency()
 	@ObservedObject var startSceneModel = StartSceneModel()
 	startSceneModel.compasses = compasses
-	return VisualizationSolutionView(matrix: matrix, onClose: $onClose, dependency: dependency, startSceneModel: startSceneModel)
+	return VisualizationSolutionView(matrix: matrix, dependency: dependency, startSceneModel: startSceneModel)
 }

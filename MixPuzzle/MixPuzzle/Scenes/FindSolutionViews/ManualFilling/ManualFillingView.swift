@@ -10,6 +10,7 @@ import MFPuzzle
 
 final class ManualFillingRouter: ObservableObject {
 	@Published var toLoading = false
+	@Published var toVisualizationSolution = false
 }
 	
 struct ManualFillingView: View {
@@ -26,6 +27,8 @@ struct ManualFillingView: View {
 	@State private var selectedSolution: Solution = .classic
 	@State private var isShowSnackbar = false
 	
+	
+	@ObservedObject private var startSceneModel = StartSceneModel()
 	@ObservedObject private var router = ManualFillingRouter()
 	@ObservedObject private var snackbarModel = MMSnackbarModel()
 	
@@ -68,8 +71,14 @@ struct ManualFillingView: View {
 			updateMatrix(size: value)
 		})
 		.snackbar(isShowing: self.$snackbarModel.isShowing, text: self.snackbarModel.text, style: self.snackbarModel.style, extraBottomPadding: 16)
-		.fullScreenCover(isPresented: $router.toLoading) {
-			LoadingView(matrix: fillingMatrix, dependency: dependency, matrixTarger: matrixSolution)
+		.fullScreenCover(isPresented: $router.toLoading, onDismiss: { self.router.toVisualizationSolution = true }) {
+			LoadingView(matrix: fillingMatrix, puzzle: self.dependency.createPuzzle(), matrixTarger: matrixSolution) { compasses in
+				self.startSceneModel.compasses = compasses
+				self.router.toLoading = false
+			}
+		}
+		.fullScreenCover(isPresented: $router.toVisualizationSolution) {
+			VisualizationSolutionView(matrix: fillingMatrix, dependency: dependency, startSceneModel: self.startSceneModel)
 		}
 		.background(Color.mm_background_secondary)
 	}

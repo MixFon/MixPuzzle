@@ -10,12 +10,11 @@ import MFPuzzle
 
 struct LoadingView: View {
 	let matrix: Matrix
-	let dependency: _Dependency
+	let puzzle: _Puzzle
 	let matrixTarger: Matrix
+	let onFinedSolution: ([Compass]) -> Void
 	private let limiter: Int = 1000000
-	@ObservedObject private var startSceneModel = StartSceneModel()
-	@State private var isLoading = false
-	@State private var onClose = false
+	
 	@State private var calculationTask: Task<Void, Error>?
 	@Environment(\.dismiss) private var dismiss
 	
@@ -36,12 +35,6 @@ struct LoadingView: View {
 				try await performCalculation()
 			}
 		}
-		.onChange(of: onClose) { value in
-			self.dismiss()
-		}
-		.fullScreenCover(isPresented: $isLoading) {
-			VisualizationSolutionView(matrix: matrix, onClose: $onClose, dependency: dependency, startSceneModel: self.startSceneModel)
-		}
 		.onDisappear {
 			self.calculationTask?.cancel()
 		}
@@ -50,14 +43,12 @@ struct LoadingView: View {
 	public func performCalculation() async throws {
 		let board = Board(grid: Grid(matrix: self.matrix))
 		let boardTarget = Board(grid: Grid(matrix: self.matrixTarger))
-		let puzzle = self.dependency.createPuzzle()
-		if let finalBoard = try await puzzle.searchSolutionWithHeap(board: board, limiter: self.limiter, boardTarget: boardTarget) {
+		if let finalBoard = try await self.puzzle.searchSolutionWithHeap(board: board, limiter: self.limiter, boardTarget: boardTarget) {
 			await MainActor.run {
 				guard !Task.isCancelled else { return }
 				var compasses: [Compass] = puzzle.createPath(board: finalBoard).reversed()
 				compasses.append(.needle)
-				self.startSceneModel.compasses = compasses
-				self.isLoading = true
+				self.onFinedSolution(compasses)
 			}
 		} else {
 			await MainActor.run {
@@ -78,5 +69,6 @@ struct LoadingView: View {
 	 [4, 5, 6],
 	 [7, 8, 0]]
 	let dependency = MockDependency()
-	return LoadingView(matrix: matrix, dependency: dependency, matrixTarger: matrixTarger)
+	let puzzle = dependency.createPuzzle()
+	return LoadingView(matrix: matrix, puzzle: puzzle, matrixTarger: matrixTarger, onFinedSolution: { _ in })
 }
