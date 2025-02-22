@@ -12,18 +12,17 @@ struct LoadingView: View {
 	let matrix: Matrix
 	let puzzle: _Puzzle
 	let matrixTarger: Matrix
-	let onFinedSolution: ([Compass]) -> Void
+	let onFinedSolution: ([Compass]?) -> Void
 	private let limiter: Int = 1000000
 	
 	@State private var calculationTask: Task<Void, Error>?
-	@Environment(\.dismiss) private var dismiss
 	
 	var body: some View {
 		VStack(spacing: 16) {
 			MovingSquaresLoader()
 			Button {
 				self.calculationTask?.cancel()
-				self.dismiss()
+				self.onFinedSolution(nil)
 			} label: {
 				Image.mix_icon_cancel
 					.resizable()
@@ -53,7 +52,7 @@ struct LoadingView: View {
 		} else {
 			await MainActor.run {
 				guard !Task.isCancelled else { return }
-				self.dismiss()
+				self.onFinedSolution(nil)
 			}
 		}
 	}

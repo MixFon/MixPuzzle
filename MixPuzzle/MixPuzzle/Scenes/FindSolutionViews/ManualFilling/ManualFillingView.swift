@@ -27,7 +27,6 @@ struct ManualFillingView: View {
 	@State private var selectedSolution: Solution = .classic
 	@State private var isShowSnackbar = false
 	
-	
 	@ObservedObject private var startSceneModel = StartSceneModel()
 	@ObservedObject private var router = ManualFillingRouter()
 	@ObservedObject private var snackbarModel = MMSnackbarModel()
@@ -71,9 +70,9 @@ struct ManualFillingView: View {
 			updateMatrix(size: value)
 		})
 		.snackbar(isShowing: self.$snackbarModel.isShowing, text: self.snackbarModel.text, style: self.snackbarModel.style, extraBottomPadding: 16)
-		.fullScreenCover(isPresented: $router.toLoading, onDismiss: { self.router.toVisualizationSolution = true }) {
+		.fullScreenCover(isPresented: $router.toLoading, onDismiss: { self.router.toVisualizationSolution = !self.startSceneModel.compasses.isEmpty }) {
 			LoadingView(matrix: fillingMatrix, puzzle: self.dependency.createPuzzle(), matrixTarger: matrixSolution) { compasses in
-				self.startSceneModel.compasses = compasses
+				self.startSceneModel.compasses = compasses ?? []
 				self.router.toLoading = false
 			}
 		}
