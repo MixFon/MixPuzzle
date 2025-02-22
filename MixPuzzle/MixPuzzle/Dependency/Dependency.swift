@@ -50,7 +50,7 @@ struct Dependency: _Dependency {
 		let matrixWorker = MatrixWorker(checker: checker)
 		let decoder = Decoder()
 		let statisticsWorker = StatisticsWorker(keeper: fileWorker, decoder: decoder)
-		let lightsWorker = LightsWorker(rotationWorker: rotationWorker)
+		let lightsWorker = LightsWorker(rotationWorker: rotationWorker, settingsLightStorage: settingsLightStorage)
 		let gameWorker = GameWorker(
 			checker: checker,
 			keeper: fileWorker,

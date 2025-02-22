@@ -14,17 +14,18 @@ protocol _SettingsLightStorage {
 	var isShadowEnabled: Bool { get set }
 }
 
-enum LightType: String {
+enum LightType: String, CaseIterable, CustomStringConvertible {
+	
 	/// Свет идет в виде прожектора, в виде конуса
 	case spot
 	/// Свет идет во все стороны из точки источника
 	case omni
 	/// Свет идет во все стороны, нет теней
 	case ambient
-	/// Свет идет по направлению, но не исеет точки источника
-	case directional
 	/// Неопределено
 	case undefined
+	/// Свет идет по направлению, но не исеет точки источника
+	case directional
 	
 	init(rawValue: String?) {
 		switch rawValue {
@@ -39,6 +40,10 @@ enum LightType: String {
 		default:
 			self = .undefined
 		}
+	}
+	
+	var description: String {
+		self.rawValue
 	}
 }
 

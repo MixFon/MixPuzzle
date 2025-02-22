@@ -11,7 +11,7 @@ import Combine
 final class SettingsLightModel: ObservableObject {
 	
 	@Published var lightType: LightType
-	@Published var countLights: Int
+	@Published var countLights: Double
 	@Published var isMotionEnabled: Bool
 	@Published var isShadowEnabled: Bool
 	
@@ -21,14 +21,14 @@ final class SettingsLightModel: ObservableObject {
 	init(lightStorage: any _SettingsLightStorage) {
 		self.lightStorage = lightStorage
 		self.lightType = lightStorage.lightType
-		self.countLights = lightStorage.countLights
+		self.countLights = Double(lightStorage.countLights)
 		self.isMotionEnabled = lightStorage.isMotionEnabled
 		self.isShadowEnabled = lightStorage.isShadowEnabled
 	}
 	
 	func saveChanges() {
 		self.lightStorage.lightType = self.lightType
-		self.lightStorage.countLights = self.countLights
+		self.lightStorage.countLights = Int(self.countLights)
 		self.lightStorage.isMotionEnabled = self.isMotionEnabled
 		self.lightStorage.isShadowEnabled = self.isShadowEnabled
 	}
@@ -38,6 +38,7 @@ struct SettingsLightView: View {
 	
 	@ObservedObject var lightModel: SettingsLightModel
 	@State private var isShowSnackbar = false
+	private let lightTypes: [LightType] = [.omni, .spot, .ambient, .directional]
 	
     var body: some View {
 		VStack {
@@ -49,10 +50,11 @@ struct SettingsLightView: View {
 			))
 			.padding()
 			ScrollView {
-				OptionsSectionsView(title: "Asteroids", cells: [
-//					AnyView(ToggleCellView(icon: "waveform.path", text: "Show Asteroids", isOn: $asteroidsModel.isShowAsteroids)),
-//					AnyView(SliderCellView(title: "Asteroids Count", range: 0...200, radius: $asteroidsModel.asteroidsCount)),
-//					AnyView(SliderCellView(title: "Radius Sphere Asteroids", range: 20...40, radius: $asteroidsModel.radiusSphere)),
+				OptionsSectionsView(title: "Light Source", cells: [
+					AnyView(ToggleCellView(icon: "move.3d", text: "Is Moving", isOn: $lightModel.isMotionEnabled)),
+					AnyView(ToggleCellView(icon: "shadow", text: "Is Shadow", isOn: $lightModel.isShadowEnabled)),
+					AnyView(SliderCellView(title: "Lights Count", range: 1...Double(lightTypes.count), value: $lightModel.countLights)),
+					AnyView(SelectSizePicker(selectedSize: $lightModel.lightType, numbersSize: self.lightTypes))
 				])
 			}
 			.cornerRadius(16)

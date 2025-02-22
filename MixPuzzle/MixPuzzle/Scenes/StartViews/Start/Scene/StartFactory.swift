@@ -44,11 +44,15 @@ final class StartFactory {
 			cubeWorker: dependency.workers.cubeWorker,
 			settingsCubeStorate: dependency.settingsStorages.settingsCubeStorage
 		)
+		let lightWorker = LightsWorker(
+			rotationWorker: dependency.workers.rotationWorker,
+			settingsLightStorage: dependency.settingsStorages.settingsLightStorage
+		)
 		let startScene = StartScene(
 			boxWorker: boxWorker,
 			generator: nil,
 			gameWorker: MockGameWorker(),
-			lightsWorker: LightsWorker(rotationWorker: dependency.workers.rotationWorker),
+			lightsWorker: lightWorker,
 			rotationWorker: dependency.workers.rotationWorker,
 			asteroidWorker: dependency.workers.asteroidWorker,
 			textNodeWorker: MockTextNodeWorker(),

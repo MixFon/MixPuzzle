@@ -46,8 +46,8 @@ struct SettingsAsteroidsView: View {
             ScrollView {
                 OptionsSectionsView(title: "Asteroids", cells: [
                     AnyView(ToggleCellView(icon: "waveform.path", text: "Show Asteroids", isOn: $asteroidsModel.isShowAsteroids)),
-                    AnyView(SliderCellView(title: "Asteroids Count", range: 0...200, radius: $asteroidsModel.asteroidsCount)),
-                    AnyView(SliderCellView(title: "Radius Sphere Asteroids", range: 20...40, radius: $asteroidsModel.radiusSphere)),
+                    AnyView(SliderCellView(title: "Asteroids Count", range: 0...200, value: $asteroidsModel.asteroidsCount)),
+                    AnyView(SliderCellView(title: "Radius Sphere Asteroids", range: 20...40, value: $asteroidsModel.radiusSphere)),
                 ])
             }
             .cornerRadius(16)

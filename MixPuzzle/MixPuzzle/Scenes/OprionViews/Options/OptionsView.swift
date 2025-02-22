@@ -53,7 +53,7 @@ struct OptionsView: View {
 				OptionsSectionsView(title: "Garaphics", cells: [
 					AnyView(CellView(icon: "cube", text: "Cube", action: { self.router.toBox = true })),
 					AnyView(CellView(icon: "moon.stars", text: "Asteroids", action: { self.router.toStars = true })),
-					AnyView(CellView(icon: "lightbulb.max.fill", text: "Light source", action: { self.router.toLight = true })),
+					AnyView(CellView(icon: "lightbulb.max", text: "Light source", action: { self.router.toLight = true })),
 				])
 				.padding()
 				OptionsSectionsView(title: "Application", cells: [
@@ -71,7 +71,7 @@ struct OptionsView: View {
 			SettingsCubeView(dependency: self.dependency, model: SettingsCubeModel(cubeStorage: self.dependency.settingsStorages.settingsCubeStorage))
 		}
 		.fullScreenCover(isPresented: $router.toStars) {
-			SettingsAsteroids(asteroidsModel: SettingsAsteroidsModel(asteroidsStorage: self.dependency.settingsStorages.settingsAsteroidsStorage))
+			SettingsAsteroidsView(asteroidsModel: SettingsAsteroidsModel(asteroidsStorage: self.dependency.settingsStorages.settingsAsteroidsStorage))
 		}
 		.fullScreenCover(isPresented: $router.toLevelSelect) {
 			LevelSelectionView(gameModel: LevelSelectionModel(gameStorage: self.dependency.settingsStorages.settingsGameStorage))

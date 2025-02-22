@@ -60,7 +60,7 @@ struct SliderCellView: View, Identifiable {
 	let title: String
 	let range: ClosedRange<Double>
 
-	@Binding var radius: Double
+	@Binding var value: Double
 	
 	var body: some View {
 		VStack {
@@ -68,10 +68,10 @@ struct SliderCellView: View, Identifiable {
 				Text(self.title)
 					.foregroundStyle(Color.mm_text_primary)
 				Spacer()
-				Text("\(radius, specifier: "%.f")")
+				Text("\(value, specifier: "%.f")")
 					.foregroundStyle(Color.mm_text_primary)
 			}
-			Slider(value: $radius, in: range, onEditingChanged: { editing in
+			Slider(value: $value, in: range, onEditingChanged: { editing in
 				debugPrint(editing)
 			})
 			.accentColor(Color.mm_green) // Изменяем цвет трека
@@ -236,7 +236,7 @@ struct DividerView: View {
 		])
 		.padding()
 		OptionsSectionsView(title: "Two", cells: [
-			AnyView(SliderCellView(title: "Hello", range: 0...30, radius: $radius)),
+			AnyView(SliderCellView(title: "Hello", range: 0...30, value: $radius)),
 			AnyView(ToggleCellView(icon: "checkmark", text: "text text", isOn: $isOn)),
             AnyView(ColorCellView(title: "Trtb", selectedColor: $selectedColor)),
             AnyView(TexturePicker(title: "Textures", selectedImage: $selectedImage))

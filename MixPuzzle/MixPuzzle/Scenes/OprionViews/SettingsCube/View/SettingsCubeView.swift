@@ -57,9 +57,9 @@ struct SettingsCubeView: View {
 				.background(Color.mm_background_secondary)
 			ScrollView {
 				OptionsSectionsView(title: "Cube", cells: [
-					AnyView(SliderCellView(title: "Image Radius", range: 0...(model.sizeImage / 2), radius: $model.radiusImage)),
-					AnyView(SliderCellView(title: "Chamfer Radius", range: 0...2, radius: $model.radiusChamfer)),
-					AnyView(SliderCellView(title: "Width Image", range: 200...400, radius: $model.sizeImage)),
+					AnyView(SliderCellView(title: "Image Radius", range: 0...(model.sizeImage / 2), value: $model.radiusImage)),
+					AnyView(SliderCellView(title: "Chamfer Radius", range: 0...2, value: $model.radiusChamfer)),
+					AnyView(SliderCellView(title: "Width Image", range: 200...400, value: $model.sizeImage)),
                     AnyView(ColorCellView(title: "Color Lable", selectedColor: $model.colorLable)),
                     AnyView(TexturePicker(title: "Textures", selectedImage: $model.texture)),
 				])

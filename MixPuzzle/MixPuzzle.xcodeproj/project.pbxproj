@@ -19,7 +19,7 @@
 		291A07F12BC198F8008B4246 /* AsteroidsWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291A07F02BC198F8008B4246 /* AsteroidsWorker.swift */; };
 		2930F1A62D1DCABF00D49632 /* RotationWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2930F1A52D1DCABF00D49632 /* RotationWorker.swift */; };
 		2934B0E62D62641700BE7216 /* MFPuzzle in Frameworks */ = {isa = PBXBuildFile; productRef = 2934B0E52D62641700BE7216 /* MFPuzzle */; };
-		293C73BF2BDFCCC900E183B5 /* SettingsAsteroids.swift in Sources */ = {isa = PBXBuildFile; fileRef = 293C73BE2BDFCCC900E183B5 /* SettingsAsteroids.swift */; };
+		293C73BF2BDFCCC900E183B5 /* SettingsAsteroidsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 293C73BE2BDFCCC900E183B5 /* SettingsAsteroidsView.swift */; };
 		293C73C12BDFCDAF00E183B5 /* SettingsCubeStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 293C73C02BDFCDAF00E183B5 /* SettingsCubeStorage.swift */; };
 		293C73C32BDFCE0700E183B5 /* SettingsAsteroidsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 293C73C22BDFCE0700E183B5 /* SettingsAsteroidsStorage.swift */; };
 		2944D6DC2BC871A6001F1A82 /* SettingsCubeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2944D6DB2BC871A6001F1A82 /* SettingsCubeView.swift */; };
@@ -89,7 +89,7 @@
 		291A07ED2BC173D6008B4246 /* StartScoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartScoreView.swift; sourceTree = "<group>"; };
 		291A07F02BC198F8008B4246 /* AsteroidsWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsteroidsWorker.swift; sourceTree = "<group>"; };
 		2930F1A52D1DCABF00D49632 /* RotationWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RotationWorker.swift; sourceTree = "<group>"; };
-		293C73BE2BDFCCC900E183B5 /* SettingsAsteroids.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsAsteroids.swift; sourceTree = "<group>"; };
+		293C73BE2BDFCCC900E183B5 /* SettingsAsteroidsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsAsteroidsView.swift; sourceTree = "<group>"; };
 		293C73C02BDFCDAF00E183B5 /* SettingsCubeStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCubeStorage.swift; sourceTree = "<group>"; };
 		293C73C22BDFCE0700E183B5 /* SettingsAsteroidsStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsAsteroidsStorage.swift; sourceTree = "<group>"; };
 		2944D6DB2BC871A6001F1A82 /* SettingsCubeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCubeView.swift; sourceTree = "<group>"; };
@@ -188,7 +188,7 @@
 		293C73BD2BDFCC5B00E183B5 /* SettingsAsteroids */ = {
 			isa = PBXGroup;
 			children = (
-				293C73BE2BDFCCC900E183B5 /* SettingsAsteroids.swift */,
+				293C73BE2BDFCCC900E183B5 /* SettingsAsteroidsView.swift */,
 			);
 			path = SettingsAsteroids;
 			sourceTree = "<group>";
@@ -621,7 +621,7 @@
 				29D3D1A32B8A0BF600E3EE6A /* StartScene.swift in Sources */,
 				294E6E3A2BD27B9B00B615F1 /* CubeButtonView.swift in Sources */,
 				296846CF2C0101200046862C /* ChooseMethodView.swift in Sources */,
-				293C73BF2BDFCCC900E183B5 /* SettingsAsteroids.swift in Sources */,
+				293C73BF2BDFCCC900E183B5 /* SettingsAsteroidsView.swift in Sources */,
 				2944D6DC2BC871A6001F1A82 /* SettingsCubeView.swift in Sources */,
 				2944D6E52BC916F9001F1A82 /* SettingsCubeFactory.swift in Sources */,
 				296846D32C01C6130046862C /* ManualFillingView.swift in Sources */,
