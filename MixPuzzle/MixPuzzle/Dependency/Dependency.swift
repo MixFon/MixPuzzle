@@ -23,11 +23,13 @@ struct Dependency: _Dependency {
     
     init() {
         let settingsCubeStorage = SettingsCubeStorage()
-        let settingsAsteroidsStorage = SettingsAsteroidsStorage()
 		let settingsGameStorage = SettingsGameStorage()
+		let settingsLightStorage = SettingsLightStorage()
+		let settingsAsteroidsStorage = SettingsAsteroidsStorage()
         self.settingsStorages = SettingsStorage(
 			settingsCubeStorage: settingsCubeStorage,
 			settingsGameStorage: settingsGameStorage,
+			settingsLightStorage: settingsLightStorage,
 			settingsAsteroidsStorage: settingsAsteroidsStorage
 		)
 		

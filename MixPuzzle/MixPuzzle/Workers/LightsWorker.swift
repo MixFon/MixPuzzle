@@ -41,6 +41,7 @@ final class LightsWorker: _LightsWorker {
 		let sunNode = SCNNode()
 		sunNode.light = SCNLight()
 		sunNode.light?.type = .omni
+		sunNode.light?.castsShadow = true
 		
 		let sphere = SCNSphere(radius: CGFloat(self.radiusSunNode))
 		let sphereMaterial = SCNMaterial()
@@ -52,6 +53,37 @@ final class LightsWorker: _LightsWorker {
 		sunNode.position = SCNVector3(x: 0, y: 0, z: 0)
 
 		return sunNode
+	}()
+	
+	private lazy var spotLightNode: SCNNode = {
+		let spotLight = SCNLight()
+		spotLight.type = .spot
+		spotLight.color = UIColor.white
+		spotLight.intensity = 1000
+		spotLight.spotInnerAngle = 30
+		spotLight.spotOuterAngle = 90
+		spotLight.castsShadow = true
+		let spotLightNode = SCNNode()
+		spotLightNode.light = spotLight
+		spotLightNode.position = SCNVector3(x: 10, y: 0, z: 10)
+		//spotLightNode.eulerAngles = SCNVector3(x: -Float.pi / 2, y: 0, z: 0) // Направление света
+		return spotLightNode
+	}()
+	
+	private lazy var directionalLightNode: SCNNode = {
+		// Создание направленного света
+		let directionalLight = SCNLight()
+		directionalLight.type = .directional
+		directionalLight.color = UIColor.white
+		directionalLight.intensity = 1000
+		directionalLight.castsShadow = true
+
+		// Создание узла для света
+		let directionalLightNode = SCNNode()
+		directionalLightNode.light = directionalLight
+		directionalLightNode.position = SCNVector3(x: 0, y: 10, z: 0) // Позиция узла
+		directionalLightNode.eulerAngles = SCNVector3(x: -Float.pi / 4, y: Float.pi / 4, z: 0) // Направление света
+		return directionalLightNode
 	}()
 	
 	private let ambientLightNode: SCNNode = {
@@ -67,20 +99,29 @@ final class LightsWorker: _LightsWorker {
 	}
 	
 	func setupLights(center: SCNVector3, radius: Float, rootNode: SCNNode) {
-		self.rotationWorker.createRotation(
-			node: self.lightNode,
-			rootNode: rootNode,
-			centerOrbit: center
-		)
+//		self.rotationWorker.createRotation(
+//			node: self.lightNode,
+//			rootNode: rootNode,
+//			centerOrbit: center
+//		)
 		
 		self.rotationWorker.createRotation(
 			node: self.sunNode,
 			rootNode: rootNode,
 			centerOrbit: center
 		)
+		
+//		self.rotationWorker.createRotation(
+//			node: self.directionalLightNode,
+//			rootNode: rootNode,
+//			centerOrbit: center
+//		)
+//		self.directionalLightNode.look(at: center)
+//		self.directionalLightNode.position = SCNVector3(x: center.x, y: center.y, z: radius * 2)
 		let delta: Float = 2
-		setPositionToRadiusMatrix(node: self.lightNode, radius: radius + self.radiusLightNode + delta)
+//		setPositionToRadiusMatrix(node: self.lightNode, radius: radius + self.radiusLightNode + delta)
 		setPositionToRadiusMatrix(node: self.sunNode, radius: radius + self.radiusLightNode + self.radiusSunNode + delta)
+//		setPositionToRadiusMatrix(node: self.spotLightNode, radius: radius + self.radiusLightNode + self.radiusSunNode + delta)
 	}
 	
 	/// Устанавливает позицию Node на радиусе сферы описаной, около матрицы

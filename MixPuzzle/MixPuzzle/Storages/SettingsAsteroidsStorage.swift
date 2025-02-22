@@ -8,8 +8,11 @@
 import Foundation
 
 protocol _SettingsAsteroidsStorage {
+	/// Радиус сферы астеройдов
     var radiusSphere: Double { get set }
+	/// Кодичество астеройдов
     var asteroidsCount: Double { get set }
+	/// Показывать ли астеройды
     var isShowAsteroids: Bool { get set }
 }
 

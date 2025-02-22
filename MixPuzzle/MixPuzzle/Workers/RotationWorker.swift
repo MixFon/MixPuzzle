@@ -8,7 +8,7 @@
 import SceneKit
 import Foundation
 
-/// Протокол для создания вращенияотносительно центра с заданым радиусом
+/// Протокол для создания вращения относительно центра с заданым радиусом
 protocol _RotationWorker {
 	@discardableResult
 	func createRotation(node: SCNNode, rootNode: SCNNode, centerOrbit: SCNVector3) -> SCNNode

@@ -70,6 +70,8 @@
 		29DFDEBE2BC5177F00791434 /* OptionsSectionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29DFDEBD2BC5177F00791434 /* OptionsSectionsView.swift */; };
 		29E921E42D61EBCD005E619C /* LoaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E921E32D61EBCD005E619C /* LoaderView.swift */; };
 		29EB775D2B872E0D00A494A0 /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29EB775C2B872E0D00A494A0 /* StartView.swift */; };
+		29EBA9832D6A2F570054CFCC /* LightView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29EBA9822D6A2F570054CFCC /* LightView.swift */; };
+		29EBA9852D6A30560054CFCC /* SettingsLightStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29EBA9842D6A30560054CFCC /* SettingsLightStorage.swift */; };
 		29FCC9642C0C4A3E003604AD /* Ext+Compass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29FCC9632C0C4A3E003604AD /* Ext+Compass.swift */; };
 		29FDAA552C20C03200EFD8DD /* SwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29FDAA542C20C03200EFD8DD /* SwiftUIView.swift */; };
 		29FDAA572C20C82F00EFD8DD /* TextNodeWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29FDAA562C20C82F00EFD8DD /* TextNodeWorker.swift */; };
@@ -140,6 +142,8 @@
 		29DFDEBD2BC5177F00791434 /* OptionsSectionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsSectionsView.swift; sourceTree = "<group>"; };
 		29E921E32D61EBCD005E619C /* LoaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoaderView.swift; sourceTree = "<group>"; };
 		29EB775C2B872E0D00A494A0 /* StartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; };
+		29EBA9822D6A2F570054CFCC /* LightView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightView.swift; sourceTree = "<group>"; };
+		29EBA9842D6A30560054CFCC /* SettingsLightStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsLightStorage.swift; sourceTree = "<group>"; };
 		29FCC9632C0C4A3E003604AD /* Ext+Compass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ext+Compass.swift"; sourceTree = "<group>"; };
 		29FDAA542C20C03200EFD8DD /* SwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIView.swift; sourceTree = "<group>"; };
 		29FDAA562C20C82F00EFD8DD /* TextNodeWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextNodeWorker.swift; sourceTree = "<group>"; };
@@ -271,6 +275,7 @@
 		2949A25E2BF7901300043A62 /* OprionViews */ = {
 			isa = PBXGroup;
 			children = (
+				29EBA9812D6A2F2B0054CFCC /* Light */,
 				29DD46852C1E096E000FF047 /* Statistics */,
 				2949A25F2BF791C400043A62 /* TargetSelection */,
 				2944D6DA2BC87167001F1A82 /* SettingsCube */,
@@ -398,6 +403,7 @@
 				293C73C02BDFCDAF00E183B5 /* SettingsCubeStorage.swift */,
 				293C73C22BDFCE0700E183B5 /* SettingsAsteroidsStorage.swift */,
 				2980BC7F2BED62D400866895 /* SettingsGameStorage.swift */,
+				29EBA9842D6A30560054CFCC /* SettingsLightStorage.swift */,
 			);
 			path = Storages;
 			sourceTree = "<group>";
@@ -510,6 +516,14 @@
 			path = Start;
 			sourceTree = "<group>";
 		};
+		29EBA9812D6A2F2B0054CFCC /* Light */ = {
+			isa = PBXGroup;
+			children = (
+				29EBA9822D6A2F570054CFCC /* LightView.swift */,
+			);
+			path = Light;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -596,6 +610,7 @@
 				29FDAA552C20C03200EFD8DD /* SwiftUIView.swift in Sources */,
 				2980BC702BE7F5D300866895 /* FileWorker.swift in Sources */,
 				2980BC6E2BE7D9E500866895 /* GameWorker.swift in Sources */,
+				29EBA9832D6A2F570054CFCC /* LightView.swift in Sources */,
 				2980BC722BEA53A900866895 /* Workers.swift in Sources */,
 				293C73C12BDFCDAF00E183B5 /* SettingsCubeStorage.swift in Sources */,
 				2979B7142BBFDE5D000839D3 /* StartSceneWrapper.swift in Sources */,
@@ -649,6 +664,7 @@
 				2944D6EC2BCC4C94001F1A82 /* ImageWorker.swift in Sources */,
 				2985064E2B8B53A300028FA9 /* BoxesWorker.swift in Sources */,
 				2944D6E32BC9163C001F1A82 /* SettingsCubeWrapper.swift in Sources */,
+				29EBA9852D6A30560054CFCC /* SettingsLightStorage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

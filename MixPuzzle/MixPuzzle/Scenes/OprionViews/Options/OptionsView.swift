@@ -10,6 +10,7 @@ import SwiftUI
 final class OptionsViewRouter: ObservableObject {
 	@Published var toBox: Bool = false
 	@Published var toStars: Bool = false
+	@Published var toLight: Bool = false
 	@Published var toLanguage: Bool = false
 	@Published var toStatistics: Bool = false
 	@Published var toLevelSelect: Bool = false
@@ -52,6 +53,7 @@ struct OptionsView: View {
 				OptionsSectionsView(title: "Garaphics", cells: [
 					AnyView(CellView(icon: "cube", text: "Cube", action: { self.router.toBox = true })),
 					AnyView(CellView(icon: "moon.stars", text: "Asteroids", action: { self.router.toStars = true })),
+					AnyView(CellView(icon: "lightbulb.max.fill", text: "Light source", action: { self.router.toLight = true })),
 				])
 				.padding()
 				OptionsSectionsView(title: "Application", cells: [
@@ -77,6 +79,9 @@ struct OptionsView: View {
 		.fullScreenCover(isPresented: $router.toTargetSelect) {
 			TargetSelectionView(dependncy: self.dependency)
 		}
+		.fullScreenCover(isPresented: $router.toLight) {
+			LightView(dependency: self.dependency)
+		}
 		.fullScreenCover(isPresented: $router.toStatistics) {
 			if #available(iOS 16.0, *) {
 				StatisticsView(statisticsData: self.dependency.workers.gameWorker.getStatistics())
@@ -101,7 +106,8 @@ struct OptionsView: View {
 }
 
 final class MockSettingsStorage: _SettingsStorage {
-	var settingsGameStorage: _SettingsGameStorage = MockSettingsGameStorage()
-    var settingsCubeStorage: _SettingsCubeStorage = MockSettingsCubeStorage()
-    var settingsAsteroidsStorage: _SettingsAsteroidsStorage = MockSettingsAsteroidsStorage()
+	var settingsGameStorage: any _SettingsGameStorage = MockSettingsGameStorage()
+    var settingsCubeStorage: any _SettingsCubeStorage = MockSettingsCubeStorage()
+	var settingsLightStorage: any _SettingsLightStorage = MockSettingsLightStorage()
+    var settingsAsteroidsStorage: any _SettingsAsteroidsStorage = MockSettingsAsteroidsStorage()
 }
