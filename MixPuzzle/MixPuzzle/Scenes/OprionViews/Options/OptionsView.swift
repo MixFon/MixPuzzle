@@ -80,7 +80,7 @@ struct OptionsView: View {
 			TargetSelectionView(dependncy: self.dependency)
 		}
 		.fullScreenCover(isPresented: $router.toLight) {
-			LightView(dependency: self.dependency)
+			SettingsLightView(lightModel: SettingsLightModel(lightStorage: self.dependency.settingsStorages.settingsLightStorage))
 		}
 		.fullScreenCover(isPresented: $router.toStatistics) {
 			if #available(iOS 16.0, *) {

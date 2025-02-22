@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import Combine
 
 final class SettingsAsteroidsModel: ObservableObject {
     
@@ -15,7 +14,6 @@ final class SettingsAsteroidsModel: ObservableObject {
     @Published var isShowAsteroids: Bool
     
     private var asteroidsStorage: _SettingsAsteroidsStorage
-    private var cancellables = Set<AnyCancellable>()
     
     init(asteroidsStorage: _SettingsAsteroidsStorage) {
         self.asteroidsStorage = asteroidsStorage
