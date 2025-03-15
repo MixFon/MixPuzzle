@@ -38,7 +38,7 @@ struct SettingsLightView: View {
 	
 	@ObservedObject var lightModel: SettingsLightModel
 	@State private var isShowSnackbar = false
-	private let lightTypes: [LightType] = [.omni, .spot, .ambient, .directional]
+	private let lightTypes: [LightType] = LightType.allCases
 	
     var body: some View {
 		VStack {
@@ -50,19 +50,35 @@ struct SettingsLightView: View {
 			))
 			.padding()
 			ScrollView {
-				OptionsSectionsView(title: "Light Source", cells: [
-					AnyView(ToggleCellView(icon: "move.3d", text: "Is Moving", isOn: $lightModel.isMotionEnabled)),
-					AnyView(ToggleCellView(icon: "shadow", text: "Is Shadow", isOn: $lightModel.isShadowEnabled)),
-					AnyView(SliderCellView(title: "Lights Count", range: 1...Double(lightTypes.count), value: $lightModel.countLights)),
-					AnyView(SelectSizePicker(selectedSize: $lightModel.lightType, numbersSize: self.lightTypes))
-				])
+				OptionsSectionsView(title: "Light Source", cells: cellsOfSection)
 			}
+			.animation(.default, value: self.lightModel.lightType)
 			.cornerRadius(16)
 			.padding()
 		}
 		.snackbar(isShowing: $isShowSnackbar, text: "The data has been saved successfully.", style: .success, extraBottomPadding: 16)
 		.background(Color.mm_background_secondary)
     }
+	
+	private var cellsOfSection: [AnyView] {
+		var cells: [AnyView] = [AnyView(SelectSizePicker(selectedSize: $lightModel.lightType, numbersSize: self.lightTypes))]
+		switch self.lightModel.lightType {
+		case .spot, .omni:
+			cells.append(contentsOf: [
+				AnyView(ToggleCellView(icon: "move.3d", text: "Is Moving", isOn: $lightModel.isMotionEnabled)),
+				AnyView(ToggleCellView(icon: "shadow", text: "Is Shadow", isOn: $lightModel.isShadowEnabled)),
+				AnyView(SliderCellView(title: "Lights Count", range: 1...Double(lightTypes.count), value: $lightModel.countLights)),
+			])
+		case .directional:
+			cells.append(contentsOf: [
+				AnyView(ToggleCellView(icon: "move.3d", text: "Is Moving", isOn: $lightModel.isMotionEnabled)),
+				AnyView(ToggleCellView(icon: "shadow", text: "Is Shadow", isOn: $lightModel.isShadowEnabled)),
+			])
+		case .ambient, .undefined:
+			break
+		}
+		return cells
+	}
 }
 
 #Preview {

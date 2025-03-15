@@ -44,8 +44,8 @@ final class LightsWorker: _LightsWorker {
 		spotLight.type = .spot
 		spotLight.color = UIColor.white
 		spotLight.intensity = 1000
-		spotLight.spotInnerAngle = 30
-		spotLight.spotOuterAngle = 90
+		spotLight.spotInnerAngle = 45
+		spotLight.spotOuterAngle = 60
 		
 		let spotLightNode = SCNNode()
 		spotLightNode.light = spotLight
@@ -53,7 +53,7 @@ final class LightsWorker: _LightsWorker {
 	}
 	
 	/// Создание источника в виде направленного источника света (как солнце)
-	private func createdirectionalLightNode() -> SCNNode {
+	private func createDirectionalLightNode() -> SCNNode {
 		let directionalLight = SCNLight()
 		directionalLight.type = .directional
 		directionalLight.color = UIColor.white
@@ -79,33 +79,66 @@ final class LightsWorker: _LightsWorker {
 	}
 	
 	func setupLights(center: SCNVector3, radius: Float, rootNode: SCNNode) {
-
+		switch self.settingsLightStorage.lightType {
+		case .omni:
+			configureOmniLight(center: center, radius: radius, rootNode: rootNode)
+		case .spot:
+			configureSpotLight(center: center, radius: radius, rootNode: rootNode)
+		case .ambient:
+			configureAmbientLight(center: center, radius: radius, rootNode: rootNode)
+		case .directional:
+			configareDirectionalLight(center: center, radius: radius, rootNode: rootNode)
+		default:
+			break
+		}
+	}
+	
+	/// Настройка освещения под Omni
+	private func configureOmniLight(center: SCNVector3, radius: Float, rootNode: SCNNode) {
 		let delta: Float = 3
 		for i in 1...self.settingsLightStorage.countLights {
-			let lightNode: SCNNode
-			switch self.settingsLightStorage.lightType {
-			case .omni:
-				lightNode = createOmniLightNode()
-			case .spot:
-				lightNode = createSpotLightNode()
-			case .ambient:
-				lightNode = createAmbientLightNode()
-			case .directional:
-				lightNode = createdirectionalLightNode()
-			default:
-				continue
-			}
-			if self.settingsLightStorage.isMotionEnabled {
-				self.rotationWorker.createRotation(
-					node: lightNode,
-					rootNode: rootNode,
-					centerOrbit: center
-				)
-			} else {
-				rootNode.addChildNode(lightNode)
-			}
-			lightNode.castsShadow = self.settingsLightStorage.isShadowEnabled
-			setPositionToRadiusMatrix(node: lightNode, radius: radius + delta * Float(i))
+			let omniLight = createOmniLightNode()
+			setRotarionIfNeeded(center: center, rootNode: rootNode, lightNode: omniLight)
+			omniLight.light?.castsShadow = self.settingsLightStorage.isShadowEnabled
+			setPositionToRadiusMatrix(node: omniLight, radius: radius + delta * Float(i))
+		}
+	}
+	
+	/// Настройка освещения под Spot
+	private func configureSpotLight(center: SCNVector3, radius: Float, rootNode: SCNNode) {
+		for _ in 1...self.settingsLightStorage.countLights {
+			let spotLight = createSpotLightNode()
+			setRotarionIfNeeded(center: center, rootNode: rootNode, lightNode: spotLight)
+			spotLight.light?.castsShadow = self.settingsLightStorage.isShadowEnabled
+			setPositionToRadiusMatrix(node: spotLight, radius: radius * 2)
+			spotLight.look(at: center)
+		}
+	}
+	
+	/// Настройка освещения под Directional
+	private func configareDirectionalLight(center: SCNVector3, radius: Float, rootNode: SCNNode) {
+		let ambientLight = createDirectionalLightNode()
+		setRotarionIfNeeded(center: center, rootNode: rootNode, lightNode: ambientLight)
+		ambientLight.light?.castsShadow = self.settingsLightStorage.isShadowEnabled
+	}
+	
+	/// Настройка освещения под Ambient
+	private func configureAmbientLight(center: SCNVector3, radius: Float, rootNode: SCNNode) {
+		let ambientLight = createAmbientLightNode()
+		ambientLight.light?.castsShadow = self.settingsLightStorage.isShadowEnabled
+		rootNode.addChildNode(ambientLight)
+	}
+	
+	/// Установка вращения узла по флагу isMotionEnabled
+	private func setRotarionIfNeeded(center: SCNVector3, rootNode: SCNNode, lightNode: SCNNode) {
+		if self.settingsLightStorage.isMotionEnabled {
+			self.rotationWorker.createRotation(
+				node: lightNode,
+				rootNode: rootNode,
+				centerOrbit: center
+			)
+		} else {
+			rootNode.addChildNode(lightNode)
 		}
 	}
 	

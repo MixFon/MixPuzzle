@@ -14,7 +14,7 @@ protocol _SettingsLightStorage {
 	var isShadowEnabled: Bool { get set }
 }
 
-enum LightType: String, CaseIterable, CustomStringConvertible {
+enum LightType: String, CustomStringConvertible {
 	
 	/// Свет идет в виде прожектора, в виде конуса
 	case spot
@@ -44,6 +44,10 @@ enum LightType: String, CaseIterable, CustomStringConvertible {
 	
 	var description: String {
 		self.rawValue
+	}
+	
+	static var allCases: [LightType] {
+		[.spot, .omni, .ambient, .directional]
 	}
 }
 
