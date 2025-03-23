@@ -44,7 +44,7 @@ struct SettingsCubeView: View {
 	
 	var body: some View {
 		VStack {
-			NavigationBar(title: "Settings Cubes", tralingView: AnyView(
+			NavigationBar(title: "Cube".localized, tralingView: AnyView(
                 SaveButtonNavigationBar(action: {
                     self.model.saveChanges()
 					isShowSnackbar = true
@@ -56,18 +56,18 @@ struct SettingsCubeView: View {
 				.clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
 				.background(Color.mm_background_secondary)
 			ScrollView {
-				OptionsSectionsView(title: "Cube", cells: [
-					AnyView(SliderCellView(title: "Image Radius", range: 0...(model.sizeImage / 2), value: $model.radiusImage)),
-					AnyView(SliderCellView(title: "Chamfer Radius", range: 0...2, value: $model.radiusChamfer)),
-					AnyView(SliderCellView(title: "Width Image", range: 200...400, value: $model.sizeImage)),
-                    AnyView(ColorCellView(title: "Color Lable", selectedColor: $model.colorLable)),
-                    AnyView(TexturePicker(title: "Textures", selectedImage: $model.texture)),
+				OptionsSectionsView(title: "Cube".localized, cells: [
+					AnyView(SliderCellView(title: "Image radius".localized, range: 0...(model.sizeImage / 2), value: $model.radiusImage)),
+					AnyView(SliderCellView(title: "Chamfer radius".localized, range: 0...2, value: $model.radiusChamfer)),
+					AnyView(SliderCellView(title: "Width image".localized, range: 200...400, value: $model.sizeImage)),
+                    AnyView(ColorCellView(title: "Color lable".localized, selectedColor: $model.colorLable)),
+                    AnyView(TexturePicker(title: "Textures".localized, selectedImage: $model.texture)),
 				])
 			}
 			.clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
 			.padding()
 		}
-		.snackbar(isShowing: $isShowSnackbar, text: "The data has been saved successfully.", style: .success, extraBottomPadding: 16)
+		.snackbar(isShowing: $isShowSnackbar, text: "mix.snackbar.saved".localized, style: .success, extraBottomPadding: 16)
 		.background(Color.mm_background_secondary)
 	}
 }

@@ -24,11 +24,99 @@
     "0" : {
       "shouldTranslate" : false
     },
+    "Application" : {
+      "comment" : "Name of section in options screen",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Приложение"
+          }
+        }
+      }
+    },
+    "Asteroids" : {
+      "comment" : "Name of cell in options screen",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Астеройды"
+          }
+        }
+      }
+    },
+    "Boustrophedon" : {
+      "comment" : "Name boustrophedon solution",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Бустрофедон"
+          }
+        }
+      }
+    },
+    "Chamfer radius" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Радиус закругления"
+          }
+        }
+      }
+    },
+    "Choice of target" : {
+      "comment" : "Title for Target selection screen",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Выбор цели"
+          }
+        }
+      }
+    },
+    "Choice of the level" : {
+      "comment" : "Title choice of the level screen",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Выбор уровня"
+          }
+        }
+      }
+    },
     "Choose the size" : {
       "shouldTranslate" : false
     },
+    "Classic" : {
+      "comment" : "Name classic solution",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Классическая"
+          }
+        }
+      }
+    },
     "Coffee" : {
       "shouldTranslate" : false
+    },
+    "Color lable" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Цвет значка"
+          }
+        }
+      }
     },
     "Colors" : {
       "comment" : "Colors in settings cobe",
@@ -47,6 +135,17 @@
         }
       }
     },
+    "Cube" : {
+      "comment" : "Name of cell in options screen",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Кубик"
+          }
+        }
+      }
+    },
     "Date" : {
       "shouldTranslate" : false
     },
@@ -57,6 +156,39 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Поиск решения"
+          }
+        }
+      }
+    },
+    "Game" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Игра"
+          }
+        }
+      }
+    },
+    "Garaphics" : {
+      "comment" : "Name of section in options screen",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Графика"
+          }
+        }
+      }
+    },
+    "Image radius" : {
+      "comment" : "Radius image in cube screen",
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Радиус картинки"
           }
         }
       }
@@ -83,13 +215,13 @@
         }
       }
     },
-    "Light Settings" : {
-      "comment" : "Title in navigation bar in light settings screen",
+    "Levels" : {
+      "comment" : "Name of axis",
       "localizations" : {
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Настройки освещения"
+            "value" : "Уровни"
           }
         }
       }
@@ -105,6 +237,46 @@
         }
       }
     },
+    "Lighting" : {
+      "comment" : "Title in navigation bar in light settings screen",
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Освещение"
+          }
+        }
+      }
+    },
+    "mix.snackbar.saved" : {
+      "comment" : "Message for snackbar when saved",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The data has been saved successfully."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Данные были успешно сохранены."
+          }
+        }
+      }
+    },
+    "Number of failed moves" : {
+      "comment" : "Name statistic screen",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Число неудачных ходов"
+          }
+        }
+      }
+    },
     "Number of light sources" : {
       "comment" : "Name of cell in light settings screen",
       "localizations" : {
@@ -112,6 +284,39 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Источников"
+          }
+        }
+      }
+    },
+    "Number of successful moves" : {
+      "comment" : "Name successful moves statistic screen",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Число удачных ходов"
+          }
+        }
+      }
+    },
+    "Number regenerations" : {
+      "comment" : "Name statistic screen",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Число регенераций"
+          }
+        }
+      }
+    },
+    "Number wins" : {
+      "comment" : "Name number wins statistic screen",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Число побед"
           }
         }
       }
@@ -169,6 +374,17 @@
     "Shape Color" : {
       "shouldTranslate" : false
     },
+    "Snail" : {
+      "comment" : "Name snain solution",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Улитка"
+          }
+        }
+      }
+    },
     "Start" : {
       "comment" : "Name node in menu scene",
       "localizations" : {
@@ -180,14 +396,49 @@
         }
       }
     },
-    "Л" : {
-
+    "Statistic" : {
+      "comment" : "Title statistic screen",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Статистика"
+          }
+        }
+      }
     },
-    "Правая" : {
-
+    "Textures" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Текстуры"
+          }
+        }
+      }
     },
-    "Центральный текст" : {
-
+    "Vibration" : {
+      "comment" : "Name cell in options",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Вибрация"
+          }
+        }
+      }
+    },
+    "Width image" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ширина картинки"
+          }
+        }
+      }
     }
   },
   "version" : "1.0"

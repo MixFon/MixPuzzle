@@ -213,7 +213,11 @@ final class GameWorker: _GameWorker {
 			let name = solution.rawValue
 			for size in 3...self.settingsGameStorage.maxAchievedLevel {
 				guard let loadedStatistics = self.statisticsWorker.loadStatistics(name: name, size: size) else { continue }
-				let data = StatisticsDataView(name: name.capitalized, size: size, data: loadedStatistics)
+				let data = StatisticsDataView(
+					name: solution.name,
+					size: size,
+					data: loadedStatistics
+				)
 				statisticsData.append(data)
 			}
 		}

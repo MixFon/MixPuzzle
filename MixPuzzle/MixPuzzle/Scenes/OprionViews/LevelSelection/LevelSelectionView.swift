@@ -34,9 +34,12 @@ struct LevelSelectionView: View {
 	@ObservedObject var gameModel: LevelSelectionModel
 	@State private var isShowSnackbar = false
 	
+	private let title = String(localized: "Choice of the level", comment: "Title choice of the level screen")
+	private let snackbarSaveMessage = String(localized: "mix.snackbar.saved")
+	
     var body: some View {
 		VStack {
-			NavigationBar(title: "Level selection", tralingView: AnyView(
+			NavigationBar(title: self.title, tralingView: AnyView(
 				SaveButtonNavigationBar(action: {
 					self.isShowSnackbar = true
 					self.gameModel.saveChanges()
@@ -46,7 +49,7 @@ struct LevelSelectionView: View {
 			SelectLevelView(items: Array(3...gameModel.availableLevel), maxAchievedLevel: self.gameModel.maxAchievedLevel, selectNumber: self.$gameModel.currentLevel)
 				.background(Color.mm_background_tertiary)
 		}
-		.snackbar(isShowing: $isShowSnackbar, text: "The data has been saved successfully.", style: .success, extraBottomPadding: 16)
+		.snackbar(isShowing: $isShowSnackbar, text: self.snackbarSaveMessage, style: .success, extraBottomPadding: 16)
 		.background(Color.mm_background_tertiary)
     }
 }

@@ -84,7 +84,7 @@ struct SettingsLightView: View {
 	private let nameNamberOfLightsCell = String(localized: "Number of light sources", comment: "Name of cell in light settings screen")
 
 	private let sectionName = String(localized: "Light Source", comment: "Name of section in light settings screen")
-	private let navigationBarTitle = String(localized: "Light Settings", comment: "Title in navigation bar in light settings screen")
+	private let navigationBarTitle = String(localized: "Lighting", comment: "Title in navigation bar in light settings screen")
 }
 
 #Preview {

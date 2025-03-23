@@ -19,9 +19,14 @@ struct StatisticsDataView: Identifiable {
 struct StatisticsView: View {
 	let statisticsData: [StatisticsDataView]
 	private let cornerRadius: Double = 10
-	private let levels = "Levels"
+	private let title = String(localized: "Statistic", comment: "Title statistic screen")
+	private let nameWins = String(localized: "Number wins", comment: "Name number wins statistic screen")
+	private let nameFailedMoves = String(localized: "Number of failed moves", comment: "Name statistic screen")
+	private let nameRegenerations = String(localized: "Number regenerations", comment: "Name statistic screen")
+	private let nameSuccessfulMoves = String(localized: "Number of successful moves", comment: "Name successful moves statistic screen")
+	private let levels = String(localized: "Levels", comment: "Name of axis")
 	var body: some View {
-		NavigationBar(title: "Target selection")
+		NavigationBar(title: self.title)
 			.padding()
 		ScrollView {
 				Chart(self.statisticsData) {
@@ -34,7 +39,7 @@ struct StatisticsView: View {
 				}
 				.aspectRatio(contentMode: .fit)
 				.chartXAxisLabel(self.levels)
-				.chartYAxisLabel("numberFailedMoves")
+				.chartYAxisLabel(nameFailedMoves)
 				.padding()
 				Chart(self.statisticsData) {
 					BarMark(
@@ -46,7 +51,7 @@ struct StatisticsView: View {
 				}
 				.aspectRatio(contentMode: .fit)
 				.chartXAxisLabel(self.levels)
-				.chartYAxisLabel("numberRegenerations")
+				.chartYAxisLabel(self.nameRegenerations)
 				.padding()
 				Chart(self.statisticsData) {
 					BarMark(
@@ -58,7 +63,7 @@ struct StatisticsView: View {
 				}
 				.aspectRatio(contentMode: .fit)
 				.chartXAxisLabel(self.levels)
-				.chartYAxisLabel("numberSuccessfulMoves")
+				.chartYAxisLabel(self.nameSuccessfulMoves)
 				.padding()
 				Chart(self.statisticsData) {
 					BarMark(
@@ -70,7 +75,7 @@ struct StatisticsView: View {
 				}
 				.aspectRatio(contentMode: .fit)
 				.chartXAxisLabel(self.levels)
-				.chartYAxisLabel("numberWins")
+				.chartYAxisLabel(self.nameWins)
 				.padding()
 		}
 	}

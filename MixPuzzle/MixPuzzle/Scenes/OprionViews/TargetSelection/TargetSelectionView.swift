@@ -33,6 +33,9 @@ struct TargetSelectionView: View {
 	@State
 	private var isShowSnackbar = false
 	
+	private let title = String(localized: "Choice of target", comment: "Title for Target selection screen")
+	private let smackbarSavedMessage = String(localized: "mix.snackbar.saved", comment: "Message for snackbar when saved")
+	
 	init(dependncy: _Dependency) {
 		self.dependncy = dependncy
 		self.solutionOptions = self.dependncy.workers.gameWorker.solutionOptions
@@ -42,7 +45,7 @@ struct TargetSelectionView: View {
     var body: some View {
 		VStack {
 			NavigationBar(
-				title: "Target selection",
+				title: self.title,
 				tralingView: AnyView(
 					SaveButtonNavigationBar(
 						action: {
@@ -65,7 +68,7 @@ struct TargetSelectionView: View {
 				}
 			}
 		}
-		.snackbar(isShowing: $isShowSnackbar, text: "The data has been saved successfully.", style: .success, extraBottomPadding: 16)
+		.snackbar(isShowing: $isShowSnackbar, text: self.smackbarSavedMessage, style: .success, extraBottomPadding: 16)
 		.background(Color.mm_background_tertiary)
     }
 }
@@ -81,7 +84,7 @@ struct TargetView: View {
 			TargetSelectSceneWrapper(matrix: option.matrix, dependency: dependncy)
 				.clipShape(RoundedRectangle(cornerRadius: radius))
 				.aspectRatio(contentMode: .fit)
-			Text(option.type.description)
+			Text(option.type.name)
 				.padding()
 				.clipShape(RoundedRectangle(cornerRadius: radius, style: .continuous))
 				.overlay(

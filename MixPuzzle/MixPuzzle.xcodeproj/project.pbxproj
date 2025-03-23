@@ -29,7 +29,8 @@
 		2944D6EC2BCC4C94001F1A82 /* ImageWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2944D6EB2BCC4C94001F1A82 /* ImageWorker.swift */; };
 		2944D6EE2BCC4FFD001F1A82 /* CubeWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2944D6ED2BCC4FFD001F1A82 /* CubeWorker.swift */; };
 		294701462D8EE19400BAE690 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 294701452D8EE19400BAE690 /* Localizable.xcstrings */; };
-		2947014C2D90082000BAE690 /* SwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2947014B2D90082000BAE690 /* SwiftUIView.swift */; };
+		2947014E2D9096A800BAE690 /* Ext+Solution.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2947014D2D9096A800BAE690 /* Ext+Solution.swift */; };
+		294701502D90A01B00BAE690 /* Ext+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2947014F2D90A01B00BAE690 /* Ext+String.swift */; };
 		2949A2612BF791F000043A62 /* TargetSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2949A2602BF791F000043A62 /* TargetSelectionView.swift */; };
 		2956CE762BCED46A00F17C01 /* NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2956CE752BCED46A00F17C01 /* NavigationBar.swift */; };
 		296846CF2C0101200046862C /* ChooseMethodView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296846CE2C0101200046862C /* ChooseMethodView.swift */; };
@@ -97,7 +98,8 @@
 		2944D6EB2BCC4C94001F1A82 /* ImageWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageWorker.swift; sourceTree = "<group>"; };
 		2944D6ED2BCC4FFD001F1A82 /* CubeWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CubeWorker.swift; sourceTree = "<group>"; };
 		294701452D8EE19400BAE690 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
-		2947014B2D90082000BAE690 /* SwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIView.swift; sourceTree = "<group>"; };
+		2947014D2D9096A800BAE690 /* Ext+Solution.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ext+Solution.swift"; sourceTree = "<group>"; };
+		2947014F2D90A01B00BAE690 /* Ext+String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ext+String.swift"; sourceTree = "<group>"; };
 		2949A2602BF791F000043A62 /* TargetSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetSelectionView.swift; sourceTree = "<group>"; };
 		2956CE752BCED46A00F17C01 /* NavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBar.swift; sourceTree = "<group>"; };
 		296846CE2C0101200046862C /* ChooseMethodView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseMethodView.swift; sourceTree = "<group>"; };
@@ -302,7 +304,6 @@
 		295D81FF2BD3E31400D1C431 /* Draft */ = {
 			isa = PBXGroup;
 			children = (
-				2947014B2D90082000BAE690 /* SwiftUIView.swift */,
 			);
 			path = Draft;
 			sourceTree = "<group>";
@@ -425,6 +426,8 @@
 				29FCC9632C0C4A3E003604AD /* Ext+Compass.swift */,
 				29BFEABC2D217DFD006FD41D /* Ext+UIImage.swift */,
 				29BFEABE2D217F26006FD41D /* Ext+Image.swift */,
+				2947014D2D9096A800BAE690 /* Ext+Solution.swift */,
+				2947014F2D90A01B00BAE690 /* Ext+String.swift */,
 			);
 			path = Extentions;
 			sourceTree = "<group>";
@@ -620,6 +623,7 @@
 				2930F1A62D1DCABF00D49632 /* RotationWorker.swift in Sources */,
 				29B2ADBC2BDB9369002D11D8 /* Dependency.swift in Sources */,
 				29EB775D2B872E0D00A494A0 /* StartView.swift in Sources */,
+				294701502D90A01B00BAE690 /* Ext+String.swift in Sources */,
 				290441252C0CC224009A58E2 /* LoadingView.swift in Sources */,
 				29D3D1A32B8A0BF600E3EE6A /* StartScene.swift in Sources */,
 				296846CF2C0101200046862C /* ChooseMethodView.swift in Sources */,
@@ -634,7 +638,7 @@
 				29C162D22B848D89002E185D /* MenuScene.swift in Sources */,
 				293C73C32BDFCE0700E183B5 /* SettingsAsteroidsStorage.swift in Sources */,
 				29051C722BE0DDF20064ABF0 /* Snackbar.swift in Sources */,
-				2947014C2D90082000BAE690 /* SwiftUIView.swift in Sources */,
+				2947014E2D9096A800BAE690 /* Ext+Solution.swift in Sources */,
 				2980BC7B2BED176D00866895 /* SelectLevelView.swift in Sources */,
 				29FCC9642C0C4A3E003604AD /* Ext+Compass.swift in Sources */,
 				2944D6E72BC91770001F1A82 /* SettingsCubeScene.swift in Sources */,
