@@ -287,7 +287,7 @@ struct StartScene: UIViewRepresentable {
 	
 	/// Обработка ноды текста меню.
 	private func handleMenuText(hitNode: SCNNode) {
-		guard let hitName = hitNode.name, let textMenu = FinalMenuText(rawValue: hitName) else { return }
+		guard let hitName = hitNode.name, let textMenu = FinalMenuText.getCase(hitName) else { return }
 		switch textMenu {
 		case .next:
 			self.startSceneModel?.nextLavelSubject.send()

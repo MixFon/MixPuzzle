@@ -26,11 +26,35 @@ protocol _TextNodeWorker {
 
 }
 
-enum FinalMenuText: String, CaseIterable {
+enum FinalMenuText: CaseIterable {
 	/// Сдующий уровень
-	case next = "Raise the level"
+	case next
 	/// Повторить текущий уровень
-	case retry = "Retry"
+	case retry
+	
+	static func getCase(_ text: String) -> FinalMenuText? {
+		switch text {
+		case nextText: return .next
+		case retryText: return .retry
+		default : return nil
+		}
+	}
+	
+	var text: String {
+		switch self {
+		case .next: return FinalMenuText.nextText
+		case .retry: return FinalMenuText.retryText
+		}
+	}
+	
+	private static var nextText: String {
+		String(localized: "Raise the level", comment: "Text in final menu for case 'next'")
+	}
+		
+	private static var retryText: String {
+		String(localized: "Retry", comment: "Text in final menu for case 'retry'")
+	}
+	
 }
 
 final class TextNodeWorker: _TextNodeWorker {
@@ -45,11 +69,11 @@ final class TextNodeWorker: _TextNodeWorker {
 
 	
 	var names: [String] {
-		FinalMenuText.allCases.map({$0.rawValue})
+		FinalMenuText.allCases.map({$0.text})
 	}
 	
 	func isTextNode(node: SCNNode) -> Bool {
-		FinalMenuText.allCases.contains(where: { $0.rawValue == node.name} )
+		FinalMenuText.allCases.contains(where: { $0.text == node.name} )
 	}
 	
 	func createTextNode(text: String, position: SCNVector3) -> SCNNode {
@@ -69,8 +93,8 @@ final class TextNodeWorker: _TextNodeWorker {
 		guard self.textNodes == nil else { return }
 		var nodes: [SCNNode] = []
 		for text in FinalMenuText.allCases {
-			let node = createTextNode(text: text.rawValue, position: self.randomPosition)
-			node.name = text.rawValue
+			let node = createTextNode(text: text.text, position: self.randomPosition)
+			node.name = text.text
 			nodes.append(node)
 			rootNode.addChildNode(node)
 		}

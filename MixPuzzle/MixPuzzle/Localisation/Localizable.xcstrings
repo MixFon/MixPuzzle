@@ -1,7 +1,194 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "%.f" : {
+      "shouldTranslate" : false
+    },
+    "%@" : {
+      "shouldTranslate" : false
+    },
+    "%lld" : {
+      "shouldTranslate" : false
+    },
+    "%lldx%lld" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$lldx%2$lld"
+          }
+        }
+      },
+      "shouldTranslate" : false
+    },
+    "0" : {
+      "shouldTranslate" : false
+    },
+    "Choose the size" : {
+      "shouldTranslate" : false
+    },
+    "Coffee" : {
+      "shouldTranslate" : false
+    },
+    "Colors" : {
+      "comment" : "Colors in settings cobe",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Colors"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Цвета"
+          }
+        }
+      }
+    },
+    "Date" : {
+      "shouldTranslate" : false
+    },
+    "Find a solution" : {
+      "comment" : "Name node in menu scene",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Поиск решения"
+          }
+        }
+      }
+    },
+    "Is Moving" : {
+      "comment" : "Name of cell in light settings screen",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Движение"
+          }
+        }
+      }
+    },
+    "Is Shadow" : {
+      "comment" : "Name of cell in light settings screen",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Тень"
+          }
+        }
+      }
+    },
+    "Light Settings" : {
+      "comment" : "Title in navigation bar in light settings screen",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Настройки освещения"
+          }
+        }
+      }
+    },
+    "Light Source" : {
+      "comment" : "Name of section in light settings screen",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Источник света"
+          }
+        }
+      }
+    },
+    "Number of light sources" : {
+      "comment" : "Name of cell in light settings screen",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Источников"
+          }
+        }
+      }
+    },
+    "Options" : {
+      "comment" : "Name node in menu scene",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Настройки"
+          }
+        }
+      }
+    },
+    "Raise the level" : {
+      "comment" : "Text in final menu for case 'next'",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Следующий уровень"
+          }
+        }
+      }
+    },
+    "Retry" : {
+      "comment" : "Text in final menu for case 'retry'",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Повторить"
+          }
+        }
+      }
+    },
+    "Save" : {
+      "comment" : "Save button in navigation bar",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Save"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Сохранить"
+          }
+        }
+      }
+    },
+    "Shape Color" : {
+      "shouldTranslate" : false
+    },
+    "Start" : {
+      "comment" : "Name node in menu scene",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Старт"
+          }
+        }
+      }
+    },
+    "Л" : {
 
+    },
+    "Правая" : {
+
+    },
+    "Центральный текст" : {
+
+    }
   },
   "version" : "1.0"
 }

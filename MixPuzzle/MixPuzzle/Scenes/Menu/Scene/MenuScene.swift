@@ -51,9 +51,9 @@ struct MenuScene: UIViewRepresentable {
 	private func configureCSNText(nodes: [SCNNode]) {
 		// Порядок обусловнен порядком добавления нод в поддерево
 		var displayName: [String] = [
-			"Start", // 0
-			"Options", // 2
-			"Find a solution" // 1
+			String(localized: "Start", comment: "Name node in menu scene"), // 0
+			String(localized: "Options", comment: "Name node in menu scene"), // 2
+			String(localized: "Find a solution", comment: "Name node in menu scene"), // 1
 		]
 		for node in nodes {
 			if let textGeometry = node.geometry as? SCNText {
@@ -64,10 +64,7 @@ struct MenuScene: UIViewRepresentable {
 				
 				// Рассчитываем размеры
 				let width = Float(max.x - min.x)
-				let height = Float(max.y - min.y)
-				let length = Float(max.z - min.z)
 				
-				debugPrint("Width: \(width), Height: \(height), Length: \(length)")
 				node.position = SCNVector3(x: -(width / 1) / 65, y: node.position.y, z: node.position.z)
 			}
 		}
@@ -134,7 +131,6 @@ struct MenuScene: UIViewRepresentable {
 			// Обработка результата нажатия
 			if let hitNode = hitResults.first?.node {
 				// Обнаружен узел, который был касаем
-				debugPrint("Node tapped: \(hitNode.name ?? "no name")")
                 switch hitNode.name {
                 case "start_node":
                     complition(.toStart)

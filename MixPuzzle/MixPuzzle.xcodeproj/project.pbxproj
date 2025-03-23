@@ -12,7 +12,6 @@
 		2901B4D62C1B92D80015E9A3 /* StatisticsWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2901B4D52C1B92D80015E9A3 /* StatisticsWorker.swift */; };
 		2901B4D82C1C1CF50015E9A3 /* Decoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2901B4D72C1C1CF50015E9A3 /* Decoder.swift */; };
 		290441252C0CC224009A58E2 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 290441242C0CC224009A58E2 /* LoadingView.swift */; };
-		290441272C0CC389009A58E2 /* Squeres.swift in Sources */ = {isa = PBXBuildFile; fileRef = 290441262C0CC389009A58E2 /* Squeres.swift */; };
 		29051C722BE0DDF20064ABF0 /* Snackbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29051C712BE0DDF20064ABF0 /* Snackbar.swift */; };
 		29051C742BE0E6AB0064ABF0 /* Ext+View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29051C732BE0E6AB0064ABF0 /* Ext+View.swift */; };
 		291A07EE2BC173D6008B4246 /* StartScoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291A07ED2BC173D6008B4246 /* StartScoreView.swift */; };
@@ -29,9 +28,9 @@
 		2944D6E72BC91770001F1A82 /* SettingsCubeScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2944D6E62BC9176F001F1A82 /* SettingsCubeScene.swift */; };
 		2944D6EC2BCC4C94001F1A82 /* ImageWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2944D6EB2BCC4C94001F1A82 /* ImageWorker.swift */; };
 		2944D6EE2BCC4FFD001F1A82 /* CubeWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2944D6ED2BCC4FFD001F1A82 /* CubeWorker.swift */; };
+		294701462D8EE19400BAE690 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 294701452D8EE19400BAE690 /* Localizable.xcstrings */; };
+		2947014C2D90082000BAE690 /* SwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2947014B2D90082000BAE690 /* SwiftUIView.swift */; };
 		2949A2612BF791F000043A62 /* TargetSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2949A2602BF791F000043A62 /* TargetSelectionView.swift */; };
-		294E6E3A2BD27B9B00B615F1 /* CubeButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 294E6E392BD27B9B00B615F1 /* CubeButtonView.swift */; };
-		2953EC5E2C15894700EC9834 /* CandyDropView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2953EC5D2C15894700EC9834 /* CandyDropView.swift */; };
 		2956CE762BCED46A00F17C01 /* NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2956CE752BCED46A00F17C01 /* NavigationBar.swift */; };
 		296846CF2C0101200046862C /* ChooseMethodView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296846CE2C0101200046862C /* ChooseMethodView.swift */; };
 		296846D32C01C6130046862C /* ManualFillingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296846D22C01C6130046862C /* ManualFillingView.swift */; };
@@ -73,7 +72,6 @@
 		29EBA9832D6A2F570054CFCC /* SettingsLightView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29EBA9822D6A2F570054CFCC /* SettingsLightView.swift */; };
 		29EBA9852D6A30560054CFCC /* SettingsLightStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29EBA9842D6A30560054CFCC /* SettingsLightStorage.swift */; };
 		29FCC9642C0C4A3E003604AD /* Ext+Compass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29FCC9632C0C4A3E003604AD /* Ext+Compass.swift */; };
-		29FDAA552C20C03200EFD8DD /* SwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29FDAA542C20C03200EFD8DD /* SwiftUIView.swift */; };
 		29FDAA572C20C82F00EFD8DD /* TextNodeWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29FDAA562C20C82F00EFD8DD /* TextNodeWorker.swift */; };
 /* End PBXBuildFile section */
 
@@ -83,7 +81,6 @@
 		2901B4D52C1B92D80015E9A3 /* StatisticsWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsWorker.swift; sourceTree = "<group>"; };
 		2901B4D72C1C1CF50015E9A3 /* Decoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Decoder.swift; sourceTree = "<group>"; };
 		290441242C0CC224009A58E2 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
-		290441262C0CC389009A58E2 /* Squeres.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Squeres.swift; sourceTree = "<group>"; };
 		29051C712BE0DDF20064ABF0 /* Snackbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Snackbar.swift; sourceTree = "<group>"; };
 		29051C732BE0E6AB0064ABF0 /* Ext+View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ext+View.swift"; sourceTree = "<group>"; };
 		291A07ED2BC173D6008B4246 /* StartScoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartScoreView.swift; sourceTree = "<group>"; };
@@ -99,9 +96,9 @@
 		2944D6E62BC9176F001F1A82 /* SettingsCubeScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCubeScene.swift; sourceTree = "<group>"; };
 		2944D6EB2BCC4C94001F1A82 /* ImageWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageWorker.swift; sourceTree = "<group>"; };
 		2944D6ED2BCC4FFD001F1A82 /* CubeWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CubeWorker.swift; sourceTree = "<group>"; };
+		294701452D8EE19400BAE690 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
+		2947014B2D90082000BAE690 /* SwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIView.swift; sourceTree = "<group>"; };
 		2949A2602BF791F000043A62 /* TargetSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetSelectionView.swift; sourceTree = "<group>"; };
-		294E6E392BD27B9B00B615F1 /* CubeButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CubeButtonView.swift; sourceTree = "<group>"; };
-		2953EC5D2C15894700EC9834 /* CandyDropView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandyDropView.swift; sourceTree = "<group>"; };
 		2956CE752BCED46A00F17C01 /* NavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBar.swift; sourceTree = "<group>"; };
 		296846CE2C0101200046862C /* ChooseMethodView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseMethodView.swift; sourceTree = "<group>"; };
 		296846D22C01C6130046862C /* ManualFillingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManualFillingView.swift; sourceTree = "<group>"; };
@@ -145,7 +142,6 @@
 		29EBA9822D6A2F570054CFCC /* SettingsLightView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsLightView.swift; sourceTree = "<group>"; };
 		29EBA9842D6A30560054CFCC /* SettingsLightStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsLightStorage.swift; sourceTree = "<group>"; };
 		29FCC9632C0C4A3E003604AD /* Ext+Compass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ext+Compass.swift"; sourceTree = "<group>"; };
-		29FDAA542C20C03200EFD8DD /* SwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIView.swift; sourceTree = "<group>"; };
 		29FDAA562C20C82F00EFD8DD /* TextNodeWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextNodeWorker.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -174,6 +170,7 @@
 			isa = PBXGroup;
 			children = (
 				290441242C0CC224009A58E2 /* LoadingView.swift */,
+				29E921E32D61EBCD005E619C /* LoaderView.swift */,
 			);
 			path = LoadingView;
 			sourceTree = "<group>";
@@ -264,6 +261,14 @@
 			path = Workers;
 			sourceTree = "<group>";
 		};
+		294701442D8EE16A00BAE690 /* Localisation */ = {
+			isa = PBXGroup;
+			children = (
+				294701452D8EE19400BAE690 /* Localizable.xcstrings */,
+			);
+			path = Localisation;
+			sourceTree = "<group>";
+		};
 		2949A25D2BF78FEA00043A62 /* StartViews */ = {
 			isa = PBXGroup;
 			children = (
@@ -297,12 +302,7 @@
 		295D81FF2BD3E31400D1C431 /* Draft */ = {
 			isa = PBXGroup;
 			children = (
-				294E6E392BD27B9B00B615F1 /* CubeButtonView.swift */,
-				2980BC7A2BED176D00866895 /* SelectLevelView.swift */,
-				290441262C0CC389009A58E2 /* Squeres.swift */,
-				2953EC5D2C15894700EC9834 /* CandyDropView.swift */,
-				29FDAA542C20C03200EFD8DD /* SwiftUIView.swift */,
-				29E921E32D61EBCD005E619C /* LoaderView.swift */,
+				2947014B2D90082000BAE690 /* SwiftUIView.swift */,
 			);
 			path = Draft;
 			sourceTree = "<group>";
@@ -383,6 +383,7 @@
 			isa = PBXGroup;
 			children = (
 				2980BC7D2BED1BE600866895 /* LevelSelectionView.swift */,
+				2980BC7A2BED176D00866895 /* SelectLevelView.swift */,
 			);
 			path = LevelSelection;
 			sourceTree = "<group>";
@@ -448,6 +449,7 @@
 		29C162C02B848CC4002E185D /* MixPuzzle */ = {
 			isa = PBXGroup;
 			children = (
+				294701442D8EE16A00BAE690 /* Localisation */,
 				2944D6E82BC91E96001F1A82 /* Workers */,
 				2980BC732BEC11A100866895 /* Resources */,
 				29B2ADBD2BDBA402002D11D8 /* Extentions */,
@@ -555,7 +557,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1520;
-				LastUpgradeCheck = 1540;
+				LastUpgradeCheck = 1620;
 				TargetAttributes = {
 					29C162BD2B848CC4002E185D = {
 						CreatedOnToolsVersion = 15.2;
@@ -569,6 +571,7 @@
 			knownRegions = (
 				en,
 				Base,
+				ru,
 			);
 			mainGroup = 29C162B52B848CC3002E185D;
 			packageReferences = (
@@ -593,6 +596,7 @@
 				29DFDEBC2BC50D9500791434 /* Colors.xcassets in Resources */,
 				29C162C62B848CC5002E185D /* Assets.xcassets in Resources */,
 				29C162D42B8491DA002E185D /* puzzle.scnassets in Resources */,
+				294701462D8EE19400BAE690 /* Localizable.xcstrings in Resources */,
 				2980BC782BEC136400866895 /* matrix.solution.mix in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -607,7 +611,6 @@
 				2980BC7E2BED1BE600866895 /* LevelSelectionView.swift in Sources */,
 				29DD46872C1E098E000FF047 /* StatisticsView.swift in Sources */,
 				2900FC7C2D04247C009F3C07 /* StartState.swift in Sources */,
-				29FDAA552C20C03200EFD8DD /* SwiftUIView.swift in Sources */,
 				2980BC702BE7F5D300866895 /* FileWorker.swift in Sources */,
 				2980BC6E2BE7D9E500866895 /* GameWorker.swift in Sources */,
 				29EBA9832D6A2F570054CFCC /* SettingsLightView.swift in Sources */,
@@ -619,7 +622,6 @@
 				29EB775D2B872E0D00A494A0 /* StartView.swift in Sources */,
 				290441252C0CC224009A58E2 /* LoadingView.swift in Sources */,
 				29D3D1A32B8A0BF600E3EE6A /* StartScene.swift in Sources */,
-				294E6E3A2BD27B9B00B615F1 /* CubeButtonView.swift in Sources */,
 				296846CF2C0101200046862C /* ChooseMethodView.swift in Sources */,
 				293C73BF2BDFCCC900E183B5 /* SettingsAsteroidsView.swift in Sources */,
 				2944D6DC2BC871A6001F1A82 /* SettingsCubeView.swift in Sources */,
@@ -632,6 +634,7 @@
 				29C162D22B848D89002E185D /* MenuScene.swift in Sources */,
 				293C73C32BDFCE0700E183B5 /* SettingsAsteroidsStorage.swift in Sources */,
 				29051C722BE0DDF20064ABF0 /* Snackbar.swift in Sources */,
+				2947014C2D90082000BAE690 /* SwiftUIView.swift in Sources */,
 				2980BC7B2BED176D00866895 /* SelectLevelView.swift in Sources */,
 				29FCC9642C0C4A3E003604AD /* Ext+Compass.swift in Sources */,
 				2944D6E72BC91770001F1A82 /* SettingsCubeScene.swift in Sources */,
@@ -640,7 +643,6 @@
 				29BFEABF2D217F26006FD41D /* Ext+Image.swift in Sources */,
 				29DFDEBB2BC50D9500791434 /* Colors.swift in Sources */,
 				29C162C42B848CC4002E185D /* MenuView.swift in Sources */,
-				2953EC5E2C15894700EC9834 /* CandyDropView.swift in Sources */,
 				29DBBA7D2C0BA43D0046179F /* VisualizationSolutionView.swift in Sources */,
 				291A07EE2BC173D6008B4246 /* StartScoreView.swift in Sources */,
 				29B2ADB92BDAD18A002D11D8 /* SettingsStorage.swift in Sources */,
@@ -655,7 +657,6 @@
 				291A07F12BC198F8008B4246 /* AsteroidsWorker.swift in Sources */,
 				2949A2612BF791F000043A62 /* TargetSelectionView.swift in Sources */,
 				29051C742BE0E6AB0064ABF0 /* Ext+View.swift in Sources */,
-				290441272C0CC389009A58E2 /* Squeres.swift in Sources */,
 				29A225492B89E0C5009ECD1C /* OptionsView.swift in Sources */,
 				2979B7182BBFDF3C000839D3 /* MenuSceneWrapper.swift in Sources */,
 				29C162C22B848CC4002E185D /* MixPuzzleApp.swift in Sources */,
@@ -676,6 +677,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -731,6 +733,7 @@
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -740,6 +743,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -788,6 +792,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 			};
 			name = Release;
 		};

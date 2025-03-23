@@ -13,17 +13,21 @@ struct NavigationBar: View {
 	
 	var body: some View {
 		HStack {
-			ZStack {
-				HStack{
-					BackButtonNavigationBar()
-					Spacer()
-					self.tralingView
-				}
-				Text(title)
-					.font(.headline)
-					.fontWeight(.semibold)
-					.foregroundStyle(Color.mm_text_primary)
+			HStack {
+				BackButtonNavigationBar()
+				Spacer()
 			}
+			.frame(maxWidth: .infinity)
+			Text(title)
+				.font(.headline)
+				.fontWeight(.semibold)
+				.multilineTextAlignment(.center)
+				.foregroundStyle(Color.mm_text_primary)
+			HStack {
+				Spacer()
+				self.tralingView
+			}
+			.frame(maxWidth: .infinity)
 		}
 	}
 }
@@ -63,6 +67,6 @@ struct SaveButtonNavigationBar: View {
 	VStack {
 		NavigationBar(title: "Hello")
 		NavigationBar(title: "Hello", tralingView: AnyView(Text("Hello")))
-        NavigationBar(title: "Hello", tralingView: AnyView(SaveButtonNavigationBar(action: {debugPrint("Save")})))
+        NavigationBar(title: "Hello Settinfs sdfsdf", tralingView: AnyView(SaveButtonNavigationBar(action: {debugPrint("Save")})))
 	}
 }

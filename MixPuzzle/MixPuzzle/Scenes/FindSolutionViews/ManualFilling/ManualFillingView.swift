@@ -27,9 +27,9 @@ struct ManualFillingView: View {
 	@State private var selectedSolution: Solution = .classic
 	@State private var isShowSnackbar = false
 	
-	@ObservedObject private var startSceneModel = StartSceneModel()
-	@ObservedObject private var router = ManualFillingRouter()
-	@ObservedObject private var snackbarModel = MMSnackbarModel()
+	@StateObject private var router = ManualFillingRouter()
+	@StateObject private var startSceneModel = StartSceneModel()
+	@StateObject private var snackbarModel = MMSnackbarModel()
 	
 	@State private var fillingMatrix: Matrix = [[]]
 	@State private var matrixSolution: Matrix = [[]]

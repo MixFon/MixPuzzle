@@ -42,15 +42,15 @@ struct SettingsLightView: View {
 	
     var body: some View {
 		VStack {
-			NavigationBar(title: "Settings Light", tralingView: AnyView(
+			NavigationBar(title: self.navigationBarTitle, tralingView: AnyView(
 				SaveButtonNavigationBar(action: {
 					self.lightModel.saveChanges()
 					self.isShowSnackbar = true
 				})
 			))
-			.padding()
+			.padding(.horizontal)
 			ScrollView {
-				OptionsSectionsView(title: "Light Source", cells: cellsOfSection)
+				OptionsSectionsView(title: self.sectionName, cells: cellsOfSection)
 			}
 			.animation(.default, value: self.lightModel.lightType)
 			.cornerRadius(16)
@@ -65,20 +65,26 @@ struct SettingsLightView: View {
 		switch self.lightModel.lightType {
 		case .spot, .omni:
 			cells.append(contentsOf: [
-				AnyView(ToggleCellView(icon: "move.3d", text: "Is Moving", isOn: $lightModel.isMotionEnabled)),
-				AnyView(ToggleCellView(icon: "shadow", text: "Is Shadow", isOn: $lightModel.isShadowEnabled)),
-				AnyView(SliderCellView(title: "Lights Count", range: 1...Double(lightTypes.count), value: $lightModel.countLights)),
+				AnyView(ToggleCellView(icon: "move.3d", text: self.nameIsMovingCell, isOn: $lightModel.isMotionEnabled)),
+				AnyView(ToggleCellView(icon: "shadow", text: self.nameIsShadowCell, isOn: $lightModel.isShadowEnabled)),
+				AnyView(SliderCellView(title: self.nameNamberOfLightsCell, range: 1...Double(lightTypes.count), value: $lightModel.countLights)),
 			])
 		case .directional:
 			cells.append(contentsOf: [
-				AnyView(ToggleCellView(icon: "move.3d", text: "Is Moving", isOn: $lightModel.isMotionEnabled)),
-				AnyView(ToggleCellView(icon: "shadow", text: "Is Shadow", isOn: $lightModel.isShadowEnabled)),
+				AnyView(ToggleCellView(icon: "move.3d", text: self.nameIsMovingCell, isOn: $lightModel.isMotionEnabled)),
+				AnyView(ToggleCellView(icon: "shadow", text: self.nameIsShadowCell, isOn: $lightModel.isShadowEnabled)),
 			])
 		case .ambient, .undefined:
 			break
 		}
 		return cells
 	}
+	private let nameIsMovingCell = String(localized: "Is Moving", comment: "Name of cell in light settings screen")
+	private let nameIsShadowCell = String(localized: "Is Shadow", comment: "Name of cell in light settings screen")
+	private let nameNamberOfLightsCell = String(localized: "Number of light sources", comment: "Name of cell in light settings screen")
+
+	private let sectionName = String(localized: "Light Source", comment: "Name of section in light settings screen")
+	private let navigationBarTitle = String(localized: "Light Settings", comment: "Title in navigation bar in light settings screen")
 }
 
 #Preview {
