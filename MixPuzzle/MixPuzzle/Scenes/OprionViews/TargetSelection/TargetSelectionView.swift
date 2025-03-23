@@ -33,7 +33,7 @@ struct TargetSelectionView: View {
 	@State
 	private var isShowSnackbar = false
 	
-	private let title = String(localized: "Choice of target", comment: "Title for Target selection screen")
+	private let title = String(localized: "Targets", comment: "Title for Target selection screen")
 	private let smackbarSavedMessage = String(localized: "mix.snackbar.saved", comment: "Message for snackbar when saved")
 	
 	init(dependncy: _Dependency) {

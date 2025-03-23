@@ -36,7 +36,7 @@ struct SettingsAsteroidsView: View {
     
     var body: some View {
         VStack {
-            NavigationBar(title: "Settings Asteroids", tralingView: AnyView(
+			NavigationBar(title: "Asteroids".localized, tralingView: AnyView(
                 SaveButtonNavigationBar(action: {
                     self.asteroidsModel.saveChanges()
 					self.isShowSnackbar = true
@@ -44,16 +44,16 @@ struct SettingsAsteroidsView: View {
             ))
             .padding()
             ScrollView {
-                OptionsSectionsView(title: "Asteroids", cells: [
-                    AnyView(ToggleCellView(icon: "waveform.path", text: "Show Asteroids", isOn: $asteroidsModel.isShowAsteroids)),
-                    AnyView(SliderCellView(title: "Asteroids Count", range: 0...200, value: $asteroidsModel.asteroidsCount)),
-                    AnyView(SliderCellView(title: "Radius Sphere Asteroids", range: 20...40, value: $asteroidsModel.radiusSphere)),
+                OptionsSectionsView(title: "Asteroids".localized, cells: [
+                    AnyView(ToggleCellView(icon: "waveform.path", text: "Show asteroids".localized, isOn: $asteroidsModel.isShowAsteroids)),
+					AnyView(SliderCellView(title: "Asteroids count".localized, range: 0...200, value: $asteroidsModel.asteroidsCount)),
+					AnyView(SliderCellView(title: "Asteroid radius".localized, range: 20...40, value: $asteroidsModel.radiusSphere)),
                 ])
             }
             .cornerRadius(16)
             .padding()
         }
-		.snackbar(isShowing: $isShowSnackbar, text: "The data has been saved successfully.", style: .success, extraBottomPadding: 16)
+		.snackbar(isShowing: $isShowSnackbar, text: "mix.snackbar.saved".localized, style: .success, extraBottomPadding: 16)
         .background(Color.mm_background_secondary)
     }
 }

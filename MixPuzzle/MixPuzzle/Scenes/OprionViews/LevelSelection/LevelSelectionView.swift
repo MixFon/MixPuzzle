@@ -34,7 +34,7 @@ struct LevelSelectionView: View {
 	@ObservedObject var gameModel: LevelSelectionModel
 	@State private var isShowSnackbar = false
 	
-	private let title = String(localized: "Choice of the level", comment: "Title choice of the level screen")
+	private let title = String(localized: "Levels", comment: "Title choice of the level screen")
 	private let snackbarSaveMessage = String(localized: "mix.snackbar.saved")
 	
     var body: some View {

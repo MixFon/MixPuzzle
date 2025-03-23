@@ -48,7 +48,7 @@ struct SettingsLightView: View {
 					self.isShowSnackbar = true
 				})
 			))
-			.padding(.horizontal)
+			.padding()
 			ScrollView {
 				OptionsSectionsView(title: self.sectionName, cells: cellsOfSection)
 			}

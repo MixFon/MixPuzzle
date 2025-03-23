@@ -49,8 +49,8 @@ struct OptionsView: View {
 	private let vibration = String(localized: "Vibration", comment: "Name cell in options")
 	private let scatistic = String(localized: "Statistic")
 	private let aplication = String(localized: "Application", comment: "Name of section in options screen")
-	private let choiseOFLevel = String(localized: "Choice of the level")
-	private let choiseOfTarget = String(localized: "Choice of target")
+	private let choiseOFLevel = String(localized: "Levels")
+	private let choiseOfTarget = String(localized: "Targets")
 	
 	init(dependency: _Dependency) {
 		self.dependency = dependency

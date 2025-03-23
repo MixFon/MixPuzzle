@@ -35,6 +35,17 @@
         }
       }
     },
+    "Asteroid radius" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Радиус астеройдов"
+          }
+        }
+      }
+    },
     "Asteroids" : {
       "comment" : "Name of cell in options screen",
       "localizations" : {
@@ -42,6 +53,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Астеройды"
+          }
+        }
+      }
+    },
+    "Asteroids count" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Количество астероидов"
           }
         }
       }
@@ -64,28 +86,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Радиус закругления"
-          }
-        }
-      }
-    },
-    "Choice of target" : {
-      "comment" : "Title for Target selection screen",
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Выбор цели"
-          }
-        }
-      }
-    },
-    "Choice of the level" : {
-      "comment" : "Title choice of the level screen",
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Выбор уровня"
           }
         }
       }
@@ -216,7 +216,7 @@
       }
     },
     "Levels" : {
-      "comment" : "Name of axis",
+      "comment" : "Name of axis\nTitle choice of the level screen",
       "localizations" : {
         "ru" : {
           "stringUnit" : {
@@ -374,6 +374,18 @@
     "Shape Color" : {
       "shouldTranslate" : false
     },
+    "Show asteroids" : {
+      "comment" : "Name cell in asteroids screen",
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Показать астероиды"
+          }
+        }
+      }
+    },
     "Snail" : {
       "comment" : "Name snain solution",
       "localizations" : {
@@ -403,6 +415,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Статистика"
+          }
+        }
+      }
+    },
+    "Targets" : {
+      "comment" : "Title for Target selection screen",
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Цели"
           }
         }
       }
