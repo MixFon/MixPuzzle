@@ -40,7 +40,7 @@ struct ManualFillingView: View {
 
 	var body: some View {
 		VStack {
-			NavigationBar(title: "Manual filling", tralingView: AnyView(
+			NavigationBar(title: "Manual filling".localized, tralingView: AnyView(
 				SaveButtonNavigationBar(action: {
 					checkMatrix()
 				})
@@ -134,14 +134,14 @@ struct ManualFillingView: View {
 	/// Показывает ошибки правильности заполнения матрицы.
 	private func showSnackbarError() {
 		let maxMatrixElemetn = self.selectedSize * self.selectedSize - 1
-		self.snackbarModel.text = "The matrix is filled in incorrectly. It should consist of numbers from 0 to \(maxMatrixElemetn) without duplicates."
+		self.snackbarModel.text = String(format: NSLocalizedString("mix.snackbar.matrix.not.solution", comment: ""), maxMatrixElemetn)
 		self.snackbarModel.style = .error
 		self.snackbarModel.isShowing = true
 	}
 	
 	private func showSnackbarErrorNotSolution() {
-		let solutionName = self.selectedSolution.description
-		self.snackbarModel.text = "There is no solution. It is impossible to reach the \(solutionName) state from the current state."
+		let solutionName = self.selectedSolution.name
+		self.snackbarModel.text = String(format: NSLocalizedString("mix.snackbar.matrix.not.solution", comment: ""), solutionName)
 		self.snackbarModel.style = .error
 		self.snackbarModel.isShowing = true
 	}

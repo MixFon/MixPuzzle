@@ -80,6 +80,7 @@
       }
     },
     "Chamfer radius" : {
+      "comment" : "Name option in cube settings",
       "extractionState" : "manual",
       "localizations" : {
         "ru" : {
@@ -245,6 +246,54 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Освещение"
+          }
+        }
+      }
+    },
+    "Manual filling" : {
+      "comment" : "Title in manual filling screen",
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ручное наполнение"
+          }
+        }
+      }
+    },
+    "mix.snackbar.matrix.fill.incorrectly" : {
+      "comment" : "Message in snackbar when matrix filled incorrectly",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The matrix is filled in incorrectly. It should consist of numbers from 0 to %@ without duplicates."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Матрица заполнена неправильно. Она должна состоять из чисел от 0 до %@ без дубликатов."
+          }
+        }
+      }
+    },
+    "mix.snackbar.matrix.not.solution" : {
+      "comment" : "Message in snackbar when not solution",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "There is no solution. It is impossible to reach the %@ state from the current state."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Нет решения. Невозможно достичь состояния %@ из текущего состояния."
           }
         }
       }
