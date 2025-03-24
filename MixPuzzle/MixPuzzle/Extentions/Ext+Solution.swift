@@ -20,3 +20,12 @@ extension Solution {
 		}
 	}
 }
+extension Solution: @retroactive CaseIterable {
+	public static var allCases: [Solution] = [.snail, .classic, .boustrophedon]
+}
+
+extension Solution: @retroactive CustomStringConvertible {
+	public var description: String {
+		return name
+	}
+}

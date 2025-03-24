@@ -134,7 +134,7 @@ struct ManualFillingView: View {
 	/// Показывает ошибки правильности заполнения матрицы.
 	private func showSnackbarError() {
 		let maxMatrixElemetn = self.selectedSize * self.selectedSize - 1
-		self.snackbarModel.text = String(format: NSLocalizedString("mix.snackbar.matrix.not.solution", comment: ""), maxMatrixElemetn)
+		self.snackbarModel.text = String(format: NSLocalizedString("mix.snackbar.matrix.fill.incorrectly", comment: ""), maxMatrixElemetn)
 		self.snackbarModel.style = .error
 		self.snackbarModel.isShowing = true
 	}

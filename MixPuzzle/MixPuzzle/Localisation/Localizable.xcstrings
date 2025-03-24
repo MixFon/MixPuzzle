@@ -269,13 +269,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "The matrix is filled in incorrectly. It should consist of numbers from 0 to %@ without duplicates."
+            "value" : "The matrix is filled in incorrectly. It should consist of numbers from 0 to %lld without duplicates."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Матрица заполнена неправильно. Она должна состоять из чисел от 0 до %@ без дубликатов."
+            "value" : "Матрица заполнена неправильно. Она должна состоять из чисел от 0 до %lld без дубликатов."
           }
         }
       }
