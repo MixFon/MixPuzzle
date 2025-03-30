@@ -26,6 +26,8 @@ protocol _BoxesWorker {
 	func createShakeAnimation(position: SCNVector3) -> CAKeyframeAnimation
 	/// Перемещает кубики в позиции соответствующие Grid. Подразумевается, что уже будет новая Grid в gameWorker
 	func moveNodeToPointsOfGrid()
+	/// Перемещает кубики в позиции соответствующие targetMatrix
+	func moveNodesToTargetPozitions(targetMatrix: Matrix)
 	/// Создает кубик в случайном месте
 	func createBoxInRandomPlace(number: MatrixElement) -> SCNNode
 	/// Опредляет координаты камеры так, чтобы все пазды были видны на экране
@@ -113,6 +115,10 @@ final class BoxesWorker: _BoxesWorker {
 	
 	func deleteAnimationFromBoxes() {
 		self.boxesNode?.forEach { $0.removeAllActions() }
+	}
+	
+	func moveNodesToTargetPozitions(targetMatrix: Matrix) {
+		
 	}
 	
 	func moveNodeToPointsOfGrid() {
