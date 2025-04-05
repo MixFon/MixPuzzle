@@ -65,13 +65,16 @@ final class BoxesWorker: _BoxesWorker {
 	private var grid: Grid<MatrixElement>
 	private var boxesNode: [SCNNode]?
     private let lengthEdge: Float = 4
-    private let verticalPadding: Float = 0.4
+	private let transporter: any _Transporter
 	/// Ключ для анимации тряски
 	private let keyForGroupAnimation: String = "mix.animation.group"
 	/// Длительность анимации передвижения в позицию 0
 	private let animationDuration: TimeInterval = 0.3
-    private let horisontalPadding: Float = 0.2
 	
+	private let deepPadding: Float = 0
+	private let verticalPadding: Float = 0.4
+    private let horisontalPadding: Float = 0.2
+
 	private let cubeWorker: _CubeWorker
     private let settingsCubeStorate: _SettingsCubeStorage
 	
@@ -99,12 +102,14 @@ final class BoxesWorker: _BoxesWorker {
 		struct Point {
 			let x: Float
 			let y: Float
+			var z: Float = 0
 		}
     }
     
-	init(grid: Grid<MatrixElement>, cubeWorker: _CubeWorker, settingsCubeStorate: _SettingsCubeStorage) {
+	init(grid: Grid<MatrixElement>, cubeWorker: any _CubeWorker, transporter: some _Transporter, settingsCubeStorate: any _SettingsCubeStorage) {
         self.grid = grid
         self.cubeWorker = cubeWorker
+		self.transporter = transporter
         self.settingsCubeStorate = settingsCubeStorate
     }
 	
@@ -118,7 +123,35 @@ final class BoxesWorker: _BoxesWorker {
 	}
 	
 	func moveNodesToTargetPozitions(targetMatrix: Matrix) {
-		
+		let currentMatrix = convertToIntMatrix(matrix: self.grid.matrix)
+		let targetMatrix = convertToIntMatrix(matrix: targetMatrix)
+		let pathsDirections = self.transporter.createDirections(from: currentMatrix, to: targetMatrix)
+		let allMatrixElements = self.grid.matrix.flatMap { $0 }.map({ Int($0) })
+			
+		for element in allMatrixElements {
+			guard let action = createAction(for: element, with: pathsDirections[element] ?? []) else { continue }
+			let node = self.boxesNode?.first(where: {$0.name == String(element)})
+			node?.runAction(SCNAction.sequence(action))
+		}
+	}
+	
+	/// Создает посделовательность перемещений на скнове Directions для element
+	private func createAction(for element: Int, with directions: [Direction]) -> [SCNAction]? {
+		guard let pointElement = self.grid.getPoint(number: MatrixElement(element)) else { return nil }
+		var point3D = Grid3DPoint(x: pointElement.x, y: pointElement.y, z: 0)
+		var actions: [SCNAction] = []
+		for direction in directions {
+			point3D = point3D.getByAdding(from: direction)
+			let boxPoint = getBoxPoint(i: Int(point3D.x), j: Int(point3D.y), k: Int(point3D.z))
+			
+			let duration: TimeInterval = 0.3
+			// Для векторов SCNVector3 на первом месте тоит Y на втором -X координаты из матрицы
+			let action = SCNAction.move(to: SCNVector3(x: Float(boxPoint.y), y: Float(-boxPoint.x), z: Float(-boxPoint.z)), duration: duration)
+			let waitAction = SCNAction.wait(duration: 0.2)
+			actions.append(action)
+			actions.append(waitAction)
+		}
+		return actions
 	}
 	
 	func moveNodeToPointsOfGrid() {
@@ -239,6 +272,16 @@ final class BoxesWorker: _BoxesWorker {
 		}
 	}
 	
+	/// Перевод матрицы в двумерный массив Int
+	private func convertToIntMatrix(matrix: Matrix) -> [[Int]] {
+		var result: [[Int]] = []
+		for row in matrix {
+			let line = row.map({Int($0)})
+			result.append(line)
+		}
+		return result
+	}
+	
 	private func addComplexShakeAnimation(to node: SCNNode) {
 		// Анимация смещения вдоль осей OX и OY
 		let positionAnimation = CAKeyframeAnimation(keyPath: "position")
@@ -282,12 +325,14 @@ final class BoxesWorker: _BoxesWorker {
 	}
 
 	
-	private func getBoxPoint(i: Int, j: Int) -> Box.Point {
+	private func getBoxPoint(i: Int, j: Int, k: Int = 0) -> Box.Point {
 		let verticalEdge = self.lengthEdge + self.verticalPadding
 		let horisontalEdge = self.lengthEdge + self.horisontalPadding
+		let deepEdge = self.lengthEdge + self.deepPadding
 		let point = Box.Point(
 			x: Float(i) * verticalEdge,
-			y: Float(j) * horisontalEdge
+			y: Float(j) * horisontalEdge,
+			z: Float(k) * deepEdge
 		)
 		return point
 	}

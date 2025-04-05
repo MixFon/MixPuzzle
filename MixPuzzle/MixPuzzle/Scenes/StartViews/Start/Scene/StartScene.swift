@@ -154,16 +154,17 @@ struct StartScene: UIViewRepresentable {
 	
 	private mutating func configureRegeneratePublisher() {
 		self.startSceneModel?.regenerateSubject.sink { [self] in
-			self.gameWorker.statisticsWorker.increaseRegenerations()
-			self.gameWorker.deleteCompasses()
-			self.gameWorker.regenerateMatrix()
+			//self.gameWorker.statisticsWorker.increaseRegenerations()
+			//self.gameWorker.deleteCompasses()
+			//self.gameWorker.regenerateMatrix()
 			
-			self.boxWorker.updateGrid(grid: Grid<MatrixElement>(matrix: self.gameWorker.matrix, zero: 0))
-			self.boxWorker.moveNodeToPointsOfGrid()
+			//self.boxWorker.updateGrid(grid: Grid<MatrixElement>(matrix: self.gameWorker.matrix, zero: 0))
+			//self.boxWorker.moveNodeToPointsOfGrid()
 			
 			self.startSceneModel?.pathSolutionSubject.send(.game)
 			self.settings.isMoveOn = true
 			removeFinalMenu()
+			self.boxWorker.moveNodesToTargetPozitions(targetMatrix: gameWorker.matrixSolution)
 		}.store(in: &cancellables)
 	}
 	

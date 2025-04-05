@@ -12,6 +12,7 @@ protocol _Workers {
 	var keeper: _Keeper { get }
 	var gameWorker: _GameWorker { get }
 	var cubeWorker: _CubeWorker { get }
+	var transporter: any _Transporter { get }
 	var imageWorker: _ImageWorker { get }
 	var lightsWorker: _LightsWorker { get }
 	var matrixWorker: _MatrixWorker { get }
@@ -26,6 +27,7 @@ final class Workers: _Workers {
 	let keeper: _Keeper
 	let gameWorker: _GameWorker
 	let cubeWorker: _CubeWorker
+	let transporter: any _Transporter
 	let imageWorker: _ImageWorker
 	let lightsWorker: _LightsWorker
 	let matrixWorker: _MatrixWorker
@@ -34,10 +36,11 @@ final class Workers: _Workers {
 	let asteroidWorker: _AsteroidsWorker
 	let materialsWorker: _MaterialsWorker
 	
-	init(keeper: _Keeper, gameWorker: _GameWorker, cubeWorker: _CubeWorker, imageWorker: _ImageWorker, lightsWorker: _LightsWorker, matrixWorker: _MatrixWorker, rotationWorker: _RotationWorker, textNodeWorker: _TextNodeWorker, asteroidWorker: _AsteroidsWorker, materialsWorker: _MaterialsWorker) {
+	init(keeper: _Keeper, gameWorker: _GameWorker, cubeWorker: _CubeWorker, transporter: any _Transporter, imageWorker: _ImageWorker, lightsWorker: _LightsWorker, matrixWorker: _MatrixWorker, rotationWorker: _RotationWorker, textNodeWorker: _TextNodeWorker, asteroidWorker: _AsteroidsWorker, materialsWorker: _MaterialsWorker) {
 		self.keeper = keeper
 		self.gameWorker = gameWorker
 		self.cubeWorker = cubeWorker
+		self.transporter = transporter
 		self.imageWorker = imageWorker
 		self.lightsWorker = lightsWorker
 		self.matrixWorker = matrixWorker
@@ -46,13 +49,14 @@ final class Workers: _Workers {
 		self.asteroidWorker = asteroidWorker
 		self.materialsWorker = materialsWorker
 	}
-	
 }
 
 final class MockWorkers: _Workers {
 	let keeper: any _Keeper = MockFileWorker()
 	
 	let gameWorker: any _GameWorker = MockGameWorker()
+	
+	let transporter: any _Transporter = MockTransporter()
 	
 	let textNodeWorker: any _TextNodeWorker = MockTextNodeWorker()
 	
@@ -106,5 +110,16 @@ final class MockMatrixWorker: _MatrixWorker {
 	
 	func fillBoardInSpiral(matrix: inout Matrix) {
 		
+	}
+}
+
+final class MockTransporter: _Transporter {
+	typealias Cargo = Int
+	func createDirections(from current: [[Int]], to solution: [[Int]]) -> [Int : [MFPuzzle.Direction]] {
+		[:]
+	}
+	
+	func createShortestPath(from current: [[Int]], to solution: [[Int]]) -> [Int : [MFPuzzle.Direction]] {
+		[:]
 	}
 }

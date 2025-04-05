@@ -47,6 +47,7 @@ struct Dependency: _Dependency {
 		let imageWorker = ImageWorker()
 		let cubeWorker = CubeWorker(imageWorker: imageWorker, materialsWorker: materialsWorker)
 		let fileWorker = FileWorker()
+		let transporter = Transporter()
 		let matrixWorker = MatrixWorker(checker: checker)
 		let decoder = Decoder()
 		let statisticsWorker = StatisticsWorker(keeper: fileWorker, decoder: decoder)
@@ -63,6 +64,7 @@ struct Dependency: _Dependency {
 			keeper: fileWorker,
 			gameWorker: gameWorker,
 			cubeWorker: cubeWorker,
+			transporter: transporter,
 			imageWorker: imageWorker,
 			lightsWorker: lightsWorker,
 			matrixWorker: matrixWorker,

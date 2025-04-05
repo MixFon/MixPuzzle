@@ -19,6 +19,7 @@ final class StartFactory {
 		let boxWorker = BoxesWorker(
 			grid: grid,
 			cubeWorker: dependency.workers.cubeWorker,
+			transporter: dependency.workers.transporter,
 			settingsCubeStorate: dependency.settingsStorages.settingsCubeStorage
 		)
 		let startScene = StartScene(
@@ -42,6 +43,7 @@ final class StartFactory {
 		let boxWorker = BoxesWorker(
 			grid: grid,
 			cubeWorker: dependency.workers.cubeWorker,
+			transporter: dependency.workers.transporter,
 			settingsCubeStorate: dependency.settingsStorages.settingsCubeStorage
 		)
 		let lightWorker = LightsWorker(
@@ -68,6 +70,7 @@ final class StartFactory {
 		let boxWorker = BoxesWorker(
 			grid: grid,
 			cubeWorker: dependency.workers.cubeWorker,
+			transporter: dependency.workers.transporter,
 			settingsCubeStorate: dependency.settingsStorages.settingsCubeStorage
 		)
 		let startScene = StartScene(
