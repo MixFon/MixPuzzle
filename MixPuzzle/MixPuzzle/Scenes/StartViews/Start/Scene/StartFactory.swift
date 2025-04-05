@@ -15,7 +15,7 @@ final class StartFactory {
 		
 		dependency.workers.gameWorker.updateMatrix()
 		let matrix = dependency.workers.gameWorker.matrix
-		let grid = Grid(matrix: matrix)
+		let grid = Grid<MatrixElement>(matrix: matrix, zero: 0)
 		let boxWorker = BoxesWorker(
 			grid: grid,
 			cubeWorker: dependency.workers.cubeWorker,
@@ -38,7 +38,7 @@ final class StartFactory {
 	
 	/// Создает сцену по матрице, только для отображения, тут небудет реакции на движения, текста и игры
 	func configure(matrix: Matrix, dependency: _Dependency) -> some View {
-		let grid = Grid(matrix: matrix)
+		let grid = Grid<MatrixElement>(matrix: matrix, zero: 0)
 		let boxWorker = BoxesWorker(
 			grid: grid,
 			cubeWorker: dependency.workers.cubeWorker,
@@ -64,7 +64,7 @@ final class StartFactory {
 	
 	/// Создает сцену для показа ходов решения. В ней отключены перемещения элементов
 	func configureShowPathCompasses(matrix: Matrix, dependency: _Dependency, startSceneModel: StartSceneModel) -> some View {
-		let grid = Grid(matrix: matrix)
+		let grid = Grid<MatrixElement>(matrix: matrix, zero: 0)
 		let boxWorker = BoxesWorker(
 			grid: grid,
 			cubeWorker: dependency.workers.cubeWorker,

@@ -134,7 +134,7 @@ struct StartScene: UIViewRepresentable {
 			self.boxWorker.deleteAllBoxes()
 			self.gameWorker.increaseLavel()
 			self.gameWorker.regenerateMatrix()
-			self.boxWorker.updateGrid(grid: Grid(matrix: self.gameWorker.matrix))
+			self.boxWorker.updateGrid(grid: Grid<MatrixElement>(matrix: self.gameWorker.matrix, zero: 0))
 			self.boxWorker.createMatrixBox(rootNode: self.scene.rootNode)
 			
 			self.settings.isMoveOn = true
@@ -158,7 +158,7 @@ struct StartScene: UIViewRepresentable {
 			self.gameWorker.deleteCompasses()
 			self.gameWorker.regenerateMatrix()
 			
-			self.boxWorker.updateGrid(grid: Grid(matrix: self.gameWorker.matrix))
+			self.boxWorker.updateGrid(grid: Grid<MatrixElement>(matrix: self.gameWorker.matrix, zero: 0))
 			self.boxWorker.moveNodeToPointsOfGrid()
 			
 			self.startSceneModel?.pathSolutionSubject.send(.game)
@@ -176,7 +176,7 @@ struct StartScene: UIViewRepresentable {
 			} else {
 				matrix = self.gameWorker.matrix
 			}
-			self.boxWorker.updateGrid(grid: Grid(matrix: matrix))
+			self.boxWorker.updateGrid(grid: Grid<MatrixElement>(matrix: matrix, zero: 0))
 			self.boxWorker.moveNodeToPointsOfGrid()
 		}.store(in: &cancellables)
 	}

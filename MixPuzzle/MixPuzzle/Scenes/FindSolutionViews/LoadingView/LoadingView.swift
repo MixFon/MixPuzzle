@@ -40,8 +40,8 @@ struct LoadingView: View {
 	}
 	
 	public func performCalculation() async throws {
-		let board = Board(grid: Grid(matrix: self.matrix))
-		let boardTarget = Board(grid: Grid(matrix: self.matrixTarger))
+		let board = Board(grid: Grid<MatrixElement>(matrix: self.matrix, zero: 0))
+		let boardTarget = Board(grid: Grid<MatrixElement>(matrix: self.matrixTarger, zero: 0))
 		if let finalBoard = try await self.puzzle.searchSolutionWithHeap(board: board, limiter: self.limiter, boardTarget: boardTarget) {
 			await MainActor.run {
 				guard !Task.isCancelled else { return }

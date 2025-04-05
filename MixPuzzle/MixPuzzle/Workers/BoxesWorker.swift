@@ -45,7 +45,7 @@ protocol _BoxesWorker {
 	/// Останавливаю анимацию тряски для всехкубиков
 	func stopShakeAnimationForAllBoxes(blendOutDuration: CGFloat?)
 	/// Обновление сетки
-	func updateGrid(grid: Grid)
+	func updateGrid(grid: Grid<MatrixElement>)
 	/// Возвращает элемен по компасу, который находится около нуля
 	func getNumber(for compass: Compass) -> MatrixElement?
 	/// Возвращает компас для номера
@@ -62,7 +62,7 @@ final class BoxesWorker: _BoxesWorker {
 	}
 	
 	/// Модель сетки, на основе нее строится отобрадение
-	private var grid: Grid
+	private var grid: Grid<MatrixElement>
 	private var boxesNode: [SCNNode]?
     private let lengthEdge: Float = 4
     private let verticalPadding: Float = 0.4
@@ -102,7 +102,7 @@ final class BoxesWorker: _BoxesWorker {
 		}
     }
     
-	init(grid: Grid, cubeWorker: _CubeWorker, settingsCubeStorate: _SettingsCubeStorage) {
+	init(grid: Grid<MatrixElement>, cubeWorker: _CubeWorker, settingsCubeStorate: _SettingsCubeStorage) {
         self.grid = grid
         self.cubeWorker = cubeWorker
         self.settingsCubeStorate = settingsCubeStorate
@@ -156,7 +156,7 @@ final class BoxesWorker: _BoxesWorker {
 		let boxPointZero = getBoxPoint(i: Int(pointZero.x), j: Int(pointZero.y))
 		// Для векторов SCNVector3 на первом месте стоит Y на втором -X координаты из матрицы
 		let action = SCNAction.move(to: SCNVector3(x: Float(boxPointZero.y), y: Float(-boxPointZero.x), z: 0), duration: self.animationDuration)
-		self.grid.swapNumber(number: number)
+		self.grid.swapNumber(number: number, target: 0)
 		return action
 	}
 	
@@ -170,7 +170,7 @@ final class BoxesWorker: _BoxesWorker {
 			let action = SCNAction.move(to: SCNVector3(x: Float(boxPointZero.y), y: Float(-boxPointZero.x), z: 0), duration: 0.1)
 			complerion(action)
 		})
-		self.grid.swapNumber(number: number)
+		self.grid.swapNumber(number: number, target: 0)
 		return customAction
 	}
 	
@@ -204,7 +204,7 @@ final class BoxesWorker: _BoxesWorker {
 		return node
 	}
 	
-	func updateGrid(grid: Grid) {
+	func updateGrid(grid: Grid<MatrixElement>) {
 		self.grid = grid
 	}
 	
