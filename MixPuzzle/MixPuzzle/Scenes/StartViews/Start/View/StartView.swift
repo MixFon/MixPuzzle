@@ -25,6 +25,8 @@ final class StartSceneModel: ObservableObject {
 	let nextLavelSubject = PassthroughSubject<Void, Never>()
 	/// Паблишер для обработки нажатия кнопки начать с начала
 	let regenerateSubject = PassthroughSubject<Void, Never>()
+	/// Паблишер для показа отображения матрицы
+	let showMatrixSubject = PassthroughSubject<Matrix, Never>()
 	/// Паблишер вызывающий действия перез закрытием экрана
 	let prepareCloseSubject = PassthroughSubject<Void, Never>()
 	/// Паблишер для управления поднятия вью с показом пути
@@ -52,8 +54,8 @@ final class StartSceneModel: ObservableObject {
 
 struct StartView: View {
     let dependency: _Dependency
-	@ObservedObject private var router = StartSceneRouter()
-	@ObservedObject private var startSceneModel = StartSceneModel()
+	@StateObject private var router = StartSceneRouter()
+	@StateObject private var startSceneModel = StartSceneModel()
 
     var body: some View {
 		ZStack {

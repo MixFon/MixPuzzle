@@ -29,6 +29,9 @@ struct TargetSelectionView: View {
 	
 	@ObservedObject
 	private var model: TargetSelectionModel
+	@StateObject
+	private var startSceneModel = StartSceneModel()
+	private let startSelectedMatrix: Matrix
 	
 	@State
 	private var isShowSnackbar = false
@@ -38,8 +41,10 @@ struct TargetSelectionView: View {
 	
 	init(dependncy: _Dependency) {
 		self.dependncy = dependncy
+		let gameWorker = dependncy.workers.gameWorker
+		self.startSelectedMatrix = gameWorker.solutionOptions.first(where: {$0.type == gameWorker.solution})?.matrix ?? Matrix()
 		self.solutionOptions = self.dependncy.workers.gameWorker.solutionOptions
-		self.model = TargetSelectionModel(gameWorker: dependncy.workers.gameWorker)
+		self.model = TargetSelectionModel(gameWorker: gameWorker)
 	}
 	
     var body: some View {
@@ -56,18 +61,19 @@ struct TargetSelectionView: View {
 				)
 			)
 			.padding()
-			ScrollView {
-				ForEach(solutionOptions, id: \.type) { option in
-					Button {
-						self.model.selectedSolution = option.type
-					} label: {
-						TargetView(option: option, dependncy: self.dependncy, isSelected: option.type == self.model.selectedSolution)
-					}
-					.padding()
-					.buttonStyle(.plain)
-				}
-			}
+			TargetSelectSceneWrapper(matrix: self.startSelectedMatrix, dependency: dependncy, startSceneModel: self.startSceneModel)
+				.clipShape(RoundedRectangle(cornerRadius: 24))
+				.aspectRatio(contentMode: .fit)
+				.padding(.horizontal)
+			SelectSizePicker(selectedSize: self.$model.selectedSolution, numbersSize: solutionOptions.map({$0.type}))
+				.padding()
+			Spacer()
 		}
+		.onChange(of: self.model.selectedSolution, perform: { value in
+			if let matrix = self.solutionOptions.first(where: {$0.type == value})?.matrix {
+				self.startSceneModel.showMatrixSubject.send(matrix)
+			}
+		})
 		.snackbar(isShowing: $isShowSnackbar, text: self.smackbarSavedMessage, style: .success, extraBottomPadding: 16)
 		.background(Color.mm_background_tertiary)
     }
@@ -81,9 +87,7 @@ struct TargetView: View {
 	private let radius: CGFloat = 24
 	var body: some View {
 		VStack {
-			TargetSelectSceneWrapper(matrix: option.matrix, dependency: dependncy)
-				.clipShape(RoundedRectangle(cornerRadius: radius))
-				.aspectRatio(contentMode: .fit)
+			
 			Text(option.type.name)
 				.padding()
 				.clipShape(RoundedRectangle(cornerRadius: radius, style: .continuous))

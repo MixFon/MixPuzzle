@@ -38,7 +38,7 @@ final class StartFactory {
 	}
 	
 	/// Создает сцену по матрице, только для отображения, тут небудет реакции на движения, текста и игры
-	func configure(matrix: Matrix, dependency: _Dependency) -> some View {
+	func configure(matrix: Matrix, dependency: _Dependency, startSceneModel: StartSceneModel) -> some View {
 		let grid = Grid<MatrixElement>(matrix: matrix, zero: 0)
 		let boxWorker = BoxesWorker(
 			grid: grid,
@@ -58,7 +58,7 @@ final class StartFactory {
 			rotationWorker: dependency.workers.rotationWorker,
 			asteroidWorker: dependency.workers.asteroidWorker,
 			textNodeWorker: MockTextNodeWorker(),
-			startSceneModel: nil
+			startSceneModel: startSceneModel
 		)
 		startScene.settings.isUserInteractionEnabled = false
 		return startScene

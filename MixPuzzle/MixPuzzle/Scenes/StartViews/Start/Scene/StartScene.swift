@@ -49,6 +49,7 @@ struct StartScene: UIViewRepresentable {
 		configureFinishPublisher()
 		configureShowMenuPublisher()
 		configureShowPathCompasses()
+		configureShowMatrixPublisher()
 		configureRegeneratePublisher()
 		configureShowSolutionPublisher()
 		configureNotificationCenterPublisher()
@@ -149,6 +150,14 @@ struct StartScene: UIViewRepresentable {
 			
 			SCNTransaction.commit()
 			removeFinalMenu()
+		}.store(in: &cancellables)
+	}
+	
+	private mutating func configureShowMatrixPublisher() {
+		// Паблишер предназначенный только для отображения анимации матрицы.
+		self.startSceneModel?.showMatrixSubject.sink { [self] matrix in
+			self.boxWorker.moveNodesToTargetPozitions(targetMatrix: matrix)
+			self.boxWorker.updateGrid(grid: Grid<MatrixElement>(matrix: matrix, zero: 0))
 		}.store(in: &cancellables)
 	}
 	
