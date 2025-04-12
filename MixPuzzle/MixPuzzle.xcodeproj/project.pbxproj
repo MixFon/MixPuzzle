@@ -910,7 +910,7 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "git@github.com:MixFon/MFPuzzle.git";
 			requirement = {
-				branch = "features/new-direction";
+				branch = main;
 				kind = branch;
 			};
 		};
