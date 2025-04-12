@@ -140,16 +140,68 @@ final class BoxesWorker: _BoxesWorker {
 		guard let pointElement = self.grid.getPoint(number: MatrixElement(element)) else { return nil }
 		var point3D = Grid3DPoint(x: pointElement.x, y: pointElement.y, z: 0)
 		var actions: [SCNAction] = []
+		let duration: TimeInterval = 2
 		for direction in directions {
-			point3D = point3D.getByAdding(from: direction)
-			let boxPoint = getBoxPoint(i: Int(point3D.x), j: Int(point3D.y), k: Int(point3D.z))
 			
-			let duration: TimeInterval = 0.3
-			// Для векторов SCNVector3 на первом месте тоит Y на втором -X координаты из матрицы
-			let action = SCNAction.move(to: SCNVector3(x: Float(boxPoint.y), y: Float(-boxPoint.x), z: Float(-boxPoint.z)), duration: duration)
-			let waitAction = SCNAction.wait(duration: 0.2)
-			actions.append(action)
-			actions.append(waitAction)
+			switch direction {
+			case .up(let upDirection):
+				if let upDirection = upDirection {
+					point3D = point3D.getByAdding(from: .up(nil))
+					var point = getBoxPoint(i: Int(point3D.x), j: Int(point3D.y), k: Int(point3D.z))
+					// Для векторов SCNVector3 на первом месте тоит Y на втором -X координаты из матрицы
+					let upAction = SCNAction.move(to: SCNVector3(x: Float(point.y), y: Float(-point.x), z: Float(-point.z)), duration: duration / 2)
+					actions.append(upAction)
+
+					point3D = point3D.getByAdding(from: upDirection)
+					point = getBoxPoint(i: Int(point3D.x), j: Int(point3D.y), k: Int(point3D.z))
+					// Для векторов SCNVector3 на первом месте тоит Y на втором -X координаты из матрицы
+					let action = SCNAction.move(to: SCNVector3(x: Float(point.y), y: Float(-point.x), z: Float(-point.z)), duration: duration / 2)
+					actions.append(action)
+					let waitAction = SCNAction.wait(duration: 0.2)
+					actions.append(waitAction)
+				} else {
+					point3D = point3D.getByAdding(from: direction)
+					let boxPoint = getBoxPoint(i: Int(point3D.x), j: Int(point3D.y), k: Int(point3D.z))
+					// Для векторов SCNVector3 на первом месте тоит Y на втором -X координаты из матрицы
+					let action = SCNAction.move(to: SCNVector3(x: Float(boxPoint.y), y: Float(-boxPoint.x), z: Float(-boxPoint.z)), duration: duration)
+					let waitAction = SCNAction.wait(duration: 0.2)
+					actions.append(action)
+					actions.append(waitAction)
+				}
+			case .down(let downDirection):
+				if let downDirection = downDirection {
+					point3D = point3D.getByAdding(from: .down(nil))
+					var point = getBoxPoint(i: Int(point3D.x), j: Int(point3D.y), k: Int(point3D.z))
+					// Для векторов SCNVector3 на первом месте тоит Y на втором -X координаты из матрицы
+					let upAction = SCNAction.move(to: SCNVector3(x: Float(point.y), y: Float(-point.x), z: Float(-point.z)), duration: duration / 2)
+					actions.append(upAction)
+
+					point3D = point3D.getByAdding(from: downDirection)
+					point = getBoxPoint(i: Int(point3D.x), j: Int(point3D.y), k: Int(point3D.z))
+					// Для векторов SCNVector3 на первом месте тоит Y на втором -X координаты из матрицы
+					let action = SCNAction.move(to: SCNVector3(x: Float(point.y), y: Float(-point.x), z: Float(-point.z)), duration: duration / 2)
+					actions.append(action)
+					let waitAction = SCNAction.wait(duration: 0.2)
+					actions.append(waitAction)
+				} else {
+					point3D = point3D.getByAdding(from: direction)
+					let boxPoint = getBoxPoint(i: Int(point3D.x), j: Int(point3D.y), k: Int(point3D.z))
+					// Для векторов SCNVector3 на первом месте тоит Y на втором -X координаты из матрицы
+					let action = SCNAction.move(to: SCNVector3(x: Float(boxPoint.y), y: Float(-boxPoint.x), z: Float(-boxPoint.z)), duration: duration)
+					let waitAction = SCNAction.wait(duration: 0.2)
+					actions.append(action)
+					actions.append(waitAction)
+				}
+			default:
+				point3D = point3D.getByAdding(from: direction)
+				let boxPoint = getBoxPoint(i: Int(point3D.x), j: Int(point3D.y), k: Int(point3D.z))
+				// Для векторов SCNVector3 на первом месте тоит Y на втором -X координаты из матрицы
+				let action = SCNAction.move(to: SCNVector3(x: Float(boxPoint.y), y: Float(-boxPoint.x), z: Float(-boxPoint.z)), duration: duration)
+				let waitAction = SCNAction.wait(duration: 0.2)
+				actions.append(action)
+				actions.append(waitAction)
+			}
+			
 		}
 		return actions
 	}
