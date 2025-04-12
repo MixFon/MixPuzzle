@@ -140,70 +140,52 @@ final class BoxesWorker: _BoxesWorker {
 		guard let pointElement = self.grid.getPoint(number: MatrixElement(element)) else { return nil }
 		var point3D = Grid3DPoint(x: pointElement.x, y: pointElement.y, z: 0)
 		var actions: [SCNAction] = []
-		let duration: TimeInterval = 2
+		let duration: TimeInterval = 0.3
+		let waitAction = SCNAction.wait(duration: 0.1)
 		for direction in directions {
-			
 			switch direction {
 			case .up(let upDirection):
 				if let upDirection = upDirection {
-					point3D = point3D.getByAdding(from: .up(nil))
-					var point = getBoxPoint(i: Int(point3D.x), j: Int(point3D.y), k: Int(point3D.z))
-					// Для векторов SCNVector3 на первом месте тоит Y на втором -X координаты из матрицы
-					let upAction = SCNAction.move(to: SCNVector3(x: Float(point.y), y: Float(-point.x), z: Float(-point.z)), duration: duration / 2)
-					actions.append(upAction)
-
-					point3D = point3D.getByAdding(from: upDirection)
-					point = getBoxPoint(i: Int(point3D.x), j: Int(point3D.y), k: Int(point3D.z))
-					// Для векторов SCNVector3 на первом месте тоит Y на втором -X координаты из матрицы
-					let action = SCNAction.move(to: SCNVector3(x: Float(point.y), y: Float(-point.x), z: Float(-point.z)), duration: duration / 2)
-					actions.append(action)
-					let waitAction = SCNAction.wait(duration: 0.2)
-					actions.append(waitAction)
+					let upActions = complicatedMoveToAction(point3D: &point3D, duration: duration, directionFirst: .up(nil), directionSecond: upDirection)
+					actions.append(contentsOf: upActions)
 				} else {
-					point3D = point3D.getByAdding(from: direction)
-					let boxPoint = getBoxPoint(i: Int(point3D.x), j: Int(point3D.y), k: Int(point3D.z))
-					// Для векторов SCNVector3 на первом месте тоит Y на втором -X координаты из матрицы
-					let action = SCNAction.move(to: SCNVector3(x: Float(boxPoint.y), y: Float(-boxPoint.x), z: Float(-boxPoint.z)), duration: duration)
-					let waitAction = SCNAction.wait(duration: 0.2)
-					actions.append(action)
-					actions.append(waitAction)
+					actions.append(simpleMoveToAction(point3D: &point3D, duration: duration, direction: direction))
 				}
 			case .down(let downDirection):
 				if let downDirection = downDirection {
-					point3D = point3D.getByAdding(from: .down(nil))
-					var point = getBoxPoint(i: Int(point3D.x), j: Int(point3D.y), k: Int(point3D.z))
-					// Для векторов SCNVector3 на первом месте тоит Y на втором -X координаты из матрицы
-					let upAction = SCNAction.move(to: SCNVector3(x: Float(point.y), y: Float(-point.x), z: Float(-point.z)), duration: duration / 2)
-					actions.append(upAction)
-
-					point3D = point3D.getByAdding(from: downDirection)
-					point = getBoxPoint(i: Int(point3D.x), j: Int(point3D.y), k: Int(point3D.z))
-					// Для векторов SCNVector3 на первом месте тоит Y на втором -X координаты из матрицы
-					let action = SCNAction.move(to: SCNVector3(x: Float(point.y), y: Float(-point.x), z: Float(-point.z)), duration: duration / 2)
-					actions.append(action)
-					let waitAction = SCNAction.wait(duration: 0.2)
-					actions.append(waitAction)
+					let downActions = complicatedMoveToAction(point3D: &point3D, duration: duration, directionFirst: .down(nil), directionSecond: downDirection)
+					actions.append(contentsOf: downActions)
 				} else {
-					point3D = point3D.getByAdding(from: direction)
-					let boxPoint = getBoxPoint(i: Int(point3D.x), j: Int(point3D.y), k: Int(point3D.z))
-					// Для векторов SCNVector3 на первом месте тоит Y на втором -X координаты из матрицы
-					let action = SCNAction.move(to: SCNVector3(x: Float(boxPoint.y), y: Float(-boxPoint.x), z: Float(-boxPoint.z)), duration: duration)
-					let waitAction = SCNAction.wait(duration: 0.2)
-					actions.append(action)
-					actions.append(waitAction)
+					actions.append(simpleMoveToAction(point3D: &point3D, duration: duration, direction: direction))
 				}
 			default:
-				point3D = point3D.getByAdding(from: direction)
-				let boxPoint = getBoxPoint(i: Int(point3D.x), j: Int(point3D.y), k: Int(point3D.z))
-				// Для векторов SCNVector3 на первом месте тоит Y на втором -X координаты из матрицы
-				let action = SCNAction.move(to: SCNVector3(x: Float(boxPoint.y), y: Float(-boxPoint.x), z: Float(-boxPoint.z)), duration: duration)
-				let waitAction = SCNAction.wait(duration: 0.2)
-				actions.append(action)
-				actions.append(waitAction)
+				actions.append(simpleMoveToAction(point3D: &point3D, duration: duration, direction: direction))
 			}
+			actions.append(waitAction)
 			
 		}
 		return actions
+	}
+	
+	private func complicatedMoveToAction(point3D: inout Grid3DPoint, duration: TimeInterval, directionFirst: Direction, directionSecond: Direction) -> [SCNAction] {
+		point3D = point3D.getByAdding(from: directionFirst)
+		var point = getBoxPoint(i: Int(point3D.x), j: Int(point3D.y), k: Int(point3D.z))
+		// Для векторов SCNVector3 на первом месте тоит Y на втором -X координаты из матрицы
+		let firstAction = SCNAction.move(to: SCNVector3(x: Float(point.y), y: Float(-point.x), z: Float(-point.z)), duration: duration / 2)
+
+		point3D = point3D.getByAdding(from: directionSecond)
+		point = getBoxPoint(i: Int(point3D.x), j: Int(point3D.y), k: Int(point3D.z))
+		// Для векторов SCNVector3 на первом месте тоит Y на втором -X координаты из матрицы
+		let secondAction = SCNAction.move(to: SCNVector3(x: Float(point.y), y: Float(-point.x), z: Float(-point.z)), duration: duration / 2)
+		return [firstAction, secondAction]
+	}
+	
+	private func simpleMoveToAction(point3D: inout Grid3DPoint, duration: TimeInterval, direction: Direction) -> SCNAction {
+		point3D = point3D.getByAdding(from: direction)
+		let boxPoint = getBoxPoint(i: Int(point3D.x), j: Int(point3D.y), k: Int(point3D.z))
+		// Для векторов SCNVector3 на первом месте тоит Y на втором -X координаты из матрицы
+		let action = SCNAction.move(to: SCNVector3(x: Float(boxPoint.y), y: Float(-boxPoint.x), z: Float(-boxPoint.z)), duration: duration)
+		return action
 	}
 	
 	func moveNodeToPointsOfGrid() {
