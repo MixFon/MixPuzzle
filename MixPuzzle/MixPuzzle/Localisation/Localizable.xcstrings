@@ -262,6 +262,60 @@
         }
       }
     },
+    "mix.description.solution.boustrophedon" : {
+      "comment" : "Description of boustrophedon decisions",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Numbers follow a snake-like pattern: the first row goes left to right, the second right to left, and so on. The name comes from an ancient writing style meaning “as the ox plows”."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Цифры идут \"змейкой\": первая строка — слева направо, вторая — справа налево, и так далее. Название происходит от древнего способа письма, \"как бык пашет”."
+          }
+        }
+      }
+    },
+    "mix.description.solution.classic" : {
+      "comment" : "Description of classic decisions",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Numbers are arranged from left to right, top to bottom with the last cell left empty. This is the most familiar and traditional version."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Цифры идут по строкам слева направо и сверху вниз, последняя ячейка остаётся пустой. Это стандартный и самый узнаваемый вариант."
+          }
+        }
+      }
+    },
+    "mix.description.solution.snail" : {
+      "comment" : "Description of snail decisions",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tiles are placed in a spiral pattern starting from the top-left corner and moving clockwise. A fun and unusual layout that adds variety to the challenge."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Цифры выстраиваются по спирали, начиная с верхнего левого угла и двигаясь по часовой стрелке. Такой способ выглядит необычно и добавляет интерес к решению."
+          }
+        }
+      }
+    },
     "mix.snackbar.matrix.fill.incorrectly" : {
       "comment" : "Message in snackbar when matrix filled incorrectly",
       "extractionState" : "manual",

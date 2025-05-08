@@ -51,26 +51,33 @@ struct TargetSelectionView: View {
 	
     var body: some View {
 		VStack {
-			NavigationBar(
-				title: self.title,
-				tralingView: AnyView(
-					SaveButtonNavigationBar(
-						action: {
-							self.model.saveChanges()
-							self.isShowSnackbar = true
-						}
+				NavigationBar(
+					title: self.title,
+					tralingView: AnyView(
+						SaveButtonNavigationBar(
+							action: {
+								self.model.saveChanges()
+								self.isShowSnackbar = true
+							}
+						)
 					)
 				)
-			)
-			.padding()
-			TargetSelectSceneWrapper(matrix: self.startSelectedMatrix, dependency: dependncy, startSceneModel: self.startSceneModel)
-				.clipShape(RoundedRectangle(cornerRadius: 24))
-				.aspectRatio(contentMode: .fit)
-				.padding(.horizontal)
-			SelectSizePicker(selectedSize: self.$model.selectedSolution, numbersSize: solutionOptions.map({$0.type}))
 				.padding()
-				.disabled(self.isPickerDisabled)
-			Spacer()
+			ScrollView {
+				TargetSelectSceneWrapper(matrix: self.startSelectedMatrix, dependency: dependncy, startSceneModel: self.startSceneModel)
+					.clipShape(RoundedRectangle(cornerRadius: 24))
+					.aspectRatio(contentMode: .fit)
+					.padding(.horizontal)
+				SelectSizePicker(selectedSize: self.$model.selectedSolution, numbersSize: solutionOptions.map({$0.type}))
+					.padding()
+					.disabled(self.isPickerDisabled)
+				Text(self.description)
+					.padding()
+					.frame(maxWidth: .infinity)
+					.background(Color.mm_textfield_background)
+					.clipShape(RoundedRectangle(cornerRadius: 16))
+					.padding(.horizontal)
+			}
 		}
 		.onChange(of: self.model.selectedSolution, perform: { value in
 			if let matrix = self.solutionOptions.first(where: {$0.type == value})?.matrix {
@@ -83,6 +90,18 @@ struct TargetSelectionView: View {
 		.snackbar(isShowing: $isShowSnackbar, text: self.smackbarSavedMessage, style: .success, extraBottomPadding: 16)
 		.background(Color.mm_background_tertiary)
     }
+	
+	private var description: String {
+		switch self.model.selectedSolution {
+		case .snail:
+			return "mix.description.solution.snail".localized
+		case .classic:
+			return "mix.description.solution.classic".localized
+		case .boustrophedon:
+			return "mix.description.solution.boustrophedon".localized
+		
+		}
+	}
 }
 
 struct TargetView: View {
