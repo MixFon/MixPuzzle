@@ -31,6 +31,8 @@ final class StartSceneModel: ObservableObject {
 	let prepareCloseSubject = PassthroughSubject<Void, Never>()
 	/// Паблишер для управления поднятия вью с показом пути
 	let pathSolutionSubject = PassthroughSubject<StartState, Never>()
+	/// Паблишер отправляемый во время старта анимации перемещения узлов при регенерации,
+	let nodesIsRunningSubject = PassthroughSubject<Bool, Never>()
 	/// Паблишер для управления запуском и остановки анимации тряски кубиков
 	let manageShakeAnimationSubject = PassthroughSubject<ManageShakeMode, Never>()
 	/// Паблишер делающий неактивным вью с кнопками по показу пути

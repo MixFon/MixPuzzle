@@ -156,7 +156,10 @@ struct StartScene: UIViewRepresentable {
 	private mutating func configureShowMatrixPublisher() {
 		// Паблишер предназначенный только для отображения анимации матрицы.
 		self.startSceneModel?.showMatrixSubject.sink { [self] matrix in
-			self.boxWorker.moveNodesToTargetPozitions(targetMatrix: matrix)
+			self.startSceneModel?.nodesIsRunningSubject.send(true)
+			self.boxWorker.moveNodesToTargetPozitions(targetMatrix: matrix) {
+				self.startSceneModel?.nodesIsRunningSubject.send(false)
+			}
 			self.boxWorker.updateGrid(grid: Grid<MatrixElement>(matrix: matrix, zero: 0))
 		}.store(in: &cancellables)
 	}
@@ -169,7 +172,10 @@ struct StartScene: UIViewRepresentable {
 			
 			// В boxWorker модель до изменения "старая".
 			// Перемещаем в новое состояние, только что сгенерированную матрицу
-			self.boxWorker.moveNodesToTargetPozitions(targetMatrix: self.gameWorker.matrix)
+			self.startSceneModel?.nodesIsRunningSubject.send(true)
+			self.boxWorker.moveNodesToTargetPozitions(targetMatrix: self.gameWorker.matrix) {
+				self.startSceneModel?.nodesIsRunningSubject.send(false)
+			}
 			// Обновляем grid
 			self.boxWorker.updateGrid(grid: Grid<MatrixElement>(matrix: self.gameWorker.matrix, zero: 0))
 			

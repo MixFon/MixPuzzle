@@ -35,6 +35,8 @@ struct TargetSelectionView: View {
 	
 	@State
 	private var isShowSnackbar = false
+	@State
+	private var isPickerDisabled: Bool = false
 	
 	private let title = String(localized: "Targets", comment: "Title for Target selection screen")
 	private let smackbarSavedMessage = String(localized: "mix.snackbar.saved", comment: "Message for snackbar when saved")
@@ -67,12 +69,16 @@ struct TargetSelectionView: View {
 				.padding(.horizontal)
 			SelectSizePicker(selectedSize: self.$model.selectedSolution, numbersSize: solutionOptions.map({$0.type}))
 				.padding()
+				.disabled(self.isPickerDisabled)
 			Spacer()
 		}
 		.onChange(of: self.model.selectedSolution, perform: { value in
 			if let matrix = self.solutionOptions.first(where: {$0.type == value})?.matrix {
 				self.startSceneModel.showMatrixSubject.send(matrix)
 			}
+		})
+		.onReceive(self.startSceneModel.nodesIsRunningSubject, perform: { output in
+			self.isPickerDisabled = output
 		})
 		.snackbar(isShowing: $isShowSnackbar, text: self.smackbarSavedMessage, style: .success, extraBottomPadding: 16)
 		.background(Color.mm_background_tertiary)

@@ -27,7 +27,7 @@ protocol _BoxesWorker {
 	/// Перемещает кубики в позиции соответствующие Grid. Подразумевается, что уже будет новая Grid в gameWorker
 	func moveNodeToPointsOfGrid()
 	/// Перемещает кубики в позиции соответствующие targetMatrix
-	func moveNodesToTargetPozitions(targetMatrix: Matrix)
+	func moveNodesToTargetPozitions(targetMatrix: Matrix, completion: @escaping () -> Void)
 	/// Создает кубик в случайном месте
 	func createBoxInRandomPlace(number: MatrixElement) -> SCNNode
 	/// Опредляет координаты камеры так, чтобы все пазды были видны на экране
@@ -122,20 +122,28 @@ final class BoxesWorker: _BoxesWorker {
 		self.boxesNode?.forEach { $0.removeAllActions() }
 	}
 	
-	func moveNodesToTargetPozitions(targetMatrix: Matrix) {
+	func moveNodesToTargetPozitions(targetMatrix: Matrix, completion: @escaping () -> Void) {
 		let currentMatrix = convertToIntMatrix(matrix: self.grid.matrix)
 		let targetMatrix = convertToIntMatrix(matrix: targetMatrix)
 		let pathsDirections = self.transporter.createDirections(from: currentMatrix, to: targetMatrix)
 		let allMatrixElements = self.grid.matrix.flatMap { $0 }.map({ Int($0) })
+		
+		let dispatchGroup = DispatchGroup()
 			
 		for element in allMatrixElements {
-			guard let action = createAction(for: element, with: pathsDirections[element] ?? []) else { continue }
+			guard let action = createAction(for: element, with: pathsDirections[element] ?? []), !action.isEmpty else { continue }
 			let node = self.boxesNode?.first(where: {$0.name == String(element)})
-			node?.runAction(SCNAction.sequence(action))
+			dispatchGroup.enter()
+			node?.runAction(SCNAction.sequence(action)) {
+				dispatchGroup.leave()
+			}
+		}
+		dispatchGroup.notify(queue: .main) {
+			completion()
 		}
 	}
 	
-	/// Создает посделовательность перемещений на скнове Directions для element
+	/// Создает посделовательность перемещений на основе Directions для element
 	private func createAction(for element: Int, with directions: [Direction]) -> [SCNAction]? {
 		guard let pointElement = self.grid.getPoint(number: MatrixElement(element)) else { return nil }
 		var point3D = Grid3DPoint(x: pointElement.x, y: pointElement.y, z: 0)

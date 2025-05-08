@@ -13,6 +13,7 @@ struct StartScoreView: View {
 	let startSceneDependency: StartSceneModel
 	private let generator = UIImpactFeedbackGenerator(style: .light)
 	@State private var feedbackTimer: Timer?
+	@State private var isButtonsDisabled: Bool = false
 	@Environment(\.dismiss) var dismiss
 	
     var body: some View {
@@ -38,6 +39,7 @@ struct StartScoreView: View {
 						self.startSceneDependency.showSolution.send(bool)
 					}
 				)
+				.disabled(self.isButtonsDisabled)
 				.buttonStyle(.plain)
 			}
 			if self.state == .solution {
@@ -48,14 +50,17 @@ struct StartScoreView: View {
 				} label: {
 					AssetsImageButton(image: .mix_icon_menu)
 				}
+				.disabled(self.isButtonsDisabled)
 				.buttonStyle(.plain)
 			}
 			if self.state == .game {
 				Spacer()
 				AssetsImageButton(image: .mix_icon_updates)
-					.onLongPressGesture(minimumDuration: 1) {
-						self.startSceneDependency.manageShakeAnimationSubject.send(.stop(blendOutDuration: nil))
+					.opacity(self.isButtonsDisabled ? 0.4 : 1)
+					.allowsHitTesting(!self.isButtonsDisabled)
+					.onLongPressGesture(minimumDuration: 0.5) {
 						stopContinuousHapticFeedback()
+						self.startSceneDependency.manageShakeAnimationSubject.send(.stop(blendOutDuration: nil))
 						self.startSceneDependency.regenerateSubject.send()
 					} onPressingChanged: { inProgress in
 						if inProgress {
@@ -66,8 +71,12 @@ struct StartScoreView: View {
 							self.startSceneDependency.manageShakeAnimationSubject.send(.stop(blendOutDuration: 0.3))
 						}
 					}
+					
 			}
 		}
+		.onReceive(self.startSceneDependency.nodesIsRunningSubject, perform: { output in
+			self.isButtonsDisabled = output
+		})
 		.animation(.default, value: self.state)
 		.padding(.horizontal)
 		.clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
