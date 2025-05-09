@@ -15,6 +15,12 @@ protocol _FeedbackGenerator {
 
 final class FeedbackGenerator: _FeedbackGenerator {
 	
+	private let settingsGameStorage: _SettingsGameStorage
+	
+	init(settingsGameStorage: _SettingsGameStorage) {
+		self.settingsGameStorage = settingsGameStorage
+	}
+		
 	private lazy var notificationGenerator: UINotificationFeedbackGenerator = {
 		UINotificationFeedbackGenerator()
 	}()
@@ -24,11 +30,13 @@ final class FeedbackGenerator: _FeedbackGenerator {
 	}()
 	
 	func emit() {
+		guard settingsGameStorage.isUseVibration else { return }
 		self.impactGenerator.prepare()
 		self.impactGenerator.impactOccurred()
 	}
 		
 	func error() {
+		guard settingsGameStorage.isUseVibration else { return }
 		self.notificationGenerator.prepare()
 		self.notificationGenerator.notificationOccurred(.error)
 	}

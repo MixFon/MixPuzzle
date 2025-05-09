@@ -24,7 +24,7 @@ final class StartFactory {
 		)
 		let startScene = StartScene(
 			boxWorker: boxWorker,
-			generator: dependency.settingsStorages.settingsGameStorage.isUseVibration ? FeedbackGenerator() : nil,
+			generator: FeedbackGenerator(settingsGameStorage: dependency.settingsStorages.settingsGameStorage),
 			gameWorker: dependency.workers.gameWorker,
 			lightsWorker: dependency.workers.lightsWorker,
 			rotationWorker: dependency.workers.rotationWorker,
