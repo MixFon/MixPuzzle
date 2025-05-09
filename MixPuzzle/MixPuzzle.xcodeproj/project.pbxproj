@@ -21,6 +21,7 @@
 		293C73BF2BDFCCC900E183B5 /* SettingsAsteroidsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 293C73BE2BDFCCC900E183B5 /* SettingsAsteroidsView.swift */; };
 		293C73C12BDFCDAF00E183B5 /* SettingsCubeStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 293C73C02BDFCDAF00E183B5 /* SettingsCubeStorage.swift */; };
 		293C73C32BDFCE0700E183B5 /* SettingsAsteroidsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 293C73C22BDFCE0700E183B5 /* SettingsAsteroidsStorage.swift */; };
+		2942731D2DCE54D400E385A3 /* Ext+UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2942731C2DCE54D400E385A3 /* Ext+UIColor.swift */; };
 		2944D6DC2BC871A6001F1A82 /* SettingsCubeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2944D6DB2BC871A6001F1A82 /* SettingsCubeView.swift */; };
 		2944D6DF2BC91166001F1A82 /* BackButtonToolbarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2944D6DE2BC91166001F1A82 /* BackButtonToolbarItem.swift */; };
 		2944D6E32BC9163C001F1A82 /* SettingsCubeWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2944D6E22BC9163C001F1A82 /* SettingsCubeWrapper.swift */; };
@@ -90,6 +91,7 @@
 		293C73BE2BDFCCC900E183B5 /* SettingsAsteroidsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsAsteroidsView.swift; sourceTree = "<group>"; };
 		293C73C02BDFCDAF00E183B5 /* SettingsCubeStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCubeStorage.swift; sourceTree = "<group>"; };
 		293C73C22BDFCE0700E183B5 /* SettingsAsteroidsStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsAsteroidsStorage.swift; sourceTree = "<group>"; };
+		2942731C2DCE54D400E385A3 /* Ext+UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ext+UIColor.swift"; sourceTree = "<group>"; };
 		2944D6DB2BC871A6001F1A82 /* SettingsCubeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCubeView.swift; sourceTree = "<group>"; };
 		2944D6DE2BC91166001F1A82 /* BackButtonToolbarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButtonToolbarItem.swift; sourceTree = "<group>"; };
 		2944D6E22BC9163C001F1A82 /* SettingsCubeWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCubeWrapper.swift; sourceTree = "<group>"; };
@@ -428,6 +430,7 @@
 				29BFEABE2D217F26006FD41D /* Ext+Image.swift */,
 				2947014D2D9096A800BAE690 /* Ext+Solution.swift */,
 				2947014F2D90A01B00BAE690 /* Ext+String.swift */,
+				2942731C2DCE54D400E385A3 /* Ext+UIColor.swift */,
 			);
 			path = Extentions;
 			sourceTree = "<group>";
@@ -616,6 +619,7 @@
 				2900FC7C2D04247C009F3C07 /* StartState.swift in Sources */,
 				2980BC702BE7F5D300866895 /* FileWorker.swift in Sources */,
 				2980BC6E2BE7D9E500866895 /* GameWorker.swift in Sources */,
+				2942731D2DCE54D400E385A3 /* Ext+UIColor.swift in Sources */,
 				29EBA9832D6A2F570054CFCC /* SettingsLightView.swift in Sources */,
 				2980BC722BEA53A900866895 /* Workers.swift in Sources */,
 				293C73C12BDFCDAF00E183B5 /* SettingsCubeStorage.swift in Sources */,

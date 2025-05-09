@@ -55,9 +55,11 @@ struct MenuScene: UIViewRepresentable {
 			String(localized: "Options", comment: "Name node in menu scene"), // 2
 			String(localized: "Find a solution", comment: "Name node in menu scene"), // 1
 		]
+		let metallTextures = ["MetalCorrodedHeavy001", "MetalGoldPaint002", "MetalZincGalvanized001"].randomElement() ?? "MetalCorrodedHeavy001"
 		for node in nodes {
 			if let textGeometry = node.geometry as? SCNText {
 				textGeometry.string = displayName.removeFirst()
+				textGeometry.font = UIFont(name: "AvenirNext-DemiBold", size: 30)
 				let boundingBox = node.boundingBox
 				let min = boundingBox.min
 				let max = boundingBox.max
@@ -65,7 +67,19 @@ struct MenuScene: UIViewRepresentable {
 				// Рассчитываем размеры
 				let width = Float(max.x - min.x)
 				
-				node.position = SCNVector3(x: -(width / 1) / 65, y: node.position.y, z: node.position.z)
+				node.position = SCNVector3(x: -(width / 65), y: node.position.y, z: node.position.z)
+				
+				let configurationTexture = ConfigurationTexture(texture: metallTextures)
+				// Важно: SCNText может иметь несколько материалов (для разных частей текста)
+				// Лучше применить материал ко всем материалам текста
+				textGeometry.materials.forEach { material in
+					self.materialsWorker.configureMaterialDiffuse(material: material, texture: configurationTexture)
+					self.materialsWorker.configureMaterial(material: material, texture: configurationTexture)
+				}
+				
+				// Дополнительные настройки для лучшего отображения
+				textGeometry.flatness = 0.1 // Уменьшаем для более гладкого текста
+				textGeometry.chamferRadius = 0.9 // Добавляем скругление краёв
 			}
 		}
 	}
@@ -94,6 +108,12 @@ struct MenuScene: UIViewRepresentable {
         let configurationTexture = ConfigurationTexture(texture: "GroundGrassGreen002")
         guard let floorMaterial = floor.geometry?.firstMaterial else { return }
         self.materialsWorker.configureMaterial(material: floorMaterial, texture: configurationTexture)
+		floorMaterial.diffuse.contents = UIColor.oceanColors.randomElement()
+
+		// Для более реалистичного эффекта добавьте:
+		floorMaterial.metalness.contents = 0.3
+		floorMaterial.roughness.contents = 0.1
+		floorMaterial.fresnelExponent = 0.8
     }
 	
 	func updateUIView(_ uiView: SCNView, context: Context) {
@@ -155,7 +175,7 @@ struct MenuScene: UIViewRepresentable {
 					SCNTransaction.commit()
 				}
 				
-				hitNode.geometry?.firstMaterial?.emission.contents = UIColor.green
+				hitNode.geometry?.firstMaterial?.emission.contents = UIColor.oceanColors.randomElement()
 				
 				SCNTransaction.commit()
 			}
