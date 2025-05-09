@@ -41,6 +41,8 @@ struct TargetSelectionView: View {
 	private let title = String(localized: "Targets", comment: "Title for Target selection screen")
 	private let smackbarSavedMessage = String(localized: "mix.snackbar.saved", comment: "Message for snackbar when saved")
 	
+	@State private var showDescription: String? = nil
+	
 	init(dependncy: _Dependency) {
 		self.dependncy = dependncy
 		let gameWorker = dependncy.workers.gameWorker
@@ -71,21 +73,30 @@ struct TargetSelectionView: View {
 				SelectSizePicker(selectedSize: self.$model.selectedSolution, numbersSize: solutionOptions.map({$0.type}))
 					.padding()
 					.disabled(self.isPickerDisabled)
-				Text(self.description)
-					.padding()
-					.frame(maxWidth: .infinity)
-					.background(Color.mm_textfield_background)
-					.clipShape(RoundedRectangle(cornerRadius: 16))
-					.padding(.horizontal)
+				if let showDescription = self.showDescription {
+					Text(showDescription)
+						.padding()
+						.frame(maxWidth: .infinity)
+						.background(Color.mm_textfield_background)
+						.clipShape(RoundedRectangle(cornerRadius: 16))
+						.padding(.horizontal)
+						.transition(.move(edge: .bottom).combined(with: .opacity)) // Появление справа
+				}
 			}
 		}
+		.onAppear {
+			self.showDescription = description
+		}
 		.onChange(of: self.model.selectedSolution, perform: { value in
-			if let matrix = self.solutionOptions.first(where: {$0.type == value})?.matrix {
+			if let matrix = self.solutionOptions.first(where: { $0.type == value })?.matrix {
 				self.startSceneModel.showMatrixSubject.send(matrix)
 			}
 		})
 		.onReceive(self.startSceneModel.nodesIsRunningSubject, perform: { output in
 			self.isPickerDisabled = output
+			withAnimation(.easeOut(duration: 0.3)) {
+				self.showDescription = output ? nil : self.description
+			}
 		})
 		.snackbar(isShowing: $isShowSnackbar, text: self.smackbarSavedMessage, style: .success, extraBottomPadding: 16)
 		.background(Color.mm_background_tertiary)

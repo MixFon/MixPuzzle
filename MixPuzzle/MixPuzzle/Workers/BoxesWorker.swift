@@ -123,23 +123,28 @@ final class BoxesWorker: _BoxesWorker {
 	}
 	
 	func moveNodesToTargetPozitions(targetMatrix: Matrix, completion: @escaping () -> Void) {
-		let currentMatrix = convertToIntMatrix(matrix: self.grid.matrix)
-		let targetMatrix = convertToIntMatrix(matrix: targetMatrix)
-		let pathsDirections = self.transporter.createDirections(from: currentMatrix, to: targetMatrix)
-		let allMatrixElements = self.grid.matrix.flatMap { $0 }.map({ Int($0) })
-		
-		let dispatchGroup = DispatchGroup()
+		do {
+			let currentMatrix = convertToIntMatrix(matrix: self.grid.matrix)
+			let goalMatrix = convertToIntMatrix(matrix: targetMatrix)
+			let pathsDirections = try self.transporter.createDirections(from: currentMatrix, to: goalMatrix)
+			let allMatrixElements = self.grid.matrix.flatMap { $0 }.map({ Int($0) })
+			// Счетчик для вызова completion после завершения всех анимаций
+			let dispatchGroup = DispatchGroup()
 			
-		for element in allMatrixElements {
-			guard let action = createAction(for: element, with: pathsDirections[element] ?? []), !action.isEmpty else { continue }
-			let node = self.boxesNode?.first(where: {$0.name == String(element)})
-			dispatchGroup.enter()
-			node?.runAction(SCNAction.sequence(action)) {
-				dispatchGroup.leave()
+			for element in allMatrixElements {
+				guard let action = createAction(for: element, with: pathsDirections[element] ?? []), !action.isEmpty else { continue }
+				let node = self.boxesNode?.first(where: {$0.name == String(element)})
+				dispatchGroup.enter()
+				node?.runAction(SCNAction.sequence(action)) {
+					dispatchGroup.leave()
+				}
 			}
-		}
-		dispatchGroup.notify(queue: .main) {
-			completion()
+			dispatchGroup.notify(queue: .main) {
+				completion()
+			}
+		} catch {
+			// Так как ошибки в createDirections выбрасываются очень редко перезапускам метод
+			moveNodesToTargetPozitions(targetMatrix: targetMatrix, completion: completion)
 		}
 	}
 	
