@@ -25,7 +25,7 @@ struct StartScene: UIViewRepresentable {
 	
 	private var cancellables = Set<AnyCancellable>()
 	
-	private let generator: UINotificationFeedbackGenerator?
+	private let generator: _FeedbackGenerator?
 	
 	final class Settings {
 		var isMoveOn = true
@@ -34,7 +34,7 @@ struct StartScene: UIViewRepresentable {
 		var isUserInteractionEnabled: Bool = true
 	}
 	
-	init(boxWorker: _BoxesWorker, generator: UINotificationFeedbackGenerator?, gameWorker: _GameWorker, lightsWorker: _LightsWorker, rotationWorker: _RotationWorker, asteroidWorker: _AsteroidsWorker, textNodeWorker: _TextNodeWorker, startSceneModel: StartSceneModel?, notificationCenter: NotificationCenter? = nil) {
+	init(boxWorker: _BoxesWorker, generator: _FeedbackGenerator?, gameWorker: _GameWorker, lightsWorker: _LightsWorker, rotationWorker: _RotationWorker, asteroidWorker: _AsteroidsWorker, textNodeWorker: _TextNodeWorker, startSceneModel: StartSceneModel?, notificationCenter: NotificationCenter? = nil) {
 		self.boxWorker = boxWorker
 		self.generator = generator
 		self.gameWorker = gameWorker
@@ -273,7 +273,6 @@ struct StartScene: UIViewRepresentable {
 		// Обработка результата нажатия
 		if let hitNode = hitResults.first?.node {
 			// Обнаружен узел, который был касаем
-			self.generator?.prepare()
 			if let hitNodeName = hitNode.name, let number = MatrixElement(hitNodeName) {
 				// Проверка на то что мы нажали на кубик матрицы
 				handleNodeOnMatrix(hitNode: hitNode, number: number)
@@ -288,18 +287,21 @@ struct StartScene: UIViewRepresentable {
 	/// Обработка кубика матрицы
 	private func handleNodeOnMatrix(hitNode: SCNNode, number: MatrixElement) {
 		if let moveToZeroAction = self.boxWorker.createMoveToZeroAction(number: number) {
-			hitNode.runAction(moveToZeroAction)
+
+			self.generator?.emit()
+			hitNode.runAction(moveToZeroAction) {
+				self.generator?.emit()
+			}
 			self.gameWorker.statisticsWorker.increaseSuccessfulMoves()
 			if let compass = self.boxWorker.getCompass(for: number) {
 				self.gameWorker.setCompass(compass: compass)
 			}
-			self.generator?.notificationOccurred(.success)
 			checkSolution()
 		} else {
 			self.gameWorker.statisticsWorker.increaseFailedMoves()
 			let shameAnimation = self.boxWorker.createShakeAnimation(position: hitNode.position)
 			hitNode.addAnimation(shameAnimation, forKey: "shake")
-			self.generator?.notificationOccurred(.error)
+			self.generator?.error()
 		}
 	}
 	
