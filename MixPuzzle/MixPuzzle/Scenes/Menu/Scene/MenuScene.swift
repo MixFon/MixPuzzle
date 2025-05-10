@@ -12,9 +12,9 @@ import Foundation
 
 struct MenuScene: UIViewRepresentable {
 	
-	let viewModel: MenuViewModel
-    let materialsWorker: _MaterialsWorker
-    var complition: (MenuSceneWrapper.Router) -> ()
+	private let viewModel: MenuViewModel
+    private let materialsWorker: _MaterialsWorker
+    private var complition: (MenuSceneWrapper.Router) -> ()
 	
 	private let scene = SCNScene(named: "puzzle.scnassets/menu.scn")
 	private let scnView = SCNView()

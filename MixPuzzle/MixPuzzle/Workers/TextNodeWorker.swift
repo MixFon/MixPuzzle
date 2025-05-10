@@ -58,16 +58,24 @@ enum FinalMenuText: CaseIterable {
 }
 
 final class TextNodeWorker: _TextNodeWorker {
+	private let materialsWorker: any _MaterialsWorker
 	private var textNodes: [SCNNode]?
 	private let animationDuration: CGFloat = 0.1
 	/// Расстояние между строками
 	private let distanceBetweenLinesMenu: Float = 2.0
 	
-	lazy var randomPosition: SCNVector3 = {
+	private lazy var randomPosition: SCNVector3 = {
 		SCNVector3(x: Float.random(in: -20.0...20.0), y: Float.random(in: -20.0...20.0), z: 4)
 	}()
-
+		
+	private lazy var metallTextures: String = {
+		["MetalCorrodedHeavy001", "MetalGoldPaint002", "MetalZincGalvanized001"].randomElement() ?? "MetalCorrodedHeavy001"
+	}()
 	
+	init(materialsWorker: any _MaterialsWorker) {
+		self.materialsWorker = materialsWorker
+	}
+
 	var names: [String] {
 		FinalMenuText.allCases.map({$0.text})
 	}
@@ -84,8 +92,20 @@ final class TextNodeWorker: _TextNodeWorker {
 	
 	func createTextNode(text: String) -> SCNNode {
 		let textGeometry = SCNText(string: text, extrusionDepth: 1)
-		textGeometry.font = .systemFont(ofSize: 2)
+		textGeometry.font = UIFont(name: "AvenirNext-DemiBold", size: 2)
 		let textNode = SCNNode(geometry: textGeometry)
+		
+		let configurationTexture = ConfigurationTexture(texture: self.metallTextures)
+		// Важно: SCNText может иметь несколько материалов (для разных частей текста)
+		// Лучше применить материал ко всем материалам текста
+		textGeometry.materials.forEach { material in
+			self.materialsWorker.configureMaterialDiffuse(material: material, texture: configurationTexture)
+			self.materialsWorker.configureMaterial(material: material, texture: configurationTexture)
+		}
+		
+		// Дополнительные настройки для лучшего отображения
+		textGeometry.flatness = 0.9 // Уменьшаем для более гладкого текста
+		textGeometry.chamferRadius = 0.1 // Добавляем скругление краёв
 		return textNode
 	}
 	

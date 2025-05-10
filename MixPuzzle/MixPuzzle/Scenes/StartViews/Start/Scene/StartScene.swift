@@ -224,9 +224,12 @@ struct StartScene: UIViewRepresentable {
 			guard let action = self.boxWorker.createCustomMoveToZeroAction(number: number, complerion: { node.runAction($0) }) else { continue }
 			actions.append(action)
 		}
+		// Делаем недоступными кнопи на UI.
 		self.startSceneModel?.disablePathButtonsViewSubject.send(true)
+		self.startSceneModel?.nodesIsRunningSubject.send(true)
 		self.scene.rootNode.runAction(SCNAction.sequence(actions)) {
 			Task { @MainActor in
+				self.startSceneModel?.nodesIsRunningSubject.send(false)
 				self.startSceneModel?.disablePathButtonsViewSubject.send(false)
 			}
 		}

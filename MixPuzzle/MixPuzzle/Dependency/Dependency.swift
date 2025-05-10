@@ -42,7 +42,7 @@ struct Dependency: _Dependency {
 		)
 		
 		let checker = Checker()
-		let textNodeWorker = TextNodeWorker()
+		let textNodeWorker = TextNodeWorker(materialsWorker: materialsWorker)
 		self.checker = checker
 		let imageWorker = ImageWorker()
 		let cubeWorker = CubeWorker(imageWorker: imageWorker, materialsWorker: materialsWorker)
