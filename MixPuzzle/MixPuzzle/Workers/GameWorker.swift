@@ -200,7 +200,7 @@ final class GameWorker: _GameWorker {
 	}
 	
 	func increaseLavel() {
-		guard settingsGameStorage.currentLevel <= settingsGameStorage.availableLevel else { return }
+		guard settingsGameStorage.currentLevel < settingsGameStorage.availableLevel else { return }
 		self.settingsGameStorage.currentLevel += 1
 		if self.settingsGameStorage.currentLevel > self.settingsGameStorage.maxAchievedLevel {
 			self.settingsGameStorage.maxAchievedLevel += 1
