@@ -21,6 +21,9 @@
       },
       "shouldTranslate" : false
     },
+    "%u" : {
+
+    },
     "0" : {
       "shouldTranslate" : false
     },
@@ -434,6 +437,9 @@
           }
         }
       }
+    },
+    "Press" : {
+
     },
     "Raise the level" : {
       "comment" : "Text in final menu for case 'next'",
