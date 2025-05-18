@@ -71,6 +71,10 @@ final class MockDependency: _Dependency {
 }
 
 final class MockChecker: _Checker {
+	func getCoupleInversion(matrix: MFPuzzle.Matrix) -> [(MFPuzzle.GridPoint, MFPuzzle.GridPoint)] {
+		return []
+	}
+	
 	func checkUniqueElementsMatrix(matrix: Matrix) -> Bool {
 		return true
 	}
