@@ -13,6 +13,10 @@ extension Image {
 		return Image("mix.icon.cancel", bundle: Bundle.main)
 	}
 	
+	static var mix_icon_info: Image {
+		return Image("mix.icon.info", bundle: Bundle.main)
+	}
+
 	static var mix_icon_close: Image {
 		return Image("mix.icon.close", bundle: Bundle.main)
 	}

@@ -12,7 +12,6 @@ import MFPuzzle
 // Почередно выделять красным инварианты, выделенные элементы записать ниже.
 // Показать итоговую четность инвариантов
 
-
 struct Point: Equatable {
 	let row: Int
 	let collomn: Int
@@ -40,10 +39,9 @@ struct MatrixView: View {
 
 	// Пары точек для соединения (индексы ячеек: строка * size + столбец)
 	@State
-	private var connectedPoints: [(Int, Int)] = [] // Пример: соединяем 0->1->2 (диагональ)
+	private var connectedPoints: [(Int, Int)] = []
 	@State
 	private var index: Int = 0
-	
 	
 	var body: some View {
 		ScrollView {
@@ -61,7 +59,7 @@ struct MatrixView: View {
 					HStack(spacing: spacing) {
 						ForEach(Array(row.enumerated()), id: \.element) { columnIndex, column in
 							RoundedRectangle(cornerRadius: 8)
-								.fill(Color.gray.opacity(0.2))
+								.fill(Color.mm_divider_opaque.opacity(0.5))
 								.frame(width: cellSize, height: cellSize)
 								.scaleEffect(isSelected(Point(row: rowIndex, collomn: columnIndex)) ? 0.8 : 1)
 								.overlay(
@@ -70,14 +68,15 @@ struct MatrixView: View {
 								)
 								.overlay(
 									Text("\(column)")
-										.foregroundColor(.black)
+										.font(.title3)
+										.foregroundColor(.mm_text_primary)
 								)
 						}
 					}
 				}
 			}
 			createlinePath(points: connectedPoints)
-				.stroke(Color.red, lineWidth: 1)
+				.stroke(Color.mm_danger, lineWidth: 1)
 		}
 		.frame(width: frameSize, height: frameSize)
 		.padding()
@@ -89,7 +88,7 @@ struct MatrixView: View {
 	
 	private var textInversionView: some View {
 		VStack(alignment: .leading, spacing: 8) {
-			Text("Инверсии: \(currentCountInversion)")
+			Text("Inversions: \(currentCountInversion)".localized)
 				.font(.title2)
 				.frame(maxWidth: .infinity)
 				.multilineTextAlignment(.leading)

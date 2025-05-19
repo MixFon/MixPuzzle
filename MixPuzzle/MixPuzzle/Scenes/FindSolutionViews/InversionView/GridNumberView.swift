@@ -19,8 +19,7 @@ struct NumberGridView: View {
 	var body: some View {
 		LazyVGrid(columns: columns, spacing: 8) {
 			ForEach(values.indices, id: \.self) { index in
-				let pair = values[index]
-				Text(pair)
+				Text(values[index])
 					.font(.system(size: 20, weight: .medium, design: .rounded))
 					.padding(.horizontal, 8)
 					.padding(.vertical, 4)

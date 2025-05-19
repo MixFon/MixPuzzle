@@ -10,6 +10,7 @@ import MFPuzzle
 
 final class ManualFillingRouter: ObservableObject {
 	@Published var toLoading = false
+	@Published var toInversion = false
 	@Published var toVisualizationSolution = false
 }
 	
@@ -50,13 +51,7 @@ struct ManualFillingView: View {
 				VStack(spacing: 8) {
 					SelectSizePicker(selectedSize: $selectedSolution, numbersSize: possibleSolution)
 					SelectSizePicker(selectedSize: $selectedSize, numbersSize: numbersSize)
-					Button {
-						regenerateMatrix()
-					} label: {
-						Image.mix_icon_restart
-							.resizable()
-							.frame(width: 64, height: 64)
-					}
+					buttonsView()
 				}
 				FillingMatrixView(matrix: $matrix)
 					.padding()
@@ -79,7 +74,31 @@ struct ManualFillingView: View {
 		.fullScreenCover(isPresented: $router.toVisualizationSolution) {
 			VisualizationSolutionView(matrix: fillingMatrix, dependency: dependency, startSceneModel: self.startSceneModel)
 		}
+		.fullScreenCover(isPresented: $router.toInversion) {
+			VisualizationSolutionView(matrix: fillingMatrix, dependency: dependency, startSceneModel: self.startSceneModel)
+		}
 		.background(Color.mm_background_secondary)
+	}
+	
+	private func buttonsView() -> some View {
+		HStack {
+			Button {
+				regenerateMatrix()
+			} label: {
+				Image.mix_icon_restart
+					.resizable()
+					.frame(width: 64, height: 64)
+			}
+			.frame(maxWidth: .infinity)
+			Button {
+				regenerateMatrix()
+			} label: {
+				Image.mix_icon_info
+					.resizable()
+					.frame(width: 64, height: 64)
+			}
+			.frame(maxWidth: .infinity)
+		}
 	}
 	
 	private func regenerateMatrix() {
