@@ -278,9 +278,6 @@
         }
       }
     },
-    "Jello" : {
-
-    },
     "Levels" : {
       "comment" : "Name of axis\nTitle choice of the level screen",
       "localizations" : {
