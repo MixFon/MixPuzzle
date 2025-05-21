@@ -75,7 +75,7 @@ struct ManualFillingView: View {
 			VisualizationSolutionView(matrix: fillingMatrix, dependency: dependency, startSceneModel: self.startSceneModel)
 		}
 		.fullScreenCover(isPresented: $router.toInversion) {
-			VisualizationSolutionView(matrix: fillingMatrix, dependency: dependency, startSceneModel: self.startSceneModel)
+			InversionView()
 		}
 		.background(Color.mm_background_secondary)
 	}
@@ -91,7 +91,7 @@ struct ManualFillingView: View {
 			}
 			.frame(maxWidth: .infinity)
 			Button {
-				regenerateMatrix()
+				self.router.toInversion = true
 			} label: {
 				Image.mix_icon_info
 					.resizable()

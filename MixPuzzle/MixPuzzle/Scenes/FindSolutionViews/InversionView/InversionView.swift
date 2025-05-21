@@ -6,8 +6,16 @@
 //
 
 import SwiftUI
+import MFPuzzle
+
+final class InversionViewRouter: ObservableObject {
+	@Published var toDetails = false
+}
 
 struct InversionView: View {
+	
+	@StateObject private var router = InversionViewRouter()
+	
 	var body: some View {
 		VStack {
 			NavigationBar(title: "Inversions".localized, tralingView: nil)
@@ -31,16 +39,50 @@ struct InversionView: View {
 			.tabViewStyle(.page(indexDisplayMode: .always))
 			.indexViewStyle(.page(backgroundDisplayMode: .interactive))
 			.frame(maxHeight: 300)
+			Button {
+				self.router.toDetails = true
+			} label: {
+				Text("Подробнее")
+					.font(.callout)
+					.foregroundColor(Color.white)
+					.padding(.horizontal, 20)
+					.padding(.vertical, 10)
+					.background(Color.mm_tint_icons)
+					.cornerRadius(10)
+					.shadow(color: .gray.opacity(0.4), radius: 4, x: 0, y: 2)
+			}
 			Spacer()
+		}
+		.fullScreenCover(isPresented: $router.toDetails) {
+			let matrix: Matrix =
+			[[1, 2, 3],
+			 [9, 0, 4],
+			 [7, 6, 5]]
+			let checker = Checker()
+			let inversion = checker.getCoupleInversion(matrix: matrix)
+			let pointsInversion: [(Point, Point)] = inversion.map({ (Point(row: Int($0.0.x), collomn: Int($0.0.y)), Point(row: Int($0.1.x), collomn: Int($0.1.y)))})
+
+			MatrixView(stack: generateSnakeStack(n: matrix.count), matrix: matrix, pointsInversion: pointsInversion)
 		}
 		.background(Color.mm_background_secondary)
     }
 	
+	func generateSnakeStack(n: Int) -> [(Int, Int)] {
+		let matrix = (0..<n).map { i in
+			let row = (0..<n).map { j in i * n + j }
+			return i % 2 == 0 ? row : row.reversed()
+		}
+
+		let arr = matrix.flatMap { $0 }
+
+		return (1..<arr.count).map { i in (arr[i - 1], arr[i]) }
+	}
+	
 	private var pageOne: some View {
 		VStack {
-			VStack(alignment: .leading, spacing: 4) {
+			VStack(alignment: .leading, spacing: 8) {
 				Text("Головоломка может не иметь решения, то есть может попасться состояние поля, из которого невозможно перейти к состоянию решения, не нарушая правил игры. Для проверки существования решения головоломки необходимо сравнивать четности инверсий.")
-				Text("Инверсия — количество пар элементов, которые стоят перед элементами, имеющими меньшее значение, чем они сами.")
+				Text("**Инверсия** — количество пар элементов, которые стоят перед элементами, имеющими меньшее значение, чем они сами.")
 			}
 			.padding()
 			.background(
