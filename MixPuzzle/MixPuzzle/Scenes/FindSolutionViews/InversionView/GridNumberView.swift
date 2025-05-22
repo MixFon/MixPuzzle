@@ -13,7 +13,7 @@ struct NumberGridView: View {
 	
 	// Определяем адаптивную grid layout
 	private var columns: [GridItem] {
-		[GridItem(.adaptive(minimum: 60, maximum: 100), spacing: 10)]
+		[GridItem(.adaptive(minimum: 90, maximum: 200), spacing: 10)]
 	}
 	
 	var body: some View {
@@ -41,6 +41,6 @@ struct NumberGridView: View {
 
 struct NumberGridView_Previews: PreviewProvider {
 	static var previews: some View {
-		return NumberGridView(values: ["10-10", "1-10", "1-10", "1-10", "1-10", "1-10", "1-10", "1-10"])
+		return NumberGridView(values: ["203-400", "1-10", "1-10", "1-10", "1-10", "1-10", "1-10", "1-10"])
 	}
 }

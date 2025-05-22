@@ -56,11 +56,7 @@ struct InversionView: View {
 			Spacer()
 		}
 		.fullScreenCover(isPresented: $router.toDetails) {
-			let viewModel = InversionDetailsViewModel(
-				checker: self.checker,
-				matrixWorker: self.matrixWorker
-			)
-			InversionDetailsView(viewModel: viewModel)
+			InversionDetailsView(checker: self.checker, matrixWorker: self.matrixWorker)
 		}
 		.background(Color.mm_background_secondary)
     }

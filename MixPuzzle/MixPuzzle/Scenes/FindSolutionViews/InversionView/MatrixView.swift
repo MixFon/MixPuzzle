@@ -18,9 +18,10 @@ struct Point: Equatable {
 }
 
 struct MatrixView: View {
-	let stack: [(Int, Int)]
-	let matrix: Matrix
-	let pointsInversion: [(Point, Point)]
+	
+	@Binding var matrix: Matrix
+	let checker: _Checker
+	
 	private let cellSize: CGFloat = 50
 	private let spacing: CGFloat = 10
 	private var size: Int {
@@ -45,10 +46,8 @@ struct MatrixView: View {
 	
 	var body: some View {
 		ScrollView {
-			VStack {
-				gridView
-				textInversionView
-			}
+			gridView
+			textInversionView
 		}
 	}
 	
@@ -80,14 +79,14 @@ struct MatrixView: View {
 		}
 		.frame(width: frameSize, height: frameSize)
 		.padding()
-		.task {
+		.task(id: self.matrix.hashValue) {
 			await createPath()
 			await createSelectedInverstion()
 		}
 	}
 	
 	private var textInversionView: some View {
-		VStack(alignment: .leading, spacing: 8) {
+		VStack(alignment: .leading, spacing: 16) {
 			Text("Inversions: \(currentCountInversion)".localized)
 				.font(.title2)
 				.frame(maxWidth: .infinity)
@@ -96,7 +95,6 @@ struct MatrixView: View {
 				.animation(.spring, value: inversions)
 		}
 		.frame(maxWidth: .infinity)
-		.padding()
 	}
 	
 	private func isSelected(_ point: Point) -> Bool {
@@ -105,9 +103,12 @@ struct MatrixView: View {
 	
 	private func createPath() async {
 		guard self.size > 1 else { return }
+		self.connectedPoints.removeAll()
+		index = 0
+		let stack = generateSnakeStack(n: matrix.count)
 		let size = self.size * self.size - 1
 		for _ in 0..<size {
-			self.connectedPoints.append(self.stack[self.index])
+			self.connectedPoints.append(stack[self.index])
 			self.index += 1
 			try? await Task.sleep(nanoseconds: 50 * NSEC_PER_MSEC)
 		}
@@ -115,12 +116,15 @@ struct MatrixView: View {
 	
 	private func createSelectedInverstion() async {
 		self.currentCountInversion = 0
+		self.inversions.removeAll()
+		let inversion = self.checker.getCoupleInversion(matrix: matrix)
+		let pointsInversion = inversion.map({ (Point(row: Int($0.0.x), collomn: Int($0.0.y)), Point(row: Int($0.1.x), collomn: Int($0.1.y)))})
 		for points in pointsInversion {
 			self.pointOne = points.0
 			self.pointTwo = points.1
 			self.currentCountInversion += 1
 			self.inversions.append("\(matrix[points.0.row][points.0.collomn])-\(matrix[points.1.row][points.1.collomn])")
-			try? await Task.sleep(nanoseconds: 500 * NSEC_PER_MSEC)
+			try? await Task.sleep(nanoseconds: 100 * NSEC_PER_MSEC)
 		}
 		self.pointOne = nil
 		self.pointTwo = nil
@@ -150,36 +154,29 @@ struct MatrixView: View {
 			}
 		}
 	}
+		
+	private func generateSnakeStack(n: Int) -> [(Int, Int)] {
+		let matrix = (0..<n).map { i in
+			let row = (0..<n).map { j in i * n + j }
+			return i % 2 == 0 ? row : row.reversed()
+		}
+		let arr = matrix.flatMap { $0 }
+		return (1..<arr.count).map { i in (arr[i - 1], arr[i]) }
+	}
 }
 
 struct MatrixView_Previews: PreviewProvider {
 	static var previews: some View {
-		
-		func generateSnakeStack(n: Int) -> [(Int, Int)] {
-			let matrix = (0..<n).map { i in
-				let row = (0..<n).map { j in i * n + j }
-				return i % 2 == 0 ? row : row.reversed()
-			}
-
-			let arr = matrix.flatMap { $0 }
-
-			return (1..<arr.count).map { i in (arr[i - 1], arr[i]) }
-		}
 		
 //		let matrix: Matrix =
 //		[[ 1,  2,  3,  4],
 //		 [12, 13, 14,  5],
 //		 [11, 10, 15,  6],
 //		 [ 0,  9,  8,  7]]
-				let matrix: Matrix =
-				[[1, 2, 3],
-				 [9, 0, 4],
-				 [7, 6, 5]]
-		let checker = Checker()
-		let inversion = checker.getCoupleInversion(matrix: matrix)
-		inversion.forEach({print("(\($0.0), \($0.1))")})
-		let pointsInversion: [(Point, Point)] = inversion.map({ (Point(row: Int($0.0.x), collomn: Int($0.0.y)), Point(row: Int($0.1.x), collomn: Int($0.1.y)))})
-			
-		return MatrixView(stack: generateSnakeStack(n: matrix.count), matrix: matrix, pointsInversion: pointsInversion)
+		let matrix: Matrix =
+		[[1, 2, 3],
+		 [9, 0, 4],
+		 [7, 6, 5]]
+		return MatrixView(matrix: .constant(matrix), checker: MockChecker())
 	}
 }

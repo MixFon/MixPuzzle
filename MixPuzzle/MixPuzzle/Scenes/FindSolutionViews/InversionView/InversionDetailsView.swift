@@ -8,72 +8,78 @@
 import SwiftUI
 import MFPuzzle
 
-final class InversionDetailsViewModel: ObservableObject {
-	let checker: _Checker
-	let matrixWorker: _MatrixWorker
-	@Published var stack: [(Int, Int)] = []
-	@Published var matrix: Matrix = []
-	@Published var pointsInversion: [(Point, Point)] = []
+struct InversionDetailsView: View {
 	
-	@Published var selectedSize = 3
-	
-	let numbersSize = Array(3...5)
-
+	@State private var matrix: Matrix
+	@State private var selectedSize: Int
+	private let checker: _Checker
+	private let matrixWorker: _MatrixWorker
 	init(checker: _Checker, matrixWorker: _MatrixWorker) {
+		let selectedSize = 3
+		self.selectedSize = selectedSize
+		self.matrix = matrixWorker.createMatrixRandom(size: selectedSize)
 		self.checker = checker
 		self.matrixWorker = matrixWorker
-		self.stack = generateSnakeStack(n: self.selectedSize)
 	}
 	
-	func calrutateInversions() {
-		self.matrix = self.matrixWorker.createMatrixRandom(size: self.selectedSize)
-		let inversion = self.checker.getCoupleInversion(matrix: matrix)
-		self.pointsInversion = inversion.map({ (Point(row: Int($0.0.x), collomn: Int($0.0.y)), Point(row: Int($0.1.x), collomn: Int($0.1.y)))})
-		self.stack = generateSnakeStack(n: self.selectedSize)
-	}
-	
-	private func generateSnakeStack(n: Int) -> [(Int, Int)] {
-		let matrix = (0..<n).map { i in
-			let row = (0..<n).map { j in i * n + j }
-			return i % 2 == 0 ? row : row.reversed()
-		}
-
-		let arr = matrix.flatMap { $0 }
-
-		return (1..<arr.count).map { i in (arr[i - 1], arr[i]) }
-	}
-}
-
-struct InversionDetailsView: View {
-	@StateObject var viewModel: InversionDetailsViewModel
+	private let numbersSize = Array(3...5)
 
     var body: some View {
 		VStack {
 			NavigationBar(title: "Inversions".localized, tralingView: nil)
 				.padding(.horizontal)
 				.padding(.top)
+			SelectSizePicker(selectedSize: $selectedSize, numbersSize: numbersSize)
+				.padding(.horizontal)
+				.padding(.top)
+			buttonViews
 			ScrollView {
-				VStack(spacing: 8) {
-					SelectSizePicker(selectedSize: $viewModel.selectedSize, numbersSize: viewModel.numbersSize)
-				}
-				MatrixView(
-					stack: viewModel.stack,
-					matrix: viewModel.matrix,
-					pointsInversion: viewModel.pointsInversion
-				)
+				MatrixView(matrix: self.$matrix, checker: self.checker)
 			}
+			.padding(.horizontal)
 			Spacer()
 		}
-		.onChange(of: viewModel.selectedSize, perform: { value in
-			viewModel.calrutateInversions()
+		.onChange(of: self.selectedSize, perform: { newValue in
+			self.matrix = self.matrixWorker.createMatrixRandom(size: newValue)
 		})
-		.onAppear {
-			viewModel.calrutateInversions()
-		}
 		.background(Color.mm_background_secondary)
     }
+	
+	private var buttonViews: some View {
+		HStack {
+			Button {
+				self.matrixWorker.changesParityInvariant(matrix: &self.matrix)
+				self.matrix = matrix
+				print(matrix)
+			} label: {
+				Text("Изменить")
+					.font(.callout)
+					.foregroundColor(Color.white)
+					.padding(.horizontal, 20)
+					.padding(.vertical, 10)
+					.background(Color.mm_tint_icons)
+					.cornerRadius(10)
+					.shadow(color: .gray.opacity(0.4), radius: 4, x: 0, y: 2)
+			}
+			.frame(maxWidth: .infinity, alignment: .center)
+			Button {
+				
+			} label: {
+				Text("Поменять")
+					.font(.callout)
+					.foregroundColor(Color.white)
+					.padding(.horizontal, 20)
+					.padding(.vertical, 10)
+					.background(Color.mm_tint_icons)
+					.cornerRadius(10)
+					.shadow(color: .gray.opacity(0.4), radius: 4, x: 0, y: 2)
+			}
+			.frame(maxWidth: .infinity, alignment: .center)
+		}
+			
+	}
 }
 
 #Preview {
-	InversionDetailsView(viewModel: InversionDetailsViewModel(checker: MockChecker(), matrixWorker: MockMatrixWorker()))
+	InversionDetailsView(checker: MockChecker(), matrixWorker: MockMatrixWorker())
 }
