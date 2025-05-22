@@ -101,7 +101,16 @@ final class MockMatrixWorker: _MatrixWorker {
 	}
 	
 	func createMatrixRandom(size: Int) -> Matrix {
-		[[]]
+		if size == 3 {
+			[[1, 2, 3],
+			 [9, 0, 4],
+			 [7, 6, 5]]
+		} else {
+			[[ 1,  2,  3,  4],
+			 [12, 13, 14,  5],
+			 [11, 10, 15,  6],
+			 [ 0,  9,  8,  7]]
+		}
 	}
 	
 	func creationMatrix(text: String) throws -> Matrix {

@@ -104,6 +104,7 @@ struct MatrixView: View {
 	}
 	
 	private func createPath() async {
+		guard self.size > 1 else { return }
 		let size = self.size * self.size - 1
 		for _ in 0..<size {
 			self.connectedPoints.append(self.stack[self.index])
@@ -126,7 +127,8 @@ struct MatrixView: View {
 	}
 	
 	private var frameSize: CGFloat {
-		CGFloat(self.size) * cellSize + CGFloat(self.size - 1) * spacing
+		if self.size == 0 { return 0 }
+		return CGFloat(self.size) * cellSize + CGFloat(self.size - 1) * spacing
 	}
 	
 	private func createlinePath(points: [(Int, Int)]) -> Path {
@@ -175,6 +177,7 @@ struct MatrixView_Previews: PreviewProvider {
 				 [7, 6, 5]]
 		let checker = Checker()
 		let inversion = checker.getCoupleInversion(matrix: matrix)
+		inversion.forEach({print("(\($0.0), \($0.1))")})
 		let pointsInversion: [(Point, Point)] = inversion.map({ (Point(row: Int($0.0.x), collomn: Int($0.0.y)), Point(row: Int($0.1.x), collomn: Int($0.1.y)))})
 			
 		return MatrixView(stack: generateSnakeStack(n: matrix.count), matrix: matrix, pointsInversion: pointsInversion)

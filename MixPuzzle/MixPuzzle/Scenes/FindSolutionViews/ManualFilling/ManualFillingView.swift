@@ -53,6 +53,7 @@ struct ManualFillingView: View {
 					SelectSizePicker(selectedSize: $selectedSize, numbersSize: numbersSize)
 					buttonsView()
 				}
+				.padding(.horizontal)
 				FillingMatrixView(matrix: $matrix)
 					.padding()
 			}
@@ -75,7 +76,7 @@ struct ManualFillingView: View {
 			VisualizationSolutionView(matrix: fillingMatrix, dependency: dependency, startSceneModel: self.startSceneModel)
 		}
 		.fullScreenCover(isPresented: $router.toInversion) {
-			InversionView()
+			InversionView(checker: self.dependency.checker, matrixWorker: self.dependency.workers.matrixWorker)
 		}
 		.background(Color.mm_background_secondary)
 	}

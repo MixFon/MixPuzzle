@@ -15,6 +15,8 @@ final class InversionViewRouter: ObservableObject {
 struct InversionView: View {
 	
 	@StateObject private var router = InversionViewRouter()
+	let checker: _Checker
+	let matrixWorker: _MatrixWorker
 	
 	var body: some View {
 		VStack {
@@ -54,15 +56,11 @@ struct InversionView: View {
 			Spacer()
 		}
 		.fullScreenCover(isPresented: $router.toDetails) {
-			let matrix: Matrix =
-			[[1, 2, 3],
-			 [9, 0, 4],
-			 [7, 6, 5]]
-			let checker = Checker()
-			let inversion = checker.getCoupleInversion(matrix: matrix)
-			let pointsInversion: [(Point, Point)] = inversion.map({ (Point(row: Int($0.0.x), collomn: Int($0.0.y)), Point(row: Int($0.1.x), collomn: Int($0.1.y)))})
-
-			MatrixView(stack: generateSnakeStack(n: matrix.count), matrix: matrix, pointsInversion: pointsInversion)
+			let viewModel = InversionDetailsViewModel(
+				checker: self.checker,
+				matrixWorker: self.matrixWorker
+			)
+			InversionDetailsView(viewModel: viewModel)
 		}
 		.background(Color.mm_background_secondary)
     }
@@ -175,5 +173,5 @@ struct InversionView: View {
 	
 
 #Preview {
-	InversionView()
+	InversionView(checker: MockChecker(), matrixWorker: MockMatrixWorker())
 }
