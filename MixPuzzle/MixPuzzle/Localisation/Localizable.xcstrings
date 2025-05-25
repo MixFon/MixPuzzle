@@ -1,14 +1,35 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    "  - ✅ Четности совпадают → решение существует" : {
-
+    "  - ✅ Pairs match → solution exists" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "  - ✅ Четности совпадают → решение существует"
+          }
+        }
+      }
     },
-    "  - ❌ Четности разные → решение невозможно" : {
-
+    "  - ❌ Equalities different → solution impossible" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "  - ❌ Четности разные → решение невозможно"
+          }
+        }
+      }
     },
-    "**Инверсия** — количество пар элементов, которые стоят перед элементами, имеющими меньшее значение, чем они сами." : {
-
+    "**Inversion** is the number of pairs of elements that are in front of elements that have less importance than themselves." : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "**Инверсия** — количество пар элементов, которые стоят перед элементами, имеющими меньшее значение, чем они сами."
+          }
+        }
+      }
     },
     "%.f" : {
       "shouldTranslate" : false
@@ -33,32 +54,98 @@
     "%u" : {
       "shouldTranslate" : false
     },
-    "• Вычислить четность инверсий текущего состояния" : {
-
+    "• Calculate the precision of target state inversions" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "• Вычислить четность инверсий целевого состояния"
+          }
+        }
+      }
     },
-    "• Вычислить четность инверсий целевого состояния" : {
-
+    "• Calculate the straightness of current state inversions" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "• Вычислить четность инверсий текущего состояния"
+          }
+        }
+      }
     },
-    "• Сравнить:" : {
-
+    "• Compare:" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "• Сравнить:"
+          }
+        }
+      }
     },
-    "← Нечетные строки: справа налево" : {
-
+    "← Odd lines: right to left" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "← Нечетные строки: справа налево"
+          }
+        }
+      }
     },
-    "→ Четные строки: слева направо" : {
-
+    "→ Even lines: from left to right" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "→ Четные строки: слева направо"
+          }
+        }
+      }
     },
     "0" : {
       "shouldTranslate" : false
     },
-    "1. Обход матрицы \"змейкой\" (бустрофедоном)" : {
-
+    "1. Bypass of matrix \"snake\" (bustrofedion)" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1. Обход матрицы \\\"змейкой\\\" (бустрофедоном)"
+          }
+        }
+      }
     },
-    "2. Четность инверсий" : {
-
+    "2. Accuracy of inversions" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "2. Четность инверсий"
+          }
+        }
+      }
     },
-    "3. Проверка решения" : {
-
+    "3. Solution verification" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "3. Проверка решения"
+          }
+        }
+      }
+    },
+    "An array of elements of the matrix is created, bypassed by zmaihy:" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Создается массив элементов матрицы, обходимой змейкой:"
+          }
+        }
+      }
     },
     "Application" : {
       "comment" : "Name of section in options screen",
@@ -186,6 +273,34 @@
     "Date" : {
       "shouldTranslate" : false
     },
+    "Details" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Подробнее"
+          }
+        }
+      }
+    },
+    "Even" : {
+      "comment" : "Parity",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Even"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Четное"
+          }
+        }
+      }
+    },
     "Find a solution" : {
       "comment" : "Name node in menu scene",
       "localizations" : {
@@ -218,6 +333,16 @@
         }
       }
     },
+    "Horizontal and vertical movements of empty cell (0) do not affect the overall straightness of inversions." : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Горизонтальные и вертикальные перемещения пустой клетки (0) не влияют на общую четность инверсий."
+          }
+        }
+      }
+    },
     "Image radius" : {
       "comment" : "Radius image in cube screen",
       "extractionState" : "manual",
@@ -244,17 +369,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Инверсии"
-          }
-        }
-      }
-    },
-    "Inversions: %lld" : {
-      "comment" : "Count of inversion",
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Инверсии: %lld"
           }
         }
       }
@@ -434,6 +548,16 @@
         }
       }
     },
+    "Move zero" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Сдвинуть ноль"
+          }
+        }
+      }
+    },
     "Number of failed moves" : {
       "comment" : "Name statistic screen",
       "localizations" : {
@@ -489,6 +613,18 @@
         }
       }
     },
+    "Odd" : {
+      "comment" : "Prity",
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Нечетное"
+          }
+        }
+      }
+    },
     "Options" : {
       "comment" : "Name node in menu scene",
       "localizations" : {
@@ -500,6 +636,16 @@
         }
       }
     },
+    "Parity of inversions" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Четность инверсий"
+          }
+        }
+      }
+    },
     "Raise the level" : {
       "comment" : "Text in final menu for case 'next'",
       "localizations" : {
@@ -507,6 +653,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Следующий уровень"
+          }
+        }
+      }
+    },
+    "Rearranging two non-zero cells changes the parity of the inversion." : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Перестановка двух ненулевых клеток изменяют четность инверсии."
           }
         }
       }
@@ -610,6 +766,36 @@
         }
       }
     },
+    "The puzzle can have no solution, that is, it can get a field state from which it is impossible to move to the solution state without breaking the rules of the game. To verify the existence of a puzzle solution, it is necessary to compare the equalities of inversions." : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Головоломка может не иметь решения, то есть может попасться состояние поля, из которого невозможно перейти к состоянию решения, не нарушая правил игры. Для проверки существования решения головоломки необходимо сравнивать четности инверсий."
+          }
+        }
+      }
+    },
+    "This is a key property to test the existence of a solution." : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Это ключевое свойство для проверки существования решения."
+          }
+        }
+      }
+    },
+    "Verification algorithm" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Алгоритм проверки"
+          }
+        }
+      }
+    },
     "Vibration" : {
       "comment" : "Name cell in options",
       "localizations" : {
@@ -632,32 +818,15 @@
         }
       }
     },
-    "Алгоритм проверки" : {
-
-    },
-    "Головоломка может не иметь решения, то есть может попасться состояние поля, из которого невозможно перейти к состоянию решения, не нарушая правил игры. Для проверки существования решения головоломки необходимо сравнивать четности инверсий." : {
-
-    },
-    "Горизонтальные и вертикальные перемещения пустой клетки (0) не влияют на общую четность инверсий." : {
-
-    },
-    "Изменить" : {
-
-    },
-    "Подробнее" : {
-
-    },
-    "Поменять" : {
-
-    },
-    "Работает для матриц любого размера (четных и нечетных)." : {
-
-    },
-    "Создается массив элементов матрицы, обходимой змейкой:" : {
-
-    },
-    "Это ключевое свойство для проверки существования решения." : {
-
+    "Works for matrices of any size (even and odd)." : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Работает для матриц любого размера (четных и нечетных)."
+          }
+        }
+      }
     }
   },
   "version" : "1.0"

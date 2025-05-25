@@ -23,7 +23,7 @@ struct InversionView: View {
 			NavigationBar(title: "Inversions".localized, tralingView: nil)
 				.padding(.horizontal)
 				.padding(.top)
-			Text("Алгоритм проверки")
+			Text("Verification algorithm")
 				.font(.title3)
 				.bold()
 				.padding(.bottom, 8)
@@ -39,20 +39,13 @@ struct InversionView: View {
 			.font(.callout)
 			.foregroundStyle(Color.mm_text_primary)
 			.tabViewStyle(.page(indexDisplayMode: .always))
-			.indexViewStyle(.page(backgroundDisplayMode: .interactive))
+			.indexViewStyle(.page(backgroundDisplayMode: .never))
 			.frame(maxHeight: 300)
-			Button {
+			Button("Details") {
 				self.router.toDetails = true
-			} label: {
-				Text("Подробнее")
-					.font(.callout)
-					.foregroundColor(Color.white)
-					.padding(.horizontal, 20)
-					.padding(.vertical, 10)
-					.background(Color.mm_tint_icons)
-					.cornerRadius(10)
-					.shadow(color: .gray.opacity(0.4), radius: 4, x: 0, y: 2)
 			}
+			.buttonStyle(MixButtonStyle())
+			.frame(maxWidth: .infinity, alignment: .center)
 			Spacer()
 		}
 		.fullScreenCover(isPresented: $router.toDetails) {
@@ -75,8 +68,8 @@ struct InversionView: View {
 	private var pageOne: some View {
 		VStack {
 			VStack(alignment: .leading, spacing: 8) {
-				Text("Головоломка может не иметь решения, то есть может попасться состояние поля, из которого невозможно перейти к состоянию решения, не нарушая правил игры. Для проверки существования решения головоломки необходимо сравнивать четности инверсий.")
-				Text("**Инверсия** — количество пар элементов, которые стоят перед элементами, имеющими меньшее значение, чем они сами.")
+				Text("The puzzle can have no solution, that is, it can get a field state from which it is impossible to move to the solution state without breaking the rules of the game. To verify the existence of a puzzle solution, it is necessary to compare the equalities of inversions.")
+				Text("**Inversion** is the number of pairs of elements that are in front of elements that have less importance than themselves.")
 			}
 			.padding()
 			.background(
@@ -94,13 +87,13 @@ struct InversionView: View {
 	private var pageTwo: some View {
 		VStack {
 			VStack(alignment: .leading, spacing: 8) {
-				Text("1. Обход матрицы \"змейкой\" (бустрофедоном)")
+				Text("1. Bypass of matrix \"snake\" (bustrofedion)")
 					.font(.headline)
 				VStack(alignment: .leading, spacing: 4) {
-					Text("Создается массив элементов матрицы, обходимой змейкой:")
-					Text("→ Четные строки: слева направо")
-					Text("← Нечетные строки: справа налево")
-					Text("Работает для матриц любого размера (четных и нечетных).")
+					Text("An array of elements of the matrix is created, bypassed by zmaihy:")
+					Text("→ Even lines: from left to right")
+					Text("← Odd lines: right to left")
+					Text("Works for matrices of any size (even and odd).")
 				}
 			}
 			.padding()
@@ -119,11 +112,12 @@ struct InversionView: View {
 	private var pageThree: some View {
 		VStack {
 			VStack(alignment: .leading, spacing: 8) {
-				Text("2. Четность инверсий")
+				Text("2. Accuracy of inversions")
 					.font(.headline)
 				VStack(alignment: .leading, spacing: 4) {
-					Text("Горизонтальные и вертикальные перемещения пустой клетки (0) не влияют на общую четность инверсий.")
-					Text("Это ключевое свойство для проверки существования решения.")
+					Text("Horizontal and vertical movements of empty cell (0) do not affect the overall straightness of inversions.")
+					Text("Rearranging two non-zero cells changes the parity of the inversion.")
+					Text("This is a key property to test the existence of a solution.")
 				}
 			}
 			.padding()
@@ -143,14 +137,14 @@ struct InversionView: View {
 	private var pageFour: some View {
 		VStack {
 			VStack(alignment: .leading, spacing: 8) {
-				Text("3. Проверка решения")
+				Text("3. Solution verification")
 					.font(.headline)
 				VStack(alignment: .leading, spacing: 4) {
-					Text("• Вычислить четность инверсий текущего состояния")
-					Text("• Вычислить четность инверсий целевого состояния")
-					Text("• Сравнить:")
-					Text("  - ✅ Четности совпадают → решение существует")
-					Text("  - ❌ Четности разные → решение невозможно")
+					Text("• Calculate the straightness of current state inversions")
+					Text("• Calculate the precision of target state inversions")
+					Text("• Compare:")
+					Text("  - ✅ Pairs match → solution exists")
+					Text("  - ❌ Equalities different → solution impossible")
 				}
 			}
 			.padding()

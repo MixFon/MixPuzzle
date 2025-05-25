@@ -20,6 +20,9 @@ struct Point: Equatable {
 struct MatrixView: View {
 	
 	@Binding var matrix: Matrix
+	@Binding var firstPoint: Point?
+	@Binding var secoldPoint: Point?
+	@Binding var isRunAnimation: Bool
 	let checker: _Checker
 	
 	private let cellSize: CGFloat = 50
@@ -29,10 +32,14 @@ struct MatrixView: View {
 	}
 	
 	@State
+	private var parity: String?
+
+	@State
 	private var pointOne: Point?
 	@State
 	private var pointTwo: Point?
 	
+
 	@State
 	private var currentCountInversion: Int = 0
 	@State
@@ -66,6 +73,10 @@ struct MatrixView: View {
 										.stroke(Color.mm_green, lineWidth: isSelected(Point(row: rowIndex, collomn: columnIndex)) ? 3 : 0) // Зеленая обводка
 								)
 								.overlay(
+									RoundedRectangle(cornerRadius: 8)
+										.stroke(Color.mm_warning, lineWidth: isSelectedPoint(Point(row: rowIndex, collomn: columnIndex)) ? 2 : 0)
+								)
+								.overlay(
 									Text("\(column)")
 										.font(.title3)
 										.foregroundColor(.mm_text_primary)
@@ -80,14 +91,24 @@ struct MatrixView: View {
 		.frame(width: frameSize, height: frameSize)
 		.padding()
 		.task(id: self.matrix.hashValue) {
+			self.isRunAnimation = true
+			await splash()
 			await createPath()
 			await createSelectedInverstion()
+			self.isRunAnimation = false
 		}
+	}
+	
+	private func splash() async {
+		if firstPoint == nil || self.secoldPoint == nil { return }
+		try? await Task.sleep(nanoseconds: 500 * NSEC_PER_MSEC)
+		self.firstPoint = nil
+		self.secoldPoint = nil
 	}
 	
 	private var textInversionView: some View {
 		VStack(alignment: .leading, spacing: 16) {
-			Text("Inversions: \(currentCountInversion)".localized)
+			Text("Inversions".localized + ": \(currentCountInversion)" + (self.parity ?? ""))
 				.font(.title2)
 				.frame(maxWidth: .infinity)
 				.multilineTextAlignment(.leading)
@@ -99,6 +120,11 @@ struct MatrixView: View {
 	
 	private func isSelected(_ point: Point) -> Bool {
 		pointOne == point || pointTwo == point
+	}
+	
+	private func isSelectedPoint(_ point: Point) -> Bool {
+		if firstPoint == nil { return false }
+		return firstPoint == point || secoldPoint == point
 	}
 	
 	private func createPath() async {
@@ -115,19 +141,23 @@ struct MatrixView: View {
 	}
 	
 	private func createSelectedInverstion() async {
+		self.parity = nil
 		self.currentCountInversion = 0
 		self.inversions.removeAll()
 		let inversion = self.checker.getCoupleInversion(matrix: matrix)
 		let pointsInversion = inversion.map({ (Point(row: Int($0.0.x), collomn: Int($0.0.y)), Point(row: Int($0.1.x), collomn: Int($0.1.y)))})
+		if self.size == 0 { return }
+		let nanoseconds = 500 * NSEC_PER_MSEC / UInt64(self.size)
 		for points in pointsInversion {
 			self.pointOne = points.0
 			self.pointTwo = points.1
 			self.currentCountInversion += 1
 			self.inversions.append("\(matrix[points.0.row][points.0.collomn])-\(matrix[points.1.row][points.1.collomn])")
-			try? await Task.sleep(nanoseconds: 100 * NSEC_PER_MSEC)
+			try? await Task.sleep(nanoseconds: nanoseconds)
 		}
 		self.pointOne = nil
 		self.pointTwo = nil
+		self.parity = " - " + (currentCountInversion.isMultiple(of: 2) ? "Even".localized : "Odd".localized)
 	}
 	
 	private var frameSize: CGFloat {
@@ -177,6 +207,8 @@ struct MatrixView_Previews: PreviewProvider {
 		[[1, 2, 3],
 		 [9, 0, 4],
 		 [7, 6, 5]]
-		return MatrixView(matrix: .constant(matrix), checker: MockChecker())
+		let firstPoint = Point(row: 0, collomn: 0)
+		let secondPoint = Point(row: 2, collomn: 1)
+		return MatrixView(matrix: .constant(matrix), firstPoint: .constant(firstPoint), secoldPoint: .constant(secondPoint), isRunAnimation: .constant(false), checker: MockChecker())
 	}
 }
