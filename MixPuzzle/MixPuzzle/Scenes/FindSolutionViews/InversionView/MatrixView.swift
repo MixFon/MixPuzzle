@@ -52,7 +52,7 @@ struct MatrixView: View {
 	private var index: Int = 0
 	
 	var body: some View {
-		ScrollView {
+		ScrollView(showsIndicators: false) {
 			gridView
 			textInversionView
 		}

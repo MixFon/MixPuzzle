@@ -36,15 +36,13 @@ struct InversionDetailsView: View {
 				.disabled(self.isRunAnimation)
 				.padding()
 			buttonViews
-			ScrollView {
-				MatrixView(
-					matrix: self.$matrix,
-					firstPoint: self.$firstPoint,
-					secoldPoint: self.$secondPoint,
-					isRunAnimation: self.$isRunAnimation,
-					checker: self.checker
-				)
-			}
+			MatrixView(
+				matrix: self.$matrix,
+				firstPoint: self.$firstPoint,
+				secoldPoint: self.$secondPoint,
+				isRunAnimation: self.$isRunAnimation,
+				checker: self.checker
+			)
 			.padding(.horizontal)
 			Spacer()
 		}

@@ -31,21 +31,28 @@ struct InversionView: View {
 				.multilineTextAlignment(.center)
 			
 			TabView {
-				self.pageOne
-				self.pageTwo
-				self.pageThree
-				self.pageFour
+				Group {
+					self.pageOne
+					self.pageTwo
+					self.pageThree
+					self.pageFour
+				}
+				.font(.callout)
+				.foregroundStyle(Color.mm_text_primary)
+				.padding(.top)
+				.padding(.horizontal)
 			}
-			.font(.callout)
-			.foregroundStyle(Color.mm_text_primary)
 			.tabViewStyle(.page(indexDisplayMode: .always))
 			.indexViewStyle(.page(backgroundDisplayMode: .never))
-			.frame(maxHeight: 300)
+			.frame(maxHeight: 336)
+			.background(Color.mm_tint_icons)
+			.clipShape(RoundedRectangle(cornerRadius: 16))
 			Button("Details") {
 				self.router.toDetails = true
 			}
 			.buttonStyle(MixButtonStyle())
 			.frame(maxWidth: .infinity, alignment: .center)
+			.padding()
 			Spacer()
 		}
 		.fullScreenCover(isPresented: $router.toDetails) {

@@ -9,7 +9,6 @@ import SwiftUI
 
 @main
 struct MixPuzzleApp: App {
-	private let startFactory = StartFactory()
     
     private let dependency = Dependency()
     

@@ -61,7 +61,9 @@ struct MenuView: View {
 }
 
 final class MockDependency: _Dependency {
-	var checker: _Checker = MockChecker()
+	var checker: () -> _Checker = {
+		MockChecker()
+	}
 	var workers: _Workers = MockWorkers()
     var settingsStorages: _SettingsStorage = MockSettingsStorage()
 	

@@ -9,7 +9,7 @@ import MFPuzzle
 import Foundation
 
 protocol _Dependency {
-	var checker: _Checker { get }
+	var checker: () -> any _Checker { get }
 	var workers: _Workers { get }
     var settingsStorages: _SettingsStorage { get }
 	
@@ -17,7 +17,10 @@ protocol _Dependency {
 }
 
 struct Dependency: _Dependency {
-	let checker: _Checker
+	
+	let checker: () -> any _Checker = {
+		return Checker()
+	}
 	let workers: _Workers
     let settingsStorages: _SettingsStorage
     
@@ -41,20 +44,18 @@ struct Dependency: _Dependency {
 			asteroidsStorage: settingsAsteroidsStorage
 		)
 		
-		let checker = Checker()
 		let textNodeWorker = TextNodeWorker(materialsWorker: materialsWorker)
-		self.checker = checker
 		let imageWorker = ImageWorker()
 		let cubeWorker = CubeWorker(imageWorker: imageWorker, materialsWorker: materialsWorker)
 		let fileWorker = FileWorker()
 		let transporter = Transporter()
-		let matrixWorker = MatrixWorker(checker: checker)
+		let matrixWorker = MatrixWorker()
 		let decoder = Decoder()
 		let statisticsWorker = StatisticsWorker(keeper: fileWorker, decoder: decoder)
 		let lightsWorker = LightsWorker(rotationWorker: rotationWorker, settingsLightStorage: settingsLightStorage)
 		let gameWorker = GameWorker(
-			checker: checker,
 			keeper: fileWorker,
+			checker: checker,
 			matrixWorker: matrixWorker,
 			statisticsWorker: statisticsWorker,
 			settingsGameStorage: settingsGameStorage
@@ -76,6 +77,6 @@ struct Dependency: _Dependency {
     }
 	
 	func createPuzzle() -> any _Puzzle {
-		return Puzzle(heuristic: .manhattan, checker: self.checker)
+		return Puzzle(heuristic: .manhattan)
 	}
 }

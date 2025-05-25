@@ -96,10 +96,6 @@ final class MockMatrixWorker: _MatrixWorker {
 		
 	}
 	
-	func isSquereMatrix(matrix: [[MatrixElement]]) -> Bool {
-		return true
-	}
-	
 	func createMatrixRandom(size: Int) -> Matrix {
 		if size == 3 {
 			[[1, 2, 3],
