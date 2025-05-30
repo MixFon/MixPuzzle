@@ -14,6 +14,7 @@ struct StartScoreView: View {
 	private let generator = UIImpactFeedbackGenerator(style: .light)
 	@State private var feedbackTimer: Timer?
 	@State private var isButtonsDisabled: Bool = false
+	@State private var isWigglegHelpButton: Bool = false
 	@Environment(\.dismiss) var dismiss
 	
     var body: some View {
@@ -22,15 +23,15 @@ struct StartScoreView: View {
 				self.startSceneDependency.prepareCloseSubject.send()
 				self.dismiss()
 			} label: {
-				AssetsImageButton(image: .mix_icon_close)
+				SystemImageButton(systemName: "arrow.backward.circle.fill", isWigglegButton: isWigglegHelpButton)
 			}
 			.buttonStyle(.plain)
 			Spacer()
 			if self.state == .game {
 				Button {
-					
+					self.isWigglegHelpButton.toggle()
 				} label: {
-					AssetsImageButton(image: .mix_icon_help)
+					SystemImageButton(systemName: "questionmark.circle.fill", isWigglegButton: isWigglegHelpButton)
 				}
 				.onLongPressGesture(
 					perform: {
@@ -55,7 +56,7 @@ struct StartScoreView: View {
 			}
 			if self.state == .game {
 				Spacer()
-				AssetsImageButton(image: .mix_icon_updates)
+				SystemImageButton(systemName: "arrow.triangle.2.circlepath.circle.fill", isWigglegButton: isWigglegHelpButton)
 					.opacity(self.isButtonsDisabled ? 0.4 : 1)
 					.allowsHitTesting(!self.isButtonsDisabled)
 					.onLongPressGesture(minimumDuration: 0.5) {
@@ -68,6 +69,7 @@ struct StartScoreView: View {
 							self.startSceneDependency.manageShakeAnimationSubject.send(.start)
 						} else {
 							stopContinuousHapticFeedback()
+							self.isWigglegHelpButton.toggle()
 							self.startSceneDependency.manageShakeAnimationSubject.send(.stop(blendOutDuration: 0.3))
 						}
 					}
@@ -98,11 +100,13 @@ struct StartScoreView: View {
 
 struct SystemImageButton: View {
 	let systemName: String
+	let isWigglegButton: Bool
 	var body: some View {
 		Image(systemName: self.systemName)
 			.resizable()
-			.frame(width: 24, height: 24)
-			.foregroundColor(Color.mm_tint_primary)
+			.symbolEffectIfAvailable(value: isWigglegButton)
+			.frame(width: 32, height: 32)
+			.foregroundStyle(Color.mm_tint_icons, Color.mm_background_primary)
 	}
 }
 
@@ -112,6 +116,7 @@ struct AssetsImageButton: View {
 		self.image
 			.resizable()
 			.frame(width: 48, height: 48)
+		
 	}
 }
 
