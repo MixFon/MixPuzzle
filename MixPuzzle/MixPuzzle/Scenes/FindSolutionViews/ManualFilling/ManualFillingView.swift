@@ -35,6 +35,8 @@ struct ManualFillingView: View {
 	@State private var fillingMatrix: Matrix = [[]]
 	@State private var matrixSolution: Matrix = [[]]
 	
+	@State private var isWigglegButton: Bool = false
+	
 	init(dependency: _Dependency) {
 		self.dependency = dependency
 	}
@@ -42,7 +44,7 @@ struct ManualFillingView: View {
 	var body: some View {
 		VStack {
 			NavigationBar(title: "Manual filling".localized, tralingView: AnyView(
-				SaveButtonNavigationBar(action: {
+				ButtonNavigationBar(title: "Solution".localized, action: {
 					checkMatrix()
 				})
 			))
@@ -60,10 +62,11 @@ struct ManualFillingView: View {
 			Spacer()
 		}
 		.onChange(of: selectedSize, perform: { value in
+			self.isWigglegButton.toggle()
 			updateMatrix(size: value)
 		})
-		.onChange(of: selectedSize, perform: { value in
-			updateMatrix(size: value)
+		.onChange(of: selectedSolution, perform: { value in
+			self.isWigglegButton.toggle()
 		})
 		.snackbar(isShowing: self.$snackbarModel.isShowing, text: self.snackbarModel.text, style: self.snackbarModel.style, extraBottomPadding: 16)
 		.fullScreenCover(isPresented: $router.toLoading, onDismiss: { self.router.toVisualizationSolution = !self.startSceneModel.compasses.isEmpty }) {
@@ -86,20 +89,27 @@ struct ManualFillingView: View {
 			Button {
 				regenerateMatrix()
 			} label: {
-				Image.mix_icon_restart
+				Image(systemName: "arrow.triangle.2.circlepath.circle")
 					.resizable()
-					.frame(width: 64, height: 64)
+					.symbolEffectIfAvailable(value: isWigglegButton)
+					.frame(width: 32, height: 32)
+					.foregroundStyle(Color.mm_tint_icons)
 			}
 			.frame(maxWidth: .infinity)
 			Button {
 				self.router.toInversion = true
 			} label: {
-				Image.mix_icon_info
+				Image(systemName: "info.circle.fill")
 					.resizable()
-					.frame(width: 64, height: 64)
+					.symbolEffectIfAvailable(value: isWigglegButton)
+					.symbolRenderingMode(.palette)
+					.frame(width: 32, height: 32)
+					.foregroundStyle(Color.mm_background_primary, Color.mm_tint_icons)
+					
 			}
 			.frame(maxWidth: .infinity)
 		}
+		.padding(.top)
 	}
 	
 	private func regenerateMatrix() {

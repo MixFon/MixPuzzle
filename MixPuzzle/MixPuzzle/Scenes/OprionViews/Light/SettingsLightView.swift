@@ -43,7 +43,7 @@ struct SettingsLightView: View {
     var body: some View {
 		VStack {
 			NavigationBar(title: self.navigationBarTitle, tralingView: AnyView(
-				SaveButtonNavigationBar(action: {
+				ButtonNavigationBar(title: "Save".localized, action: {
 					self.lightModel.saveChanges()
 					self.isShowSnackbar = true
 				})

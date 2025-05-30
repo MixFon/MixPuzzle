@@ -721,6 +721,17 @@
         }
       }
     },
+    "Solution" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Решение"
+          }
+        }
+      }
+    },
     "Start" : {
       "comment" : "Name node in menu scene",
       "localizations" : {

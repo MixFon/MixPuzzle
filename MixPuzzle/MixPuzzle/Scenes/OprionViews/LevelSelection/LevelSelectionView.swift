@@ -40,7 +40,7 @@ struct LevelSelectionView: View {
     var body: some View {
 		VStack {
 			NavigationBar(title: self.title, tralingView: AnyView(
-				SaveButtonNavigationBar(action: {
+				ButtonNavigationBar(title: "Save".localized, action: {
 					self.isShowSnackbar = true
 					self.gameModel.saveChanges()
 				})

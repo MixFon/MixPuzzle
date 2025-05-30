@@ -45,7 +45,7 @@ struct SettingsCubeView: View {
 	var body: some View {
 		VStack {
 			NavigationBar(title: "Cube".localized, tralingView: AnyView(
-                SaveButtonNavigationBar(action: {
+				ButtonNavigationBar(title: "Save".localized, action: {
                     self.model.saveChanges()
 					isShowSnackbar = true
                 })

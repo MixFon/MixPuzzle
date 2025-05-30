@@ -37,7 +37,7 @@ struct SettingsAsteroidsView: View {
     var body: some View {
         VStack {
 			NavigationBar(title: "Asteroids".localized, tralingView: AnyView(
-                SaveButtonNavigationBar(action: {
+				ButtonNavigationBar(title: "Save".localized, action: {
                     self.asteroidsModel.saveChanges()
 					self.isShowSnackbar = true
                 })

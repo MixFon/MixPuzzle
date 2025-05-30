@@ -45,17 +45,19 @@ struct BackButtonNavigationBar: View {
 				.scaledToFit()
 				.frame(width: 20, height: 20)
 				.foregroundColor(Color.mm_tint_primary)
+				.symbolEffectIfAvailable(value: true)
 				.aspectRatio(contentMode: .fit)
 		}
 		.buttonStyle(.plain)
 	}
 }
 
-struct SaveButtonNavigationBar: View {
+struct ButtonNavigationBar: View {
+	let title: String
     var action: ()->()
     var body: some View {
         Button(action: action, label: {
-            Text("Save")
+			Text(self.title)
                 .font(.callout)
                 .foregroundStyle(Color.mm_text_primary)
         })
@@ -67,6 +69,6 @@ struct SaveButtonNavigationBar: View {
 	VStack {
 		NavigationBar(title: "Hello")
 		NavigationBar(title: "Hello", tralingView: AnyView(Text("Hello")))
-        NavigationBar(title: "Hello Settinfs sdfsdf", tralingView: AnyView(SaveButtonNavigationBar(action: {debugPrint("Save")})))
+		NavigationBar(title: "Hello Settinfs sdfsdf", tralingView: AnyView(ButtonNavigationBar(title: "Save".localized, action: {debugPrint("Save".localized)})))
 	}
 }

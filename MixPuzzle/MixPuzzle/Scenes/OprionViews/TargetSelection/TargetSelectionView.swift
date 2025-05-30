@@ -56,7 +56,8 @@ struct TargetSelectionView: View {
 				NavigationBar(
 					title: self.title,
 					tralingView: AnyView(
-						SaveButtonNavigationBar(
+						ButtonNavigationBar(
+							title: "Save".localized,
 							action: {
 								self.model.saveChanges()
 								self.isShowSnackbar = true
