@@ -9,7 +9,7 @@ import MFPuzzle
 import Foundation
 
 protocol _Dependency {
-	var checker: () -> any _Checker { get }
+	var checker: _Checker { get }
 	var workers: _Workers { get }
     var settingsStorages: _SettingsStorage { get }
 	
@@ -18,9 +18,7 @@ protocol _Dependency {
 
 struct Dependency: _Dependency {
 	
-	let checker: () -> any _Checker = {
-		return Checker()
-	}
+	let checker: _Checker
 	let workers: _Workers
     let settingsStorages: _SettingsStorage
     
@@ -49,13 +47,15 @@ struct Dependency: _Dependency {
 		let cubeWorker = CubeWorker(imageWorker: imageWorker, materialsWorker: materialsWorker)
 		let fileWorker = FileWorker()
 		let transporter = Transporter()
-		let matrixWorker = MatrixWorker()
+		let cheker = Checker()
+		let matrixWorker = MatrixWorker(checker: cheker)
 		let decoder = Decoder()
+		self.checker = cheker
 		let statisticsWorker = StatisticsWorker(keeper: fileWorker, decoder: decoder)
 		let lightsWorker = LightsWorker(rotationWorker: rotationWorker, settingsLightStorage: settingsLightStorage)
 		let gameWorker = GameWorker(
 			keeper: fileWorker,
-			checker: checker,
+			checker: cheker,
 			matrixWorker: matrixWorker,
 			statisticsWorker: statisticsWorker,
 			settingsGameStorage: settingsGameStorage
@@ -77,6 +77,6 @@ struct Dependency: _Dependency {
     }
 	
 	func createPuzzle() -> any _Puzzle {
-		return Puzzle(heuristic: .manhattan)
+		return Puzzle(heuristic: .manhattan, checker: checker)
 	}
 }

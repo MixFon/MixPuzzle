@@ -79,7 +79,7 @@ struct ManualFillingView: View {
 			VisualizationSolutionView(matrix: fillingMatrix, dependency: dependency, startSceneModel: self.startSceneModel)
 		}
 		.fullScreenCover(isPresented: $router.toInversion) {
-			InversionView(checker: self.dependency.checker(), matrixWorker: self.dependency.workers.matrixWorker)
+			InversionView(checker: self.dependency.checker, matrixWorker: self.dependency.workers.matrixWorker)
 		}
 		.background(Color.mm_background_secondary)
 	}
@@ -115,7 +115,7 @@ struct ManualFillingView: View {
 	private func regenerateMatrix() {
 		var randomMatrix = self.dependency.workers.matrixWorker.createMatrixRandom(size: self.selectedSize)
 		let matrixSolution = self.dependency.workers.matrixWorker.createMatrixSolution(size: self.selectedSize, solution: self.selectedSolution)
-		if !self.dependency.checker().checkSolution(matrix: randomMatrix, matrixTarget: matrixSolution) {
+		if !self.dependency.checker.checkSolution(matrix: randomMatrix, matrixTarget: matrixSolution) {
 			self.dependency.workers.matrixWorker.changesParityInvariant(matrix: &randomMatrix)
 		}
 		self.matrix = convertMatrixToString(matrix: randomMatrix)
@@ -152,10 +152,10 @@ struct ManualFillingView: View {
 				matrixDigit[i][j] = MatrixElement(elem) ?? 0
 			}
 		}
-		let checker = dependency.checker()
-		if !checker.checkUniqueElementsMatrix(matrix: matrixDigit) {
+		
+		if !dependency.checker.checkUniqueElementsMatrix(matrix: matrixDigit) {
 			showSnackbarError()
-		} else if !checker.checkSolution(matrix: matrixDigit, matrixTarget: matrixSolution) {
+		} else if !dependency.checker.checkSolution(matrix: matrixDigit, matrixTarget: matrixSolution) {
 			showSnackbarErrorNotSolution()
 		} else {
 			showSnackbarSuccesee(fillingMatrix: matrixDigit, matrixSolution: matrixSolution)

@@ -95,7 +95,7 @@ final class GameWorker: _GameWorker {
 	private var compasses: [Compass]
 	
 	private let keeper: _Keeper
-	private let checker: () -> _Checker
+	private let checker: _Checker
 	private let matrixWorker: _MatrixWorker
 	private var settingsGameStorage: _SettingsGameStorage
 	private let defaults = UserDefaults.standard
@@ -107,9 +107,9 @@ final class GameWorker: _GameWorker {
 		static let fileNameMatrix = "matrix.mix"
 	}
 	
-	init(keeper: _Keeper, checker: @escaping () -> _Checker,  matrixWorker: _MatrixWorker, statisticsWorker: _StatisticsWorker, settingsGameStorage: _SettingsGameStorage) {
-		self.checker = checker
+	init(keeper: _Keeper, checker: _Checker,  matrixWorker: _MatrixWorker, statisticsWorker: _StatisticsWorker, settingsGameStorage: _SettingsGameStorage) {
 		self.keeper = keeper
+		self.checker = checker
 		self.matrixWorker = matrixWorker
 		self.statisticsWorker = statisticsWorker
 		self.settingsGameStorage = settingsGameStorage
@@ -154,7 +154,7 @@ final class GameWorker: _GameWorker {
 //		let size = 3
 		self.matrixSolution = self.matrixWorker.createMatrixSolution(size: size, solution: self.solution)
 		// В случае, если из матрицы нельзя получить ответ, генерируем матрицу заново
-		if !self.checker().checkSolution(matrix: self.matrix, matrixTarget: self.matrixSolution) {
+		if !self.checker.checkSolution(matrix: self.matrix, matrixTarget: self.matrixSolution) {
 			regenerateMatrix()
 		}
 	}
@@ -168,9 +168,9 @@ final class GameWorker: _GameWorker {
 		self.matrix = self.matrixWorker.createMatrixRandom(size: size)
 		self.matrixSolution = self.matrixWorker.createMatrixSolution(size: size, solution: self.solution)
 		defer { self.matrixInitiate = self.matrix }
-		if !self.checker().checkSolution(matrix: self.matrix, matrixTarget: self.matrixSolution) {
+		if !self.checker.checkSolution(matrix: self.matrix, matrixTarget: self.matrixSolution) {
 			self.matrixWorker.changesParityInvariant(matrix: &self.matrix)
-			debugPrint(self.checker().checkSolution(matrix: self.matrix, matrixTarget: self.matrixSolution))
+			debugPrint(self.checker.checkSolution(matrix: self.matrix, matrixTarget: self.matrixSolution))
 		}
 	}
 	

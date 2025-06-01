@@ -6,8 +6,7 @@
       "kind" : "remoteSourceControl",
       "location" : "git@github.com:MixFon/MFPuzzle.git",
       "state" : {
-        "branch" : "main",
-        "revision" : "9a8987533155d35891a80db8ec803165c07d941d"
+        "revision" : "b8d4dfc755fd5c2e66b283cdbd0da13fcf098078"
       }
     },
     {

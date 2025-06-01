@@ -45,6 +45,7 @@ struct MenuScene: UIViewRepresentable {
 			//setupMovingAnimationFloor(floor: floor)
         }
 		configureCSNText(nodes: self.scene?.rootNode.childNodes ?? [])
+		//self.scene?.rootNode.canBecomeFocused = true
 		return scnView
 	}
 	

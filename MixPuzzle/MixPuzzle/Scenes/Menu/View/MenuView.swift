@@ -24,11 +24,11 @@ final class MenuViewRouter: ObservableObject {
 struct MenuView: View {
     
     let dependency: _Dependency
-	@ObservedObject private var router = MenuViewRouter()
-	@ObservedObject private var viewModel = MenuViewModel()
+	@StateObject private var router = MenuViewRouter()
+	@StateObject private var viewModel = MenuViewModel()
 	
 	var body: some View {
-		MenuSceneWrapper(toStart: $router.toStart, toOprionts: $router.toOprionts, toFindSolution: $router.toFindSolution, viewModel: self.viewModel)
+		MenuSceneWrapper(toStart: $router.toStart, toOprionts: $router.toOprionts, toFindSolution: $router.toFindSolution, viewModel: self.viewModel, materialsWorker: self.dependency.workers.materialsWorker)
 			.fullScreenCover(isPresented: self.$router.toStart) {
 				StartView(dependency: self.dependency)
 			}
@@ -61,9 +61,9 @@ struct MenuView: View {
 }
 
 final class MockDependency: _Dependency {
-	var checker: () -> _Checker = {
+	var checker: _Checker = {
 		MockChecker()
-	}
+	}()
 	var workers: _Workers = MockWorkers()
     var settingsStorages: _SettingsStorage = MockSettingsStorage()
 	
