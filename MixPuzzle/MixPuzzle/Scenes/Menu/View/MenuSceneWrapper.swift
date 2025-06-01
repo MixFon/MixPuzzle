@@ -36,7 +36,7 @@ struct MenuSceneWrapper: View {
     }
 }
 
-extension MenuSceneWrapper: Equatable {
+extension MenuSceneWrapper: @preconcurrency Equatable {
 	static func == (lhs: MenuSceneWrapper, rhs: MenuSceneWrapper) -> Bool {
 		return true
 	}

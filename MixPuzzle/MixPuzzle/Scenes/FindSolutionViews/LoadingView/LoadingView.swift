@@ -10,7 +10,7 @@ import MFPuzzle
 
 struct LoadingView: View {
 	let matrix: Matrix
-	let puzzle: _Puzzle
+	@MainActor let puzzle: _Puzzle
 	let matrixTarger: Matrix
 	let onFinedSolution: ([Compass]?) -> Void
 	private let limiter: Int = 1000000
@@ -31,7 +31,7 @@ struct LoadingView: View {
 		}
 		.onAppear {
 			self.calculationTask = Task {
-				try await performCalculation()
+				try await performCalculation(puzzle: self.puzzle)
 			}
 		}
 		.onDisappear {
@@ -39,10 +39,10 @@ struct LoadingView: View {
 		}
 	}
 	
-	public func performCalculation() async throws {
+	public func performCalculation(puzzle: _Puzzle) async throws {
 		let board = Board(grid: Grid<MatrixElement>(matrix: self.matrix, zero: 0))
 		let boardTarget = Board(grid: Grid<MatrixElement>(matrix: self.matrixTarger, zero: 0))
-		if let finalBoard = try await self.puzzle.searchSolutionWithHeap(board: board, limiter: self.limiter, boardTarget: boardTarget) {
+		if let finalBoard = try await puzzle.searchSolutionWithHeap(board: board, limiter: self.limiter, boardTarget: boardTarget) {
 			await MainActor.run {
 				guard !Task.isCancelled else { return }
 				var compasses: [Compass] = puzzle.createPath(board: finalBoard).reversed()

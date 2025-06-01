@@ -8,6 +8,7 @@
 import SwiftUI
 import Foundation
 
+@MainActor
 struct SettingsCubeWrapper: View {
 	
 	let model: SettingsCubeModel
@@ -19,7 +20,7 @@ struct SettingsCubeWrapper: View {
 	}
 }
 
-extension SettingsCubeWrapper: Equatable {
+extension SettingsCubeWrapper: @preconcurrency Equatable {
 	static func == (lhs: SettingsCubeWrapper, rhs: SettingsCubeWrapper) -> Bool {
 		return true
 	}

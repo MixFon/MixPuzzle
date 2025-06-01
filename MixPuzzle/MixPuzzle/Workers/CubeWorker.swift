@@ -9,6 +9,7 @@ import SceneKit
 import Foundation
 
 /// Отвечает за создание одного кубика
+@MainActor
 protocol _CubeWorker {
 	/// Возвращает кубик с текстом-картинкой
 	/// - configurationCube - конфигурация для геометрии кубика

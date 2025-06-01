@@ -41,18 +41,22 @@ struct MovingSquaresLoader: View {
 	}
 	
 	private func animateSquares() {
-		let moves: [(Int, Int)] = [(1, 0), (0, 1), (-1, 0), (-1, 0), (0, -1), (0, -1), (1, 0), (1, 0), (0, 1), (-1, 0), (-1, 0), (0, -1), (1, 0), (0, 1)]
-		var index = 0
-		
-		Timer.scheduledTimer(withTimeInterval: animationDuration, repeats: true) { timer in
-			withAnimation( .interactiveSpring) {
-				let move = moves[index]
-				let newPos = (emptyPosition.0 + move.0, emptyPosition.1 + move.1)
-				if let movingIndex = squares.firstIndex(where: { $0 == newPos }) {
-					squares[movingIndex] = emptyPosition
-					emptyPosition = newPos
+		Task {
+			let moves: [(Int, Int)] = [(1, 0), (0, 1), (-1, 0), (-1, 0), (0, -1), (0, -1), (1, 0), (1, 0), (0, 1), (-1, 0), (-1, 0), (0, -1), (1, 0), (0, 1)]
+			var index = 0
+			while true {
+				await MainActor.run {
+					withAnimation( .interactiveSpring) {
+						let move = moves[index]
+						let newPos = (emptyPosition.0 + move.0, emptyPosition.1 + move.1)
+						if let movingIndex = squares.firstIndex(where: { $0 == newPos }) {
+							squares[movingIndex] = emptyPosition
+							emptyPosition = newPos
+						}
+						index = (index + 1) % moves.count
+					}
 				}
-				index = (index + 1) % moves.count
+				try? await Task.sleep(nanoseconds: UInt64(animationDuration) * NSEC_PER_SEC)
 			}
 		}
 	}

@@ -8,6 +8,7 @@
 import SceneKit
 import Foundation
 
+@MainActor
 protocol _AsteroidsWorker {
 	func createAsteroids(rootNode: SCNNode, centerOrbit: SCNVector3)
 	func deleteAsteroids()

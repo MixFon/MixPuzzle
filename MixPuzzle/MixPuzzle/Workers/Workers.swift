@@ -51,29 +51,40 @@ final class Workers: _Workers {
 	}
 }
 
+
 final class MockWorkers: _Workers {
-	let keeper: any _Keeper = MockFileWorker()
-	
-	let gameWorker: any _GameWorker = MockGameWorker()
-	
-	let transporter: any _Transporter = MockTransporter()
-	
-	let textNodeWorker: any _TextNodeWorker = MockTextNodeWorker()
-	
-	let rotationWorker: any _RotationWorker = MockRotationWorker()
-	
-	lazy var cubeWorker: any _CubeWorker = CubeWorker(imageWorker: self.imageWorker, materialsWorker: self.materialsWorker)
-	
-	let matrixWorker: any _MatrixWorker = MockMatrixWorker()
-	
-	let imageWorker: any _ImageWorker = ImageWorker()
-	
-	let lightsWorker: any _LightsWorker = MockLightsWorker()
-	
-	let asteroidWorker: any _AsteroidsWorker = MockAsteroidsWorker()
-	
-	let materialsWorker: any _MaterialsWorker = MaterialsWorker()
+	let keeper: any _Keeper
+	let gameWorker: any _GameWorker
+	let transporter: any _Transporter
+	let textNodeWorker: any _TextNodeWorker
+	let rotationWorker: any _RotationWorker
+	let cubeWorker: any _CubeWorker
+	let matrixWorker: any _MatrixWorker
+	let imageWorker: any _ImageWorker
+	let lightsWorker: any _LightsWorker
+	let asteroidWorker: any _AsteroidsWorker
+	let materialsWorker: any _MaterialsWorker
+
+	@MainActor
+	init() {
+		self.keeper = MockFileWorker()
+		self.gameWorker = MockGameWorker()
+		self.transporter = MockTransporter()
+		self.textNodeWorker = MockTextNodeWorker()
+		self.rotationWorker = MockRotationWorker()
+		self.matrixWorker = MockMatrixWorker()
+		self.lightsWorker = MockLightsWorker()
+		self.asteroidWorker = MockAsteroidsWorker()
+
+		// Создание актор-зависимых объектов — через MainActor.run
+		let imageWorker = ImageWorker()
+		let materialsWorker = MaterialsWorker()
+		self.imageWorker = imageWorker
+		self.materialsWorker = materialsWorker
+		self.cubeWorker = CubeWorker(imageWorker: imageWorker, materialsWorker: materialsWorker)
+	}
 }
+
 
 final class MockMatrixWorker: _MatrixWorker {
 	func createMatrixSolution(size: Int, solution: Solution) -> Matrix {

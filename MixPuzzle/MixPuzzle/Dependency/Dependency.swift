@@ -8,6 +8,7 @@
 import MFPuzzle
 import Foundation
 
+@MainActor
 protocol _Dependency {
 	var checker: _Checker { get }
 	var workers: _Workers { get }
@@ -48,7 +49,7 @@ struct Dependency: _Dependency {
 		let fileWorker = FileWorker()
 		let transporter = Transporter()
 		let cheker = Checker()
-		let matrixWorker = MatrixWorker(checker: cheker)
+		let matrixWorker = MatrixWorker()
 		let decoder = Decoder()
 		self.checker = cheker
 		let statisticsWorker = StatisticsWorker(keeper: fileWorker, decoder: decoder)
@@ -77,6 +78,6 @@ struct Dependency: _Dependency {
     }
 	
 	func createPuzzle() -> any _Puzzle {
-		return Puzzle(heuristic: .manhattan, checker: checker)
+		return Puzzle(heuristic: .manhattan)
 	}
 }

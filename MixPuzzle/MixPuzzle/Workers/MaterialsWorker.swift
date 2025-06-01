@@ -8,6 +8,7 @@
 import SceneKit
 import Foundation
 
+@MainActor
 protocol _MaterialsWorker {
     func configureMaterial(material: SCNMaterial, texture: ConfigurationTexture)
     func configureMaterialDiffuse(material: SCNMaterial, texture: ConfigurationTexture)

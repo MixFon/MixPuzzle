@@ -9,6 +9,7 @@ import SwiftUI
 import MFPuzzle
 import Foundation
 
+@MainActor
 final class StartFactory {
 	
 	func configure(dependency: _Dependency, startSceneModel: StartSceneModel) -> some View {

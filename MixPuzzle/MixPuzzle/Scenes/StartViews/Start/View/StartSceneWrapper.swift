@@ -21,7 +21,7 @@ struct StartSceneWrapper: View {
 	}
 }
 
-extension StartSceneWrapper: Equatable {
+extension StartSceneWrapper: @preconcurrency Equatable {
 	static func == (lhs: StartSceneWrapper, rhs: StartSceneWrapper) -> Bool {
 		return true
 	}
@@ -40,7 +40,7 @@ struct TargetSelectSceneWrapper: View {
 	}
 }
 
-extension TargetSelectSceneWrapper: Equatable {
+extension TargetSelectSceneWrapper: @preconcurrency Equatable {
 	static func == (lhs: TargetSelectSceneWrapper, rhs: TargetSelectSceneWrapper) -> Bool {
 		return true
 	}
@@ -59,7 +59,7 @@ struct VisualizationSolutionWrapper: View {
 	}
 }
 
-extension VisualizationSolutionWrapper: Equatable {
+extension VisualizationSolutionWrapper: @preconcurrency Equatable {
 	static func == (lhs: VisualizationSolutionWrapper, rhs: VisualizationSolutionWrapper) -> Bool {
 		return true
 	}

@@ -8,6 +8,7 @@
 import SceneKit
 
 /// Протокол предназначенный для настройи тактильной отдачи
+@MainActor
 protocol _FeedbackGenerator {
 	func emit()
 	func error()

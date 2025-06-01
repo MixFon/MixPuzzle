@@ -143,7 +143,7 @@ struct MenuScene: UIViewRepresentable {
             super.init()
 		}
 		
-		@objc
+		@MainActor @objc
 		func handleTap(_ gestureRecognize: UIGestureRecognizer) {
 			// check what nodes are tapped
 			let location = gestureRecognize.location(in: self.view)

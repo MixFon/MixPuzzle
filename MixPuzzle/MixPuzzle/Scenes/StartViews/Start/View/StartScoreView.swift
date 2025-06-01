@@ -12,9 +12,11 @@ struct StartScoreView: View {
 	var state: StartState
 	let startSceneDependency: StartSceneModel
 	private let generator = UIImpactFeedbackGenerator(style: .light)
+	@State private var hapticTask: Task<Void, Never>? = nil
 	@State private var feedbackTimer: Timer?
 	@State private var isButtonsDisabled: Bool = false
 	@State private var isWigglegHelpButton: Bool = false
+	
 	@Environment(\.dismiss) var dismiss
 	
     var body: some View {
@@ -83,18 +85,24 @@ struct StartScoreView: View {
 		.padding(.horizontal)
 		.clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
     }
-	
+
 	private func performHapticFeedback() {
-		guard feedbackTimer == nil else { return }
-		feedbackTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { _ in
-			generator.prepare()
-			generator.impactOccurred()
+		guard hapticTask == nil else { return }
+		hapticTask = Task {
+			let generator = UIImpactFeedbackGenerator(style: .medium)
+			while !Task.isCancelled {
+				await MainActor.run {
+					generator.prepare()
+					generator.impactOccurred()
+				}
+				try? await Task.sleep(nanoseconds: 100_000_000) // 0.1 секунды
+			}
 		}
 	}
-	
+
 	private func stopContinuousHapticFeedback() {
-		feedbackTimer?.invalidate()
-		feedbackTimer = nil
+		hapticTask?.cancel()
+		hapticTask = nil
 	}
 }
 

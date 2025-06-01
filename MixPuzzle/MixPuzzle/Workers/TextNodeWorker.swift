@@ -8,6 +8,7 @@
 import SceneKit
 import Foundation
 
+@MainActor
 protocol _TextNodeWorker {
 	var names: [String] { get }
 	/// Создает анимацю переменуния текста относительно центра

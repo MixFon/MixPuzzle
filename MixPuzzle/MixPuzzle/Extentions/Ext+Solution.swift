@@ -20,8 +20,9 @@ extension Solution {
 		}
 	}
 }
+
 extension Solution: @retroactive CaseIterable {
-	public static var allCases: [Solution] = [.snail, .classic, .boustrophedon]
+	public static let allCases: [Solution] = [.snail, .classic, .boustrophedon]
 }
 
 extension Solution: @retroactive CustomStringConvertible {

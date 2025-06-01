@@ -9,6 +9,7 @@ import Combine
 import MFPuzzle
 import SceneKit
 
+@MainActor
 protocol _BoxesWorker {
 	
 	/// Матрица элементов. Двумерный массив

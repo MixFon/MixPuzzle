@@ -9,6 +9,7 @@ import SwiftUI
 import MFPuzzle
 import Foundation
 
+@MainActor
 final class SettingsCubeFactory {
 	
 	func configure(model: SettingsCubeModel, depndecy: _Dependency) -> some View {

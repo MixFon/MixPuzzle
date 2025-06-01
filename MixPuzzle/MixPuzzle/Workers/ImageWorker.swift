@@ -9,6 +9,7 @@ import UIKit
 import SwiftUI
 import Foundation
 
+@MainActor
 protocol _ImageWorker {
 	/// Создание изображения по тексту
     func imageWith(configuration: ConfigurationImage) -> UIImage?
