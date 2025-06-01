@@ -49,7 +49,7 @@ struct StartScoreView: View {
 					self.startSceneDependency.deleteAllAnimationFromNodeSubject.send()
 					self.startSceneDependency.showMenuSubject.send()
 				} label: {
-					AssetsImageButton(image: .mix_icon_menu)
+					SystemImageButton(systemName: "list.bullet.circle.fill", isWigglegButton: isWigglegHelpButton)
 				}
 				.disabled(self.isButtonsDisabled)
 				.buttonStyle(.plain)
@@ -122,7 +122,7 @@ struct AssetsImageButton: View {
 
 @available(iOS 17.0, *)
 #Preview {
-	@Previewable @State var state = StartState.game
+	@Previewable @State var state = StartState.solution
 	let startSceneDependency = StartSceneModel()
 	return StartScoreView(state: state, startSceneDependency: startSceneDependency)
 }
