@@ -283,7 +283,6 @@ struct StartScene: UIViewRepresentable {
 				// Проверка на то что нода относится к тексту меню
 				handleMenuText(hitNode: hitNode)
 			}
-			
 		}
 	}
 	
@@ -292,9 +291,7 @@ struct StartScene: UIViewRepresentable {
 		if let moveToZeroAction = self.boxWorker.createMoveToZeroAction(number: number) {
 
 			self.generator?.emit()
-			hitNode.runAction(moveToZeroAction) {
-				self.generator?.emit()
-			}
+			hitNode.runAction(moveToZeroAction, completionHandler: self.generator?.emit)
 			self.gameWorker.statisticsWorker.increaseSuccessfulMoves()
 			if let compass = self.boxWorker.getCompass(for: number) {
 				self.gameWorker.setCompass(compass: compass)
