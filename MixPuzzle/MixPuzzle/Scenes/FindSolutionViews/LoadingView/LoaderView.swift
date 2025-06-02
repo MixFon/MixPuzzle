@@ -3,7 +3,7 @@ import SwiftUI
 struct MovingSquaresLoader: View {
 	private let gridSize = 3
 	private let squareSize: CGFloat = 40
-	private let animationDuration: Double = 0.3
+	private let animationDuration: UInt64 = UInt64(0.3 * Double(NSEC_PER_SEC))
 	@State private var emptyPosition = (1, 1)
 	@State private var squares: [(Int, Int)] = [
 		(0, 0), (0, 1), (0, 2),
@@ -56,7 +56,7 @@ struct MovingSquaresLoader: View {
 						index = (index + 1) % moves.count
 					}
 				}
-				try? await Task.sleep(nanoseconds: UInt64(animationDuration) * NSEC_PER_SEC)
+				try? await Task.sleep(nanoseconds: self.animationDuration)
 			}
 		}
 	}

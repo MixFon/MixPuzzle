@@ -13,7 +13,6 @@ struct LoadingView: View {
 	@MainActor let puzzle: _Puzzle
 	let matrixTarger: Matrix
 	let onFinedSolution: ([Compass]?) -> Void
-	private let limiter: Int = 1000000
 	
 	@State private var calculationTask: Task<Void, Error>?
 	
@@ -31,7 +30,7 @@ struct LoadingView: View {
 		}
 		.onAppear {
 			self.calculationTask = Task {
-				try await performCalculation(puzzle: self.puzzle)
+				try await performCalculation()
 			}
 		}
 		.onDisappear {
@@ -39,19 +38,26 @@ struct LoadingView: View {
 		}
 	}
 	
-	public func performCalculation(puzzle: _Puzzle) async throws {
-		let board = Board(grid: Grid<MatrixElement>(matrix: self.matrix, zero: 0))
-		let boardTarget = Board(grid: Grid<MatrixElement>(matrix: self.matrixTarger, zero: 0))
-		if let finalBoard = try await puzzle.searchSolutionWithHeap(board: board, limiter: self.limiter, boardTarget: boardTarget) {
-			await MainActor.run {
-				guard !Task.isCancelled else { return }
+	public func performCalculation() async throws {
+		// Копируем данные, чтобы избежать доступа к MainActor-изолированным свойствам
+		//let board =
+		let limiter = 1000000 // Копируем limiter
+		let puzzle: _Puzzle = self.puzzle
+
+		// Выполняем в Task.detached, избегая прямого доступа к puzzle
+		let finalBoard = try await Task.detached {
+			// Предполагаем, что searchSolutionWithHeap можно вызвать в неизолированном контексте
+			return try await puzzle.searchSolutionWithHeap(board: Board(grid: Grid<MatrixElement>(matrix: self.matrix, zero: 0)), limiter: limiter, boardTarget: Board(grid: Grid<MatrixElement>(matrix: self.matrixTarger, zero: 0)))
+		}.value
+
+		// Обновляем UI на MainActor
+		await MainActor.run {
+			guard !Task.isCancelled else { return }
+			if let finalBoard = finalBoard {
 				var compasses: [Compass] = puzzle.createPath(board: finalBoard).reversed()
 				compasses.append(.needle)
 				self.onFinedSolution(compasses)
-			}
-		} else {
-			await MainActor.run {
-				guard !Task.isCancelled else { return }
+			} else {
 				self.onFinedSolution(nil)
 			}
 		}
