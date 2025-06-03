@@ -10,7 +10,7 @@ import MFPuzzle
 
 struct LoadingView: View {
 	let matrix: Matrix
-	@MainActor let puzzle: _Puzzle
+	let puzzle: _Puzzle
 	let matrixTarger: Matrix
 	let onFinedSolution: ([Compass]?) -> Void
 	
@@ -40,26 +40,15 @@ struct LoadingView: View {
 	
 	public func performCalculation() async throws {
 		// Копируем данные, чтобы избежать доступа к MainActor-изолированным свойствам
-		//let board =
-		let limiter = 1000000 // Копируем limiter
-		let puzzle: _Puzzle = self.puzzle
-
-		// Выполняем в Task.detached, избегая прямого доступа к puzzle
-		let finalBoard = try await Task.detached {
-			// Предполагаем, что searchSolutionWithHeap можно вызвать в неизолированном контексте
-			return try await puzzle.searchSolutionWithHeap(board: Board(grid: Grid<MatrixElement>(matrix: self.matrix, zero: 0)), limiter: limiter, boardTarget: Board(grid: Grid<MatrixElement>(matrix: self.matrixTarger, zero: 0)))
-		}.value
-
+		let limiter = 1000000
+		let finalBoard = try await self.puzzle.searchSolutionWithHeap(board: Board(grid: Grid<MatrixElement>(matrix: self.matrix, zero: 0)), limiter: limiter, boardTarget: Board(grid: Grid<MatrixElement>(matrix: self.matrixTarger, zero: 0)))
 		// Обновляем UI на MainActor
-		await MainActor.run {
-			guard !Task.isCancelled else { return }
-			if let finalBoard = finalBoard {
-				var compasses: [Compass] = puzzle.createPath(board: finalBoard).reversed()
-				compasses.append(.needle)
-				self.onFinedSolution(compasses)
-			} else {
-				self.onFinedSolution(nil)
-			}
+		if let finalBoard = finalBoard {
+			var compasses: [Compass] = puzzle.createPath(board: finalBoard).reversed()
+			compasses.append(.needle)
+			self.onFinedSolution(compasses)
+		} else {
+			self.onFinedSolution(nil)
 		}
 	}
 }
