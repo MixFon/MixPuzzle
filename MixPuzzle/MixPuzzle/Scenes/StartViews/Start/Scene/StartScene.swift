@@ -227,20 +227,18 @@ struct StartScene: UIViewRepresentable {
 		// Делаем недоступными кнопи на UI.
 		self.startSceneModel?.disablePathButtonsViewSubject.send(true)
 		self.startSceneModel?.nodesIsRunningSubject.send(true)
-		self.scene.rootNode.runAction(SCNAction.sequence(actions)) {
-			Task { @MainActor in
-				self.startSceneModel?.nodesIsRunningSubject.send(false)
-				self.startSceneModel?.disablePathButtonsViewSubject.send(false)
-			}
-		}
+		self.scene.rootNode.runAction(SCNAction.sequence(actions), completionHandler: complitionAnimation)
+	}
+	
+	private func complitionAnimation() {
+		self.startSceneModel?.nodesIsRunningSubject.send(false)
+		self.startSceneModel?.disablePathButtonsViewSubject.send(false)
 	}
 		
 	/// Удаление меню
 	private func removeFinalMenu() {
 		let deleteAction = self.textNodeWorker.createDeleteAnimationMenu()
-		self.scene.rootNode.runAction(deleteAction) {
-			self.textNodeWorker.deleteNodesFormParent()
-		}
+		self.scene.rootNode.runAction(deleteAction, completionHandler: self.textNodeWorker.deleteNodesFormParent)
 	}
     
     /// Создание и конфигурация астероидойдов
