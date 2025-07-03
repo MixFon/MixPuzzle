@@ -333,6 +333,9 @@
         }
       }
     },
+    "Hello, World!" : {
+
+    },
     "Horizontal and vertical movements of empty cell (0) do not affect the overall straightness of inversions." : {
       "localizations" : {
         "ru" : {

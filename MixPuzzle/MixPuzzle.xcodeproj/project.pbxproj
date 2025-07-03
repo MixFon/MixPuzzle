@@ -51,6 +51,7 @@
 		2980BC7E2BED1BE600866895 /* LevelSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2980BC7D2BED1BE600866895 /* LevelSelectionView.swift */; };
 		2980BC802BED62D400866895 /* SettingsGameStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2980BC7F2BED62D400866895 /* SettingsGameStorage.swift */; };
 		2985064E2B8B53A300028FA9 /* BoxesWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2985064D2B8B53A300028FA9 /* BoxesWorker.swift */; };
+		29957D3F2DEF7B0B001DA0F1 /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29957D3E2DEF7B0B001DA0F1 /* Test.swift */; };
 		29A070332B91A5940078EB8D /* StartFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A070322B91A5940078EB8D /* StartFactory.swift */; };
 		29A225492B89E0C5009ECD1C /* OptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A225482B89E0C5009ECD1C /* OptionsView.swift */; };
 		29A8BC542DDF13D200A1A8CE /* InversionDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A8BC532DDF13D200A1A8CE /* InversionDetailsView.swift */; };
@@ -127,6 +128,83 @@
 		2980BC7D2BED1BE600866895 /* LevelSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelSelectionView.swift; sourceTree = "<group>"; };
 		2980BC7F2BED62D400866895 /* SettingsGameStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsGameStorage.swift; sourceTree = "<group>"; };
 		2985064D2B8B53A300028FA9 /* BoxesWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxesWorker.swift; sourceTree = "<group>"; };
+		29957CCC2DEF74F0001DA0F1 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		29957CCD2DEF74F0001DA0F1 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
+		29957CCF2DEF74F0001DA0F1 /* Dependency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dependency.swift; sourceTree = "<group>"; };
+		29957CD12DEF74F0001DA0F1 /* Ext+Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ext+Color.swift"; sourceTree = "<group>"; };
+		29957CD22DEF74F0001DA0F1 /* Ext+Compass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ext+Compass.swift"; sourceTree = "<group>"; };
+		29957CD32DEF74F0001DA0F1 /* Ext+Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ext+Image.swift"; sourceTree = "<group>"; };
+		29957CD42DEF74F0001DA0F1 /* Ext+Solution.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ext+Solution.swift"; sourceTree = "<group>"; };
+		29957CD52DEF74F0001DA0F1 /* Ext+String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ext+String.swift"; sourceTree = "<group>"; };
+		29957CD62DEF74F0001DA0F1 /* Ext+UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ext+UIColor.swift"; sourceTree = "<group>"; };
+		29957CD72DEF74F0001DA0F1 /* Ext+UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ext+UIImage.swift"; sourceTree = "<group>"; };
+		29957CD82DEF74F0001DA0F1 /* Ext+View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ext+View.swift"; sourceTree = "<group>"; };
+		29957CDA2DEF74F0001DA0F1 /* FreeGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreeGame.swift; sourceTree = "<group>"; };
+		29957CDC2DEF74F0001DA0F1 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
+		29957CDE2DEF74F0001DA0F1 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		29957CE02DEF74F0001DA0F1 /* matrix.mix */ = {isa = PBXFileReference; lastKnownFileType = text; path = matrix.mix; sourceTree = "<group>"; };
+		29957CE12DEF74F0001DA0F1 /* matrix.solution.mix */ = {isa = PBXFileReference; lastKnownFileType = text; path = matrix.solution.mix; sourceTree = "<group>"; };
+		29957CE32DEF74F0001DA0F1 /* MixButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MixButtonStyle.swift; sourceTree = "<group>"; };
+		29957CE52DEF74F0001DA0F1 /* BackButtonToolbarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButtonToolbarItem.swift; sourceTree = "<group>"; };
+		29957CE62DEF74F0001DA0F1 /* LimitedTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LimitedTextField.swift; sourceTree = "<group>"; };
+		29957CE72DEF74F0001DA0F1 /* NavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBar.swift; sourceTree = "<group>"; };
+		29957CE82DEF74F0001DA0F1 /* Snackbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Snackbar.swift; sourceTree = "<group>"; };
+		29957CEA2DEF74F0001DA0F1 /* ChooseMethodView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseMethodView.swift; sourceTree = "<group>"; };
+		29957CEC2DEF74F0001DA0F1 /* GridNumberView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridNumberView.swift; sourceTree = "<group>"; };
+		29957CED2DEF74F0001DA0F1 /* InversionDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InversionDetailsView.swift; sourceTree = "<group>"; };
+		29957CEE2DEF74F0001DA0F1 /* InversionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InversionView.swift; sourceTree = "<group>"; };
+		29957CEF2DEF74F0001DA0F1 /* MatrixView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatrixView.swift; sourceTree = "<group>"; };
+		29957CF12DEF74F0001DA0F1 /* LoaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoaderView.swift; sourceTree = "<group>"; };
+		29957CF22DEF74F0001DA0F1 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		29957CF42DEF74F0001DA0F1 /* ManualFillingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManualFillingView.swift; sourceTree = "<group>"; };
+		29957CF62DEF74F0001DA0F1 /* VisualizationSolutionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualizationSolutionView.swift; sourceTree = "<group>"; };
+		29957CF92DEF74F0001DA0F1 /* MenuScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuScene.swift; sourceTree = "<group>"; };
+		29957CFB2DEF74F0001DA0F1 /* MenuSceneWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuSceneWrapper.swift; sourceTree = "<group>"; };
+		29957CFC2DEF74F0001DA0F1 /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
+		29957CFF2DEF74F0001DA0F1 /* LevelSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelSelectionView.swift; sourceTree = "<group>"; };
+		29957D002DEF74F0001DA0F1 /* SelectLevelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectLevelView.swift; sourceTree = "<group>"; };
+		29957D022DEF74F0001DA0F1 /* SettingsLightView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsLightView.swift; sourceTree = "<group>"; };
+		29957D042DEF74F0001DA0F1 /* OptionsSectionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsSectionsView.swift; sourceTree = "<group>"; };
+		29957D052DEF74F0001DA0F1 /* OptionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsView.swift; sourceTree = "<group>"; };
+		29957D072DEF74F0001DA0F1 /* SettingsAsteroids.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsAsteroids.swift; sourceTree = "<group>"; };
+		29957D082DEF74F0001DA0F1 /* SettingsAsteroidsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsAsteroidsView.swift; sourceTree = "<group>"; };
+		29957D0A2DEF74F0001DA0F1 /* SettingsCubeFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCubeFactory.swift; sourceTree = "<group>"; };
+		29957D0B2DEF74F0001DA0F1 /* SettingsCubeScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCubeScene.swift; sourceTree = "<group>"; };
+		29957D0D2DEF74F0001DA0F1 /* SettingsCubeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCubeView.swift; sourceTree = "<group>"; };
+		29957D0E2DEF74F0001DA0F1 /* SettingsCubeWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCubeWrapper.swift; sourceTree = "<group>"; };
+		29957D112DEF74F0001DA0F1 /* StatisticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsView.swift; sourceTree = "<group>"; };
+		29957D132DEF74F0001DA0F1 /* TargetSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetSelectionView.swift; sourceTree = "<group>"; };
+		29957D162DEF74F0001DA0F1 /* ManageShakeMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageShakeMode.swift; sourceTree = "<group>"; };
+		29957D172DEF74F0001DA0F1 /* StartState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartState.swift; sourceTree = "<group>"; };
+		29957D192DEF74F0001DA0F1 /* StartFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartFactory.swift; sourceTree = "<group>"; };
+		29957D1A2DEF74F0001DA0F1 /* StartScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartScene.swift; sourceTree = "<group>"; };
+		29957D1C2DEF74F0001DA0F1 /* StartSceneWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartSceneWrapper.swift; sourceTree = "<group>"; };
+		29957D1D2DEF74F0001DA0F1 /* StartScoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartScoreView.swift; sourceTree = "<group>"; };
+		29957D1E2DEF74F0001DA0F1 /* StartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; };
+		29957D222DEF74F0001DA0F1 /* puzzle.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = puzzle.scnassets; sourceTree = "<group>"; };
+		29957D242DEF74F0001DA0F1 /* SettingsAsteroidsStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsAsteroidsStorage.swift; sourceTree = "<group>"; };
+		29957D252DEF74F0001DA0F1 /* SettingsCubeStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCubeStorage.swift; sourceTree = "<group>"; };
+		29957D262DEF74F0001DA0F1 /* SettingsGameStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsGameStorage.swift; sourceTree = "<group>"; };
+		29957D272DEF74F0001DA0F1 /* SettingsLightStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsLightStorage.swift; sourceTree = "<group>"; };
+		29957D282DEF74F0001DA0F1 /* SettingsStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsStorage.swift; sourceTree = "<group>"; };
+		29957D2A2DEF74F0001DA0F1 /* AsteroidsWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsteroidsWorker.swift; sourceTree = "<group>"; };
+		29957D2B2DEF74F0001DA0F1 /* BoxesWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxesWorker.swift; sourceTree = "<group>"; };
+		29957D2C2DEF74F0001DA0F1 /* CubeWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CubeWorker.swift; sourceTree = "<group>"; };
+		29957D2D2DEF74F0001DA0F1 /* Decoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Decoder.swift; sourceTree = "<group>"; };
+		29957D2E2DEF74F0001DA0F1 /* FeedbackGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackGenerator.swift; sourceTree = "<group>"; };
+		29957D2F2DEF74F0001DA0F1 /* FileWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileWorker.swift; sourceTree = "<group>"; };
+		29957D302DEF74F0001DA0F1 /* GameWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameWorker.swift; sourceTree = "<group>"; };
+		29957D312DEF74F0001DA0F1 /* ImageWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageWorker.swift; sourceTree = "<group>"; };
+		29957D322DEF74F0001DA0F1 /* LightsWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightsWorker.swift; sourceTree = "<group>"; };
+		29957D332DEF74F0001DA0F1 /* MaterialsWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaterialsWorker.swift; sourceTree = "<group>"; };
+		29957D342DEF74F0001DA0F1 /* RotationWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RotationWorker.swift; sourceTree = "<group>"; };
+		29957D352DEF74F0001DA0F1 /* StatisticsWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsWorker.swift; sourceTree = "<group>"; };
+		29957D362DEF74F0001DA0F1 /* TextNodeWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextNodeWorker.swift; sourceTree = "<group>"; };
+		29957D372DEF74F0001DA0F1 /* Workers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Workers.swift; sourceTree = "<group>"; };
+		29957D392DEF74F0001DA0F1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		29957D3A2DEF74F0001DA0F1 /* MixPuzzle.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MixPuzzle.entitlements; sourceTree = "<group>"; };
+		29957D3B2DEF74F0001DA0F1 /* MixPuzzleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MixPuzzleApp.swift; sourceTree = "<group>"; };
+		29957D3E2DEF7B0B001DA0F1 /* Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
 		29A070322B91A5940078EB8D /* StartFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartFactory.swift; sourceTree = "<group>"; };
 		29A225482B89E0C5009ECD1C /* OptionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsView.swift; sourceTree = "<group>"; };
 		29A8BC532DDF13D200A1A8CE /* InversionDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InversionDetailsView.swift; sourceTree = "<group>"; };
@@ -234,6 +312,7 @@
 				2944D6DD2BC910FB001F1A82 /* Common */,
 				29C162D32B8491DA002E185D /* puzzle.scnassets */,
 				29C162D02B848D53002E185D /* Menu */,
+				29957D3D2DEF7AEE001DA0F1 /* Draft */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
@@ -336,13 +415,6 @@
 			path = TargetSelection;
 			sourceTree = "<group>";
 		};
-		295D81FF2BD3E31400D1C431 /* Draft */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Draft;
-			sourceTree = "<group>";
-		};
 		296846CD2C0100E30046862C /* FindSolutionViews */ = {
 			isa = PBXGroup;
 			children = (
@@ -425,6 +497,385 @@
 			path = LevelSelection;
 			sourceTree = "<group>";
 		};
+		29957CCE2DEF74F0001DA0F1 /* Colors */ = {
+			isa = PBXGroup;
+			children = (
+				29957CCC2DEF74F0001DA0F1 /* Colors.swift */,
+				29957CCD2DEF74F0001DA0F1 /* Colors.xcassets */,
+			);
+			path = Colors;
+			sourceTree = "<group>";
+		};
+		29957CD02DEF74F0001DA0F1 /* Dependency */ = {
+			isa = PBXGroup;
+			children = (
+				29957CCF2DEF74F0001DA0F1 /* Dependency.swift */,
+			);
+			path = Dependency;
+			sourceTree = "<group>";
+		};
+		29957CD92DEF74F0001DA0F1 /* Extentions */ = {
+			isa = PBXGroup;
+			children = (
+				29957CD12DEF74F0001DA0F1 /* Ext+Color.swift */,
+				29957CD22DEF74F0001DA0F1 /* Ext+Compass.swift */,
+				29957CD32DEF74F0001DA0F1 /* Ext+Image.swift */,
+				29957CD42DEF74F0001DA0F1 /* Ext+Solution.swift */,
+				29957CD52DEF74F0001DA0F1 /* Ext+String.swift */,
+				29957CD62DEF74F0001DA0F1 /* Ext+UIColor.swift */,
+				29957CD72DEF74F0001DA0F1 /* Ext+UIImage.swift */,
+				29957CD82DEF74F0001DA0F1 /* Ext+View.swift */,
+			);
+			path = Extentions;
+			sourceTree = "<group>";
+		};
+		29957CDB2DEF74F0001DA0F1 /* FreeGame */ = {
+			isa = PBXGroup;
+			children = (
+				29957CDA2DEF74F0001DA0F1 /* FreeGame.swift */,
+			);
+			path = FreeGame;
+			sourceTree = "<group>";
+		};
+		29957CDD2DEF74F0001DA0F1 /* Localisation */ = {
+			isa = PBXGroup;
+			children = (
+				29957CDC2DEF74F0001DA0F1 /* Localizable.xcstrings */,
+			);
+			path = Localisation;
+			sourceTree = "<group>";
+		};
+		29957CDF2DEF74F0001DA0F1 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				29957CDE2DEF74F0001DA0F1 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		29957CE22DEF74F0001DA0F1 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				29957CE02DEF74F0001DA0F1 /* matrix.mix */,
+				29957CE12DEF74F0001DA0F1 /* matrix.solution.mix */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		29957CE42DEF74F0001DA0F1 /* ButtonStyles */ = {
+			isa = PBXGroup;
+			children = (
+				29957CE32DEF74F0001DA0F1 /* MixButtonStyle.swift */,
+			);
+			path = ButtonStyles;
+			sourceTree = "<group>";
+		};
+		29957CE92DEF74F0001DA0F1 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				29957CE42DEF74F0001DA0F1 /* ButtonStyles */,
+				29957CE52DEF74F0001DA0F1 /* BackButtonToolbarItem.swift */,
+				29957CE62DEF74F0001DA0F1 /* LimitedTextField.swift */,
+				29957CE72DEF74F0001DA0F1 /* NavigationBar.swift */,
+				29957CE82DEF74F0001DA0F1 /* Snackbar.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		29957CEB2DEF74F0001DA0F1 /* ChooseMethod */ = {
+			isa = PBXGroup;
+			children = (
+				29957CEA2DEF74F0001DA0F1 /* ChooseMethodView.swift */,
+			);
+			path = ChooseMethod;
+			sourceTree = "<group>";
+		};
+		29957CF02DEF74F0001DA0F1 /* InversionView */ = {
+			isa = PBXGroup;
+			children = (
+				29957CEC2DEF74F0001DA0F1 /* GridNumberView.swift */,
+				29957CED2DEF74F0001DA0F1 /* InversionDetailsView.swift */,
+				29957CEE2DEF74F0001DA0F1 /* InversionView.swift */,
+				29957CEF2DEF74F0001DA0F1 /* MatrixView.swift */,
+			);
+			path = InversionView;
+			sourceTree = "<group>";
+		};
+		29957CF32DEF74F0001DA0F1 /* LoadingView */ = {
+			isa = PBXGroup;
+			children = (
+				29957CF12DEF74F0001DA0F1 /* LoaderView.swift */,
+				29957CF22DEF74F0001DA0F1 /* LoadingView.swift */,
+			);
+			path = LoadingView;
+			sourceTree = "<group>";
+		};
+		29957CF52DEF74F0001DA0F1 /* ManualFilling */ = {
+			isa = PBXGroup;
+			children = (
+				29957CF42DEF74F0001DA0F1 /* ManualFillingView.swift */,
+			);
+			path = ManualFilling;
+			sourceTree = "<group>";
+		};
+		29957CF72DEF74F0001DA0F1 /* VisualizationSolution */ = {
+			isa = PBXGroup;
+			children = (
+				29957CF62DEF74F0001DA0F1 /* VisualizationSolutionView.swift */,
+			);
+			path = VisualizationSolution;
+			sourceTree = "<group>";
+		};
+		29957CF82DEF74F0001DA0F1 /* FindSolutionViews */ = {
+			isa = PBXGroup;
+			children = (
+				29957CEB2DEF74F0001DA0F1 /* ChooseMethod */,
+				29957CF02DEF74F0001DA0F1 /* InversionView */,
+				29957CF32DEF74F0001DA0F1 /* LoadingView */,
+				29957CF52DEF74F0001DA0F1 /* ManualFilling */,
+				29957CF72DEF74F0001DA0F1 /* VisualizationSolution */,
+			);
+			path = FindSolutionViews;
+			sourceTree = "<group>";
+		};
+		29957CFA2DEF74F0001DA0F1 /* Scene */ = {
+			isa = PBXGroup;
+			children = (
+				29957CF92DEF74F0001DA0F1 /* MenuScene.swift */,
+			);
+			path = Scene;
+			sourceTree = "<group>";
+		};
+		29957CFD2DEF74F0001DA0F1 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				29957CFB2DEF74F0001DA0F1 /* MenuSceneWrapper.swift */,
+				29957CFC2DEF74F0001DA0F1 /* MenuView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		29957CFE2DEF74F0001DA0F1 /* Menu */ = {
+			isa = PBXGroup;
+			children = (
+				29957CFA2DEF74F0001DA0F1 /* Scene */,
+				29957CFD2DEF74F0001DA0F1 /* View */,
+			);
+			path = Menu;
+			sourceTree = "<group>";
+		};
+		29957D012DEF74F0001DA0F1 /* LevelSelection */ = {
+			isa = PBXGroup;
+			children = (
+				29957CFF2DEF74F0001DA0F1 /* LevelSelectionView.swift */,
+				29957D002DEF74F0001DA0F1 /* SelectLevelView.swift */,
+			);
+			path = LevelSelection;
+			sourceTree = "<group>";
+		};
+		29957D032DEF74F0001DA0F1 /* Light */ = {
+			isa = PBXGroup;
+			children = (
+				29957D022DEF74F0001DA0F1 /* SettingsLightView.swift */,
+			);
+			path = Light;
+			sourceTree = "<group>";
+		};
+		29957D062DEF74F0001DA0F1 /* Options */ = {
+			isa = PBXGroup;
+			children = (
+				29957D042DEF74F0001DA0F1 /* OptionsSectionsView.swift */,
+				29957D052DEF74F0001DA0F1 /* OptionsView.swift */,
+			);
+			path = Options;
+			sourceTree = "<group>";
+		};
+		29957D092DEF74F0001DA0F1 /* SettingsAsteroids */ = {
+			isa = PBXGroup;
+			children = (
+				29957D072DEF74F0001DA0F1 /* SettingsAsteroids.swift */,
+				29957D082DEF74F0001DA0F1 /* SettingsAsteroidsView.swift */,
+			);
+			path = SettingsAsteroids;
+			sourceTree = "<group>";
+		};
+		29957D0C2DEF74F0001DA0F1 /* Scene */ = {
+			isa = PBXGroup;
+			children = (
+				29957D0A2DEF74F0001DA0F1 /* SettingsCubeFactory.swift */,
+				29957D0B2DEF74F0001DA0F1 /* SettingsCubeScene.swift */,
+			);
+			path = Scene;
+			sourceTree = "<group>";
+		};
+		29957D0F2DEF74F0001DA0F1 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				29957D0D2DEF74F0001DA0F1 /* SettingsCubeView.swift */,
+				29957D0E2DEF74F0001DA0F1 /* SettingsCubeWrapper.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		29957D102DEF74F0001DA0F1 /* SettingsCube */ = {
+			isa = PBXGroup;
+			children = (
+				29957D0C2DEF74F0001DA0F1 /* Scene */,
+				29957D0F2DEF74F0001DA0F1 /* View */,
+			);
+			path = SettingsCube;
+			sourceTree = "<group>";
+		};
+		29957D122DEF74F0001DA0F1 /* Statistics */ = {
+			isa = PBXGroup;
+			children = (
+				29957D112DEF74F0001DA0F1 /* StatisticsView.swift */,
+			);
+			path = Statistics;
+			sourceTree = "<group>";
+		};
+		29957D142DEF74F0001DA0F1 /* TargetSelection */ = {
+			isa = PBXGroup;
+			children = (
+				29957D132DEF74F0001DA0F1 /* TargetSelectionView.swift */,
+			);
+			path = TargetSelection;
+			sourceTree = "<group>";
+		};
+		29957D152DEF74F0001DA0F1 /* OprionViews */ = {
+			isa = PBXGroup;
+			children = (
+				29957D012DEF74F0001DA0F1 /* LevelSelection */,
+				29957D032DEF74F0001DA0F1 /* Light */,
+				29957D062DEF74F0001DA0F1 /* Options */,
+				29957D092DEF74F0001DA0F1 /* SettingsAsteroids */,
+				29957D102DEF74F0001DA0F1 /* SettingsCube */,
+				29957D122DEF74F0001DA0F1 /* Statistics */,
+				29957D142DEF74F0001DA0F1 /* TargetSelection */,
+			);
+			path = OprionViews;
+			sourceTree = "<group>";
+		};
+		29957D182DEF74F0001DA0F1 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				29957D162DEF74F0001DA0F1 /* ManageShakeMode.swift */,
+				29957D172DEF74F0001DA0F1 /* StartState.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		29957D1B2DEF74F0001DA0F1 /* Scene */ = {
+			isa = PBXGroup;
+			children = (
+				29957D192DEF74F0001DA0F1 /* StartFactory.swift */,
+				29957D1A2DEF74F0001DA0F1 /* StartScene.swift */,
+			);
+			path = Scene;
+			sourceTree = "<group>";
+		};
+		29957D1F2DEF74F0001DA0F1 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				29957D1C2DEF74F0001DA0F1 /* StartSceneWrapper.swift */,
+				29957D1D2DEF74F0001DA0F1 /* StartScoreView.swift */,
+				29957D1E2DEF74F0001DA0F1 /* StartView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		29957D202DEF74F0001DA0F1 /* Start */ = {
+			isa = PBXGroup;
+			children = (
+				29957D182DEF74F0001DA0F1 /* Models */,
+				29957D1B2DEF74F0001DA0F1 /* Scene */,
+				29957D1F2DEF74F0001DA0F1 /* View */,
+			);
+			path = Start;
+			sourceTree = "<group>";
+		};
+		29957D212DEF74F0001DA0F1 /* StartViews */ = {
+			isa = PBXGroup;
+			children = (
+				29957D202DEF74F0001DA0F1 /* Start */,
+			);
+			path = StartViews;
+			sourceTree = "<group>";
+		};
+		29957D232DEF74F0001DA0F1 /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				29957CE92DEF74F0001DA0F1 /* Common */,
+				29957CF82DEF74F0001DA0F1 /* FindSolutionViews */,
+				29957CFE2DEF74F0001DA0F1 /* Menu */,
+				29957D152DEF74F0001DA0F1 /* OprionViews */,
+				29957D212DEF74F0001DA0F1 /* StartViews */,
+				29957D222DEF74F0001DA0F1 /* puzzle.scnassets */,
+			);
+			path = Scenes;
+			sourceTree = "<group>";
+		};
+		29957D292DEF74F0001DA0F1 /* Storages */ = {
+			isa = PBXGroup;
+			children = (
+				29957D242DEF74F0001DA0F1 /* SettingsAsteroidsStorage.swift */,
+				29957D252DEF74F0001DA0F1 /* SettingsCubeStorage.swift */,
+				29957D262DEF74F0001DA0F1 /* SettingsGameStorage.swift */,
+				29957D272DEF74F0001DA0F1 /* SettingsLightStorage.swift */,
+				29957D282DEF74F0001DA0F1 /* SettingsStorage.swift */,
+			);
+			path = Storages;
+			sourceTree = "<group>";
+		};
+		29957D382DEF74F0001DA0F1 /* Workers */ = {
+			isa = PBXGroup;
+			children = (
+				29957D2A2DEF74F0001DA0F1 /* AsteroidsWorker.swift */,
+				29957D2B2DEF74F0001DA0F1 /* BoxesWorker.swift */,
+				29957D2C2DEF74F0001DA0F1 /* CubeWorker.swift */,
+				29957D2D2DEF74F0001DA0F1 /* Decoder.swift */,
+				29957D2E2DEF74F0001DA0F1 /* FeedbackGenerator.swift */,
+				29957D2F2DEF74F0001DA0F1 /* FileWorker.swift */,
+				29957D302DEF74F0001DA0F1 /* GameWorker.swift */,
+				29957D312DEF74F0001DA0F1 /* ImageWorker.swift */,
+				29957D322DEF74F0001DA0F1 /* LightsWorker.swift */,
+				29957D332DEF74F0001DA0F1 /* MaterialsWorker.swift */,
+				29957D342DEF74F0001DA0F1 /* RotationWorker.swift */,
+				29957D352DEF74F0001DA0F1 /* StatisticsWorker.swift */,
+				29957D362DEF74F0001DA0F1 /* TextNodeWorker.swift */,
+				29957D372DEF74F0001DA0F1 /* Workers.swift */,
+			);
+			path = Workers;
+			sourceTree = "<group>";
+		};
+		29957D3C2DEF74F0001DA0F1 /* MixPuzzle */ = {
+			isa = PBXGroup;
+			children = (
+				29957CCE2DEF74F0001DA0F1 /* Colors */,
+				29957CD02DEF74F0001DA0F1 /* Dependency */,
+				29957CD92DEF74F0001DA0F1 /* Extentions */,
+				29957CDB2DEF74F0001DA0F1 /* FreeGame */,
+				29957CDD2DEF74F0001DA0F1 /* Localisation */,
+				29957CDF2DEF74F0001DA0F1 /* Preview Content */,
+				29957CE22DEF74F0001DA0F1 /* Resources */,
+				29957D232DEF74F0001DA0F1 /* Scenes */,
+				29957D292DEF74F0001DA0F1 /* Storages */,
+				29957D382DEF74F0001DA0F1 /* Workers */,
+				29957D392DEF74F0001DA0F1 /* Assets.xcassets */,
+				29957D3A2DEF74F0001DA0F1 /* MixPuzzle.entitlements */,
+				29957D3B2DEF74F0001DA0F1 /* MixPuzzleApp.swift */,
+			);
+			path = MixPuzzle;
+			sourceTree = "<group>";
+		};
+		29957D3D2DEF7AEE001DA0F1 /* Draft */ = {
+			isa = PBXGroup;
+			children = (
+				29957D3E2DEF7B0B001DA0F1 /* Test.swift */,
+			);
+			path = Draft;
+			sourceTree = "<group>";
+		};
 		29A225472B89E0A2009ECD1C /* Options */ = {
 			isa = PBXGroup;
 			children = (
@@ -475,6 +926,7 @@
 				29C162C02B848CC4002E185D /* MixPuzzle */,
 				29C162BF2B848CC4002E185D /* Products */,
 				290714EE2BFA46CA00AD5DCE /* Frameworks */,
+				29957D3C2DEF74F0001DA0F1 /* MixPuzzle */,
 			);
 			sourceTree = "<group>";
 		};
@@ -495,7 +947,6 @@
 				29B2ADBD2BDBA402002D11D8 /* Extentions */,
 				29B2ADBA2BDB9354002D11D8 /* Dependency */,
 				29B2ADB72BDAD157002D11D8 /* Storages */,
-				295D81FF2BD3E31400D1C431 /* Draft */,
 				2944D6D92BC870FD001F1A82 /* Scenes */,
 				29DFDEB82BC50D9500791434 /* Colors */,
 				29C162C12B848CC4002E185D /* MixPuzzleApp.swift */,
@@ -697,6 +1148,7 @@
 				2942731F2DCE5AD200E385A3 /* FeedbackGenerator.swift in Sources */,
 				2980BC802BED62D400866895 /* SettingsGameStorage.swift in Sources */,
 				29DEED112BDECD6600DCE4EB /* MaterialsWorker.swift in Sources */,
+				29957D3F2DEF7B0B001DA0F1 /* Test.swift in Sources */,
 				2901B4D62C1B92D80015E9A3 /* StatisticsWorker.swift in Sources */,
 				2944D6EE2BCC4FFD001F1A82 /* CubeWorker.swift in Sources */,
 				29BFEABD2D217DFD006FD41D /* Ext+UIImage.swift in Sources */,
@@ -784,6 +1236,7 @@
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 6.0;
 			};
 			name = Debug;
 		};
@@ -843,6 +1296,7 @@
 				MTL_FAST_MATH = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 6.0;
 			};
 			name = Release;
 		};
@@ -879,6 +1333,7 @@
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -932,7 +1387,7 @@
 				29C162CC2B848CC5002E185D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		29C162CD2B848CC5002E185D /* Build configuration list for PBXNativeTarget "MixPuzzle" */ = {
 			isa = XCConfigurationList;
@@ -941,7 +1396,7 @@
 				29C162CF2B848CC5002E185D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 
