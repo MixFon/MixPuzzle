@@ -60,7 +60,8 @@ struct MenuView: View {
     return MenuView(dependency: dependency)
 }
 
-final class MockDependency: _Dependency {
+@MainActor
+final class MockDependency: @preconcurrency _Dependency {
 	var checker: _Checker = {
 		MockChecker()
 	}()

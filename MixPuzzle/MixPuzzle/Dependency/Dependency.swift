@@ -8,7 +8,6 @@
 import MFPuzzle
 import Foundation
 
-@MainActor
 protocol _Dependency {
 	var checker: _Checker { get }
 	var workers: _Workers { get }
@@ -23,6 +22,7 @@ struct Dependency: _Dependency {
 	let workers: _Workers
     let settingsStorages: _SettingsStorage
     
+	@MainActor
     init() {
         let settingsCubeStorage = SettingsCubeStorage()
 		let settingsGameStorage = SettingsGameStorage()

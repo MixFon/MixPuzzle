@@ -42,10 +42,8 @@ struct MenuScene: UIViewRepresentable {
 		scnView.addGestureRecognizer(tapGesture)
 		if let floor = self.floorNode {
             setupFloor(floor: floor)
-			//setupMovingAnimationFloor(floor: floor)
         }
 		configureCSNText(nodes: self.scene?.rootNode.childNodes ?? [])
-		//self.scene?.rootNode.canBecomeFocused = true
 		return scnView
 	}
 	
