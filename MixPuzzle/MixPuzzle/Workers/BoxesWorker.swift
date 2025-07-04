@@ -28,7 +28,7 @@ protocol _BoxesWorker {
 	/// Перемещает кубики в позиции соответствующие Grid. Подразумевается, что уже будет новая Grid в gameWorker
 	func moveNodeToPointsOfGrid()
 	/// Перемещает кубики в позиции соответствующие targetMatrix
-	func moveNodesToTargetPozitions(targetMatrix: Matrix, completion: @escaping () -> Void)
+	func moveNodesToTargetPozitions(targetMatrix: Matrix) async
 	/// Создает кубик в случайном месте
 	func createBoxInRandomPlace(number: MatrixElement) -> SCNNode
 	/// Опредляет координаты камеры так, чтобы все пазды были видны на экране
@@ -123,29 +123,23 @@ final class BoxesWorker: _BoxesWorker {
 		self.boxesNode?.forEach { $0.removeAllActions() }
 	}
 	
-	func moveNodesToTargetPozitions(targetMatrix: Matrix, completion: @escaping () -> Void) {
+	func moveNodesToTargetPozitions(targetMatrix: Matrix) async {
 		do {
 			let currentMatrix = convertToIntMatrix(matrix: self.grid.matrix)
 			let goalMatrix = convertToIntMatrix(matrix: targetMatrix)
 			let pathsDirections = try self.transporter.createDirections(from: currentMatrix, to: goalMatrix)
 			let allMatrixElements = self.grid.matrix.flatMap { $0 }.map({ Int($0) })
 			// Счетчик для вызова completion после завершения всех анимаций
-			let dispatchGroup = DispatchGroup()
-			
-			for element in allMatrixElements {
-				guard let action = createAction(for: element, with: pathsDirections[element] ?? []), !action.isEmpty else { continue }
-				let node = self.boxesNode?.first(where: {$0.name == String(element)})
-				dispatchGroup.enter()
-				node?.runAction(SCNAction.sequence(action)) {
-					dispatchGroup.leave()
+			await MainActor.run {
+				for element in allMatrixElements {
+					guard let action = createAction(for: element, with: pathsDirections[element] ?? []), !action.isEmpty else { continue }
+					let node = self.boxesNode?.first(where: { $0.name == String(element) })
+					node?.runAction(SCNAction.sequence(action))
 				}
-			}
-			dispatchGroup.notify(queue: .main) {
-				completion()
 			}
 		} catch {
 			// Так как ошибки в createDirections выбрасываются очень редко перезапускам метод
-			moveNodesToTargetPozitions(targetMatrix: targetMatrix, completion: completion)
+			await moveNodesToTargetPozitions(targetMatrix: targetMatrix)
 		}
 	}
 	

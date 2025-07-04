@@ -20,8 +20,8 @@ struct SettingsCubeWrapper: View {
 	}
 }
 
-extension SettingsCubeWrapper: @preconcurrency Equatable {
-	static func == (lhs: SettingsCubeWrapper, rhs: SettingsCubeWrapper) -> Bool {
+extension SettingsCubeWrapper: Equatable {
+	nonisolated static func == (lhs: SettingsCubeWrapper, rhs: SettingsCubeWrapper) -> Bool {
 		return true
 	}
 }

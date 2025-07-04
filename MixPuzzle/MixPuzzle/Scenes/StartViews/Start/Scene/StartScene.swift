@@ -156,32 +156,34 @@ struct StartScene: UIViewRepresentable {
 	private mutating func configureShowMatrixPublisher() {
 		// Паблишер предназначенный только для отображения анимации матрицы.
 		self.startSceneModel?.showMatrixSubject.sink { [self] matrix in
-			self.startSceneModel?.nodesIsRunningSubject.send(true)
-			self.boxWorker.moveNodesToTargetPozitions(targetMatrix: matrix) {
+			Task { @MainActor in
+				self.startSceneModel?.nodesIsRunningSubject.send(true)
+				await self.boxWorker.moveNodesToTargetPozitions(targetMatrix: matrix)
 				self.startSceneModel?.nodesIsRunningSubject.send(false)
+				self.boxWorker.updateGrid(grid: Grid<MatrixElement>(matrix: matrix, zero: 0))
 			}
-			self.boxWorker.updateGrid(grid: Grid<MatrixElement>(matrix: matrix, zero: 0))
 		}.store(in: &cancellables)
 	}
 	
 	private mutating func configureRegeneratePublisher() {
 		self.startSceneModel?.regenerateSubject.sink { [self] in
-			self.gameWorker.statisticsWorker.increaseRegenerations()
-			self.gameWorker.deleteCompasses()
-			self.gameWorker.regenerateMatrix()
-			
-			// В boxWorker модель до изменения "старая".
-			// Перемещаем в новое состояние, только что сгенерированную матрицу
-			self.startSceneModel?.nodesIsRunningSubject.send(true)
-			self.boxWorker.moveNodesToTargetPozitions(targetMatrix: self.gameWorker.matrix) {
+			Task { @MainActor in
+				self.gameWorker.statisticsWorker.increaseRegenerations()
+				self.gameWorker.deleteCompasses()
+				self.gameWorker.regenerateMatrix()
+				
+				// В boxWorker модель до изменения "старая".
+				// Перемещаем в новое состояние, только что сгенерированную матрицу
+				self.startSceneModel?.nodesIsRunningSubject.send(true)
+				await self.boxWorker.moveNodesToTargetPozitions(targetMatrix: self.gameWorker.matrix)
 				self.startSceneModel?.nodesIsRunningSubject.send(false)
+				// Обновляем grid
+				self.boxWorker.updateGrid(grid: Grid<MatrixElement>(matrix: self.gameWorker.matrix, zero: 0))
+				
+				self.startSceneModel?.pathSolutionSubject.send(.game)
+				self.settings.isMoveOn = true
+				removeFinalMenu()
 			}
-			// Обновляем grid
-			self.boxWorker.updateGrid(grid: Grid<MatrixElement>(matrix: self.gameWorker.matrix, zero: 0))
-			
-			self.startSceneModel?.pathSolutionSubject.send(.game)
-			self.settings.isMoveOn = true
-			removeFinalMenu()
 		}.store(in: &cancellables)
 	}
 	
