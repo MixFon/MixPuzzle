@@ -7,7 +7,7 @@
       "location" : "git@github.com:MixFon/MFPuzzle.git",
       "state" : {
         "branch" : "main",
-        "revision" : "0d1d8f707ec0f8070736878285a32fa5f40de87a"
+        "revision" : "e9185c8331e3b7608c23451a3d9135cf1202096e"
       }
     },
     {
@@ -15,8 +15,8 @@
       "kind" : "remoteSourceControl",
       "location" : "git@github.com:MixFon/MFStructs.git",
       "state" : {
-        "revision" : "f4959aab91d52dc0a5dc8943261b2e1191ba7b62",
-        "version" : "0.0.3"
+        "revision" : "0e93090b99d46e5fa5b6da4c7779353069fab57b",
+        "version" : "0.0.5"
       }
     }
   ],

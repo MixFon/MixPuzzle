@@ -7,7 +7,7 @@
 
 import Combine
 import SwiftUI
-import SceneKit
+@preconcurrency import SceneKit
 import MFPuzzle
 import Foundation
 
@@ -214,11 +214,13 @@ struct StartScene: UIViewRepresentable {
 	
 	private mutating func configureShowPathCompasses() {
 		self.startSceneModel?.pathSubject.sink { [self] compasses in
-			createPathCompassesAnamations(compasses: compasses)
+			Task.detached {
+				await createPathCompassesAnamations(compasses: compasses)
+			}
 		}.store(in: &cancellables)
 	}
 	
-	private func createPathCompassesAnamations(compasses: [Compass]) {
+	private func createPathCompassesAnamations(compasses: [Compass]) async {
 		var actions: [SCNAction] = []
 		for compass in compasses {
 			guard let number = self.boxWorker.getNumber(for: compass) else { continue }
@@ -229,7 +231,9 @@ struct StartScene: UIViewRepresentable {
 		// Делаем недоступными кнопи на UI.
 		self.startSceneModel?.disablePathButtonsViewSubject.send(true)
 		self.startSceneModel?.nodesIsRunningSubject.send(true)
-		self.scene.rootNode.runAction(SCNAction.sequence(actions), completionHandler: complitionAnimation)
+		let sequence = SCNAction.sequence(actions)
+		await self.scene.rootNode.runAction(sequence)
+		complitionAnimation()
 	}
 	
 	private func complitionAnimation() {

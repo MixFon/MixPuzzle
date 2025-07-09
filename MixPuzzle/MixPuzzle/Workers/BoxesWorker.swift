@@ -7,7 +7,7 @@
 
 import Combine
 import MFPuzzle
-import SceneKit
+@preconcurrency import SceneKit
 
 @MainActor
 protocol _BoxesWorker {
@@ -130,11 +130,14 @@ final class BoxesWorker: _BoxesWorker {
 			let pathsDirections = try self.transporter.createDirections(from: currentMatrix, to: goalMatrix)
 			let allMatrixElements = self.grid.matrix.flatMap { $0 }.map({ Int($0) })
 			// Счетчик для вызова completion после завершения всех анимаций
-			await MainActor.run {
+			await withTaskGroup(of: Void.self) { group in
 				for element in allMatrixElements {
-					guard let action = createAction(for: element, with: pathsDirections[element] ?? []), !action.isEmpty else { continue }
-					let node = self.boxesNode?.first(where: { $0.name == String(element) })
-					node?.runAction(SCNAction.sequence(action))
+					let directions = pathsDirections[element] ?? []
+					group.addTask { @Sendable in
+						guard let action = await self.createAction(for: element, with: directions), !action.isEmpty else { return  }
+						let node = await self.boxesNode?.first(where: { $0.name == String(element) })
+						await node?.runAction(SCNAction.sequence(action))
+					}
 				}
 			}
 		} catch {
@@ -239,12 +242,15 @@ final class BoxesWorker: _BoxesWorker {
 		guard self.grid.isNeighbors(one: number, two: 0) == true else { return nil }
 		guard let pointZero = self.grid.getPoint(number: 0) else { return nil }
 		let boxPointZero = getBoxPoint(i: Int(pointZero.x), j: Int(pointZero.y))
-		// Для векторов SCNVector3 на первом месте тоит Y на втором -X координаты из матрицы
-		// Длительность customAction должна быть больше чем длительность action. Это нужно чтобы кубики не наслаивались друг на друга
-		let customAction = SCNAction.customAction(duration: 0.2, action: { (_, _) in
+		
+		func actionFunction(_ one: SCNNode,_ two: CGFloat) {
+			// Данная функция создается для того чтобы убрать падение. Если создавть замыкание в `customAction`, то приложение падает
 			let action = SCNAction.move(to: SCNVector3(x: Float(boxPointZero.y), y: Float(-boxPointZero.x), z: 0), duration: 0.1)
 			complerion(action)
-		})
+		}
+		// Для векторов SCNVector3 на первом месте тоит Y на втором -X координаты из матрицы
+		// Длительность customAction должна быть больше чем длительность action. Это нужно чтобы кубики не наслаивались друг на друга
+		let customAction = SCNAction.customAction(duration: 0.2, action: actionFunction)
 		self.grid.swapNumber(number: number, target: 0)
 		return customAction
 	}
