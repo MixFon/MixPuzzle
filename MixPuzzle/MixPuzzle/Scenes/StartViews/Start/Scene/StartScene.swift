@@ -180,7 +180,7 @@ struct StartScene: UIViewRepresentable {
 				// Обновляем grid
 				self.boxWorker.updateGrid(grid: Grid<MatrixElement>(matrix: self.gameWorker.matrix, zero: 0))
 				
-				self.startSceneModel?.pathSolutionSubject.send(.game)
+				self.startSceneModel?.pathSolutionSubject.send(.solution)
 				self.settings.isMoveOn = true
 				removeFinalMenu()
 			}

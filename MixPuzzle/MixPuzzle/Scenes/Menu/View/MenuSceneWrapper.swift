@@ -38,7 +38,7 @@ struct MenuSceneWrapper: View {
 
 extension MenuSceneWrapper: Equatable {
 	nonisolated static func == (lhs: MenuSceneWrapper, rhs: MenuSceneWrapper) -> Bool {
-		return false
+		return true
 	}
 }
 

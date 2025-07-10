@@ -58,6 +58,7 @@ struct StartView: View {
     var body: some View {
 		ZStack {
             StartSceneWrapper(dependency: self.dependency, startSceneModel: startSceneModel)
+				.id("scene_static_id")
 			VStack {
 				StartScoreView(state: self.state, startSceneDependency: startSceneModel)
 					.padding(.top, 50)

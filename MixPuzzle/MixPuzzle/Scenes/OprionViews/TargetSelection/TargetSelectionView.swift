@@ -68,6 +68,7 @@ struct TargetSelectionView: View {
 				.padding()
 			ScrollView {
 				TargetSelectSceneWrapper(matrix: self.startSelectedMatrix, dependency: dependncy, startSceneModel: self.startSceneModel)
+					.id("selected_static_id")
 					.clipShape(RoundedRectangle(cornerRadius: 24))
 					.aspectRatio(contentMode: .fit)
 					.padding(.horizontal)

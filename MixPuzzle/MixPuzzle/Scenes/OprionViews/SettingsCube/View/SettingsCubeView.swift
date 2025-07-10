@@ -52,6 +52,7 @@ struct SettingsCubeView: View {
             ))
             .padding()
 			SettingsCubeWrapper(model: self.model, dependency: self.dependency)
+				.id("setting_cube_static_id")
 				.aspectRatio(contentMode: .fit)
 				.clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
 				.background(Color.mm_background_secondary)
