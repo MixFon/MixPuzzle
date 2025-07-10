@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct StartScoreView: View {
-	
+
 	var state: StartState
 	let startSceneDependency: StartSceneModel
 	private let generator = UIImpactFeedbackGenerator(style: .light)
@@ -78,13 +78,15 @@ struct StartScoreView: View {
 					
 			}
 		}
-		.onReceive(self.startSceneDependency.nodesIsRunningSubject, perform: { output in
-			self.isButtonsDisabled = output
-		})
+		.onReceive(self.startSceneDependency.nodesIsRunningSubject, perform: nodesIsRunningSubjectHandler)
 		.animation(.default, value: self.state)
 		.padding(.horizontal)
 		.clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
     }
+	
+	private func nodesIsRunningSubjectHandler(output: Bool) {
+		self.isButtonsDisabled = output
+	}
 
 	private func performHapticFeedback() {
 		guard hapticTask == nil else { return }

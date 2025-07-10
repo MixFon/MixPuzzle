@@ -9,11 +9,6 @@ import SwiftUI
 import Combine
 import MFPuzzle
 
-final class StartSceneRouter: ObservableObject {
-	@Published var state: StartState = .game
-	@Published var onClose: Bool = false
-}
-
 final class StartSceneModel: ObservableObject {
 	/// Паблишер отправляющий массив направлений перемещений нуля
 	let pathSubject = PassthroughSubject<[Compass], Never>()
@@ -57,18 +52,17 @@ final class StartSceneModel: ObservableObject {
 
 struct StartView: View {
     let dependency: _Dependency
-	@StateObject private var router = StartSceneRouter()
+	@State private var state: StartState = .game
 	@StateObject private var startSceneModel = StartSceneModel()
 
     var body: some View {
 		ZStack {
             StartSceneWrapper(dependency: self.dependency, startSceneModel: startSceneModel)
-				.equatable() // Отключение обновления сцены
 			VStack {
-				StartScoreView(state: self.router.state, startSceneDependency: startSceneModel)
+				StartScoreView(state: self.state, startSceneDependency: startSceneModel)
 					.padding(.top, 50)
 				Spacer()
-				if self.router.state == .solution {
+				if self.state == .solution {
 					VisualizationSolutionPathView(startSceneModel: self.startSceneModel)
 						.background(Color.mm_background_tertiary)
 						.transition(.move(edge: .bottom))
@@ -79,7 +73,7 @@ struct StartView: View {
 		}
 		.onReceive(self.startSceneModel.pathSolutionSubject, perform: { isShowPath in
 			withAnimation {
-				self.router.state = isShowPath
+				self.state = isShowPath
 			}
 		})
 		.preferredColorScheme(.dark)
