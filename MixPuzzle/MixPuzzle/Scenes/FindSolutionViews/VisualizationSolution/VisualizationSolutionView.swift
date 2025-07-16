@@ -23,11 +23,7 @@ struct VisualizationSolutionView: View {
 					.padding()
 				Spacer()
 				VisualizationSolutionPathView(startSceneModel: self.startSceneModel)
-					.preferredColorScheme(.dark)
-					.background(Color.mm_background_tertiary.opacity(0.3))
-					.clipShape(RoundedRectangle(cornerRadius: 24))
 			}
-			
 		}
 	}
 }
@@ -82,6 +78,9 @@ struct VisualizationSolutionPathView: View {
 			}
 			.buttonStyle(.plain)
 		}
+		.preferredColorScheme(.dark)
+		.background(Color.mm_background_tertiary.opacity(0.3))
+		.clipShape(RoundedRectangle(cornerRadius: 24))
 		.onReceive(self.startSceneModel.disablePathButtonsViewSubject, perform: { isDisable in
 			self.isDesable = isDisable
 		})
