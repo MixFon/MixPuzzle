@@ -24,7 +24,8 @@ struct VisualizationSolutionView: View {
 				Spacer()
 				VisualizationSolutionPathView(startSceneModel: self.startSceneModel)
 					.preferredColorScheme(.dark)
-					.background(Color.mm_background_tertiary)
+					.background(Color.mm_background_tertiary.opacity(0.3))
+					.clipShape(RoundedRectangle(cornerRadius: 24))
 			}
 			
 		}
@@ -40,7 +41,7 @@ struct VisualizationSolutionScoreView: View {
 			Button {
 				self.dismiss()
 			} label: {
-				AssetsImageButton(image: .mix_icon_close)
+				SystemImageButton(systemName: "arrow.backward.circle.fill", isWigglegButton: true)
 			}
 			.buttonStyle(.plain)
 			Spacer()
@@ -64,6 +65,8 @@ struct VisualizationSolutionPathView: View {
 				self.selectedIndex = count - 1
 			} label: {
 				VisualizationSolutionButton(imageName: "forward.fill", isSelected: false)
+					.scaleEffect(!self.isDesable ? 1 : 0.8)
+					.animation(.spring(response: 0.3, dampingFraction: 0.2), value: !self.isDesable)
 			}
 			.buttonStyle(.plain)
 			ScrollPathView(selectedIndex: $selectedIndex, startSceneModel: self.startSceneModel)
@@ -73,6 +76,9 @@ struct VisualizationSolutionPathView: View {
 				self.selectedIndex = 0
 			} label: {
 				VisualizationSolutionButton(imageName: "backward.fill", isSelected: false)
+					.scaleEffect(!self.isDesable ? 1 : 0.8)
+					.animation(.spring(response: 0.3, dampingFraction: 0.2), value: !self.isDesable)
+			
 			}
 			.buttonStyle(.plain)
 		}
@@ -121,6 +127,8 @@ struct ScrollPathView: View {
 						} label: {
 							VStack {
 								VisualizationSolutionButton(imageName: self.startSceneModel.compasses[index].imageName, isSelected: self.selectedIndex == index)
+									.scaleEffect(self.selectedIndex == index ? 1 : 0.8)
+									.animation(.spring(response: 0.3, dampingFraction: 0.2), value: self.selectedIndex == index)
 								Text("\(index + 1)")
 									.font(.caption)
 									.foregroundStyle(Color.mm_text_primary)
