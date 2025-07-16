@@ -116,10 +116,12 @@ struct StartScene: UIViewRepresentable {
 	/// Создаем паблишен, который будет показывать меню
 	private mutating func configureShowMenuPublisher() {
 		self.startSceneModel?.showMenuSubject.sink { [self] in
-			self.textNodeWorker.createNodesInRandomPosition(rootNode: self.scene.rootNode)
-			self.textNodeWorker.moveMenuTo(position: self.boxWorker.centreMatrix, rootNode: self.scene.rootNode)
-			self.startSceneModel?.pathSolutionSubject.send(.menu)
-			self.settings.isMoveOn = true
+			Task {
+				self.textNodeWorker.createNodesInRandomPosition(rootNode: self.scene.rootNode)
+				await self.textNodeWorker.moveMenuTo(position: self.boxWorker.centreMatrix, rootNode: self.scene.rootNode)
+				self.startSceneModel?.pathSolutionSubject.send(.menu)
+				self.settings.isMoveOn = true
+			}
 		}.store(in: &cancellables)
 	}
 	
@@ -132,24 +134,26 @@ struct StartScene: UIViewRepresentable {
 
 	private mutating func configureFinishPublisher() {
 		self.startSceneModel?.nextLavelSubject.sink { [self] in
-			self.boxWorker.deleteAllBoxes()
-			self.gameWorker.increaseLavel()
-			self.gameWorker.regenerateMatrix()
-			self.boxWorker.updateGrid(grid: Grid<MatrixElement>(matrix: self.gameWorker.matrix, zero: 0))
-			self.boxWorker.createMatrixBox(rootNode: self.scene.rootNode)
-			
-			self.settings.isMoveOn = true
-			self.startSceneModel?.pathSolutionSubject.send(.game)
-			
-			SCNTransaction.begin()
-			SCNTransaction.animationDuration = 1.0 // продолжительность анимации
-
-			self.scnView.pointOfView?.position = self.boxWorker.calculateCameraPosition()
-			self.scnView.pointOfView?.eulerAngles = self.cameraNode.eulerAngles
-			self.textNodeWorker.setPositionMenu(position: self.boxWorker.centreMatrix)
-			
-			SCNTransaction.commit()
-			removeFinalMenu()
+			Task {
+				self.boxWorker.deleteAllBoxes()
+				self.gameWorker.increaseLavel()
+				self.gameWorker.regenerateMatrix()
+				self.boxWorker.updateGrid(grid: Grid<MatrixElement>(matrix: self.gameWorker.matrix, zero: 0))
+				self.boxWorker.createMatrixBox(rootNode: self.scene.rootNode)
+				
+				self.settings.isMoveOn = true
+				self.startSceneModel?.pathSolutionSubject.send(.game)
+				
+				SCNTransaction.begin()
+				SCNTransaction.animationDuration = 1.0 // продолжительность анимации
+				
+				self.scnView.pointOfView?.position = self.boxWorker.calculateCameraPosition()
+				self.scnView.pointOfView?.eulerAngles = self.cameraNode.eulerAngles
+				self.textNodeWorker.setPositionMenu(position: self.boxWorker.centreMatrix)
+				
+				SCNTransaction.commit()
+				await removeFinalMenu()
+			}
 		}.store(in: &cancellables)
 	}
 	
@@ -175,14 +179,14 @@ struct StartScene: UIViewRepresentable {
 				// В boxWorker модель до изменения "старая".
 				// Перемещаем в новое состояние, только что сгенерированную матрицу
 				self.startSceneModel?.nodesIsRunningSubject.send(true)
+				await removeFinalMenu()
 				await self.boxWorker.moveNodesToTargetPozitions(targetMatrix: self.gameWorker.matrix)
 				self.startSceneModel?.nodesIsRunningSubject.send(false)
 				// Обновляем grid
 				self.boxWorker.updateGrid(grid: Grid<MatrixElement>(matrix: self.gameWorker.matrix, zero: 0))
 				
-				self.startSceneModel?.pathSolutionSubject.send(.solution)
+				self.startSceneModel?.pathSolutionSubject.send(.game)
 				self.settings.isMoveOn = true
-				removeFinalMenu()
 			}
 		}.store(in: &cancellables)
 	}
@@ -225,7 +229,7 @@ struct StartScene: UIViewRepresentable {
 		for compass in compasses {
 			guard let number = self.boxWorker.getNumber(for: compass) else { continue }
 			guard let node = self.scene.rootNode.childNodes.first(where: { $0.name == String(number) }) else { continue }
-			guard let action = self.boxWorker.createCustomMoveToZeroAction(number: number, complerion: { node.runAction($0) }) else { continue }
+			guard let action = self.boxWorker.createCustomMoveToZeroAction(number: number, complerion: node.runAction) else { continue }
 			actions.append(action)
 		}
 		// Делаем недоступными кнопи на UI.
@@ -242,9 +246,10 @@ struct StartScene: UIViewRepresentable {
 	}
 		
 	/// Удаление меню
-	private func removeFinalMenu() {
-		let deleteAction = self.textNodeWorker.createDeleteAnimationMenu()
-		self.scene.rootNode.runAction(deleteAction, completionHandler: self.textNodeWorker.deleteNodesFormParent)
+	private func removeFinalMenu() async {
+		guard let deleteAction = self.textNodeWorker.createDeleteAnimationMenu() else { return }
+		await self.scene.rootNode.runAction(deleteAction)
+		self.textNodeWorker.deleteNodesFormParent()
 	}
     
     /// Создание и конфигурация астероидойдов
