@@ -132,7 +132,13 @@ struct AssetsImageButton: View {
 
 @available(iOS 17.0, *)
 #Preview {
-	@Previewable @State var state = StartState.solution
+	
 	let startSceneDependency = StartSceneModel()
-	return StartScoreView(state: state, startSceneDependency: startSceneDependency)
+	VStack {
+		StartScoreView(state: .solution, startSceneDependency: startSceneDependency)
+		StartScoreView(state: .menu, startSceneDependency: startSceneDependency)
+		StartScoreView(state: .game, startSceneDependency: startSceneDependency)
+	}
+	.padding()
+	.background(Color.mm_background_secondary)
 }

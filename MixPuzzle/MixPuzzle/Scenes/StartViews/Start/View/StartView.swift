@@ -65,12 +65,10 @@ struct StartView: View {
 				Spacer()
 				if self.state == .solution {
 					VisualizationSolutionPathView(startSceneModel: self.startSceneModel)
-						.background(Color.mm_background_tertiary)
 						.transition(.move(edge: .bottom))
-						.padding(.bottom)
 				}
 			}
-			.ignoresSafeArea()
+			.padding(.bottom, 32)
 		}
 		.onReceive(self.startSceneModel.pathSolutionSubject, perform: { isShowPath in
 			withAnimation {

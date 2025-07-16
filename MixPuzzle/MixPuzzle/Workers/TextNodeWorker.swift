@@ -5,14 +5,14 @@
 //  Created by Михаил Фокин on 17.06.2024.
 //
 
-import SceneKit
+@preconcurrency import SceneKit
 import Foundation
 
 @MainActor
 protocol _TextNodeWorker {
 	var names: [String] { get }
 	/// Создает анимацю переменуния текста относительно центра
-	func moveMenuTo(position: SCNVector3, rootNode: SCNNode)
+	func moveMenuTo(position: SCNVector3, rootNode: SCNNode) async
 	/// Пренадлежит ли нода к тексту из меню
 	func isTextNode(node: SCNNode) -> Bool
 	func createTextNode(text: String) -> SCNNode
@@ -21,7 +21,7 @@ protocol _TextNodeWorker {
 	func setPositionMenu(position: SCNVector3)
 	func deleteNodesFormParent()
 	/// Создает анимацю при удалении текста
-	func createDeleteAnimationMenu() -> SCNAction
+	func createDeleteAnimationMenu() -> SCNAction?
 	/// Создает ноды текта в слуайном месте
 	func createNodesInRandomPosition(rootNode: SCNNode)
 
@@ -65,7 +65,7 @@ final class TextNodeWorker: _TextNodeWorker {
 	/// Расстояние между строками
 	private let distanceBetweenLinesMenu: Float = 2.0
 	
-	private lazy var randomPosition: SCNVector3 = {
+	private var randomPosition: SCNVector3 = {
 		SCNVector3(x: Float.random(in: -20.0...20.0), y: Float.random(in: -20.0...20.0), z: 4)
 	}()
 		
@@ -122,29 +122,28 @@ final class TextNodeWorker: _TextNodeWorker {
 		self.textNodes = nodes
 	}
 	
-	func moveMenuTo(position: SCNVector3, rootNode: SCNNode) {
-		guard let textNodes else { return }
+	func moveMenuTo(position: SCNVector3, rootNode: SCNNode) async {
+		guard let textNodes, let positions = createPositionForEachTextNode(position: position) else { return }
 		var actions: [SCNAction] = []
-		let positions = createPsitionForEachTextNode(position: position)
 		for (node, position) in zip(textNodes, positions) {
-			let action = createAnimation(to: position, complerion: { node.runAction($0) })
+			let action = createAnimation(to: position, complerion: node.runAction)
 			actions.append(action)
 		}
-		rootNode.runAction(SCNAction.sequence(actions))
+		await rootNode.runAction(SCNAction.sequence(actions))
 	}
 	
 	func setPositionMenu(position: SCNVector3) {
-		guard let textNodes else { return }
-		let positions = createPsitionForEachTextNode(position: position)
+		guard let textNodes, let positions = createPositionForEachTextNode(position: position) else { return }
 		for (node, position) in zip(textNodes, positions) {
 			node.position = position
 		}
 	}
 	
-	func createDeleteAnimationMenu() -> SCNAction {
+	func createDeleteAnimationMenu() -> SCNAction? {
+		guard let textNodes else { return nil }
 		var actions: [SCNAction] = []
-		for node in self.textNodes ?? [] {
-			let action = createAnimation(to: self.randomPosition, complerion: { node.runAction($0) })
+		for node in textNodes {
+			let action = createAnimation(to: self.randomPosition, complerion: node.runAction)
 			actions.append(action)
 		}
 		return SCNAction.sequence(actions)
@@ -155,8 +154,8 @@ final class TextNodeWorker: _TextNodeWorker {
 		self.textNodes = nil
 	}
 	
-	private func createPsitionForEachTextNode(position: SCNVector3) -> [SCNVector3] {
-		guard let textNodes else { return [] }
+	private func createPositionForEachTextNode(position: SCNVector3) -> [SCNVector3]? {
+		guard let textNodes else { return nil }
 		var positions: [SCNVector3] = []
 		for (i, node) in textNodes.enumerated() {
 			let boundingBox = node.boundingBox
@@ -172,14 +171,13 @@ final class TextNodeWorker: _TextNodeWorker {
 	}
 	
 	private func createAnimation(to position: SCNVector3, complerion: @escaping (SCNAction) -> Void) -> SCNAction {
-		let customAction = SCNAction.customAction(duration: self.animationDuration, action: { [weak self] (_, _) in
-			guard let self else { return }
+		func actionFunction(_ one: SCNNode,_ two: CGFloat) {
 			let action = SCNAction.move(to: position, duration: self.animationDuration)
 			complerion(action)
-		})
+		}
+		let customAction = SCNAction.customAction(duration: self.animationDuration, action: actionFunction)
 		return customAction
 	}
-	
 	
 }
 
@@ -206,11 +204,11 @@ final class MockTextNodeWorker: _TextNodeWorker {
 		
 	}
 	
-	func moveMenuTo(position: SCNVector3, rootNode: SCNNode) {
+	func moveMenuTo(position: SCNVector3, rootNode: SCNNode) async {
 		
 	}
 	
-	func createDeleteAnimationMenu() -> SCNAction {
+	func createDeleteAnimationMenu() -> SCNAction? {
 		return SCNAction()
 	}
 	
