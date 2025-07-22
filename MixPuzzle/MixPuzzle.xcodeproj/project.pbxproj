@@ -17,6 +17,7 @@
 		290E484C2DE315DA006B22F8 /* MixButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 290E484B2DE315DA006B22F8 /* MixButtonStyle.swift */; };
 		291A07EE2BC173D6008B4246 /* StartScoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291A07ED2BC173D6008B4246 /* StartScoreView.swift */; };
 		291A07F12BC198F8008B4246 /* AsteroidsWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291A07F02BC198F8008B4246 /* AsteroidsWorker.swift */; };
+		29289EE62E2FCA0900A46DF5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 29289EE52E2FCA0900A46DF5 /* LaunchScreen.storyboard */; };
 		292CE0562DDB1BD0001906B7 /* InversionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292CE0552DDB1BD0001906B7 /* InversionView.swift */; };
 		2930F1A62D1DCABF00D49632 /* RotationWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2930F1A52D1DCABF00D49632 /* RotationWorker.swift */; };
 		2934B0E62D62641700BE7216 /* MFPuzzle in Frameworks */ = {isa = PBXBuildFile; productRef = 2934B0E52D62641700BE7216 /* MFPuzzle */; };
@@ -95,6 +96,8 @@
 		290E484B2DE315DA006B22F8 /* MixButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MixButtonStyle.swift; sourceTree = "<group>"; };
 		291A07ED2BC173D6008B4246 /* StartScoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartScoreView.swift; sourceTree = "<group>"; };
 		291A07F02BC198F8008B4246 /* AsteroidsWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsteroidsWorker.swift; sourceTree = "<group>"; };
+		29289EE52E2FCA0900A46DF5 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		29289EE92E2FCE6900A46DF5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		292CE0552DDB1BD0001906B7 /* InversionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InversionView.swift; sourceTree = "<group>"; };
 		2930F1A52D1DCABF00D49632 /* RotationWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RotationWorker.swift; sourceTree = "<group>"; };
 		293C73BE2BDFCCC900E183B5 /* SettingsAsteroidsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsAsteroidsView.swift; sourceTree = "<group>"; };
@@ -282,6 +285,14 @@
 				290E484B2DE315DA006B22F8 /* MixButtonStyle.swift */,
 			);
 			path = ButtonStyles;
+			sourceTree = "<group>";
+		};
+		29289EE42E2FC9EF00A46DF5 /* LaunshScreen */ = {
+			isa = PBXGroup;
+			children = (
+				29289EE52E2FCA0900A46DF5 /* LaunchScreen.storyboard */,
+			);
+			path = LaunshScreen;
 			sourceTree = "<group>";
 		};
 		292CE0542DDB169B001906B7 /* InversionView */ = {
@@ -941,6 +952,8 @@
 		29C162C02B848CC4002E185D /* MixPuzzle */ = {
 			isa = PBXGroup;
 			children = (
+				29289EE92E2FCE6900A46DF5 /* Info.plist */,
+				29289EE42E2FC9EF00A46DF5 /* LaunshScreen */,
 				294701442D8EE16A00BAE690 /* Localisation */,
 				2944D6E82BC91E96001F1A82 /* Workers */,
 				2980BC732BEC11A100866895 /* Resources */,
@@ -1083,6 +1096,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				29C162CA2B848CC5002E185D /* Preview Assets.xcassets in Resources */,
+				29289EE62E2FCA0900A46DF5 /* LaunchScreen.storyboard in Resources */,
 				2980BC792BEC136400866895 /* matrix.mix in Resources */,
 				29DFDEBC2BC50D9500791434 /* Colors.xcassets in Resources */,
 				29C162C62B848CC5002E185D /* Assets.xcassets in Resources */,
@@ -1306,13 +1320,16 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = MixPuzzle/MixPuzzle.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"MixPuzzle/Preview Content\"";
+				DEVELOPMENT_TEAM = T2Y8YDWUZG;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MixPuzzle/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.games";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
@@ -1330,6 +1347,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ru.mixfon.MixPuzzle;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -1345,13 +1363,16 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = MixPuzzle/MixPuzzle.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"MixPuzzle/Preview Content\"";
+				DEVELOPMENT_TEAM = T2Y8YDWUZG;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MixPuzzle/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.games";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
@@ -1369,6 +1390,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = ru.mixfon.MixPuzzle;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
 				SWIFT_EMIT_LOC_STRINGS = YES;

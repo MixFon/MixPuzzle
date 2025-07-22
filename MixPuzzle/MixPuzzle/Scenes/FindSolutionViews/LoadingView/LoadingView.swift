@@ -23,11 +23,11 @@ struct LoadingView: View {
 				self.calculationTask?.cancel()
 				self.onFinedSolution(nil)
 			} label: {
-				Image.mix_icon_cancel
-					.resizable()
-					.frame(width: 64, height: 64)
+				SystemImageButton(systemName: "xmark.square.fill", isWigglegButton: true)
 			}
 		}
+		.frame(maxWidth: .infinity, maxHeight: .infinity)
+		.background(Color.mm_background_secondary)
 		.onAppear {
 			self.calculationTask = Task {
 				try await performCalculation()
