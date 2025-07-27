@@ -65,7 +65,7 @@ final class SettingsLightStorage: _SettingsLightStorage {
 	init() {
 		// Регистрируем значения по умолчанию
 		let defaultValues: [String: Any] = [
-			Keys.lightType : "omni",
+			Keys.lightType : "directional",
 			Keys.countLights : 1,
 			Keys.isMotionEnabled : true,
 			Keys.isShadowEnabled : true
