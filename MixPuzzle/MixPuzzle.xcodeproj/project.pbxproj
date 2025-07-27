@@ -61,7 +61,6 @@
 		29B2ADBF2BDBA415002D11D8 /* Ext+Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B2ADBE2BDBA415002D11D8 /* Ext+Color.swift */; };
 		29B538372DD32B3100F100F5 /* MatrixView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B538362DD32B3100F100F5 /* MatrixView.swift */; };
 		29BFEABB2D212729006FD41D /* LightsWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29BFEABA2D212729006FD41D /* LightsWorker.swift */; };
-		29BFEABD2D217DFD006FD41D /* Ext+UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29BFEABC2D217DFD006FD41D /* Ext+UIImage.swift */; };
 		29BFEABF2D217F26006FD41D /* Ext+Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29BFEABE2D217F26006FD41D /* Ext+Image.swift */; };
 		29C162C22B848CC4002E185D /* MixPuzzleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C162C12B848CC4002E185D /* MixPuzzleApp.swift */; };
 		29C162C42B848CC4002E185D /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C162C32B848CC4002E185D /* MenuView.swift */; };
@@ -216,7 +215,6 @@
 		29B2ADBE2BDBA415002D11D8 /* Ext+Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ext+Color.swift"; sourceTree = "<group>"; };
 		29B538362DD32B3100F100F5 /* MatrixView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatrixView.swift; sourceTree = "<group>"; };
 		29BFEABA2D212729006FD41D /* LightsWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightsWorker.swift; sourceTree = "<group>"; };
-		29BFEABC2D217DFD006FD41D /* Ext+UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ext+UIImage.swift"; sourceTree = "<group>"; };
 		29BFEABE2D217F26006FD41D /* Ext+Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ext+Image.swift"; sourceTree = "<group>"; };
 		29C162BE2B848CC4002E185D /* MixPuzzle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MixPuzzle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		29C162C12B848CC4002E185D /* MixPuzzleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MixPuzzleApp.swift; sourceTree = "<group>"; };
@@ -922,7 +920,6 @@
 				29B2ADBE2BDBA415002D11D8 /* Ext+Color.swift */,
 				29051C732BE0E6AB0064ABF0 /* Ext+View.swift */,
 				29FCC9632C0C4A3E003604AD /* Ext+Compass.swift */,
-				29BFEABC2D217DFD006FD41D /* Ext+UIImage.swift */,
 				29BFEABE2D217F26006FD41D /* Ext+Image.swift */,
 				2947014D2D9096A800BAE690 /* Ext+Solution.swift */,
 				2947014F2D90A01B00BAE690 /* Ext+String.swift */,
@@ -1165,7 +1162,6 @@
 				29957D3F2DEF7B0B001DA0F1 /* Test.swift in Sources */,
 				2901B4D62C1B92D80015E9A3 /* StatisticsWorker.swift in Sources */,
 				2944D6EE2BCC4FFD001F1A82 /* CubeWorker.swift in Sources */,
-				29BFEABD2D217DFD006FD41D /* Ext+UIImage.swift in Sources */,
 				29DFDEBE2BC5177F00791434 /* OptionsSectionsView.swift in Sources */,
 				2900FC7E2D042564009F3C07 /* ManageShakeMode.swift in Sources */,
 				291A07F12BC198F8008B4246 /* AsteroidsWorker.swift in Sources */,

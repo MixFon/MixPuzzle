@@ -13,15 +13,15 @@ import Foundation
 
 struct StartScene: UIViewRepresentable {
 	
-	var settings = Settings()
+	let settings = Settings()
 	private let boxWorker: _BoxesWorker
-	private var gameWorker: _GameWorker
+	private let gameWorker: _GameWorker
 	private let lightsWorker: _LightsWorker
 	private let rotationWorker: _RotationWorker
 	private let asteroidWorker: _AsteroidsWorker
 	private let textNodeWorker: _TextNodeWorker
 	private let startSceneModel: StartSceneModel?
-	private var notificationCenter: NotificationCenter?
+	private let notificationCenter: NotificationCenter?
 	
 	private var cancellables = Set<AnyCancellable>()
 	
