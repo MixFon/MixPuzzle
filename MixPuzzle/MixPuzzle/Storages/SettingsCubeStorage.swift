@@ -18,7 +18,7 @@ protocol _SettingsCubeStorage {
 
 final class SettingsCubeStorage: _SettingsCubeStorage {
     
-    private let defaults = UserDefaults.standard
+    private let defaults = NSUbiquitousKeyValueStore.default
     
     private enum Keys {
         static let texture = "settings.cube.texture"
@@ -28,21 +28,12 @@ final class SettingsCubeStorage: _SettingsCubeStorage {
         static let radiusChamfer = "settings.cube.radius.chamfer"
     }
     
-    init() {
-        // Регистрируем значения по умолчанию
-        let defaultValues: [String: Any] = [
-            Keys.sizeImage : 200.0,
-            Keys.radiusImage : 50,
-            Keys.radiusChamfer : 1.0,
-            Keys.colorLable : "#007AFF",
-            Keys.texture : "TerrazzoSlab018",
-        ]
-        self.defaults.register(defaults: defaultValues)
-    }
+    init() { }
     
     var sizeImage: Double {
         get {
-            self.defaults.double(forKey: Keys.sizeImage)
+            let sizeImage = self.defaults.double(forKey: Keys.sizeImage)
+			return sizeImage == 0 ? 200 : sizeImage
         }
         set {
             self.defaults.set(newValue, forKey: Keys.sizeImage)
@@ -51,10 +42,9 @@ final class SettingsCubeStorage: _SettingsCubeStorage {
     
     var colorLable: Color? {
         get {
-            guard let colorHex = self.defaults.string(forKey: Keys.colorLable) else { return nil }
+            let colorHex = self.defaults.string(forKey: Keys.colorLable) ?? "#007AFF"
             return Color(hex: colorHex)
         }
-        
         set {
             self.defaults.set(newValue?.toHex(), forKey: Keys.colorLable)
         }
@@ -62,7 +52,8 @@ final class SettingsCubeStorage: _SettingsCubeStorage {
     
     var radiusImage: Double {
         get {
-            self.defaults.double(forKey: Keys.radiusImage)
+			let radiusImage = self.defaults.double(forKey: Keys.radiusImage)
+			return radiusImage == 0 ? 50 : radiusImage
         }
         set {
             self.defaults.set(newValue, forKey: Keys.radiusImage)
@@ -71,7 +62,8 @@ final class SettingsCubeStorage: _SettingsCubeStorage {
     
     var radiusChamfer: Double {
         get {
-            self.defaults.double(forKey: Keys.radiusChamfer)
+            let radius = self.defaults.double(forKey: Keys.radiusChamfer)
+			return radius == 0.0 ? 1.0 : radius
         }
         set {
             self.defaults.set(newValue, forKey: Keys.radiusChamfer)
@@ -80,9 +72,8 @@ final class SettingsCubeStorage: _SettingsCubeStorage {
     
     var texture: String? {
         get {
-            self.defaults.string(forKey: Keys.texture)
+            self.defaults.string(forKey: Keys.texture) ?? "TerrazzoSlab018"
         }
-        
         set {
             self.defaults.set(newValue, forKey: Keys.texture)
         }
