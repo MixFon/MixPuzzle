@@ -22,7 +22,7 @@ final class SettingsGameStorage: _SettingsGameStorage {
 	
 	let availableLevel: Int = 10
 	
-	private let defaults = UserDefaults.standard
+	private let defaults = NSUbiquitousKeyValueStore.default
 	
 	private enum Keys {
 		static let currentLevel = "settings.game.level"
@@ -30,40 +30,35 @@ final class SettingsGameStorage: _SettingsGameStorage {
 		static let maxAchievedLevel = "settings.game.level.achieved"
 	}
 	
-	init() {
-		// Регистрируем значения по умолчанию
-		let defaultValues: [String: Any] = [
-			Keys.currentLevel : 3,
-			Keys.isUseVibration : true,
-			Keys.maxAchievedLevel : 3
-		]
-		self.defaults.register(defaults: defaultValues)
-	}
+	init() { }
 	
 	var currentLevel: Int {
 		get {
-			self.defaults.integer(forKey: Keys.currentLevel)
+			let currentLevel = self.defaults.double(forKey: Keys.currentLevel)
+			return currentLevel == 0 ? 3 : Int(currentLevel)
 		}
 		set {
-			self.defaults.set(newValue, forKey: Keys.currentLevel)
+			self.defaults.set(Double(newValue), forKey: Keys.currentLevel)
 		}
 	}
 	
 	var maxAchievedLevel: Int {
 		get {
-			self.defaults.integer(forKey: Keys.maxAchievedLevel)
+			let maxAchievedLevel = self.defaults.double(forKey: Keys.maxAchievedLevel)
+			return maxAchievedLevel == 0 ? 3 : Int(maxAchievedLevel)
 		}
 		set {
-			self.defaults.set(newValue, forKey: Keys.maxAchievedLevel)
+			self.defaults.set(Double(newValue), forKey: Keys.maxAchievedLevel)
 		}
 	}
 	
 	var isUseVibration: Bool {
 		get {
-			self.defaults.bool(forKey: Keys.isUseVibration)
+			let isUseVibration = self.defaults.bool(forKey: Keys.isUseVibration)
+			return !isUseVibration
 		}
 		set {
-			self.defaults.set(newValue, forKey: Keys.isUseVibration)
+			self.defaults.set(!newValue, forKey: Keys.isUseVibration)
 		}
 	}
 }

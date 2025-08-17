@@ -18,7 +18,7 @@ protocol _SettingsAsteroidsStorage {
 
 final class SettingsAsteroidsStorage: _SettingsAsteroidsStorage {
     
-    private let defaults = UserDefaults.standard
+    private let defaults = NSUbiquitousKeyValueStore.default
     
     private enum Keys {
         static let show = "settings.asteroids.show"
@@ -26,19 +26,12 @@ final class SettingsAsteroidsStorage: _SettingsAsteroidsStorage {
         static let asteroidsCount = "settings.asteroids.count"
     }
     
-    init() {
-        // Регистрируем значения по умолчанию
-        let defaultValues: [String: Any] = [
-            Keys.show : true,
-            Keys.radiusSphere : 20,
-            Keys.asteroidsCount : 200,
-        ]
-        self.defaults.register(defaults: defaultValues)
-    }
+    init() { }
     
     var radiusSphere: Double {
         get {
-            self.defaults.double(forKey: Keys.radiusSphere)
+            let radiusSphere = self.defaults.double(forKey: Keys.radiusSphere)
+			return radiusSphere == 0 ? 20.0 : radiusSphere
         }
         set {
             self.defaults.set(newValue, forKey: Keys.radiusSphere)
@@ -47,7 +40,8 @@ final class SettingsAsteroidsStorage: _SettingsAsteroidsStorage {
     
     var asteroidsCount: Double {
         get {
-            self.defaults.double(forKey: Keys.asteroidsCount)
+            let asteroidsCount = self.defaults.double(forKey: Keys.asteroidsCount)
+			return asteroidsCount == 0.0 ? 200.0 : asteroidsCount
         }
         set {
             self.defaults.set(newValue, forKey: Keys.asteroidsCount)
@@ -56,10 +50,11 @@ final class SettingsAsteroidsStorage: _SettingsAsteroidsStorage {
     
     var isShowAsteroids: Bool {
         get {
-            self.defaults.bool(forKey: Keys.show)
+            let isShow = self.defaults.bool(forKey: Keys.show)
+			return !isShow
         }
         set {
-            self.defaults.set(newValue, forKey: Keys.show)
+            self.defaults.set(!newValue, forKey: Keys.show)
         }
     }
 }

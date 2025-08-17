@@ -53,7 +53,7 @@ enum LightType: String, CustomStringConvertible {
 
 final class SettingsLightStorage: _SettingsLightStorage {
 	
-	private let defaults = UserDefaults.standard
+	private let defaults = NSUbiquitousKeyValueStore.default
 	
 	private enum Keys {
 		static let lightType = "settings.light.type"
@@ -62,20 +62,11 @@ final class SettingsLightStorage: _SettingsLightStorage {
 		static let isShadowEnabled = "settings.light.shadow"
 	}
 	
-	init() {
-		// Регистрируем значения по умолчанию
-		let defaultValues: [String: Any] = [
-			Keys.lightType : "directional",
-			Keys.countLights : 1,
-			Keys.isMotionEnabled : true,
-			Keys.isShadowEnabled : true
-		]
-		self.defaults.register(defaults: defaultValues)
-	}
+	init() { }
 	
 	var lightType: LightType {
 		get {
-			let type = self.defaults.string(forKey: Keys.lightType)
+			let type = self.defaults.string(forKey: Keys.lightType) ?? "directional"
 			return LightType(rawValue: type)
 		}
 		set {
@@ -85,7 +76,8 @@ final class SettingsLightStorage: _SettingsLightStorage {
 	
 	var countLights: Int {
 		get {
-			self.defaults.integer(forKey: Keys.countLights)
+			let countLights = self.defaults.double(forKey: Keys.countLights)
+			return countLights == 0.0 ? 1 : Int(countLights)
 		}
 		set {
 			self.defaults.set(newValue, forKey: Keys.countLights)
@@ -94,19 +86,21 @@ final class SettingsLightStorage: _SettingsLightStorage {
 	
 	var isMotionEnabled: Bool {
 		get {
-			self.defaults.bool(forKey: Keys.isMotionEnabled)
+			let isMotionEnabled = self.defaults.bool(forKey: Keys.isMotionEnabled)
+			return !isMotionEnabled
 		}
 		set {
-			self.defaults.set(newValue, forKey: Keys.isMotionEnabled)
+			self.defaults.set(!newValue, forKey: Keys.isMotionEnabled)
 		}
 	}
 	
 	var isShadowEnabled: Bool {
 		get {
-			self.defaults.bool(forKey: Keys.isShadowEnabled)
+			let isShadowEnabled = self.defaults.bool(forKey: Keys.isShadowEnabled)
+			return !isShadowEnabled
 		}
 		set {
-			self.defaults.set(newValue, forKey: Keys.isShadowEnabled)
+			self.defaults.set(!newValue, forKey: Keys.isShadowEnabled)
 		}
 	}
 }
