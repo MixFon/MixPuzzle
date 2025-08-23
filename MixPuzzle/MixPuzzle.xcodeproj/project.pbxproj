@@ -46,8 +46,6 @@
 		2980BC6E2BE7D9E500866895 /* GameWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2980BC6D2BE7D9E500866895 /* GameWorker.swift */; };
 		2980BC702BE7F5D300866895 /* FileWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2980BC6F2BE7F5D300866895 /* FileWorker.swift */; };
 		2980BC722BEA53A900866895 /* Workers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2980BC712BEA53A900866895 /* Workers.swift */; };
-		2980BC782BEC136400866895 /* matrix.solution.mix in Resources */ = {isa = PBXBuildFile; fileRef = 2980BC762BEC136400866895 /* matrix.solution.mix */; };
-		2980BC792BEC136400866895 /* matrix.mix in Resources */ = {isa = PBXBuildFile; fileRef = 2980BC772BEC136400866895 /* matrix.mix */; };
 		2980BC7B2BED176D00866895 /* SelectLevelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2980BC7A2BED176D00866895 /* SelectLevelView.swift */; };
 		2980BC7E2BED1BE600866895 /* LevelSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2980BC7D2BED1BE600866895 /* LevelSelectionView.swift */; };
 		2980BC802BED62D400866895 /* SettingsGameStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2980BC7F2BED62D400866895 /* SettingsGameStorage.swift */; };
@@ -61,13 +59,13 @@
 		29B2ADBF2BDBA415002D11D8 /* Ext+Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B2ADBE2BDBA415002D11D8 /* Ext+Color.swift */; };
 		29B538372DD32B3100F100F5 /* MatrixView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B538362DD32B3100F100F5 /* MatrixView.swift */; };
 		29BFEABB2D212729006FD41D /* LightsWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29BFEABA2D212729006FD41D /* LightsWorker.swift */; };
-		29BFEABF2D217F26006FD41D /* Ext+Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29BFEABE2D217F26006FD41D /* Ext+Image.swift */; };
 		29C162C22B848CC4002E185D /* MixPuzzleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C162C12B848CC4002E185D /* MixPuzzleApp.swift */; };
 		29C162C42B848CC4002E185D /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C162C32B848CC4002E185D /* MenuView.swift */; };
 		29C162C62B848CC5002E185D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 29C162C52B848CC5002E185D /* Assets.xcassets */; };
 		29C162CA2B848CC5002E185D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 29C162C92B848CC5002E185D /* Preview Assets.xcassets */; };
 		29C162D22B848D89002E185D /* MenuScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C162D12B848D89002E185D /* MenuScene.swift */; };
 		29C162D42B8491DA002E185D /* puzzle.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 29C162D32B8491DA002E185D /* puzzle.scnassets */; };
+		29C928152E5A0B4D00D9B50E /* UbiquitousKeyValueStoreWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C928142E5A0B4D00D9B50E /* UbiquitousKeyValueStoreWorker.swift */; };
 		29D20A752DDA704800D01D12 /* GridNumberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D20A742DDA704800D01D12 /* GridNumberView.swift */; };
 		29D3D1A32B8A0BF600E3EE6A /* StartScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D3D1A22B8A0BF600E3EE6A /* StartScene.swift */; };
 		29DBBA7D2C0BA43D0046179F /* VisualizationSolutionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29DBBA7C2C0BA43D0046179F /* VisualizationSolutionView.swift */; };
@@ -124,8 +122,6 @@
 		2980BC6D2BE7D9E500866895 /* GameWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameWorker.swift; sourceTree = "<group>"; };
 		2980BC6F2BE7F5D300866895 /* FileWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileWorker.swift; sourceTree = "<group>"; };
 		2980BC712BEA53A900866895 /* Workers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Workers.swift; sourceTree = "<group>"; };
-		2980BC762BEC136400866895 /* matrix.solution.mix */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = matrix.solution.mix; sourceTree = "<group>"; };
-		2980BC772BEC136400866895 /* matrix.mix */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = matrix.mix; sourceTree = "<group>"; };
 		2980BC7A2BED176D00866895 /* SelectLevelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectLevelView.swift; sourceTree = "<group>"; };
 		2980BC7D2BED1BE600866895 /* LevelSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelSelectionView.swift; sourceTree = "<group>"; };
 		2980BC7F2BED62D400866895 /* SettingsGameStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsGameStorage.swift; sourceTree = "<group>"; };
@@ -215,7 +211,6 @@
 		29B2ADBE2BDBA415002D11D8 /* Ext+Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ext+Color.swift"; sourceTree = "<group>"; };
 		29B538362DD32B3100F100F5 /* MatrixView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatrixView.swift; sourceTree = "<group>"; };
 		29BFEABA2D212729006FD41D /* LightsWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightsWorker.swift; sourceTree = "<group>"; };
-		29BFEABE2D217F26006FD41D /* Ext+Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ext+Image.swift"; sourceTree = "<group>"; };
 		29C162BE2B848CC4002E185D /* MixPuzzle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MixPuzzle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		29C162C12B848CC4002E185D /* MixPuzzleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MixPuzzleApp.swift; sourceTree = "<group>"; };
 		29C162C32B848CC4002E185D /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
@@ -224,6 +219,7 @@
 		29C162C92B848CC5002E185D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		29C162D12B848D89002E185D /* MenuScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuScene.swift; sourceTree = "<group>"; };
 		29C162D32B8491DA002E185D /* puzzle.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = puzzle.scnassets; sourceTree = "<group>"; };
+		29C928142E5A0B4D00D9B50E /* UbiquitousKeyValueStoreWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UbiquitousKeyValueStoreWorker.swift; sourceTree = "<group>"; };
 		29D20A742DDA704800D01D12 /* GridNumberView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridNumberView.swift; sourceTree = "<group>"; };
 		29D3D1A22B8A0BF600E3EE6A /* StartScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartScene.swift; sourceTree = "<group>"; };
 		29DBBA7C2C0BA43D0046179F /* VisualizationSolutionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualizationSolutionView.swift; sourceTree = "<group>"; };
@@ -382,6 +378,7 @@
 				29FDAA562C20C82F00EFD8DD /* TextNodeWorker.swift */,
 				2930F1A52D1DCABF00D49632 /* RotationWorker.swift */,
 				29BFEABA2D212729006FD41D /* LightsWorker.swift */,
+				29C928142E5A0B4D00D9B50E /* UbiquitousKeyValueStoreWorker.swift */,
 			);
 			path = Workers;
 			sourceTree = "<group>";
@@ -486,15 +483,6 @@
 				2979B7172BBFDF3C000839D3 /* MenuSceneWrapper.swift */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		2980BC732BEC11A100866895 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				2980BC772BEC136400866895 /* matrix.mix */,
-				2980BC762BEC136400866895 /* matrix.solution.mix */,
-			);
-			path = Resources;
 			sourceTree = "<group>";
 		};
 		2980BC7C2BED1BC300866895 /* LevelSelection */ = {
@@ -920,7 +908,6 @@
 				29B2ADBE2BDBA415002D11D8 /* Ext+Color.swift */,
 				29051C732BE0E6AB0064ABF0 /* Ext+View.swift */,
 				29FCC9632C0C4A3E003604AD /* Ext+Compass.swift */,
-				29BFEABE2D217F26006FD41D /* Ext+Image.swift */,
 				2947014D2D9096A800BAE690 /* Ext+Solution.swift */,
 				2947014F2D90A01B00BAE690 /* Ext+String.swift */,
 				2942731C2DCE54D400E385A3 /* Ext+UIColor.swift */,
@@ -953,7 +940,6 @@
 				29289EE42E2FC9EF00A46DF5 /* LaunshScreen */,
 				294701442D8EE16A00BAE690 /* Localisation */,
 				2944D6E82BC91E96001F1A82 /* Workers */,
-				2980BC732BEC11A100866895 /* Resources */,
 				29B2ADBD2BDBA402002D11D8 /* Extentions */,
 				29B2ADBA2BDB9354002D11D8 /* Dependency */,
 				29B2ADB72BDAD157002D11D8 /* Storages */,
@@ -1094,12 +1080,10 @@
 			files = (
 				29C162CA2B848CC5002E185D /* Preview Assets.xcassets in Resources */,
 				29289EE62E2FCA0900A46DF5 /* LaunchScreen.storyboard in Resources */,
-				2980BC792BEC136400866895 /* matrix.mix in Resources */,
 				29DFDEBC2BC50D9500791434 /* Colors.xcassets in Resources */,
 				29C162C62B848CC5002E185D /* Assets.xcassets in Resources */,
 				29C162D42B8491DA002E185D /* puzzle.scnassets in Resources */,
 				294701462D8EE19400BAE690 /* Localizable.xcstrings in Resources */,
-				2980BC782BEC136400866895 /* matrix.solution.mix in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1149,7 +1133,6 @@
 				2944D6E72BC91770001F1A82 /* SettingsCubeScene.swift in Sources */,
 				29BFEABB2D212729006FD41D /* LightsWorker.swift in Sources */,
 				29A070332B91A5940078EB8D /* StartFactory.swift in Sources */,
-				29BFEABF2D217F26006FD41D /* Ext+Image.swift in Sources */,
 				29DFDEBB2BC50D9500791434 /* Colors.swift in Sources */,
 				29C162C42B848CC4002E185D /* MenuView.swift in Sources */,
 				29DBBA7D2C0BA43D0046179F /* VisualizationSolutionView.swift in Sources */,
@@ -1160,6 +1143,7 @@
 				2980BC802BED62D400866895 /* SettingsGameStorage.swift in Sources */,
 				29DEED112BDECD6600DCE4EB /* MaterialsWorker.swift in Sources */,
 				29957D3F2DEF7B0B001DA0F1 /* Test.swift in Sources */,
+				29C928152E5A0B4D00D9B50E /* UbiquitousKeyValueStoreWorker.swift in Sources */,
 				2901B4D62C1B92D80015E9A3 /* StatisticsWorker.swift in Sources */,
 				2944D6EE2BCC4FFD001F1A82 /* CubeWorker.swift in Sources */,
 				29DFDEBE2BC5177F00791434 /* OptionsSectionsView.swift in Sources */,

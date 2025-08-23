@@ -46,16 +46,16 @@ struct Dependency: _Dependency {
 		let textNodeWorker = TextNodeWorker(materialsWorker: materialsWorker)
 		let imageWorker = ImageWorker()
 		let cubeWorker = CubeWorker(imageWorker: imageWorker, materialsWorker: materialsWorker)
-		let fileWorker = FileWorker()
+		let ubiquitousKeyValueStoreWorker = UbiquitousKeyValueStoreWorker()
 		let transporter = Transporter()
 		let cheker = Checker()
 		let matrixWorker = MatrixWorker()
 		let decoder = Decoder()
 		self.checker = cheker
-		let statisticsWorker = StatisticsWorker(keeper: fileWorker, decoder: decoder)
+		let statisticsWorker = StatisticsWorker(keeper: ubiquitousKeyValueStoreWorker, decoder: decoder)
 		let lightsWorker = LightsWorker(rotationWorker: rotationWorker, settingsLightStorage: settingsLightStorage)
 		let gameWorker = GameWorker(
-			keeper: fileWorker,
+			keeper: ubiquitousKeyValueStoreWorker,
 			checker: cheker,
 			matrixWorker: matrixWorker,
 			statisticsWorker: statisticsWorker,
@@ -63,7 +63,7 @@ struct Dependency: _Dependency {
 		)
 		
 		self.workers = Workers(
-			keeper: fileWorker,
+			keeper: ubiquitousKeyValueStoreWorker,
 			gameWorker: gameWorker,
 			cubeWorker: cubeWorker,
 			transporter: transporter,
