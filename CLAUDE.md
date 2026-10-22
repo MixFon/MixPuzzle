@@ -44,7 +44,10 @@ iOS-игра «пятнашки» (sliding puzzle) с 3D-кубиками. UI н
 
 ### Экраны (`Scenes/`)
 
-- `Menu/` — главное меню: `MenuScene` (3D) + `MenuView`, переходы через `fullScreenCover` на Start, Options и поиск решения.
+- `Menu/` — главное меню: `MenuScene` (3D, сцена `puzzle.scnassets/menu.scn`, камера сверху) + `MenuView`,
+  переходы через `fullScreenCover` на Start, Options и поиск решения. Пол — вода из `SeascapeWater.swift`:
+  порт Shadertoy «Seascape» (TDM, лицензия CC BY-NC-SA 3.0 — только для некоммерческого приложения) в shader
+  modifiers `.geometry` и `.fragment`. Шейдеры компилируются только на устройстве; Metal Toolchain локально не установлен.
 - `StartViews/Start/` — **сама игра**:
   - `StartView` + `StartSceneModel` — набор Combine-`PassthroughSubject` для общения UI со сценой
     (решение, меню, следующий уровень, регенерация, показ пути, тряска, блокировка кнопок).

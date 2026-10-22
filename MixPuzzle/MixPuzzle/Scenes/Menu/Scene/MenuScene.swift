@@ -41,8 +41,10 @@ struct MenuScene: UIViewRepresentable {
 		let tapGesture = UITapGestureRecognizer(target: context.coordinator, action: #selector(context.coordinator.handleTap(_:)))
 		scnView.addGestureRecognizer(tapGesture)
 		if let floor = self.floorNode {
-            setupFloor(floor: floor)
-        }
+			SeascapeWater.configure(node: floor)
+		}
+		// Волны анимируются в шейдере по времени, поэтому сцену нужно перерисовывать каждый кадр
+		scnView.rendersContinuously = true
 		configureCSNText(nodes: self.scene?.rootNode.childNodes ?? [])
 		return scnView
 	}
@@ -83,37 +85,17 @@ struct MenuScene: UIViewRepresentable {
 		}
 	}
 	
+	/// Пока меню закрыто другим экраном, не перерисовываем воду, чтобы не тратить батарею
 	private mutating func configureFloorAnimationSubject() {
 		self.viewModel.floorAnimationSubject.sink { [self] command in
 			switch command {
 			case .stop:
-				self.floorNode?.removeAllActions()
+				self.scnView.rendersContinuously = false
 			case .start:
-				if let floorNode = self.floorNode {
-					setupMovingAnimationFloor(floor: floorNode)
-				}
+				self.scnView.rendersContinuously = true
 			}
 		}.store(in: &self.cancellables)
 	}
-	
-	/// Устанавливаем анимацию движения для пола
-	private func setupMovingAnimationFloor(floor: SCNNode) {
-		let moveLeft = SCNAction.moveBy(x: 0, y: 0, z: 5, duration: 5)
-		let loop = SCNAction.repeatForever(moveLeft) // Зацикливаем
-		floor.runAction(loop) // Запускаем анимацию
-	}
-    
-	private func setupFloor(floor: SCNNode) {
-        let configurationTexture = ConfigurationTexture(texture: "GroundGrassGreen002")
-        guard let floorMaterial = floor.geometry?.firstMaterial else { return }
-        self.materialsWorker.configureMaterial(material: floorMaterial, texture: configurationTexture)
-		floorMaterial.diffuse.contents = UIColor.oceanColors.randomElement()
-
-		// Для более реалистичного эффекта добавьте:
-		floorMaterial.metalness.contents = 0.3
-		floorMaterial.roughness.contents = 0.1
-		floorMaterial.fresnelExponent = 0.8
-    }
 	
 	func updateUIView(_ uiView: SCNView, context: Context) {
 		// set the scene to the view

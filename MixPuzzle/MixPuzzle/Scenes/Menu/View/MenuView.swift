@@ -19,6 +19,11 @@ final class MenuViewRouter: ObservableObject {
 	@Published var toStart: Bool = false
 	@Published var toOprionts: Bool = false
 	@Published var toFindSolution: Bool = false
+	
+	/// Меню закрыто одним из полноэкранных экранов
+	var isMenuCovered: Bool {
+		self.toStart || self.toOprionts || self.toFindSolution
+	}
 }
 
 struct MenuView: View {
@@ -45,7 +50,8 @@ struct MenuView: View {
 			.onDisappear {
 				self.viewModel.floorAnimationSubject.send(.stop)
 			}
-			.onChange(of: self.router.toStart) { newValue in
+			// Пока меню закрыто любым экраном, останавливаем перерисовку воды
+			.onChange(of: self.router.isMenuCovered) { newValue in
 				if newValue {
 					self.viewModel.floorAnimationSubject.send(.stop)
 				} else {
