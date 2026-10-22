@@ -126,7 +126,7 @@ final class TextNodeWorker: _TextNodeWorker {
 		guard let textNodes, let positions = createPositionForEachTextNode(position: position) else { return }
 		var actions: [SCNAction] = []
 		for (node, position) in zip(textNodes, positions) {
-			let action = createAnimation(to: position, complerion: node.runAction)
+			let action = createAnimation(to: position, complerion: { [node] action in node.runAction(action) })
 			actions.append(action)
 		}
 		await rootNode.runAction(SCNAction.sequence(actions))
@@ -143,7 +143,7 @@ final class TextNodeWorker: _TextNodeWorker {
 		guard let textNodes else { return nil }
 		var actions: [SCNAction] = []
 		for node in textNodes {
-			let action = createAnimation(to: self.randomPosition, complerion: node.runAction)
+			let action = createAnimation(to: self.randomPosition, complerion: { [node] action in node.runAction(action) })
 			actions.append(action)
 		}
 		return SCNAction.sequence(actions)
@@ -170,12 +170,13 @@ final class TextNodeWorker: _TextNodeWorker {
 		return positions
 	}
 	
-	private func createAnimation(to position: SCNVector3, complerion: @escaping (SCNAction) -> Void) -> SCNAction {
-		func actionFunction(_ one: SCNNode,_ two: CGFloat) {
-			let action = SCNAction.move(to: position, duration: self.animationDuration)
+	private func createAnimation(to position: SCNVector3, complerion: @escaping @Sendable (SCNAction) -> Void) -> SCNAction {
+		let duration = self.animationDuration
+		// Блок вызывается SceneKit на потоке рендера, поэтому он должен быть @Sendable и не привязан к MainActor
+		let customAction = SCNAction.customAction(duration: duration) { @Sendable _, _ in
+			let action = SCNAction.move(to: position, duration: duration)
 			complerion(action)
 		}
-		let customAction = SCNAction.customAction(duration: self.animationDuration, action: actionFunction)
 		return customAction
 	}
 	

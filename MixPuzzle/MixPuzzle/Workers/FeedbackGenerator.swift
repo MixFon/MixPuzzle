@@ -8,43 +8,34 @@
 import SceneKit
 
 /// Протокол предназначенный для настройи тактильной отдачи
-protocol _FeedbackGenerator: Actor {
+@MainActor
+protocol _FeedbackGenerator: AnyObject, Sendable {
 	func emit()
 	func error()
 }
 
-final actor FeedbackGenerator: _FeedbackGenerator, Sendable {
+/// Работает на MainActor, так как UIKit-генераторы отдачи можно использовать только с главного потока
+@MainActor
+final class FeedbackGenerator: _FeedbackGenerator {
 	
 	private let settingsGameStorage: _SettingsGameStorage
+	
+	private lazy var notificationGenerator = UINotificationFeedbackGenerator()
+	private lazy var impactGenerator = UIImpactFeedbackGenerator(style: .soft)
 	
 	init(settingsGameStorage: _SettingsGameStorage) {
 		self.settingsGameStorage = settingsGameStorage
 	}
-		
-	@MainActor
-	private lazy var notificationGenerator: UINotificationFeedbackGenerator = {
-		UINotificationFeedbackGenerator()
-	}()
-	
-	@MainActor
-	private lazy var impactGenerator: UIImpactFeedbackGenerator = {
-		UIImpactFeedbackGenerator(style: .soft)
-	}()
 	
 	func emit() {
-		guard settingsGameStorage.isUseVibration else { return }
-		Task { @MainActor in
-			self.impactGenerator.prepare()
-			self.impactGenerator.impactOccurred()
-		}
-	}
-		
-	func error() {
-		guard settingsGameStorage.isUseVibration else { return }
-		Task { @MainActor in
-			self.notificationGenerator.prepare()
-			self.notificationGenerator.notificationOccurred(.error)
-		}
+		guard self.settingsGameStorage.isUseVibration else { return }
+		self.impactGenerator.prepare()
+		self.impactGenerator.impactOccurred()
 	}
 	
+	func error() {
+		guard self.settingsGameStorage.isUseVibration else { return }
+		self.notificationGenerator.prepare()
+		self.notificationGenerator.notificationOccurred(.error)
+	}
 }

@@ -229,7 +229,7 @@ struct StartScene: UIViewRepresentable {
 		for compass in compasses {
 			guard let number = self.boxWorker.getNumber(for: compass) else { continue }
 			guard let node = self.scene.rootNode.childNodes.first(where: { $0.name == String(number) }) else { continue }
-			guard let action = self.boxWorker.createCustomMoveToZeroAction(number: number, complerion: node.runAction) else { continue }
+			guard let action = self.boxWorker.createCustomMoveToZeroAction(number: number, complerion: { [node] action in node.runAction(action) }) else { continue }
 			actions.append(action)
 		}
 		// Делаем недоступными кнопи на UI.
@@ -300,7 +300,10 @@ struct StartScene: UIViewRepresentable {
 		if let moveToZeroAction = self.boxWorker.createMoveToZeroAction(number: number) {
 
 			self.generator?.emit()
-			hitNode.runAction(moveToZeroAction, completionHandler: self.generator?.emit)
+			// completionHandler вызывается SceneKit не на главном потоке
+			hitNode.runAction(moveToZeroAction, completionHandler: { [generator] in
+				Task { @MainActor in generator?.emit() }
+			})
 			self.gameWorker.statisticsWorker.increaseSuccessfulMoves()
 			if let compass = self.boxWorker.getCompass(for: number) {
 				self.gameWorker.setCompass(compass: compass)

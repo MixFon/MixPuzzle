@@ -40,7 +40,7 @@ protocol _BoxesWorker {
 	/// Создаем анимацию перемещения в позицию нода с номером number
 	func createMoveToNumberAction(number: MatrixElement) -> SCNAction?
 	/// Создаем собственной анимации перемещения в позицию нода с номером number. Для последовательных перемещений
-	func createCustomMoveToZeroAction(number: MatrixElement, complerion: @escaping (SCNAction) -> Void) -> SCNAction?
+	func createCustomMoveToZeroAction(number: MatrixElement, complerion: @escaping @Sendable (SCNAction) -> Void) -> SCNAction?
 	/// Запускаю анимацию тряски для всехкубиков
 	func runShakeAnimationForAllBoxes()
 	/// Останавливаю анимацию тряски для всехкубиков
@@ -129,20 +129,31 @@ final class BoxesWorker: _BoxesWorker {
 			let goalMatrix = convertToIntMatrix(matrix: targetMatrix)
 			let pathsDirections = try self.transporter.createDirections(from: currentMatrix, to: goalMatrix)
 			let allMatrixElements = self.grid.matrix.flatMap { $0 }.map({ Int($0) })
-			// Счетчик для вызова completion после завершения всех анимаций
-			await withTaskGroup(of: Void.self) { group in
-				for element in allMatrixElements {
-					let directions = pathsDirections[element] ?? []
-					group.addTask { @Sendable in
-						guard let action = await self.createAction(for: element, with: directions), !action.isEmpty else { return  }
-						let node = await self.boxesNode?.first(where: { $0.name == String(element) })
-						await node?.runAction(SCNAction.sequence(action))
-					}
-				}
+			var animations: [(node: SCNNode, action: SCNAction)] = []
+			for element in allMatrixElements {
+				let directions = pathsDirections[element] ?? []
+				guard let actions = createAction(for: element, with: directions), !actions.isEmpty else { continue }
+				guard let node = self.boxesNode?.first(where: { $0.name == String(element) }) else { continue }
+				animations.append((node: node, action: SCNAction.sequence(actions)))
 			}
+			await runAndWait(animations: animations)
 		} catch {
 			// Так как ошибки в createDirections выбрасываются очень редко перезапускам метод
 			await moveNodesToTargetPozitions(targetMatrix: targetMatrix)
+		}
+	}
+	
+	/// Запускает все анимации одновременно и ждет, пока закончится последняя
+	private func runAndWait(animations: [(node: SCNNode, action: SCNAction)]) async {
+		guard !animations.isEmpty else { return }
+		await withCheckedContinuation { (continuation: CheckedContinuation<Void, Never>) in
+			let counter = CompletionCounter(count: animations.count) { continuation.resume() }
+			for animation in animations {
+				// completionHandler вызывается SceneKit не на главном потоке
+				animation.node.runAction(animation.action) {
+					Task { @MainActor in counter.decrement() }
+				}
+			}
 		}
 	}
 	
@@ -238,19 +249,20 @@ final class BoxesWorker: _BoxesWorker {
 		return action
 	}
 	
-	func createCustomMoveToZeroAction(number: MatrixElement, complerion: @escaping (SCNAction) -> Void) -> SCNAction? {
+	func createCustomMoveToZeroAction(number: MatrixElement, complerion: @escaping @Sendable (SCNAction) -> Void) -> SCNAction? {
 		guard self.grid.isNeighbors(one: number, two: 0) == true else { return nil }
 		guard let pointZero = self.grid.getPoint(number: 0) else { return nil }
 		let boxPointZero = getBoxPoint(i: Int(pointZero.x), j: Int(pointZero.y))
 		
-		func actionFunction(_ one: SCNNode,_ two: CGFloat) {
-			// Данная функция создается для того чтобы убрать падение. Если создавть замыкание в `customAction`, то приложение падает
-			let action = SCNAction.move(to: SCNVector3(x: Float(boxPointZero.y), y: Float(-boxPointZero.x), z: 0), duration: 0.1)
+		// Для векторов SCNVector3 на первом месте тоит Y на втором -X координаты из матрицы
+		let target = SCNVector3(x: Float(boxPointZero.y), y: Float(-boxPointZero.x), z: 0)
+		// Блок вызывается SceneKit на потоке рендера, поэтому он должен быть @Sendable и не привязан к MainActor.
+		// Иначе Swift 6 падает на проверке изоляции во время выполнения.
+		// Длительность customAction должна быть больше чем длительность action. Это нужно чтобы кубики не наслаивались друг на друга
+		let customAction = SCNAction.customAction(duration: 0.2) { @Sendable _, _ in
+			let action = SCNAction.move(to: target, duration: 0.1)
 			complerion(action)
 		}
-		// Для векторов SCNVector3 на первом месте тоит Y на втором -X координаты из матрицы
-		// Длительность customAction должна быть больше чем длительность action. Это нужно чтобы кубики не наслаивались друг на друга
-		let customAction = SCNAction.customAction(duration: 0.2, action: actionFunction)
 		self.grid.swapNumber(number: number, target: 0)
 		return customAction
 	}
@@ -422,4 +434,23 @@ final class BoxesWorker: _BoxesWorker {
         return boxNode
     }
 
+}
+
+/// Счетчик завершенных анимаций. Вызывает completion, когда завершились все
+@MainActor
+private final class CompletionCounter {
+	private var remaining: Int
+	private let completion: () -> Void
+	
+	init(count: Int, completion: @escaping () -> Void) {
+		self.remaining = count
+		self.completion = completion
+	}
+	
+	func decrement() {
+		self.remaining -= 1
+		if self.remaining == 0 {
+			self.completion()
+		}
+	}
 }
