@@ -10,13 +10,37 @@ import Foundation
 
 /// Протокол описывающий взаимодествия с источниками света
 protocol _LightsWorker {
+	/// Создает источники света по настройкам из хранилища
 	func setupLights(center: SCNVector3, radius: Float, rootNode: SCNNode)
+	/// Удаляет созданные этим воркером источники и создает новые по переданным настройкам. Для живого превью настроек
+	func updateLights(configuration: LightsConfiguration, center: SCNVector3, radius: Float, rootNode: SCNNode)
+}
+
+/// Настройки освещения сцены
+struct LightsConfiguration: Equatable {
+	var lightType: LightType
+	var countLights: Int
+	var isMotionEnabled: Bool
+	var isShadowEnabled: Bool
+}
+
+extension LightsConfiguration {
+	init(storage: _SettingsLightStorage) {
+		self.init(
+			lightType: storage.lightType,
+			countLights: storage.countLights,
+			isMotionEnabled: storage.isMotionEnabled,
+			isShadowEnabled: storage.isShadowEnabled
+		)
+	}
 }
 
 final class LightsWorker: _LightsWorker {
 	
 	private let rotationWorker: _RotationWorker
 	private let settingsLightStorage: _SettingsLightStorage
+	/// Верхние узлы созданных источников (сам источник или его орбита), чтобы их можно было удалить
+	private var createdNodes: [SCNNode] = []
 	
 	/// Создание источника в виде конуса без точки свечения
 	private func createOmniLightNode() -> SCNNode {
@@ -79,66 +103,84 @@ final class LightsWorker: _LightsWorker {
 	}
 	
 	func setupLights(center: SCNVector3, radius: Float, rootNode: SCNNode) {
-		switch self.settingsLightStorage.lightType {
+		let configuration = LightsConfiguration(storage: self.settingsLightStorage)
+		self.createdNodes = createLights(configuration: configuration, center: center, radius: radius, rootNode: rootNode)
+	}
+	
+	func updateLights(configuration: LightsConfiguration, center: SCNVector3, radius: Float, rootNode: SCNNode) {
+		self.createdNodes.forEach { $0.removeFromParentNode() }
+		self.createdNodes = createLights(configuration: configuration, center: center, radius: radius, rootNode: rootNode)
+	}
+	
+	/// Создает источники и возвращает их верхние узлы
+	private func createLights(configuration: LightsConfiguration, center: SCNVector3, radius: Float, rootNode: SCNNode) -> [SCNNode] {
+		switch configuration.lightType {
 		case .omni:
-			configureOmniLight(center: center, radius: radius, rootNode: rootNode)
+			return configureOmniLight(configuration: configuration, center: center, radius: radius, rootNode: rootNode)
 		case .spot:
-			configureSpotLight(center: center, radius: radius, rootNode: rootNode)
+			return configureSpotLight(configuration: configuration, center: center, radius: radius, rootNode: rootNode)
 		case .ambient:
-			configureAmbientLight(center: center, radius: radius, rootNode: rootNode)
+			return configureAmbientLight(configuration: configuration, rootNode: rootNode)
 		case .directional:
-			configareDirectionalLight(center: center, radius: radius, rootNode: rootNode)
-		default:
-			break
+			return configareDirectionalLight(configuration: configuration, center: center, rootNode: rootNode)
+		case .undefined:
+			return []
 		}
 	}
 	
 	/// Настройка освещения под Omni
-	private func configureOmniLight(center: SCNVector3, radius: Float, rootNode: SCNNode) {
+	private func configureOmniLight(configuration: LightsConfiguration, center: SCNVector3, radius: Float, rootNode: SCNNode) -> [SCNNode] {
 		let delta: Float = 3
-		for i in 1...self.settingsLightStorage.countLights {
+		var nodes: [SCNNode] = []
+		for i in 1...max(configuration.countLights, 1) {
 			let omniLight = createOmniLightNode()
-			setRotarionIfNeeded(center: center, rootNode: rootNode, lightNode: omniLight)
-			omniLight.light?.castsShadow = self.settingsLightStorage.isShadowEnabled
+			nodes.append(setRotarionIfNeeded(configuration: configuration, center: center, rootNode: rootNode, lightNode: omniLight))
+			omniLight.light?.castsShadow = configuration.isShadowEnabled
 			setPositionToRadiusMatrix(node: omniLight, radius: radius + delta * Float(i))
 		}
+		return nodes
 	}
 	
 	/// Настройка освещения под Spot
-	private func configureSpotLight(center: SCNVector3, radius: Float, rootNode: SCNNode) {
-		for _ in 1...self.settingsLightStorage.countLights {
+	private func configureSpotLight(configuration: LightsConfiguration, center: SCNVector3, radius: Float, rootNode: SCNNode) -> [SCNNode] {
+		var nodes: [SCNNode] = []
+		for _ in 1...max(configuration.countLights, 1) {
 			let spotLight = createSpotLightNode()
-			setRotarionIfNeeded(center: center, rootNode: rootNode, lightNode: spotLight)
-			spotLight.light?.castsShadow = self.settingsLightStorage.isShadowEnabled
+			nodes.append(setRotarionIfNeeded(configuration: configuration, center: center, rootNode: rootNode, lightNode: spotLight))
+			spotLight.light?.castsShadow = configuration.isShadowEnabled
 			setPositionToRadiusMatrix(node: spotLight, radius: radius * 2)
 			spotLight.look(at: center)
 		}
+		return nodes
 	}
 	
 	/// Настройка освещения под Directional
-	private func configareDirectionalLight(center: SCNVector3, radius: Float, rootNode: SCNNode) {
-		let ambientLight = createDirectionalLightNode()
-		setRotarionIfNeeded(center: center, rootNode: rootNode, lightNode: ambientLight)
-		ambientLight.light?.castsShadow = self.settingsLightStorage.isShadowEnabled
+	private func configareDirectionalLight(configuration: LightsConfiguration, center: SCNVector3, rootNode: SCNNode) -> [SCNNode] {
+		let directionalLight = createDirectionalLightNode()
+		let node = setRotarionIfNeeded(configuration: configuration, center: center, rootNode: rootNode, lightNode: directionalLight)
+		directionalLight.light?.castsShadow = configuration.isShadowEnabled
+		return [node]
 	}
 	
 	/// Настройка освещения под Ambient
-	private func configureAmbientLight(center: SCNVector3, radius: Float, rootNode: SCNNode) {
+	private func configureAmbientLight(configuration: LightsConfiguration, rootNode: SCNNode) -> [SCNNode] {
 		let ambientLight = createAmbientLightNode()
-		ambientLight.light?.castsShadow = self.settingsLightStorage.isShadowEnabled
+		ambientLight.light?.castsShadow = configuration.isShadowEnabled
 		rootNode.addChildNode(ambientLight)
+		return [ambientLight]
 	}
 	
-	/// Установка вращения узла по флагу isMotionEnabled
-	private func setRotarionIfNeeded(center: SCNVector3, rootNode: SCNNode, lightNode: SCNNode) {
-		if self.settingsLightStorage.isMotionEnabled {
-			self.rotationWorker.createRotation(
+	/// Установка вращения узла по флагу isMotionEnabled. Возвращает верхний узел: орбиту или сам источник
+	private func setRotarionIfNeeded(configuration: LightsConfiguration, center: SCNVector3, rootNode: SCNNode, lightNode: SCNNode) -> SCNNode {
+		if configuration.isMotionEnabled {
+			return self.rotationWorker.createRotation(
 				node: lightNode,
 				rootNode: rootNode,
 				centerOrbit: center
 			)
 		} else {
 			rootNode.addChildNode(lightNode)
+			return lightNode
 		}
 	}
 	
@@ -160,6 +202,10 @@ final class LightsWorker: _LightsWorker {
 
 final class MockLightsWorker: _LightsWorker {
 	func setupLights(center: SCNVector3, radius: Float, rootNode: SCNNode) {
+		debugPrint(#function)
+	}
+	
+	func updateLights(configuration: LightsConfiguration, center: SCNVector3, radius: Float, rootNode: SCNNode) {
 		debugPrint(#function)
 	}
 }

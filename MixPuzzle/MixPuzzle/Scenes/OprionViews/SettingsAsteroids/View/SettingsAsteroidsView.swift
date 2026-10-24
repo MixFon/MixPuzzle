@@ -31,6 +31,7 @@ final class SettingsAsteroidsModel: ObservableObject {
 
 struct SettingsAsteroidsView: View {
     
+	let dependency: _Dependency
     @ObservedObject var asteroidsModel: SettingsAsteroidsModel
     @State private var isShowSnackbar: Bool = false
     
@@ -43,6 +44,11 @@ struct SettingsAsteroidsView: View {
                 })
             ))
             .padding()
+			SettingsAsteroidsWrapper(model: self.asteroidsModel, dependency: self.dependency)
+				.id("setting_asteroids_static_id")
+				.aspectRatio(contentMode: .fit)
+				.clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
+				.background(Color.mm_background_secondary)
             ScrollView {
                 OptionsSectionsView(title: "Asteroids".localized, cells: [
                     AnyView(ToggleCellView(icon: "waveform.path", text: "Show asteroids".localized, isOn: $asteroidsModel.isShowAsteroids)),
@@ -60,7 +66,7 @@ struct SettingsAsteroidsView: View {
 
 #Preview {
     let settingsAteroidsDependency = SettingsAsteroidsModel(asteroidsStorage: MockSettingsAsteroidsStorage())
-    return SettingsAsteroidsView(asteroidsModel: settingsAteroidsDependency)
+    return SettingsAsteroidsView(dependency: MockDependency(), asteroidsModel: settingsAteroidsDependency)
 }
 
 final class MockSettingsAsteroidsStorage: _SettingsAsteroidsStorage {

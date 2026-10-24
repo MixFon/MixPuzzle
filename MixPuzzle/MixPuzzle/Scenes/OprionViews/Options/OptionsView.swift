@@ -82,7 +82,7 @@ struct OptionsView: View {
 			SettingsCubeView(dependency: self.dependency, model: SettingsCubeModel(cubeStorage: self.dependency.settingsStorages.settingsCubeStorage))
 		}
 		.fullScreenCover(isPresented: $router.toStars) {
-			SettingsAsteroidsView(asteroidsModel: SettingsAsteroidsModel(asteroidsStorage: self.dependency.settingsStorages.settingsAsteroidsStorage))
+			SettingsAsteroidsView(dependency: self.dependency, asteroidsModel: SettingsAsteroidsModel(asteroidsStorage: self.dependency.settingsStorages.settingsAsteroidsStorage))
 		}
 		.fullScreenCover(isPresented: $router.toLevelSelect) {
 			LevelSelectionView(gameModel: LevelSelectionModel(gameStorage: self.dependency.settingsStorages.settingsGameStorage))
@@ -91,7 +91,7 @@ struct OptionsView: View {
 			TargetSelectionView(dependncy: self.dependency)
 		}
 		.fullScreenCover(isPresented: $router.toLight) {
-			SettingsLightView(lightModel: SettingsLightModel(lightStorage: self.dependency.settingsStorages.settingsLightStorage))
+			SettingsLightView(dependency: self.dependency, lightModel: SettingsLightModel(lightStorage: self.dependency.settingsStorages.settingsLightStorage))
 		}
 		.fullScreenCover(isPresented: $router.toStatistics) {
 			if #available(iOS 16.0, *) {

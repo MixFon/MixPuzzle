@@ -22,6 +22,9 @@
 		2930F1A62D1DCABF00D49632 /* RotationWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2930F1A52D1DCABF00D49632 /* RotationWorker.swift */; };
 		2934B0E62D62641700BE7216 /* MFPuzzle in Frameworks */ = {isa = PBXBuildFile; productRef = 2934B0E52D62641700BE7216 /* MFPuzzle */; };
 		293C73BF2BDFCCC900E183B5 /* SettingsAsteroidsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 293C73BE2BDFCCC900E183B5 /* SettingsAsteroidsView.swift */; };
+		29A1C1052EAB000000C0FFEE /* SettingsAsteroidsScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A1C1022EAB000000C0FFEE /* SettingsAsteroidsScene.swift */; };
+		29A1C1062EAB000000C0FFEE /* SettingsAsteroidsFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A1C1032EAB000000C0FFEE /* SettingsAsteroidsFactory.swift */; };
+		29A1C1072EAB000000C0FFEE /* SettingsAsteroidsWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A1C1042EAB000000C0FFEE /* SettingsAsteroidsWrapper.swift */; };
 		293C73C12BDFCDAF00E183B5 /* SettingsCubeStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 293C73C02BDFCDAF00E183B5 /* SettingsCubeStorage.swift */; };
 		293C73C32BDFCE0700E183B5 /* SettingsAsteroidsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 293C73C22BDFCE0700E183B5 /* SettingsAsteroidsStorage.swift */; };
 		2942731D2DCE54D400E385A3 /* Ext+UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2942731C2DCE54D400E385A3 /* Ext+UIColor.swift */; };
@@ -78,6 +81,9 @@
 		29E921E42D61EBCD005E619C /* LoaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E921E32D61EBCD005E619C /* LoaderView.swift */; };
 		29EB775D2B872E0D00A494A0 /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29EB775C2B872E0D00A494A0 /* StartView.swift */; };
 		29EBA9832D6A2F570054CFCC /* SettingsLightView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29EBA9822D6A2F570054CFCC /* SettingsLightView.swift */; };
+		29A1C2052EAB000000C0FFEE /* SettingsLightScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A1C2022EAB000000C0FFEE /* SettingsLightScene.swift */; };
+		29A1C2062EAB000000C0FFEE /* SettingsLightFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A1C2032EAB000000C0FFEE /* SettingsLightFactory.swift */; };
+		29A1C2072EAB000000C0FFEE /* SettingsLightWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A1C2042EAB000000C0FFEE /* SettingsLightWrapper.swift */; };
 		29EBA9852D6A30560054CFCC /* SettingsLightStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29EBA9842D6A30560054CFCC /* SettingsLightStorage.swift */; };
 		29FCC9642C0C4A3E003604AD /* Ext+Compass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29FCC9632C0C4A3E003604AD /* Ext+Compass.swift */; };
 		29FDAA572C20C82F00EFD8DD /* TextNodeWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29FDAA562C20C82F00EFD8DD /* TextNodeWorker.swift */; };
@@ -99,6 +105,9 @@
 		292CE0552DDB1BD0001906B7 /* InversionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InversionView.swift; sourceTree = "<group>"; };
 		2930F1A52D1DCABF00D49632 /* RotationWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RotationWorker.swift; sourceTree = "<group>"; };
 		293C73BE2BDFCCC900E183B5 /* SettingsAsteroidsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsAsteroidsView.swift; sourceTree = "<group>"; };
+		29A1C1022EAB000000C0FFEE /* SettingsAsteroidsScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsAsteroidsScene.swift; sourceTree = "<group>"; };
+		29A1C1032EAB000000C0FFEE /* SettingsAsteroidsFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsAsteroidsFactory.swift; sourceTree = "<group>"; };
+		29A1C1042EAB000000C0FFEE /* SettingsAsteroidsWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsAsteroidsWrapper.swift; sourceTree = "<group>"; };
 		293C73C02BDFCDAF00E183B5 /* SettingsCubeStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCubeStorage.swift; sourceTree = "<group>"; };
 		293C73C22BDFCE0700E183B5 /* SettingsAsteroidsStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsAsteroidsStorage.swift; sourceTree = "<group>"; };
 		2942731C2DCE54D400E385A3 /* Ext+UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ext+UIColor.swift"; sourceTree = "<group>"; };
@@ -233,6 +242,9 @@
 		29E921E32D61EBCD005E619C /* LoaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoaderView.swift; sourceTree = "<group>"; };
 		29EB775C2B872E0D00A494A0 /* StartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; };
 		29EBA9822D6A2F570054CFCC /* SettingsLightView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsLightView.swift; sourceTree = "<group>"; };
+		29A1C2022EAB000000C0FFEE /* SettingsLightScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsLightScene.swift; sourceTree = "<group>"; };
+		29A1C2032EAB000000C0FFEE /* SettingsLightFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsLightFactory.swift; sourceTree = "<group>"; };
+		29A1C2042EAB000000C0FFEE /* SettingsLightWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsLightWrapper.swift; sourceTree = "<group>"; };
 		29EBA9842D6A30560054CFCC /* SettingsLightStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsLightStorage.swift; sourceTree = "<group>"; };
 		29FCC9632C0C4A3E003604AD /* Ext+Compass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ext+Compass.swift"; sourceTree = "<group>"; };
 		29FDAA562C20C82F00EFD8DD /* TextNodeWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextNodeWorker.swift; sourceTree = "<group>"; };
@@ -305,9 +317,28 @@
 		293C73BD2BDFCC5B00E183B5 /* SettingsAsteroids */ = {
 			isa = PBXGroup;
 			children = (
-				293C73BE2BDFCCC900E183B5 /* SettingsAsteroidsView.swift */,
+				29A1C1002EAB000000C0FFEE /* Scene */,
+				29A1C1012EAB000000C0FFEE /* View */,
 			);
 			path = SettingsAsteroids;
+			sourceTree = "<group>";
+		};
+		29A1C1002EAB000000C0FFEE /* Scene */ = {
+			isa = PBXGroup;
+			children = (
+				29A1C1032EAB000000C0FFEE /* SettingsAsteroidsFactory.swift */,
+				29A1C1022EAB000000C0FFEE /* SettingsAsteroidsScene.swift */,
+			);
+			path = Scene;
+			sourceTree = "<group>";
+		};
+		29A1C1012EAB000000C0FFEE /* View */ = {
+			isa = PBXGroup;
+			children = (
+				293C73BE2BDFCCC900E183B5 /* SettingsAsteroidsView.swift */,
+				29A1C1042EAB000000C0FFEE /* SettingsAsteroidsWrapper.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		2944D6D92BC870FD001F1A82 /* Scenes */ = {
@@ -1011,9 +1042,28 @@
 		29EBA9812D6A2F2B0054CFCC /* Light */ = {
 			isa = PBXGroup;
 			children = (
-				29EBA9822D6A2F570054CFCC /* SettingsLightView.swift */,
+				29A1C2002EAB000000C0FFEE /* Scene */,
+				29A1C2012EAB000000C0FFEE /* View */,
 			);
 			path = Light;
+			sourceTree = "<group>";
+		};
+		29A1C2002EAB000000C0FFEE /* Scene */ = {
+			isa = PBXGroup;
+			children = (
+				29A1C2032EAB000000C0FFEE /* SettingsLightFactory.swift */,
+				29A1C2022EAB000000C0FFEE /* SettingsLightScene.swift */,
+			);
+			path = Scene;
+			sourceTree = "<group>";
+		};
+		29A1C2012EAB000000C0FFEE /* View */ = {
+			isa = PBXGroup;
+			children = (
+				29EBA9822D6A2F570054CFCC /* SettingsLightView.swift */,
+				29A1C2042EAB000000C0FFEE /* SettingsLightWrapper.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1105,6 +1155,9 @@
 				2942731D2DCE54D400E385A3 /* Ext+UIColor.swift in Sources */,
 				292CE0562DDB1BD0001906B7 /* InversionView.swift in Sources */,
 				29EBA9832D6A2F570054CFCC /* SettingsLightView.swift in Sources */,
+				29A1C2052EAB000000C0FFEE /* SettingsLightScene.swift in Sources */,
+				29A1C2062EAB000000C0FFEE /* SettingsLightFactory.swift in Sources */,
+				29A1C2072EAB000000C0FFEE /* SettingsLightWrapper.swift in Sources */,
 				2980BC722BEA53A900866895 /* Workers.swift in Sources */,
 				290E484C2DE315DA006B22F8 /* MixButtonStyle.swift in Sources */,
 				293C73C12BDFCDAF00E183B5 /* SettingsCubeStorage.swift in Sources */,
@@ -1117,6 +1170,9 @@
 				29D3D1A32B8A0BF600E3EE6A /* StartScene.swift in Sources */,
 				296846CF2C0101200046862C /* ChooseMethodView.swift in Sources */,
 				293C73BF2BDFCCC900E183B5 /* SettingsAsteroidsView.swift in Sources */,
+				29A1C1052EAB000000C0FFEE /* SettingsAsteroidsScene.swift in Sources */,
+				29A1C1062EAB000000C0FFEE /* SettingsAsteroidsFactory.swift in Sources */,
+				29A1C1072EAB000000C0FFEE /* SettingsAsteroidsWrapper.swift in Sources */,
 				2944D6DC2BC871A6001F1A82 /* SettingsCubeView.swift in Sources */,
 				2944D6E52BC916F9001F1A82 /* SettingsCubeFactory.swift in Sources */,
 				296846D32C01C6130046862C /* ManualFillingView.swift in Sources */,

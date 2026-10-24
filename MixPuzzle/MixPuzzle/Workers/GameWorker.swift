@@ -69,6 +69,21 @@ struct MatrixSolution {
 	let matrix: Matrix
 }
 
+extension _GameWorker {
+	/// Собранная головоломка текущего уровня и выбранной цели. Для превью в настройках
+	var previewMatrix: Matrix {
+		let matrix = self.solutionOptions.first(where: { $0.type == self.solution })?.matrix
+		if let matrix, !matrix.isEmpty, !(matrix.first?.isEmpty ?? true) {
+			return matrix
+		}
+		return [
+			[1, 2, 3],
+			[4, 5, 6],
+			[7, 8, 0],
+		]
+	}
+}
+
 /// Класс отвечающий за сохранение данных игры.
 /// Сохранение состояния игры. Получение цели игры
 final class GameWorker: _GameWorker {

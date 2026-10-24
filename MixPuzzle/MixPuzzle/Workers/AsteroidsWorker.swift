@@ -12,6 +12,9 @@ import Foundation
 protocol _AsteroidsWorker {
 	func createAsteroids(rootNode: SCNNode, centerOrbit: SCNVector3)
 	func deleteAsteroids()
+	/// Приводит астероиды к заданному количеству и радиусу сферы, не пересоздавая все.
+	/// Лишние удаляются, недостающие добавляются, существующие сдвигаются на новый радиус. Для живого превью настроек
+	func updateAsteroids(count: Int, radius: Double, rootNode: SCNNode, centerOrbit: SCNVector3)
 }
 
 final class AsteroidsWorker: _AsteroidsWorker {
@@ -60,6 +63,35 @@ final class AsteroidsWorker: _AsteroidsWorker {
 			asteroid.orbitNode.removeFromParentNode()
 		}
 		self.asteroids = nil
+	}
+	
+	func updateAsteroids(count: Int, radius: Double, rootNode: SCNNode, centerOrbit: SCNVector3) {
+		var asteroids = self.asteroids ?? []
+		let count = max(count, 0)
+		if asteroids.count > count {
+			asteroids[count...].forEach { asteroid in
+				asteroid.node.removeFromParentNode()
+				asteroid.orbitNode.removeFromParentNode()
+			}
+			asteroids.removeLast(asteroids.count - count)
+		}
+		// Существующие астероиды переносим на сферу нового радиуса, сохраняя направление
+		SCNTransaction.begin()
+		SCNTransaction.animationDuration = 0.2
+		for asteroid in asteroids {
+			let position = asteroid.node.position
+			let length = sqrt(position.x * position.x + position.y * position.y + position.z * position.z)
+			guard length > 0 else { continue }
+			let k = Float(radius) / length
+			asteroid.node.position = SCNVector3(x: position.x * k, y: position.y * k, z: position.z * k)
+		}
+		SCNTransaction.commit()
+		while asteroids.count < count {
+			let node = createAsteroid(radius: radius)
+			let orbitNode = self.rotationWorker.createRotation(node: node, rootNode: rootNode, centerOrbit: centerOrbit)
+			asteroids.append(Asteroid(node: node, orbitNode: orbitNode))
+		}
+		self.asteroids = asteroids
 	}
 	
 	private func createAsteroid(radius: CGFloat) -> SCNNode {
@@ -114,6 +146,10 @@ final class MockAsteroidsWorker: _AsteroidsWorker {
 	}
 	
 	func setAnimationRotationTo(node: SCNNode) {
+		
+	}
+	
+	func updateAsteroids(count: Int, radius: Double, rootNode: SCNNode, centerOrbit: SCNVector3) {
 		
 	}
 }

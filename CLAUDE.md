@@ -42,6 +42,10 @@ iOS-игра «пятнашки» (sliding puzzle) с 3D-кубиками. UI н
 | `Localisation/Localizable.xcstrings` | Исходный язык — английский, перевод на русский |
 | `Assets.xcassets` | Иконка и PBR-текстуры кубиков (`TerrazzoSlab018` по умолчанию и др.) |
 
+Заставка запуска задаётся в `Info.plist` → `UILaunchScreen`: фон — цвет `mm.launch.screen` (`Colors/Colors.xcassets`),
+по центру — `launchscreen.imageset` (240 pt, @1x/@2x/@3x, плитка иконки с прозрачными углами).
+`LaunshScreen/LaunchScreen.storyboard` в проекте есть, но не используется.
+
 ### Экраны (`Scenes/`)
 
 - `Menu/` — главное меню: `MenuScene` (3D, сцена `puzzle.scnassets/menu.scn`, камера сверху) + `MenuView`,
@@ -58,8 +62,14 @@ iOS-игра «пятнашки» (sliding puzzle) с 3D-кубиками. UI н
 - `FindSolutionViews/` — «найти решение»: ручной ввод матрицы (`ManualFillingView`) → проверка
   инверсий (`InversionView`, объяснение разрешимости) → `LoadingView` (асинхронный A*
   `searchSolutionWithHeap`, можно отменить) → `VisualizationSolutionView` (проигрывание ходов по компасам).
-- `OprionViews/` (опечатка в названии папки — так исторически) — настройки: куб (с 3D-превью), астероиды,
+- `OprionViews/` (опечатка в названии папки — так исторически) — настройки: куб, астероиды,
   свет, вибрация, выбор уровня (размер 3…10), выбор целевой раскладки, статистика (iOS 16+, Swift Charts).
+  У куба, астероидов и света (`Light/`) есть живое 3D-превью по одной схеме: `Scene/` (`…Scene: UIViewRepresentable`
+  + `…Factory`) и `View/` (экран + `…Wrapper`, Equatable всегда `true`, чтобы SwiftUI не пересоздавал сцену).
+  Сцена подписывается на `@Published` поля модели экрана. Превью астероидов и света — уменьшенная игровая сцена
+  (матрица из `_GameWorker.previewMatrix`) со своими экземплярами воркеров: `AsteroidsWorker.updateAsteroids`
+  меняет количество и радиус без пересоздания, `LightsWorker.updateLights(configuration:)` удаляет свои источники
+  и создает новые по `LightsConfiguration`.
 - `Common/` — общие компоненты: `NavigationBar`, `MixButtonStyle`, `Snackbar`, `LimitedTextField`, кнопка «назад».
 - `Draft/Test.swift` — пустой черновик.
 

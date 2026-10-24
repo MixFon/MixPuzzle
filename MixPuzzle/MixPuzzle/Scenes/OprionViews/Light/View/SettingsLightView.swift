@@ -28,7 +28,8 @@ final class SettingsLightModel: ObservableObject {
 	
 	func saveChanges() {
 		self.lightStorage.lightType = self.lightType
-		self.lightStorage.countLights = Int(self.countLights)
+		// Округляем так же, как подпись ползунка и превью
+		self.lightStorage.countLights = Int(self.countLights.rounded())
 		self.lightStorage.isMotionEnabled = self.isMotionEnabled
 		self.lightStorage.isShadowEnabled = self.isShadowEnabled
 	}
@@ -36,6 +37,7 @@ final class SettingsLightModel: ObservableObject {
 
 struct SettingsLightView: View {
 	
+	let dependency: _Dependency
 	@ObservedObject var lightModel: SettingsLightModel
 	@State private var isShowSnackbar = false
 	private let lightTypes: [LightType] = LightType.allCases
@@ -49,6 +51,11 @@ struct SettingsLightView: View {
 				})
 			))
 			.padding()
+			SettingsLightWrapper(model: self.lightModel, dependency: self.dependency)
+				.id("setting_light_static_id")
+				.aspectRatio(contentMode: .fit)
+				.clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
+				.background(Color.mm_background_secondary)
 			ScrollView {
 				OptionsSectionsView(title: self.sectionName, cells: cellsOfSection)
 			}
@@ -89,5 +96,5 @@ struct SettingsLightView: View {
 
 #Preview {
 	let mockSettingsLightModel = SettingsLightModel(lightStorage: MockSettingsLightStorage())
-	return SettingsLightView(lightModel: mockSettingsLightModel)
+	return SettingsLightView(dependency: MockDependency(), lightModel: mockSettingsLightModel)
 }
