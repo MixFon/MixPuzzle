@@ -133,7 +133,7 @@ struct ColorCellView: View, Identifiable {
 struct TexturePicker: View {
     let id = UUID()
     let title: String
-    let images = [
+    static let images = [
         "coral_fort_wall",
         "shfsaida",
         "sbbihkp",
@@ -176,7 +176,7 @@ struct TexturePicker: View {
             // Создаем горизонтальный ScrollView для прокрутки изображений
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 16) {
-                    ForEach(images, id: \.self) { imageName in
+                    ForEach(Self.images, id: \.self) { imageName in
                         Button(action: {
                             self.selectedImage = imageName
                         }) {
