@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		29E7A145002E0C0000000000 /* InversionSandboxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E7A144002E0C0000000000 /* InversionSandboxView.swift */; };
+		29E7A143002E0C0000000000 /* InversionBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E7A142002E0C0000000000 /* InversionBoardView.swift */; };
+		29E7A141002E0C0000000000 /* InversionMath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E7A140002E0C0000000000 /* InversionMath.swift */; };
 		29E7A139002E0C0000000000 /* ManualFillingParametersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E7A138002E0C0000000000 /* ManualFillingParametersView.swift */; };
 		29E7A137002E0C0000000000 /* ManualFillingKeypadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E7A136002E0C0000000000 /* ManualFillingKeypadView.swift */; };
 		29E7A135002E0C0000000000 /* ManualFillingStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E7A134002E0C0000000000 /* ManualFillingStatusView.swift */; };
@@ -63,11 +66,9 @@
 		29A1C2062EAB000000C0FFEE /* SettingsLightFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A1C2032EAB000000C0FFEE /* SettingsLightFactory.swift */; };
 		29A1C2072EAB000000C0FFEE /* SettingsLightWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A1C2042EAB000000C0FFEE /* SettingsLightWrapper.swift */; };
 		29A225492B89E0C5009ECD1C /* OptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A225482B89E0C5009ECD1C /* OptionsView.swift */; };
-		29A8BC542DDF13D200A1A8CE /* InversionDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A8BC532DDF13D200A1A8CE /* InversionDetailsView.swift */; };
 		29B2ADB92BDAD18A002D11D8 /* SettingsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B2ADB82BDAD18A002D11D8 /* SettingsStorage.swift */; };
 		29B2ADBC2BDB9369002D11D8 /* Dependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B2ADBB2BDB9369002D11D8 /* Dependency.swift */; };
 		29B2ADBF2BDBA415002D11D8 /* Ext+Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B2ADBE2BDBA415002D11D8 /* Ext+Color.swift */; };
-		29B538372DD32B3100F100F5 /* MatrixView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B538362DD32B3100F100F5 /* MatrixView.swift */; };
 		29BFEABB2D212729006FD41D /* LightsWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29BFEABA2D212729006FD41D /* LightsWorker.swift */; };
 		29C162C22B848CC4002E185D /* MixPuzzleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C162C12B848CC4002E185D /* MixPuzzleApp.swift */; };
 		29C162C42B848CC4002E185D /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C162C32B848CC4002E185D /* MenuView.swift */; };
@@ -76,7 +77,6 @@
 		29C162D22B848D89002E185D /* MenuScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C162D12B848D89002E185D /* MenuScene.swift */; };
 		29C162D42B8491DA002E185D /* puzzle.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 29C162D32B8491DA002E185D /* puzzle.scnassets */; };
 		29C928152E5A0B4D00D9B50E /* UbiquitousKeyValueStoreWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C928142E5A0B4D00D9B50E /* UbiquitousKeyValueStoreWorker.swift */; };
-		29D20A752DDA704800D01D12 /* GridNumberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D20A742DDA704800D01D12 /* GridNumberView.swift */; };
 		29D3D1A32B8A0BF600E3EE6A /* StartScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D3D1A22B8A0BF600E3EE6A /* StartScene.swift */; };
 		29DBBA7D2C0BA43D0046179F /* VisualizationSolutionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29DBBA7C2C0BA43D0046179F /* VisualizationSolutionView.swift */; };
 		29DD46872C1E098E000FF047 /* StatisticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29DD46862C1E098E000FF047 /* StatisticsView.swift */; };
@@ -102,6 +102,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		29E7A144002E0C0000000000 /* InversionSandboxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InversionSandboxView.swift; sourceTree = "<group>"; };
+		29E7A142002E0C0000000000 /* InversionBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InversionBoardView.swift; sourceTree = "<group>"; };
+		29E7A140002E0C0000000000 /* InversionMath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InversionMath.swift; sourceTree = "<group>"; };
 		29E7A138002E0C0000000000 /* ManualFillingParametersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManualFillingParametersView.swift; sourceTree = "<group>"; };
 		29E7A136002E0C0000000000 /* ManualFillingKeypadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManualFillingKeypadView.swift; sourceTree = "<group>"; };
 		29E7A134002E0C0000000000 /* ManualFillingStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManualFillingStatusView.swift; sourceTree = "<group>"; };
@@ -169,10 +172,7 @@
 		29957CE62DEF74F0001DA0F1 /* LimitedTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LimitedTextField.swift; sourceTree = "<group>"; };
 		29957CE72DEF74F0001DA0F1 /* NavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBar.swift; sourceTree = "<group>"; };
 		29957CEA2DEF74F0001DA0F1 /* ChooseMethodView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseMethodView.swift; sourceTree = "<group>"; };
-		29957CEC2DEF74F0001DA0F1 /* GridNumberView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridNumberView.swift; sourceTree = "<group>"; };
-		29957CED2DEF74F0001DA0F1 /* InversionDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InversionDetailsView.swift; sourceTree = "<group>"; };
 		29957CEE2DEF74F0001DA0F1 /* InversionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InversionView.swift; sourceTree = "<group>"; };
-		29957CEF2DEF74F0001DA0F1 /* MatrixView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatrixView.swift; sourceTree = "<group>"; };
 		29957CF12DEF74F0001DA0F1 /* LoaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoaderView.swift; sourceTree = "<group>"; };
 		29957CF22DEF74F0001DA0F1 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		29957CF42DEF74F0001DA0F1 /* ManualFillingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManualFillingView.swift; sourceTree = "<group>"; };
@@ -233,11 +233,9 @@
 		29A1C2032EAB000000C0FFEE /* SettingsLightFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsLightFactory.swift; sourceTree = "<group>"; };
 		29A1C2042EAB000000C0FFEE /* SettingsLightWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsLightWrapper.swift; sourceTree = "<group>"; };
 		29A225482B89E0C5009ECD1C /* OptionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsView.swift; sourceTree = "<group>"; };
-		29A8BC532DDF13D200A1A8CE /* InversionDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InversionDetailsView.swift; sourceTree = "<group>"; };
 		29B2ADB82BDAD18A002D11D8 /* SettingsStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsStorage.swift; sourceTree = "<group>"; };
 		29B2ADBB2BDB9369002D11D8 /* Dependency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dependency.swift; sourceTree = "<group>"; };
 		29B2ADBE2BDBA415002D11D8 /* Ext+Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ext+Color.swift"; sourceTree = "<group>"; };
-		29B538362DD32B3100F100F5 /* MatrixView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatrixView.swift; sourceTree = "<group>"; };
 		29BFEABA2D212729006FD41D /* LightsWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightsWorker.swift; sourceTree = "<group>"; };
 		29C162BE2B848CC4002E185D /* MixPuzzle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MixPuzzle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		29C162C12B848CC4002E185D /* MixPuzzleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MixPuzzleApp.swift; sourceTree = "<group>"; };
@@ -248,7 +246,6 @@
 		29C162D12B848D89002E185D /* MenuScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuScene.swift; sourceTree = "<group>"; };
 		29C162D32B8491DA002E185D /* puzzle.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = puzzle.scnassets; sourceTree = "<group>"; };
 		29C928142E5A0B4D00D9B50E /* UbiquitousKeyValueStoreWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UbiquitousKeyValueStoreWorker.swift; sourceTree = "<group>"; };
-		29D20A742DDA704800D01D12 /* GridNumberView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridNumberView.swift; sourceTree = "<group>"; };
 		29D3D1A22B8A0BF600E3EE6A /* StartScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartScene.swift; sourceTree = "<group>"; };
 		29DBBA7C2C0BA43D0046179F /* VisualizationSolutionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualizationSolutionView.swift; sourceTree = "<group>"; };
 		29DD46862C1E098E000FF047 /* StatisticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsView.swift; sourceTree = "<group>"; };
@@ -329,10 +326,10 @@
 		292CE0542DDB169B001906B7 /* InversionView */ = {
 			isa = PBXGroup;
 			children = (
-				29B538362DD32B3100F100F5 /* MatrixView.swift */,
-				29D20A742DDA704800D01D12 /* GridNumberView.swift */,
 				292CE0552DDB1BD0001906B7 /* InversionView.swift */,
-				29A8BC532DDF13D200A1A8CE /* InversionDetailsView.swift */,
+				29E7A144002E0C0000000000 /* InversionSandboxView.swift */,
+				29E7A142002E0C0000000000 /* InversionBoardView.swift */,
+				29E7A140002E0C0000000000 /* InversionMath.swift */,
 			);
 			path = InversionView;
 			sourceTree = "<group>";
@@ -626,10 +623,7 @@
 		29957CF02DEF74F0001DA0F1 /* InversionView */ = {
 			isa = PBXGroup;
 			children = (
-				29957CEC2DEF74F0001DA0F1 /* GridNumberView.swift */,
-				29957CED2DEF74F0001DA0F1 /* InversionDetailsView.swift */,
 				29957CEE2DEF74F0001DA0F1 /* InversionView.swift */,
-				29957CEF2DEF74F0001DA0F1 /* MatrixView.swift */,
 			);
 			path = InversionView;
 			sourceTree = "<group>";
@@ -1180,6 +1174,9 @@
 				2980BC6E2BE7D9E500866895 /* GameWorker.swift in Sources */,
 				2942731D2DCE54D400E385A3 /* Ext+UIColor.swift in Sources */,
 				292CE0562DDB1BD0001906B7 /* InversionView.swift in Sources */,
+				29E7A145002E0C0000000000 /* InversionSandboxView.swift in Sources */,
+				29E7A143002E0C0000000000 /* InversionBoardView.swift in Sources */,
+				29E7A141002E0C0000000000 /* InversionMath.swift in Sources */,
 				29EBA9832D6A2F570054CFCC /* SettingsLightView.swift in Sources */,
 				29E7A113002E0C0000000000 /* LightTypePickerView.swift in Sources */,
 				29A1C2052EAB000000C0FFEE /* SettingsLightScene.swift in Sources */,
@@ -1217,13 +1214,10 @@
 				2944D6DF2BC91166001F1A82 /* BackButtonToolbarItem.swift in Sources */,
 				29C162D22B848D89002E185D /* MenuScene.swift in Sources */,
 				29A1C0E22EA9000000C0FFEE /* SeascapeWater.swift in Sources */,
-				29D20A752DDA704800D01D12 /* GridNumberView.swift in Sources */,
 				293C73C32BDFCE0700E183B5 /* SettingsAsteroidsStorage.swift in Sources */,
 				2947014E2D9096A800BAE690 /* Ext+Solution.swift in Sources */,
 				2980BC7B2BED176D00866895 /* SelectLevelView.swift in Sources */,
-				29B538372DD32B3100F100F5 /* MatrixView.swift in Sources */,
 				29FCC9642C0C4A3E003604AD /* Ext+Compass.swift in Sources */,
-				29A8BC542DDF13D200A1A8CE /* InversionDetailsView.swift in Sources */,
 				2944D6E72BC91770001F1A82 /* SettingsCubeScene.swift in Sources */,
 				29BFEABB2D212729006FD41D /* LightsWorker.swift in Sources */,
 				29A070332B91A5940078EB8D /* StartFactory.swift in Sources */,
