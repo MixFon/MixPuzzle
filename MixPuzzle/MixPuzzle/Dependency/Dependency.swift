@@ -50,6 +50,7 @@ struct Dependency: _Dependency {
 		let transporter = Transporter()
 		let cheker = Checker()
 		let matrixWorker = MatrixWorker()
+		let toastPresenter = ToastCenter()
 		let decoder = Decoder()
 		self.checker = cheker
 		let statisticsWorker = StatisticsWorker(keeper: ubiquitousKeyValueStoreWorker, decoder: decoder)
@@ -73,6 +74,7 @@ struct Dependency: _Dependency {
 			rotationWorker: rotationWorker,
 			textNodeWorker: textNodeWorker,
 			asteroidWorker: asteroidworker,
+			toastPresenter: toastPresenter,
 			materialsWorker: materialsWorker
 		)
     }

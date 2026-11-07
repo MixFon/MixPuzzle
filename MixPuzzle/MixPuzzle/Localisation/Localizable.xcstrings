@@ -66,6 +66,24 @@
     "%u" : {
       "shouldTranslate" : false
     },
+    "Back" : {
+      "comment" : "Accessibility label of back button",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Back"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Назад"
+          }
+        }
+      }
+    },
     "• Calculate the precision of target state inversions" : {
       "localizations" : {
         "ru" : {
@@ -567,6 +585,150 @@
         }
       }
     },
+    "mix.light.type.ambient" : {
+      "comment" : "Ambient light type name",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ambient"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Рассеянный"
+          }
+        }
+      }
+    },
+    "mix.light.type.ambient.hint" : {
+      "comment" : "Ambient light type hint",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Even light, no shadows"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ровный свет без теней"
+          }
+        }
+      }
+    },
+    "mix.light.type.directional" : {
+      "comment" : "Directional light type name",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Directional"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Направленный"
+          }
+        }
+      }
+    },
+    "mix.light.type.directional.hint" : {
+      "comment" : "Directional light type hint",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Parallel rays, like the sun"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Параллельные лучи, как солнце"
+          }
+        }
+      }
+    },
+    "mix.light.type.omni" : {
+      "comment" : "Omni light type name",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Omni"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Точечный"
+          }
+        }
+      }
+    },
+    "mix.light.type.omni.hint" : {
+      "comment" : "Omni light type hint",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shines in all directions from a point"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Светит во все стороны из точки"
+          }
+        }
+      }
+    },
+    "mix.light.type.spot" : {
+      "comment" : "Spot light type name",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Spot"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Прожектор"
+          }
+        }
+      }
+    },
+    "mix.light.type.spot.hint" : {
+      "comment" : "Spot light type hint",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A cone of light with shadows"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Конус света с тенями"
+          }
+        }
+      }
+    },
     "mix.options.asteroids.count" : {
       "comment" : "Number of asteroids on graphics tile",
       "extractionState" : "manual",
@@ -657,6 +819,42 @@
         }
       }
     },
+    "mix.settings.panel.asteroids" : {
+      "comment" : "Title of settings panel on asteroids settings screen",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Asteroid belt"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Пояс астероидов"
+          }
+        }
+      }
+    },
+    "mix.settings.panel.cube" : {
+      "comment" : "Title of settings panel on cube settings screen",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cube appearance"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Внешний вид кубика"
+          }
+        }
+      }
+    },
     "mix.snackbar.matrix.fill.incorrectly" : {
       "comment" : "Message in snackbar when matrix filled incorrectly",
       "extractionState" : "manual",
@@ -689,23 +887,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Нет решения. Невозможно достичь состояния %@ из текущего состояния."
-          }
-        }
-      }
-    },
-    "mix.snackbar.saved" : {
-      "comment" : "Message for snackbar when saved",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "The data has been saved successfully."
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Данные были успешно сохранены."
           }
         }
       }
@@ -997,6 +1178,60 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Работает для матриц любого размера (четных и нечетных)."
+          }
+        }
+      }
+    },
+    "mix.toast.matrix.incorrect" : {
+      "comment" : "Title of toast when manual matrix is filled incorrectly",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Matrix filled incorrectly"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Матрица заполнена неправильно"
+          }
+        }
+      }
+    },
+    "mix.toast.no.solution" : {
+      "comment" : "Title of toast when manual matrix has no solution",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No solution"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Нет решения"
+          }
+        }
+      }
+    },
+    "mix.toast.saved" : {
+      "comment" : "Title of toast after settings are saved",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Saved"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Сохранено"
           }
         }
       }

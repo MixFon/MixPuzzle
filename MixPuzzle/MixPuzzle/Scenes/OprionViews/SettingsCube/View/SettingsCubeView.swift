@@ -40,51 +40,25 @@ struct SettingsCubeView: View {
 	
 	let dependency: _Dependency
 	@ObservedObject var model: SettingsCubeModel
-	@State private var isShowSnackbar = false
 	@State private var tab: CubeSettingsTab = .material
 
 	var body: some View {
-		VStack(spacing: 0) {
-			NavigationBar(title: "Cube".localized, tralingView: AnyView(
-				Button {
-					self.model.saveChanges()
-					self.isShowSnackbar = true
-				} label: {
-					Image(systemName: "checkmark")
-						.font(.body.weight(.bold))
-						.foregroundStyle(Color.white)
-						.frame(width: 44, height: 44)
-						.background(Color.mm_tint_secondary)
-						.clipShape(Circle())
-				}
-				.buttonStyle(.plain)
-				.accessibilityLabel("Save".localized)
-			))
-			.padding(.horizontal)
-			.padding(.vertical, 8)
+		SettingsPreviewLayout(title: "Cube".localized, panelTitle: self.panelTitle, onSave: {
+			self.model.saveChanges()
+			self.dependency.workers.toastPresenter.show(.success("mix.toast.saved".localized, message: self.panelTitle))
+		}) {
 			SettingsCubeWrapper(model: self.model, dependency: self.dependency)
 				.id("setting_cube_static_id")
-				.aspectRatio(contentMode: .fit)
-			VStack(spacing: 16) {
-				Capsule()
-					.fill(Color.mm_text_secondary.opacity(0.5))
-					.frame(width: 36, height: 5)
-				CubeTabPicker(selected: self.$tab)
-				ScrollView {
-					self.tabContent
-						.padding(.bottom, 24)
-				}
+		} panel: {
+			CubeTabPicker(selected: self.$tab)
+			ScrollView {
+				self.tabContent
+					.padding(.bottom, 24)
 			}
-			.padding(.top, 10)
-			.padding(.horizontal, 16)
-			.frame(maxHeight: .infinity, alignment: .top)
-			.background(Color.mm_background_tertiary)
-			.clipShape(UnevenTopRoundedRectangle(radius: 28))
-			.ignoresSafeArea(edges: .bottom)
 		}
-		.snackbar(isShowing: $isShowSnackbar, text: "mix.snackbar.saved".localized, style: .success, extraBottomPadding: 16)
-		.background(Color.mm_background_secondary)
 	}
+	
+	private let panelTitle = String(localized: "mix.settings.panel.cube", comment: "Title of settings panel on cube settings screen")
 
 	@ViewBuilder
 	private var tabContent: some View {
@@ -194,19 +168,6 @@ private struct TextureCard: View {
 		}
 		.buttonStyle(.plain)
 		.accessibilityAddTraits(self.isSelected ? .isSelected : [])
-	}
-}
-
-/// Скругление только верхних углов (UnevenRoundedRectangle доступен с iOS 16)
-private struct UnevenTopRoundedRectangle: Shape {
-	let radius: CGFloat
-
-	func path(in rect: CGRect) -> Path {
-		Path(UIBezierPath(
-			roundedRect: rect,
-			byRoundingCorners: [.topLeft, .topRight],
-			cornerRadii: CGSize(width: self.radius, height: self.radius)
-		).cgPath)
 	}
 }
 

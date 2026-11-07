@@ -39,52 +39,45 @@ struct SettingsLightView: View {
 	
 	let dependency: _Dependency
 	@ObservedObject var lightModel: SettingsLightModel
-	@State private var isShowSnackbar = false
 	private let lightTypes: [LightType] = LightType.allCases
 	
     var body: some View {
-		VStack {
-			NavigationBar(title: self.navigationBarTitle, tralingView: AnyView(
-				ButtonNavigationBar(title: "Save".localized, action: {
-					self.lightModel.saveChanges()
-					self.isShowSnackbar = true
-				})
-			))
-			.padding()
+		SettingsPreviewLayout(title: self.navigationBarTitle, panelTitle: self.sectionName, onSave: {
+			self.lightModel.saveChanges()
+			self.dependency.workers.toastPresenter.show(.success("mix.toast.saved".localized, message: self.sectionName))
+		}) {
 			SettingsLightWrapper(model: self.lightModel, dependency: self.dependency)
 				.id("setting_light_static_id")
-				.aspectRatio(contentMode: .fit)
-				.clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
-				.background(Color.mm_background_secondary)
+		} panel: {
 			ScrollView {
-				OptionsSectionsView(title: self.sectionName, cells: cellsOfSection)
+				VStack(alignment: .leading, spacing: 16) {
+					LightTypePickerView(selected: self.$lightModel.lightType, types: self.lightTypes)
+					self.optionsGroup
+				}
+				.padding(.bottom, 24)
 			}
 			.animation(.default, value: self.lightModel.lightType)
-			.cornerRadius(16)
-			.padding()
 		}
-		.snackbar(isShowing: $isShowSnackbar, text: "The data has been saved successfully.", style: .success, extraBottomPadding: 16)
-		.background(Color.mm_background_secondary)
     }
-	
-	private var cellsOfSection: [AnyView] {
-		var cells: [AnyView] = [AnyView(SelectSizePicker(selectedSize: $lightModel.lightType, numbersSize: self.lightTypes))]
+
+	/// Дополнительные настройки зависят от типа света: у рассеянного их нет
+	@ViewBuilder
+	private var optionsGroup: some View {
 		switch self.lightModel.lightType {
 		case .spot, .omni:
-			cells.append(contentsOf: [
-				AnyView(ToggleCellView(icon: "move.3d", text: self.nameIsMovingCell, isOn: $lightModel.isMotionEnabled)),
-				AnyView(ToggleCellView(icon: "shadow", text: self.nameIsShadowCell, isOn: $lightModel.isShadowEnabled)),
-				AnyView(SliderCellView(title: self.nameNamberOfLightsCell, range: 1...Double(lightTypes.count), value: $lightModel.countLights)),
-			])
+			SettingsPanelGroup {
+				ToggleCellView(icon: "move.3d", text: self.nameIsMovingCell, isOn: $lightModel.isMotionEnabled)
+				ToggleCellView(icon: "shadow", text: self.nameIsShadowCell, isOn: $lightModel.isShadowEnabled)
+				SliderCellView(title: self.nameNamberOfLightsCell, range: 1...Double(lightTypes.count), value: $lightModel.countLights)
+			}
 		case .directional:
-			cells.append(contentsOf: [
-				AnyView(ToggleCellView(icon: "move.3d", text: self.nameIsMovingCell, isOn: $lightModel.isMotionEnabled)),
-				AnyView(ToggleCellView(icon: "shadow", text: self.nameIsShadowCell, isOn: $lightModel.isShadowEnabled)),
-			])
+			SettingsPanelGroup {
+				ToggleCellView(icon: "move.3d", text: self.nameIsMovingCell, isOn: $lightModel.isMotionEnabled)
+				ToggleCellView(icon: "shadow", text: self.nameIsShadowCell, isOn: $lightModel.isShadowEnabled)
+			}
 		case .ambient, .undefined:
-			break
+			EmptyView()
 		}
-		return cells
 	}
 	private let nameIsMovingCell = String(localized: "Is Moving", comment: "Name of cell in light settings screen")
 	private let nameIsShadowCell = String(localized: "Is Shadow", comment: "Name of cell in light settings screen")

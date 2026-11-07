@@ -20,6 +20,8 @@ protocol _Workers {
 	var textNodeWorker: _TextNodeWorker { get }
 	var asteroidWorker: _AsteroidsWorker { get }
 	var materialsWorker: _MaterialsWorker { get }
+	/// Показ уведомлений-«островов»
+	var toastPresenter: _ToastPresenter { get }
 }
 
 
@@ -34,9 +36,10 @@ final class Workers: _Workers {
 	let rotationWorker: _RotationWorker
 	let textNodeWorker: _TextNodeWorker
 	let asteroidWorker: _AsteroidsWorker
+	let toastPresenter: _ToastPresenter
 	let materialsWorker: _MaterialsWorker
 	
-	init(keeper: _Keeper, gameWorker: _GameWorker, cubeWorker: _CubeWorker, transporter: any _Transporter, imageWorker: _ImageWorker, lightsWorker: _LightsWorker, matrixWorker: _MatrixWorker, rotationWorker: _RotationWorker, textNodeWorker: _TextNodeWorker, asteroidWorker: _AsteroidsWorker, materialsWorker: _MaterialsWorker) {
+	init(keeper: _Keeper, gameWorker: _GameWorker, cubeWorker: _CubeWorker, transporter: any _Transporter, imageWorker: _ImageWorker, lightsWorker: _LightsWorker, matrixWorker: _MatrixWorker, rotationWorker: _RotationWorker, textNodeWorker: _TextNodeWorker, asteroidWorker: _AsteroidsWorker, toastPresenter: _ToastPresenter, materialsWorker: _MaterialsWorker) {
 		self.keeper = keeper
 		self.gameWorker = gameWorker
 		self.cubeWorker = cubeWorker
@@ -47,6 +50,7 @@ final class Workers: _Workers {
 		self.rotationWorker = rotationWorker
 		self.textNodeWorker = textNodeWorker
 		self.asteroidWorker = asteroidWorker
+		self.toastPresenter = toastPresenter
 		self.materialsWorker = materialsWorker
 	}
 }
@@ -64,9 +68,11 @@ final class MockWorkers: _Workers {
 	let lightsWorker: any _LightsWorker
 	let asteroidWorker: any _AsteroidsWorker
 	let materialsWorker: any _MaterialsWorker
+	let toastPresenter: any _ToastPresenter
 
 	@MainActor
 	init() {
+		self.toastPresenter = ToastCenter()
 		self.keeper = MockFileWorker()
 		self.gameWorker = MockGameWorker()
 		self.transporter = MockTransporter()

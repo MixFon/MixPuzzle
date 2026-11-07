@@ -69,7 +69,7 @@ final class OptionsViewModel: ObservableObject {
 		self.asteroidsSubtitle = asteroids.isShowAsteroids
 			? String(format: "mix.options.asteroids.count".localized, Int(asteroids.asteroidsCount))
 			: "mix.options.off".localized
-		self.lightSubtitle = self.settingsStorages.settingsLightStorage.lightType.description
+		self.lightSubtitle = self.settingsStorages.settingsLightStorage.lightType.localizedName
 	}
 
 	/// "TerrazzoSlab018" → "Terrazzo Slab"

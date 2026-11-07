@@ -32,24 +32,23 @@ final class LevelSelectionModel: ObservableObject {
 struct LevelSelectionView: View {
 	
 	@ObservedObject var gameModel: LevelSelectionModel
-	@State private var isShowSnackbar = false
+	/// Показ острова после сохранения (экран сейчас не используется, поэтому необязателен)
+	var toastPresenter: _ToastPresenter? = nil
 	
 	private let title = String(localized: "Levels", comment: "Title choice of the level screen")
-	private let snackbarSaveMessage = String(localized: "mix.snackbar.saved")
 	
     var body: some View {
 		VStack {
 			NavigationBar(title: self.title, tralingView: AnyView(
 				ButtonNavigationBar(title: "Save".localized, action: {
-					self.isShowSnackbar = true
 					self.gameModel.saveChanges()
+					self.toastPresenter?.show(.success("mix.toast.saved".localized, message: self.title))
 				})
 			))
 			.padding()
 			SelectLevelView(items: Array(3...gameModel.availableLevel), maxAchievedLevel: self.gameModel.maxAchievedLevel, selectNumber: self.$gameModel.currentLevel)
 				.background(Color.mm_background_tertiary)
 		}
-		.snackbar(isShowing: $isShowSnackbar, text: self.snackbarSaveMessage, style: .success, extraBottomPadding: 16)
 		.background(Color.mm_background_tertiary)
     }
 }

@@ -26,11 +26,9 @@ struct ManualFillingView: View {
 	]
 	@State private var selectedSize = 3
 	@State private var selectedSolution: Solution = .classic
-	@State private var isShowSnackbar = false
 	
 	@StateObject private var router = ManualFillingRouter()
 	@StateObject private var startSceneModel = StartSceneModel()
-	@StateObject private var snackbarModel = MMSnackbarModel()
 	
 	@State private var fillingMatrix: Matrix = [[]]
 	@State private var matrixSolution: Matrix = [[]]
@@ -68,7 +66,6 @@ struct ManualFillingView: View {
 		.onChange(of: selectedSolution, perform: { value in
 			self.isWigglegButton.toggle()
 		})
-		.snackbar(isShowing: self.$snackbarModel.isShowing, text: self.snackbarModel.text, style: self.snackbarModel.style, extraBottomPadding: 16)
 		.fullScreenCover(isPresented: $router.toLoading, onDismiss: { self.router.toVisualizationSolution = !self.startSceneModel.compasses.isEmpty }) {
 			LoadingView(matrix: fillingMatrix, puzzle: self.dependency.createPuzzle(), matrixTarger: matrixSolution) { compasses in
 				self.startSceneModel.compasses = compasses ?? []
@@ -165,16 +162,14 @@ struct ManualFillingView: View {
 	/// Показывает ошибки правильности заполнения матрицы.
 	private func showSnackbarError() {
 		let maxMatrixElemetn = self.selectedSize * self.selectedSize - 1
-		self.snackbarModel.text = String(format: NSLocalizedString("mix.snackbar.matrix.fill.incorrectly", comment: ""), maxMatrixElemetn)
-		self.snackbarModel.style = .error
-		self.snackbarModel.isShowing = true
+		let message = String(format: NSLocalizedString("mix.snackbar.matrix.fill.incorrectly", comment: ""), maxMatrixElemetn)
+		self.dependency.workers.toastPresenter.show(.error("mix.toast.matrix.incorrect".localized, message: message))
 	}
 	
 	private func showSnackbarErrorNotSolution() {
 		let solutionName = self.selectedSolution.name
-		self.snackbarModel.text = String(format: NSLocalizedString("mix.snackbar.matrix.not.solution", comment: ""), solutionName)
-		self.snackbarModel.style = .error
-		self.snackbarModel.isShowing = true
+		let message = String(format: NSLocalizedString("mix.snackbar.matrix.not.solution", comment: ""), solutionName)
+		self.dependency.workers.toastPresenter.show(.error("mix.toast.no.solution".localized, message: message))
 	}
 	
 	private func showSnackbarSuccesee(fillingMatrix: Matrix, matrixSolution: Matrix) {

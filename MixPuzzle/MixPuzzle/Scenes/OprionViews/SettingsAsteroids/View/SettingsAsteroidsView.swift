@@ -33,35 +33,35 @@ struct SettingsAsteroidsView: View {
     
 	let dependency: _Dependency
     @ObservedObject var asteroidsModel: SettingsAsteroidsModel
-    @State private var isShowSnackbar: Bool = false
     
     var body: some View {
-        VStack {
-			NavigationBar(title: "Asteroids".localized, tralingView: AnyView(
-				ButtonNavigationBar(title: "Save".localized, action: {
-                    self.asteroidsModel.saveChanges()
-					self.isShowSnackbar = true
-                })
-            ))
-            .padding()
+		SettingsPreviewLayout(title: "Asteroids".localized, panelTitle: self.panelTitle, onSave: {
+			self.asteroidsModel.saveChanges()
+			self.dependency.workers.toastPresenter.show(.success("mix.toast.saved".localized, message: self.panelTitle))
+		}) {
 			SettingsAsteroidsWrapper(model: self.asteroidsModel, dependency: self.dependency)
 				.id("setting_asteroids_static_id")
-				.aspectRatio(contentMode: .fit)
-				.clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
-				.background(Color.mm_background_secondary)
-            ScrollView {
-                OptionsSectionsView(title: "Asteroids".localized, cells: [
-                    AnyView(ToggleCellView(icon: "waveform.path", text: "Show asteroids".localized, isOn: $asteroidsModel.isShowAsteroids)),
-					AnyView(SliderCellView(title: "Asteroids count".localized, range: 0...200, value: $asteroidsModel.asteroidsCount)),
-					AnyView(SliderCellView(title: "Asteroid radius".localized, range: 20...40, value: $asteroidsModel.radiusSphere)),
-                ])
-            }
-            .cornerRadius(16)
-            .padding()
-        }
-		.snackbar(isShowing: $isShowSnackbar, text: "mix.snackbar.saved".localized, style: .success, extraBottomPadding: 16)
-        .background(Color.mm_background_secondary)
+		} panel: {
+			ScrollView {
+				VStack(spacing: 16) {
+					SettingsPanelGroup {
+						ToggleCellView(icon: "moon.stars", text: "Show asteroids".localized, isOn: $asteroidsModel.isShowAsteroids)
+					}
+					// Количество и радиус имеют смысл, только когда астероиды показаны
+					SettingsPanelGroup {
+						SliderCellView(title: "Asteroids count".localized, range: 0...200, value: $asteroidsModel.asteroidsCount)
+						SliderCellView(title: "Asteroid radius".localized, range: 20...40, value: $asteroidsModel.radiusSphere)
+					}
+					.disabled(!self.asteroidsModel.isShowAsteroids)
+					.opacity(self.asteroidsModel.isShowAsteroids ? 1 : 0.4)
+					.animation(.easeInOut(duration: 0.2), value: self.asteroidsModel.isShowAsteroids)
+				}
+				.padding(.bottom, 24)
+			}
+		}
     }
+	
+	private let panelTitle = String(localized: "mix.settings.panel.asteroids", comment: "Title of settings panel on asteroids settings screen")
 }
 
 #Preview {

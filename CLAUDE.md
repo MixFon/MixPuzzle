@@ -70,7 +70,10 @@ iOS-игра «пятнашки» (sliding puzzle) с 3D-кубиками. UI н
   (матрица из `_GameWorker.previewMatrix`) со своими экземплярами воркеров: `AsteroidsWorker.updateAsteroids`
   меняет количество и радиус без пересоздания, `LightsWorker.updateLights(configuration:)` удаляет свои источники
   и создает новые по `LightsConfiguration`.
-- `Common/` — общие компоненты: `NavigationBar`, `MixButtonStyle`, `Snackbar`, `LimitedTextField`, кнопка «назад».
+- `Common/` — общие компоненты: `NavigationBar`, `MixButtonStyle`, `LimitedTextField`, кнопка «назад»,
+  `SettingsPreviewLayout` (каркас экранов с 3D-превью: стеклянная шапка поверх сцены, панель с граббером и тремя
+  положениями) и уведомления-«острова»: `ToastCenter` показывает `Toast` в отдельном прозрачном окне поверх всех
+  экранов (видно и поверх `fullScreenCover`). Вызов — `dependency.workers.toastPresenter.show(.success/.warning/.error(...))`.
 - `Draft/Test.swift` — пустой черновик.
 
 ### Воркеры (`Workers/`)
