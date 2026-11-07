@@ -730,6 +730,150 @@
         }
       }
     },
+    "mix.loading.cancel" : {
+      "comment" : "Button cancelling the solution search",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancel search"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Отменить поиск"
+          }
+        }
+      }
+    },
+    "mix.loading.not.found" : {
+      "comment" : "Toast title when search hit the step limit",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Solution not found"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Решение не найдено"
+          }
+        }
+      }
+    },
+    "mix.loading.not.found.message" : {
+      "comment" : "Toast message when search hit the step limit",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The search exceeded the step limit. Try a simpler arrangement or a smaller board."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Поиск превысил лимит шагов. Попробуйте расстановку попроще или поле поменьше."
+          }
+        }
+      }
+    },
+    "mix.loading.status" : {
+      "comment" : "Status under loader with elapsed time, e.g. 0:07",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Searching · %@"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ищем решение · %@"
+          }
+        }
+      }
+    },
+    "mix.loading.tip.cancel" : {
+      "comment" : "Tip on the search screen",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You can cancel at any time, the arrangement will be kept"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Можно отменить в любой момент — расстановка сохранится"
+          }
+        }
+      }
+    },
+    "mix.loading.tip.distance" : {
+      "comment" : "Tip on the search screen",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The farther the arrangement is from the target, the longer the search"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Чем дальше расстановка от цели, тем дольше поиск"
+          }
+        }
+      }
+    },
+    "mix.loading.tip.shortest" : {
+      "comment" : "Tip on the search screen",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "We look for the shortest path: exactly as many moves as needed, not one more"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ищем самый короткий путь — ходов будет столько, сколько нужно, и ни одним больше"
+          }
+        }
+      }
+    },
+    "mix.loading.title" : {
+      "comment" : "Title of the solution search screen",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Finding a solution"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Поиск решения"
+          }
+        }
+      }
+    },
     "mix.manual.blank" : {
       "comment" : "Keypad button for the blank cell",
       "extractionState" : "manual",

@@ -64,7 +64,12 @@ struct ManualFillingView: View {
 			}
 		}
 		.fullScreenCover(isPresented: $router.toLoading, onDismiss: { self.router.toVisualizationSolution = !self.startSceneModel.compasses.isEmpty }) {
-			LoadingView(matrix: fillingMatrix, puzzle: self.dependency.createPuzzle(), matrixTarger: matrixSolution) { compasses in
+			LoadingView(matrix: fillingMatrix, puzzle: self.dependency.createPuzzle(), matrixTarger: matrixSolution, onNotFound: {
+				self.dependency.workers.toastPresenter.show(.error(
+					"mix.loading.not.found".localized,
+					message: "mix.loading.not.found.message".localized
+				))
+			}) { compasses in
 				self.startSceneModel.compasses = compasses ?? []
 				self.router.toLoading = false
 			}

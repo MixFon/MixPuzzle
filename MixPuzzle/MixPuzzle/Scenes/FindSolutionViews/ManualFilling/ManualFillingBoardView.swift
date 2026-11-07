@@ -87,8 +87,8 @@ struct ManualFillingBoardView: View {
 	}
 }
 
-/// Одна плитка поля
-private struct FillingTileView: View {
+/// Одна плитка поля в стиле кубиков игры (используется и в лоадере поиска решения)
+struct FillingTileView: View {
 	let value: MatrixElement?
 	let side: CGFloat
 	let size: Int
