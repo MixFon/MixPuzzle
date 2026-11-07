@@ -46,7 +46,38 @@ struct MenuScene: UIViewRepresentable {
 		// Волны анимируются в шейдере по времени, поэтому сцену нужно перерисовывать каждый кадр
 		scnView.rendersContinuously = true
 		configureCSNText(nodes: self.scene?.rootNode.childNodes ?? [])
+		configureCameraLimits(context: context)
 		return scnView
+	}
+	
+	/// Не даем камере опуститься под воду.
+	/// Вращение идет вокруг центра меню с ограничением угла над горизонтом, а для зума и панорамирования,
+	/// которые эти углы не учитывают, координатор каждый кадр поднимает камеру до минимальной высоты
+	private func configureCameraLimits(context: Context) {
+		let target = SCNVector3(x: 0, y: 0, z: 0)
+		// Углы в градусах над горизонтом. Строго сверху (90) — особая точка: там горизонтальный свайп
+		// не облетает меню, а крутит картинку на месте, поэтому верхний предел чуть ниже
+		let maximumVerticalAngle: Float = 85
+		tiltStartCamera(to: maximumVerticalAngle, around: target)
+		
+		let cameraController = self.scnView.defaultCameraController
+		cameraController.interactionMode = .orbitTurntable
+		cameraController.target = target
+		cameraController.minimumVerticalAngle = 10
+		cameraController.maximumVerticalAngle = maximumVerticalAngle
+		self.scnView.delegate = context.coordinator
+	}
+	
+	/// В menu.scn камера смотрит строго сверху. Наклоняем ее на верхний предел, сохраняя расстояние до центра,
+	/// чтобы при первом касании не было рывка к пределу
+	private func tiltStartCamera(to degrees: Float, around target: SCNVector3) {
+		guard let camera = self.scene?.rootNode.childNode(withName: "camera", recursively: false) else { return }
+		let offset = SCNVector3(x: camera.position.x - target.x, y: camera.position.y - target.y, z: camera.position.z - target.z)
+		let distance = sqrt(offset.x * offset.x + offset.y * offset.y + offset.z * offset.z)
+		let angle = degrees * .pi / 180
+		// Камера отходит к +Z и смотрит вниз-вперед на центр: верх кадра остается там же, где был
+		camera.position = SCNVector3(x: target.x, y: target.y + distance * sin(angle), z: target.z + distance * cos(angle))
+		camera.eulerAngles = SCNVector3(x: -angle, y: 0, z: 0)
 	}
 	
 	private func configureCSNText(nodes: [SCNNode]) {
@@ -112,7 +143,10 @@ struct MenuScene: UIViewRepresentable {
         Coordinator(scnView, complition: self.complition)
 	}
 	
-	class Coordinator: NSObject {
+	class Coordinator: NSObject, SCNSceneRendererDelegate {
+		
+		/// Минимальная высота камеры над водой. Волны поднимаются примерно на 0.75, а ближняя плоскость камеры — 1
+		private static let minimumCameraHeight: Float = 3
 		
 		private let view: SCNView
 		private let complition: (MenuSceneWrapper.Router) -> ()
@@ -121,6 +155,16 @@ struct MenuScene: UIViewRepresentable {
 			self.view = view
             self.complition = complition
             super.init()
+		}
+		
+		/// Вызывается на потоке рендера после применения жестов и ограничений, прямо перед отрисовкой кадра
+		func renderer(_ renderer: any SCNSceneRenderer, didApplyConstraintsAtTime time: TimeInterval) {
+			guard let camera = renderer.pointOfView else { return }
+			let position = camera.worldPosition
+			let minimumHeight = Self.minimumCameraHeight
+			if position.y < minimumHeight {
+				camera.worldPosition = SCNVector3(x: position.x, y: minimumHeight, z: position.z)
+			}
 		}
 		
 		@MainActor @objc
