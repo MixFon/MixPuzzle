@@ -7,10 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		29E7A123002E0C0000000000 /* ToastCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E7A122002E0C0000000000 /* ToastCenter.swift */; };
-		29E7A121002E0C0000000000 /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E7A120002E0C0000000000 /* ToastView.swift */; };
-		29E7A113002E0C0000000000 /* LightTypePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E7A112002E0C0000000000 /* LightTypePickerView.swift */; };
-		29E7A111002E0C0000000000 /* SettingsPreviewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E7A110002E0C0000000000 /* SettingsPreviewLayout.swift */; };
+		29E7A139002E0C0000000000 /* ManualFillingParametersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E7A138002E0C0000000000 /* ManualFillingParametersView.swift */; };
+		29E7A137002E0C0000000000 /* ManualFillingKeypadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E7A136002E0C0000000000 /* ManualFillingKeypadView.swift */; };
+		29E7A135002E0C0000000000 /* ManualFillingStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E7A134002E0C0000000000 /* ManualFillingStatusView.swift */; };
+		29E7A133002E0C0000000000 /* ManualFillingBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E7A132002E0C0000000000 /* ManualFillingBoardView.swift */; };
+		29E7A131002E0C0000000000 /* ManualFillingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E7A130002E0C0000000000 /* ManualFillingModel.swift */; };
 		2900FC7C2D04247C009F3C07 /* StartState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2900FC7B2D04247C009F3C07 /* StartState.swift */; };
 		2900FC7E2D042564009F3C07 /* ManageShakeMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2900FC7D2D042564009F3C07 /* ManageShakeMode.swift */; };
 		2901B4D62C1B92D80015E9A3 /* StatisticsWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2901B4D52C1B92D80015E9A3 /* StatisticsWorker.swift */; };
@@ -88,6 +89,10 @@
 		29E7A105002E0C0000000000 /* OptionsTargetSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E7A104002E0C0000000000 /* OptionsTargetSectionView.swift */; };
 		29E7A107002E0C0000000000 /* OptionsGraphicsSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E7A106002E0C0000000000 /* OptionsGraphicsSectionView.swift */; };
 		29E7A109002E0C0000000000 /* OptionsApplicationSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E7A108002E0C0000000000 /* OptionsApplicationSectionView.swift */; };
+		29E7A111002E0C0000000000 /* SettingsPreviewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E7A110002E0C0000000000 /* SettingsPreviewLayout.swift */; };
+		29E7A113002E0C0000000000 /* LightTypePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E7A112002E0C0000000000 /* LightTypePickerView.swift */; };
+		29E7A121002E0C0000000000 /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E7A120002E0C0000000000 /* ToastView.swift */; };
+		29E7A123002E0C0000000000 /* ToastCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E7A122002E0C0000000000 /* ToastCenter.swift */; };
 		29E921E42D61EBCD005E619C /* LoaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E921E32D61EBCD005E619C /* LoaderView.swift */; };
 		29EB775D2B872E0D00A494A0 /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29EB775C2B872E0D00A494A0 /* StartView.swift */; };
 		29EBA9832D6A2F570054CFCC /* SettingsLightView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29EBA9822D6A2F570054CFCC /* SettingsLightView.swift */; };
@@ -97,10 +102,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		29E7A122002E0C0000000000 /* ToastCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastCenter.swift; sourceTree = "<group>"; };
-		29E7A120002E0C0000000000 /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
-		29E7A112002E0C0000000000 /* LightTypePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightTypePickerView.swift; sourceTree = "<group>"; };
-		29E7A110002E0C0000000000 /* SettingsPreviewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPreviewLayout.swift; sourceTree = "<group>"; };
+		29E7A138002E0C0000000000 /* ManualFillingParametersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManualFillingParametersView.swift; sourceTree = "<group>"; };
+		29E7A136002E0C0000000000 /* ManualFillingKeypadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManualFillingKeypadView.swift; sourceTree = "<group>"; };
+		29E7A134002E0C0000000000 /* ManualFillingStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManualFillingStatusView.swift; sourceTree = "<group>"; };
+		29E7A132002E0C0000000000 /* ManualFillingBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManualFillingBoardView.swift; sourceTree = "<group>"; };
+		29E7A130002E0C0000000000 /* ManualFillingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManualFillingModel.swift; sourceTree = "<group>"; };
 		2900FC7B2D04247C009F3C07 /* StartState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartState.swift; sourceTree = "<group>"; };
 		2900FC7D2D042564009F3C07 /* ManageShakeMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageShakeMode.swift; sourceTree = "<group>"; };
 		2901B4D52C1B92D80015E9A3 /* StatisticsWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsWorker.swift; sourceTree = "<group>"; };
@@ -255,6 +261,10 @@
 		29E7A104002E0C0000000000 /* OptionsTargetSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsTargetSectionView.swift; sourceTree = "<group>"; };
 		29E7A106002E0C0000000000 /* OptionsGraphicsSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsGraphicsSectionView.swift; sourceTree = "<group>"; };
 		29E7A108002E0C0000000000 /* OptionsApplicationSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsApplicationSectionView.swift; sourceTree = "<group>"; };
+		29E7A110002E0C0000000000 /* SettingsPreviewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPreviewLayout.swift; sourceTree = "<group>"; };
+		29E7A112002E0C0000000000 /* LightTypePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightTypePickerView.swift; sourceTree = "<group>"; };
+		29E7A120002E0C0000000000 /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
+		29E7A122002E0C0000000000 /* ToastCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastCenter.swift; sourceTree = "<group>"; };
 		29E921E32D61EBCD005E619C /* LoaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoaderView.swift; sourceTree = "<group>"; };
 		29EB775C2B872E0D00A494A0 /* StartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; };
 		29EBA9822D6A2F570054CFCC /* SettingsLightView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsLightView.swift; sourceTree = "<group>"; };
@@ -466,6 +476,11 @@
 			isa = PBXGroup;
 			children = (
 				296846D22C01C6130046862C /* ManualFillingView.swift */,
+				29E7A138002E0C0000000000 /* ManualFillingParametersView.swift */,
+				29E7A136002E0C0000000000 /* ManualFillingKeypadView.swift */,
+				29E7A134002E0C0000000000 /* ManualFillingStatusView.swift */,
+				29E7A132002E0C0000000000 /* ManualFillingBoardView.swift */,
+				29E7A130002E0C0000000000 /* ManualFillingModel.swift */,
 			);
 			path = ManualFilling;
 			sourceTree = "<group>";
@@ -1108,7 +1123,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1520;
-				LastUpgradeCheck = 1630;
+				LastUpgradeCheck = 2710;
 				TargetAttributes = {
 					29C162BD2B848CC4002E185D = {
 						CreatedOnToolsVersion = 15.2;
@@ -1188,6 +1203,11 @@
 				2944D6DC2BC871A6001F1A82 /* SettingsCubeView.swift in Sources */,
 				2944D6E52BC916F9001F1A82 /* SettingsCubeFactory.swift in Sources */,
 				296846D32C01C6130046862C /* ManualFillingView.swift in Sources */,
+				29E7A139002E0C0000000000 /* ManualFillingParametersView.swift in Sources */,
+				29E7A137002E0C0000000000 /* ManualFillingKeypadView.swift in Sources */,
+				29E7A135002E0C0000000000 /* ManualFillingStatusView.swift in Sources */,
+				29E7A133002E0C0000000000 /* ManualFillingBoardView.swift in Sources */,
+				29E7A131002E0C0000000000 /* ManualFillingModel.swift in Sources */,
 				29B2ADBF2BDBA415002D11D8 /* Ext+Color.swift in Sources */,
 				2956CE762BCED46A00F17C01 /* NavigationBar.swift in Sources */,
 				29E7A123002E0C0000000000 /* ToastCenter.swift in Sources */,
@@ -1305,6 +1325,7 @@
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1366,6 +1387,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 13;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 6.0;
@@ -1398,10 +1420,10 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = "$(RECOMMENDED_IPHONEOS_DEPLOYMENT_TARGET)";
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
 				MARKETING_VERSION = 1.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = ru.mixfon.MixPuzzle;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1441,10 +1463,10 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = "$(RECOMMENDED_IPHONEOS_DEPLOYMENT_TARGET)";
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
 				MARKETING_VERSION = 1.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = ru.mixfon.MixPuzzle;
 				PRODUCT_NAME = "$(TARGET_NAME)";

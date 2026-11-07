@@ -13,59 +13,56 @@ final class ManualFillingRouter: ObservableObject {
 	@Published var toInversion = false
 	@Published var toVisualizationSolution = false
 }
-	
+
+/// Ручной ввод матрицы. Устроен как экраны настроек с превью:
+/// сверху поле со строкой состояния, снизу панель «Расстановка» с параметрами и клавиатурой.
 struct ManualFillingView: View {
 	private let dependency: _Dependency
-	private let numbersSize = Array(3...5)
-	private let possibleSolution: [Solution] = Solution.allCases
-	
-	@State private var matrix: [[String]] = [
-		["1", "3", "5"],
-		["2", "4", "6"],
-		["8", "7", ""],
-	]
-	@State private var selectedSize = 3
-	@State private var selectedSolution: Solution = .classic
-	
+
+	@StateObject private var model: ManualFillingModel
 	@StateObject private var router = ManualFillingRouter()
 	@StateObject private var startSceneModel = StartSceneModel()
-	
+
 	@State private var fillingMatrix: Matrix = [[]]
 	@State private var matrixSolution: Matrix = [[]]
-	
-	@State private var isWigglegButton: Bool = false
-	
+
 	init(dependency: _Dependency) {
 		self.dependency = dependency
+		self._model = StateObject(wrappedValue: ManualFillingModel(
+			checker: dependency.checker,
+			matrixWorker: dependency.workers.matrixWorker
+		))
 	}
 
 	var body: some View {
-		VStack {
-			NavigationBar(title: "Manual filling".localized, tralingView: AnyView(
-				ButtonNavigationBar(title: "Solution".localized, action: {
-					checkMatrix()
-				})
-			))
-			.padding()
-			ScrollView {
-				VStack(spacing: 8) {
-					SelectSizePicker(selectedSize: $selectedSolution, numbersSize: possibleSolution)
-					SelectSizePicker(selectedSize: $selectedSize, numbersSize: numbersSize)
-					buttonsView()
-				}
-				.padding(.horizontal)
-				FillingMatrixView(matrix: $matrix)
-					.padding()
+		// Сцены здесь нет, поэтому высоту панели не меняем
+		SettingsPreviewLayout(title: "Manual filling".localized, panelTitle: "mix.manual.panel".localized, isPanelResizable: false) {
+			SolveButton(isEnabled: self.model.isSolvable) {
+				self.solve()
 			}
-			Spacer()
+		} preview: {
+			ManualFillingBoardArea(model: self.model) {
+				self.router.toInversion = true
+			}
+		} panel: {
+			ScrollView {
+				VStack(spacing: 14) {
+					ManualFillingParametersView(
+						sizes: self.model.sizes,
+						size: self.model.size,
+						onSize: { self.model.setSize($0) },
+						solution: self.$model.solution
+					)
+					ManualFillingKeypadView(
+						size: self.model.size,
+						isUsed: { self.model.isUsed($0) },
+						onPut: { self.model.put($0) },
+						onErase: { self.model.erase() }
+					)
+				}
+				.padding(.bottom, 24)
+			}
 		}
-		.onChange(of: selectedSize, perform: { value in
-			self.isWigglegButton.toggle()
-			updateMatrix(size: value)
-		})
-		.onChange(of: selectedSolution, perform: { value in
-			self.isWigglegButton.toggle()
-		})
 		.fullScreenCover(isPresented: $router.toLoading, onDismiss: { self.router.toVisualizationSolution = !self.startSceneModel.compasses.isEmpty }) {
 			LoadingView(matrix: fillingMatrix, puzzle: self.dependency.createPuzzle(), matrixTarger: matrixSolution) { compasses in
 				self.startSceneModel.compasses = compasses ?? []
@@ -78,148 +75,95 @@ struct ManualFillingView: View {
 		.fullScreenCover(isPresented: $router.toInversion) {
 			InversionView(checker: self.dependency.checker, matrixWorker: self.dependency.workers.matrixWorker)
 		}
-		.background(Color.mm_background_secondary)
-	}
-	
-	private func buttonsView() -> some View {
-		HStack {
-			Button {
-				regenerateMatrix()
-			} label: {
-				Image(systemName: "arrow.triangle.2.circlepath.circle")
-					.resizable()
-					.symbolEffectIfAvailable(value: isWigglegButton)
-					.frame(width: 32, height: 32)
-					.foregroundStyle(Color.mm_tint_icons)
-			}
-			.frame(maxWidth: .infinity)
-			Button {
-				self.router.toInversion = true
-			} label: {
-				Image(systemName: "info.circle.fill")
-					.resizable()
-					.symbolEffectIfAvailable(value: isWigglegButton)
-					.symbolRenderingMode(.palette)
-					.frame(width: 32, height: 32)
-					.foregroundStyle(Color.mm_background_primary, Color.mm_tint_icons)
-					
-			}
-			.frame(maxWidth: .infinity)
-		}
-		.padding(.top)
-	}
-	
-	private func regenerateMatrix() {
-		var randomMatrix = self.dependency.workers.matrixWorker.createMatrixRandom(size: self.selectedSize)
-		let matrixSolution = self.dependency.workers.matrixWorker.createMatrixSolution(size: self.selectedSize, solution: self.selectedSolution)
-		if !self.dependency.checker.checkSolution(matrix: randomMatrix, matrixTarget: matrixSolution) {
-			self.dependency.workers.matrixWorker.changesParityInvariant(matrix: &randomMatrix)
-		}
-		self.matrix = convertMatrixToString(matrix: randomMatrix)
-		updateMatrix(size: self.matrix.count)
-	}
-	
-	private func convertMatrixToString(matrix: Matrix) -> [[String]] {
-		var newMatrix = Array(repeating: Array(repeating: "", count: matrix.count), count: matrix.count)
-		for (i, zipElem) in zip(newMatrix, matrix).enumerated() {
-			for (j, elem) in zip(zipElem.0, zipElem.1).enumerated() {
-				newMatrix[i][j] = String(elem.1)
-			}
-		}
-		return newMatrix
 	}
 
-	private func updateMatrix(size: Int) {
-		var newMatrix = Array(repeating: Array(repeating: "", count: size), count: size)
-		for (i, zipElem) in zip(newMatrix, self.matrix).enumerated() {
-			for (j, elem) in zip(zipElem.0, zipElem.1).enumerated() {
-				newMatrix[i][j] = elem.1
-			}
-		}
-		self.matrix = newMatrix
-	}
-	
-	/// Создается матрица из MatrixElement и проверяется Cheker
-	private func checkMatrix() {
-		let size = matrix.count
-		var matrixDigit: Matrix = Array(repeating: Array(repeating: MatrixElement(0), count: size), count: size)
-		let matrixSolution = self.dependency.workers.matrixWorker.createMatrixSolution(size: size, solution: self.selectedSolution)
-		for (i, row) in self.matrix.enumerated() {
-			for (j, elem) in row.enumerated() {
-				matrixDigit[i][j] = MatrixElement(elem) ?? 0
-			}
-		}
-		
-		if !dependency.checker.checkUniqueElementsMatrix(matrix: matrixDigit) {
-			showSnackbarError()
-		} else if !dependency.checker.checkSolution(matrix: matrixDigit, matrixTarget: matrixSolution) {
-			showSnackbarErrorNotSolution()
-		} else {
-			showSnackbarSuccesee(fillingMatrix: matrixDigit, matrixSolution: matrixSolution)
-		}
-	}
-	
-	/// Показывает ошибки правильности заполнения матрицы.
-	private func showSnackbarError() {
-		let maxMatrixElemetn = self.selectedSize * self.selectedSize - 1
-		let message = String(format: NSLocalizedString("mix.snackbar.matrix.fill.incorrectly", comment: ""), maxMatrixElemetn)
-		self.dependency.workers.toastPresenter.show(.error("mix.toast.matrix.incorrect".localized, message: message))
-	}
-	
-	private func showSnackbarErrorNotSolution() {
-		let solutionName = self.selectedSolution.name
-		let message = String(format: NSLocalizedString("mix.snackbar.matrix.not.solution", comment: ""), solutionName)
-		self.dependency.workers.toastPresenter.show(.error("mix.toast.no.solution".localized, message: message))
-	}
-	
-	private func showSnackbarSuccesee(fillingMatrix: Matrix, matrixSolution: Matrix) {
-		self.fillingMatrix = fillingMatrix
-		self.matrixSolution = matrixSolution
+	/// Запускает поиск решения. Кнопка активна, только когда расстановка решаема.
+	private func solve() {
+		guard self.model.isSolvable else { return }
+		self.fillingMatrix = self.model.matrix
+		self.matrixSolution = self.model.targetMatrix
 		self.router.toLoading = true
 	}
 }
 
-struct FillingMatrixView: View {
-	
-	@Binding var matrix: [[String]]
-	
+/// Область над панелью: строка состояния и поле. Отступает сверху на высоту стеклянной шапки.
+private struct ManualFillingBoardArea: View {
+	@ObservedObject var model: ManualFillingModel
+	let onInfo: () -> Void
+
+	@Environment(\.settingsHeaderInset) private var headerInset
+
 	var body: some View {
-		VStack(spacing: 20) {
-			ForEach(0..<matrix.count, id: \.self) { row in
-				HStack(spacing: 20) {
-					ForEach(0..<matrix.count, id: \.self) { column in
-						FillingMatrixElementView(text: $matrix[row][column])
+		let status = self.model.status
+		VStack(spacing: 16) {
+			ManualFillingStatusView(
+				status: status,
+				swapValues: self.swapValues(for: status),
+				onShuffle: {
+					withAnimation(.spring(response: 0.35, dampingFraction: 0.86)) {
+						self.model.shuffle()
+					}
+				},
+				onInfo: self.onInfo,
+				onFix: {
+					withAnimation(.spring(response: 0.35, dampingFraction: 0.86)) {
+						self.model.fixParity()
 					}
 				}
-			}
+			)
+			ManualFillingBoardView(
+				size: self.model.size,
+				cells: self.model.cells,
+				selectedIndex: self.model.selectedIndex,
+				errorIndices: self.model.duplicateIndices,
+				highlightedIndices: self.model.highlightedIndices,
+				onSelect: { self.model.select($0) }
+			)
 		}
+		.padding(.top, self.headerInset + 4)
+		.padding(.horizontal, 16)
+		.padding(.bottom, 20)
+		.frame(maxWidth: .infinity, maxHeight: .infinity)
+		.background(Color.black)
+	}
+
+	/// Числа в клетках, которые предлагается поменять местами (для текста подсказки)
+	private func swapValues(for status: ManualFillingModel.Status) -> (MatrixElement, MatrixElement)? {
+		guard case let .unsolvable(first, second) = status,
+			  let a = self.model.cells[first], let b = self.model.cells[second] else { return nil }
+		return (a, b)
 	}
 }
 
-struct FillingMatrixElementView: View {
-	@Binding var text: String
-	private let cornerRadius: CGFloat = 8
-	
+/// Кнопка «Решить» в шапке: подкрашенное стекло, когда решение есть, и приглушённая — когда нет
+private struct SolveButton: View {
+	let isEnabled: Bool
+	let action: () -> Void
+
 	var body: some View {
-		TextField("0", text: $text)
-			.frame(width: 50, height: 50)
-			.keyboardType(.numberPad)
-			.multilineTextAlignment(.center)
-			.foregroundColor(Color.mm_text_primary)
-			.background(Color.mm_background_tertiary)
-			.clipShape(RoundedRectangle(cornerRadius: cornerRadius, style: .continuous))
-			.limitedText($text, to: 2)
-			.overlay(
-				RoundedRectangle(cornerRadius: cornerRadius)
-					.stroke(Color.mm_divider_opaque, lineWidth: 2)
-			)
+		Button(action: self.action) {
+			HStack(spacing: 6) {
+				Image(systemName: "play.fill")
+					.font(.footnote)
+				Text("mix.manual.solve".localized)
+					.font(.body.weight(.bold))
+			}
+			.foregroundStyle(self.isEnabled ? Color.white : Color.mm_text_secondary)
+			.padding(.horizontal, 16)
+			.frame(height: 44)
+			.glassBackground(in: Capsule(), tint: self.isEnabled ? .mm_tint_secondary : nil)
+		}
+		.buttonStyle(.plain)
+		.disabled(!self.isEnabled)
+		.opacity(self.isEnabled ? 1 : 0.7)
+		.animation(.easeInOut(duration: 0.2), value: self.isEnabled)
 	}
 }
 
 struct SelectSizePicker<T: Hashable & CustomStringConvertible>: View {
 	@Binding var selectedSize: T
 	let numbersSize: [T]
-	
+
 	var body: some View {
 		Picker("Choose the size", selection: $selectedSize) {
 			ForEach(numbersSize, id: \.self) { size in

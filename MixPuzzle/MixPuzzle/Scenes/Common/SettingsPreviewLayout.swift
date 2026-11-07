@@ -12,13 +12,17 @@ import SwiftUI
 /// со скруглёнными верхними углами. Панель можно тянуть за граббер с заголовком:
 /// она встаёт в одно из трёх положений, а сцена занимает всё место над ней.
 /// В свёрнутом положении видны только граббер и заголовок панели.
-struct SettingsPreviewLayout<Preview: View, Panel: View>: View {
+struct SettingsPreviewLayout<Preview: View, Panel: View, Trailing: View>: View {
 	let title: String
 	/// Заголовок панели под граббером
 	let panelTitle: String
-	let onSave: () -> Void
+	/// Кнопка справа в шапке (у экранов настроек — «Сохранить»)
+	private let trailing: Trailing
 	private let preview: Preview
 	private let panel: Panel
+	/// Можно ли менять высоту панели. Если нет — граббера и жеста нет,
+	/// а панель всегда в среднем положении (для экранов без сцены, где больше места не нужно).
+	private let isPanelResizable: Bool
 
 	/// Ключ, под которым запоминается последнее положение панели (общее для всех экранов с превью)
 	private static var detentKey: String { "settings.preview.panel.detent" }
@@ -31,13 +35,15 @@ struct SettingsPreviewLayout<Preview: View, Panel: View>: View {
 	init(
 		title: String,
 		panelTitle: String,
-		onSave: @escaping () -> Void,
+		isPanelResizable: Bool = true,
+		@ViewBuilder trailing: () -> Trailing,
 		@ViewBuilder preview: () -> Preview,
 		@ViewBuilder panel: () -> Panel
 	) {
 		self.title = title
 		self.panelTitle = panelTitle
-		self.onSave = onSave
+		self.isPanelResizable = isPanelResizable
+		self.trailing = trailing()
 		self.preview = preview()
 		self.panel = panel()
 		let storedDetent = UserDefaults.standard.string(forKey: Self.detentKey).flatMap(SettingsPanelDetent.init(rawValue:))
@@ -51,10 +57,14 @@ struct SettingsPreviewLayout<Preview: View, Panel: View>: View {
 				safeTop: geometry.safeAreaInsets.top,
 				safeBottom: geometry.safeAreaInsets.bottom
 			)
-			let panelHeight = heights.clamp(heights.height(for: self.detent) - self.dragOffset)
+			let panelHeight = self.isPanelResizable
+				? heights.clamp(heights.height(for: self.detent) - self.dragOffset)
+				: heights.clamp(heights.medium)
 			ZStack(alignment: .top) {
 				VStack(spacing: 0) {
 					self.preview
+						// Превью уходит под шапку: сообщаем ему, сколько места сверху занято
+						.environment(\.settingsHeaderInset, heights.safeTop + SettingsPanelHeights.headerHeight)
 						.frame(maxWidth: .infinity)
 						.frame(height: max(0, heights.total - panelHeight))
 						.clipped()
@@ -63,7 +73,7 @@ struct SettingsPreviewLayout<Preview: View, Panel: View>: View {
 				// Сцена занимает и место под статус-баром, панель доходит до низа экрана
 				.ignoresSafeArea(edges: [.top, .bottom])
 				// Шапка учитывает safe area, поэтому остаётся под статус-баром
-				GlassNavigationHeader(title: self.title, onSave: self.onSave)
+				GlassNavigationHeader(title: self.title, trailing: self.trailing)
 					.padding(.horizontal)
 					.padding(.vertical, 8)
 			}
@@ -76,7 +86,13 @@ struct SettingsPreviewLayout<Preview: View, Panel: View>: View {
 		// 0 — панель свёрнута, 1 — открыта хотя бы на 48 pt: контент плавно проявляется, а не обрезается
 		let contentVisibility = min(max((height - heights.collapsed) / 48, 0), 1)
 		return VStack(spacing: 0) {
-			self.handle(heights: heights)
+			if self.isPanelResizable {
+				self.handle(heights: heights)
+			} else {
+				self.panelTitleView
+					// На месте граббера — такой же отступ сверху, чтобы заголовок стоял там же
+					.padding(.top, SettingsPanelHeights.grabberHeight)
+			}
 			VStack(spacing: 16) {
 				self.panel
 			}
@@ -95,6 +111,18 @@ struct SettingsPreviewLayout<Preview: View, Panel: View>: View {
 		.background(Color.black)
 	}
 
+	private var panelTitleView: some View {
+		Text(self.panelTitle)
+			.font(.headline)
+			.foregroundStyle(Color.mm_text_primary)
+			.lineLimit(1)
+			.minimumScaleFactor(0.8)
+			.padding(.horizontal, 16)
+			.frame(height: SettingsPanelHeights.titleHeight, alignment: .top)
+			.frame(maxWidth: .infinity)
+			.accessibilityAddTraits(.isHeader)
+	}
+	
 	/// Граббер с заголовком панели: тянуть — менять высоту, тап — свернуть/вернуть в середину.
 	/// Жест висит только здесь, чтобы не мешать прокрутке, ползункам и вращению сцены.
 	private func handle(heights: SettingsPanelHeights) -> some View {
@@ -103,13 +131,7 @@ struct SettingsPreviewLayout<Preview: View, Panel: View>: View {
 				.fill(Color.mm_text_secondary.opacity(0.5))
 				.frame(width: 36, height: 5)
 				.frame(height: SettingsPanelHeights.grabberHeight)
-			Text(self.panelTitle)
-				.font(.headline)
-				.foregroundStyle(Color.mm_text_primary)
-				.lineLimit(1)
-				.minimumScaleFactor(0.8)
-				.padding(.horizontal, 16)
-				.frame(height: SettingsPanelHeights.titleHeight, alignment: .top)
+			self.panelTitleView
 		}
 			.frame(maxWidth: .infinity)
 			.contentShape(Rectangle())
@@ -153,6 +175,32 @@ struct SettingsPreviewLayout<Preview: View, Panel: View>: View {
 	}
 }
 
+extension SettingsPreviewLayout where Trailing == SaveCircleButton {
+	/// Экран настроек: справа в шапке — круглая кнопка «Сохранить»
+	init(
+		title: String,
+		panelTitle: String,
+		onSave: @escaping () -> Void,
+		@ViewBuilder preview: () -> Preview,
+		@ViewBuilder panel: () -> Panel
+	) {
+		self.init(title: title, panelTitle: panelTitle, trailing: { SaveCircleButton(action: onSave) }, preview: preview, panel: panel)
+	}
+}
+
+/// Высота области сверху превью, которую закрывает стеклянная шапка (включая safe area).
+/// Нужна превью, у которых контент не должен уходить под шапку (например, поле ручного ввода).
+private struct SettingsHeaderInsetKey: EnvironmentKey {
+	static let defaultValue: CGFloat = 0
+}
+
+extension EnvironmentValues {
+	var settingsHeaderInset: CGFloat {
+		get { self[SettingsHeaderInsetKey.self] }
+		set { self[SettingsHeaderInsetKey.self] = newValue }
+	}
+}
+
 /// Положения панели настроек
 enum SettingsPanelDetent: String, CaseIterable {
 	case collapsed
@@ -181,6 +229,8 @@ struct SettingsPanelHeights {
 	let safeTop: CGFloat
 	let safeBottom: CGFloat
 
+	/// Высота шапки под safe area: кнопки 44 pt и отступы по 8 pt
+	static let headerHeight: CGFloat = 60
 	/// Высота области граббера (полоска по центру)
 	static let grabberHeight: CGFloat = 20
 	/// Высота строки заголовка под граббером
@@ -191,7 +241,7 @@ struct SettingsPanelHeights {
 	/// Середина: чуть меньше половины экрана
 	var medium: CGFloat { max(self.collapsed, self.total * 0.45) }
 	/// Развёрнуто: над панелью остаются шапка и полоска сцены
-	var expanded: CGFloat { max(self.medium, self.total - self.safeTop - 60 - 120) }
+	var expanded: CGFloat { max(self.medium, self.total - self.safeTop - Self.headerHeight - 120) }
 
 	func height(for detent: SettingsPanelDetent) -> CGFloat {
 		switch detent {
@@ -214,11 +264,11 @@ struct SettingsPanelHeights {
 	}
 }
 
-/// Шапка экрана поверх сцены: «Назад», заголовок и «Сохранить» на стеклянной подложке.
+/// Шапка экрана поверх сцены: «Назад», заголовок и кнопка действия на стеклянной подложке.
 /// Пустое место между элементами не перехватывает касания, поэтому сцену можно вращать и под шапкой.
-private struct GlassNavigationHeader: View {
+private struct GlassNavigationHeader<Trailing: View>: View {
 	let title: String
-	let onSave: () -> Void
+	let trailing: Trailing
 
 	@Environment(\.dismiss) private var dismiss
 
@@ -244,7 +294,7 @@ private struct GlassNavigationHeader: View {
 				.frame(height: 36)
 				.glassBackground(in: Capsule())
 			Spacer(minLength: 0)
-			SaveCircleButton(action: self.onSave)
+			self.trailing
 		}
 	}
 }

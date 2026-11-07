@@ -59,7 +59,9 @@ iOS-игра «пятнашки» (sliding puzzle) с 3D-кубиками. UI н
     проверка победы, сохранение при уходе в фон.
   - `StartFactory` — собирает `StartScene` в трёх вариантах: игра, только показ матрицы, проигрывание пути.
   - `StartState`: `.game` / `.menu` / `.solution`.
-- `FindSolutionViews/` — «найти решение»: ручной ввод матрицы (`ManualFillingView`) → проверка
+- `FindSolutionViews/` — «найти решение»: ручной ввод матрицы (`ManualFillingView` на каркасе
+  `SettingsPreviewLayout`: сверху поле и строка состояния, снизу панель с размером, целью и своей клавиатурой;
+  логика и проверка решаемости на лету — `ManualFillingModel`, `nil` в клетке = не заполнена, `0` = пустая) → проверка
   инверсий (`InversionView`, объяснение разрешимости) → `LoadingView` (асинхронный A*
   `searchSolutionWithHeap`, можно отменить) → `VisualizationSolutionView` (проигрывание ходов по компасам).
 - `OprionViews/` (опечатка в названии папки — так исторически) — настройки: куб, астероиды,
