@@ -14,7 +14,9 @@ struct MenuSceneWrapper: View {
 	@Binding var toFindSolution: Bool
 	let viewModel: MenuViewModel
 	let materialsWorker: _MaterialsWorker
-	
+	/// Нужно для вибрации при нажатии (учитывает настройку «Вибрация»)
+	let settingsGameStorage: _SettingsGameStorage
+
 	enum Router: Hashable {
 		case toStart
 		case toOprionts
@@ -23,7 +25,7 @@ struct MenuSceneWrapper: View {
 
     var body: some View {
         // TODO: Перенести в dependency
-		MenuScene(viewModel: self.viewModel, materialsWorker: self.materialsWorker) { goTo in
+		MenuScene(viewModel: self.viewModel, materialsWorker: self.materialsWorker, settingsGameStorage: self.settingsGameStorage) { goTo in
 			switch goTo {
 			case .toStart:
 				self.toStart = true
@@ -33,6 +35,12 @@ struct MenuSceneWrapper: View {
 				self.toFindSolution = true
 			}
 		}
+		// 3D-надписи недоступны VoiceOver, поэтому пункты меню — действиями самой сцены
+		.accessibilityElement()
+		.accessibilityLabel("MixPuzzle")
+		.accessibilityAction(named: Text("mix.menu.play".localized)) { self.toStart = true }
+		.accessibilityAction(named: Text("mix.menu.solution".localized)) { self.toFindSolution = true }
+		.accessibilityAction(named: Text("mix.menu.settings".localized)) { self.toOprionts = true }
     }
 }
 
@@ -48,6 +56,7 @@ extension MenuSceneWrapper: Equatable {
 		toOprionts: .constant(true),
 		toFindSolution: .constant(true),
 		viewModel: MenuViewModel(),
-		materialsWorker: MaterialsWorker()
+		materialsWorker: MaterialsWorker(),
+		settingsGameStorage: MockSettingsGameStorage()
 	)
 }

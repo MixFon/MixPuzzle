@@ -33,7 +33,7 @@ struct MenuView: View {
 	@StateObject private var viewModel = MenuViewModel()
 	
 	var body: some View {
-		MenuSceneWrapper(toStart: $router.toStart, toOprionts: $router.toOprionts, toFindSolution: $router.toFindSolution, viewModel: self.viewModel, materialsWorker: self.dependency.workers.materialsWorker)
+		MenuSceneWrapper(toStart: $router.toStart, toOprionts: $router.toOprionts, toFindSolution: $router.toFindSolution, viewModel: self.viewModel, materialsWorker: self.dependency.workers.materialsWorker, settingsGameStorage: self.dependency.settingsStorages.settingsGameStorage)
 			.id("menu_static_id")
 			.fullScreenCover(isPresented: self.$router.toStart) {
 				StartView(dependency: self.dependency)
